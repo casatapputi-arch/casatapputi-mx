@@ -182,8 +182,10 @@ section { padding-block: clamp(56px, 9vw, 110px); }
 /* ---------- Alianzas ---------- */
 .alianzas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 72px); margin-top: 1rem; }
 .alianza { text-align: center; }
-.alianza img { height: 90px; width: auto; margin: 0 auto 1.4rem; object-fit: contain; }
-.alianza p { font-size: .95rem; color: var(--tinta-suave); font-style: italic; font-family: var(--serif); font-size: 1.15rem; line-height: 1.6; }
+.alianza img { height: 80px; width: auto; max-width: 260px; margin: 0 auto 1rem; object-fit: contain; }
+.alianza-title { font-family: var(--serif); font-size: 1.4rem; font-weight: 500; color: var(--tinta); margin-bottom: .3rem; }
+.alianza-sub { font-family: var(--sans); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--miel); margin-bottom: 1rem; }
+.alianza p { font-style: italic; font-family: var(--serif); font-size: 1.05rem; line-height: 1.65; color: var(--tinta-suave); }
 
 /* ---------- Footer ---------- */
 footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64px 32px; }
@@ -324,16 +326,13 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
 
 /* ---------- Responsive ---------- */
 /* ---------- Títulos de sección como navegación ---------- */
-.section-nav-link {
-  display: block;
-  text-decoration: none;
+.section-title .section-nav-link {
   color: inherit;
-  margin-bottom: 1.6rem;
+  text-decoration: none;
+  transition: color .2s;
 }
-.section-nav-link:hover .section-title { color: var(--miel); }
-.section-nav-link.section-nav-light:hover .section-title { color: var(--miel-claro); }
-.section-nav-link .section-title { transition: color .2s; }
-.section-nav-link .eyebrow { margin-bottom: .4rem; }
+.section-title .section-nav-link:hover { color: var(--miel); }
+.section-title .section-nav-link.section-nav-light:hover { color: var(--miel-claro); }
 .nav-arrow {
   display: inline-block;
   font-family: var(--sans);
@@ -345,11 +344,11 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
   transition: opacity .2s, transform .2s;
   vertical-align: middle;
 }
+.section-nav-link.section-nav-light .nav-arrow { color: var(--miel-claro); }
 .section-nav-link:hover .nav-arrow {
   opacity: 1;
   transform: translateX(0);
 }
-.section-nav-light .nav-arrow { color: var(--miel-claro); }
 
 @media (max-width: 900px) {
   .nav-links, .nav-social { display: none; }
