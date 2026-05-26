@@ -281,6 +281,8 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
 /* ---------- Servicios ---------- */
 .servicio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 2.4rem; }
 .ubicacion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+.tu-marca-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.tu-marca-grid img { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
 .servicio-card { border: 1px solid var(--linea-clara); padding: 32px 28px 36px; }
 .servicio-card .servicio-icon { font-size: 2.2rem; margin-bottom: 1rem; }
 .servicio-card h3 { font-size: 1.5rem; margin-bottom: .7rem; color: var(--crema-texto); }
@@ -362,6 +364,8 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
   .alianzas-grid, .footer-inner { grid-template-columns: 1fr; }
   .ubicacion-grid { grid-template-columns: 1fr; }
   .servicio-grid { grid-template-columns: 1fr; }
+  .tu-marca-grid { grid-template-columns: 1fr; }
+  .tu-marca-grid img { order: -1; aspect-ratio: 4/3; }
 }
 @media (max-width: 520px) {
   .prod-grid, .valores-grid, .shop-grid, .taller-grid { grid-template-columns: 1fr; }
