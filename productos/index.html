@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Productos — Casa Tapputi</title>
+  <meta name="description" content="Catálogo de Casa Tapputi: esencia de miel, esencias de aromaterapia, pomada de caléndula, jabones, aceites de masaje y tisanas artesanales." />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/assets/images/casa-tapputi-logo.png">
+</head>
+<body>
+
+<div class="topbar">Llevando la salud natural a tu hogar</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="/assets/images/casa-tapputi-logo.png" alt="Casa Tapputi" />
+      <span class="wordmark">CASA TAPPUTI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/productos/">Productos</a></li>
+      <li><a href="/experiencias/">Experiencias</a></li>
+      <li><a href="/servicios/">Servicios</a></li>
+      <li><a href="/talleres/">Talleres &amp; Cursos</a></li>
+      <li><a href="/nosotros/">Nosotros</a></li>
+    </ul>
+    <div class="nav-social">
+      <a href="https://www.facebook.com/" aria-label="Facebook" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+      <a href="https://www.instagram.com/" aria-label="Instagram" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/productos/" onclick="toggleMenu()">Productos</a>
+  <a href="/experiencias/" onclick="toggleMenu()">Experiencias</a>
+  <a href="/servicios/" onclick="toggleMenu()">Servicios</a>
+  <a href="/talleres/" onclick="toggleMenu()">Talleres &amp; Cursos</a>
+  <a href="/nosotros/" onclick="toggleMenu()">Nosotros</a>
+</div>
+
+<header class="page-hero" style="background-image:url('/assets/images/honey-hero.jpg')">
+  <div class="container">
+    <p class="eyebrow">Catálogo</p>
+    <h1>Productos</h1>
+    <p>Elaborados artesanalmente en el taller de herbolaria de Huerto Roma Verde.</p>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <div class="shop-grid">
+      <article class="shop-card">
+        <img src="/assets/images/honey-hero.jpg" alt="Escencia de miel" loading="lazy">
+        <div class="shop-body">
+          <h3>Escencia de miel</h3>
+          <p class="shop-desc">Esencia elaborada a partir de miel del jardín medicinal, para el cuidado y la belleza de la piel.</p>
+          <span class="shop-price">$200 MXN</span>
+          <a href="/servicios/" class="btn btn-dark shop-cta">Pedir información</a>
+        </div>
+      </article>
+      <article class="shop-card">
+        <img src="/assets/images/tl_06461-1.jpg" alt="Escencias Aromaterapia" loading="lazy">
+        <div class="shop-body">
+          <h3>Escencias Aromaterapia</h3>
+          <p class="shop-desc">Esencias naturales para aromaterapia, formuladas con plantas medicinales cultivadas.</p>
+          <span class="shop-price">$200 MXN</span>
+          <a href="/servicios/" class="btn btn-dark shop-cta">Pedir información</a>
+        </div>
+      </article>
+      <article class="shop-card">
+        <img src="/assets/images/t13-01311-1.jpg" alt="Pomada calendula" loading="lazy">
+        <div class="shop-body">
+          <h3>Pomada calendula</h3>
+          <p class="shop-desc">Pomada de caléndula para el cuidado y la regeneración natural de la piel.</p>
+          <span class="shop-price">$200 MXN</span>
+          <a href="/servicios/" class="btn btn-dark shop-cta">Pedir información</a>
+        </div>
+      </article>
+      <article class="shop-card">
+        <img src="/assets/images/t13-01264.jpg" alt="Jabones" loading="lazy">
+        <div class="shop-body">
+          <h3>Jabones</h3>
+          <p class="shop-desc">Jabones naturales artesanales elaborados con ingredientes del taller de herbolaria.</p>
+          <span class="shop-price">$200 MXN</span>
+          <a href="/servicios/" class="btn btn-dark shop-cta">Pedir información</a>
+        </div>
+      </article>
+      <article class="shop-card">
+        <img src="/assets/images/aceites.jpg" alt="Aceites de masaje" loading="lazy">
+        <div class="shop-body">
+          <h3>Aceites de masaje</h3>
+          <p class="shop-desc">Aceites para masaje que combinan plantas medicinales y esencias naturales.</p>
+          <span class="shop-price">$200 MXN</span>
+          <a href="/servicios/" class="btn btn-dark shop-cta">Pedir información</a>
+        </div>
+      </article>
+      <article class="shop-card">
+        <img src="/assets/images/hero-band.jpg" alt="Tisanas" loading="lazy">
+        <div class="shop-body">
+          <h3>Tisanas</h3>
+          <p class="shop-desc">Mezclas de tisanas con hierbas del jardín medicinal de Huerto Roma Verde.</p>
+          <span class="shop-price">$200 MXN</span>
+          <a href="/servicios/" class="btn btn-dark shop-cta">Pedir información</a>
+        </div>
+      </article>
+    </div>
+    <p style="text-align:center; margin-top:3rem; color:var(--tinta-suave); font-size:.85rem;">Precios de referencia. El catálogo completo y los precios finales se actualizarán próximamente.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="wordmark">CASA TAPPUTI</span>
+        <p>Taller de herbolaria en Huerto Roma Verde. Productos de lujo nacidos de un jardín medicinal, inspirados en el legado de las tradiciones venerables.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explorar</h4>
+        <ul>
+          <li><a href="/productos/">Productos</a></li>
+          <li><a href="/experiencias/">Experiencias</a></li>
+          <li><a href="/servicios/">Servicios</a></li>
+          <li><a href="/talleres/">Talleres &amp; Cursos</a></li>
+          <li><a href="/nosotros/">Nosotros</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li>Lunes – Viernes · 8am – 4pm</li>
+          <li>Jalapa 234, Roma Sur,<br>Cuauhtémoc, 06760, CDMX</li>
+          <li><a href="tel:+525616118734">(52) 1 56-1611-8734</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Casa Tapputi — Todos los derechos reservados.</span>
+      <span style="font-style:italic">Llevando la salud natural a tu hogar.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
