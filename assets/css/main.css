@@ -166,7 +166,7 @@ section { padding-block: clamp(56px, 9vw, 110px); }
 .valores-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 4vw, 52px); }
 .valor h3 { font-size: 1.5rem; margin-bottom: .6rem; color: var(--tinta); }
 .section-dark .valor h3 { color: var(--crema-texto); }
-.valor p { font-size: .95rem; color: var(--tinta-suave); }
+.valor p { font-size: 1.08rem; color: var(--tinta-suave); }
 .section-dark .valor p { color: rgba(239,230,214,.72); }
 .valor { padding-top: 1.4rem; border-top: 1px solid var(--linea); }
 .section-dark .valor { border-color: var(--linea-clara); }
@@ -177,7 +177,7 @@ section { padding-block: clamp(56px, 9vw, 110px); }
 .exp-card img { aspect-ratio: 4/3; object-fit: cover; }
 .exp-card .exp-body { padding: 24px; }
 .exp-card h3 { font-size: 1.5rem; margin-bottom: .5rem; color: var(--crema-texto); }
-.exp-card p { font-size: .92rem; color: rgba(239,230,214,.72); }
+.exp-card p { font-size: 1.05rem; color: rgba(239,230,214,.72); }
 
 /* ---------- Alianzas ---------- */
 .alianzas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 72px); margin-top: 1rem; }
@@ -219,7 +219,7 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
 .shop-card img { aspect-ratio: 1/1; object-fit: cover; }
 .shop-card .shop-body { padding: 22px 22px 26px; display: flex; flex-direction: column; gap: .5rem; flex: 1; }
 .shop-card h3 { font-size: 1.55rem; color: var(--tinta); }
-.shop-card .shop-desc { font-size: .9rem; color: var(--tinta-suave); flex: 1; }
+.shop-card .shop-desc { font-size: 1.02rem; color: var(--tinta-suave); flex: 1; }
 .shop-card .shop-price { font-family: var(--serif); font-size: 1.5rem; color: var(--miel); margin-top: .4rem; }
 .shop-card .shop-cta { margin-top: 1rem; }
 
@@ -286,14 +286,14 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
 .servicio-card { border: 1px solid var(--linea-clara); padding: 32px 28px 36px; }
 .servicio-card .servicio-icon { font-size: 2.2rem; margin-bottom: 1rem; }
 .servicio-card h3 { font-size: 1.5rem; margin-bottom: .7rem; color: var(--crema-texto); }
-.servicio-card p { font-size: .92rem; color: rgba(239,230,214,.75); line-height: 1.7; }
+.servicio-card p { font-size: 1.05rem; color: rgba(239,230,214,.75); line-height: 1.7; }
 
 /* ---------- Talleres ---------- */
 .taller-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .taller-card { background: var(--crema-2); border: 1px solid var(--linea); border-left: 3px solid var(--miel); padding: 24px 26px 28px; }
 .taller-card h3 { font-size: 1.28rem; margin-bottom: .65rem; color: var(--tinta); }
-.taller-card .taller-desc { font-size: .9rem; color: var(--tinta-suave); line-height: 1.65; margin-bottom: .85rem; }
-.taller-card .taller-llevas { font-family: var(--serif); font-style: italic; font-size: .98rem; color: var(--miel); }
+.taller-card .taller-desc { font-size: 1.02rem; color: var(--tinta-suave); line-height: 1.65; margin-bottom: .85rem; }
+.taller-card .taller-llevas { font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--miel); }
 
 /* ---------- Bloque de contenido pendiente ---------- */
 .placeholder-note {
