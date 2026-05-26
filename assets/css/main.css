@@ -323,6 +323,34 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
 .cta-contact { display: flex; flex-direction: column; gap: .3rem; margin-top: 1.4rem; font-size: .95rem; }
 
 /* ---------- Responsive ---------- */
+/* ---------- Títulos de sección como navegación ---------- */
+.section-nav-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: 1.6rem;
+}
+.section-nav-link:hover .section-title { color: var(--miel); }
+.section-nav-link.section-nav-light:hover .section-title { color: var(--miel-claro); }
+.section-nav-link .section-title { transition: color .2s; }
+.section-nav-link .eyebrow { margin-bottom: .4rem; }
+.nav-arrow {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: .55em;
+  font-style: normal;
+  color: var(--miel);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity .2s, transform .2s;
+  vertical-align: middle;
+}
+.section-nav-link:hover .nav-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+.section-nav-light .nav-arrow { color: var(--miel-claro); }
+
 @media (max-width: 900px) {
   .nav-links, .nav-social { display: none; }
   .hamburger { display: block; }
