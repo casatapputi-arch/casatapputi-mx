@@ -246,7 +246,7 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
   display: flex;
   gap: 18px;
   width: max-content;
-  animation: marquee-scroll 36s linear infinite;
+  animation: marquee-scroll 60s linear infinite;
 }
 .marquee-track:hover .marquee-inner { animation-play-state: paused; }
 .marquee-card {
