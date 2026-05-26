@@ -3,7 +3,7 @@ function toggleMenu() {
 }
 
 // Endpoint de Formspree de Casa Tapputi — reemplazar TU_FORM_ID por el id real.
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/TU_FORM_ID';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaqkplnb';
 
 function handleSubmit(e) {
   e.preventDefault();
