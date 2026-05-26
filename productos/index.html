@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Productos — Casa Tapputi</title>
-  <meta name="description" content="Catálogo de Casa Tapputi: esencia de miel, esencias de aromaterapia, pomada de caléndula, jabones, aceites de masaje y tisanas artesanales." />
+  <meta name="description" content="Catálogo completo Casa Tapputi 2026: esencias, óleos, perfumes, jabones herbales, cuidado facial, pomadas y más. Elaborados artesanalmente en Huerto Roma Verde." />
   <link rel="stylesheet" href="../assets/css/main.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,7 +45,7 @@
 
 <header class="page-hero" style="background-image:url('../assets/images/honey-hero.jpg')">
   <div class="container">
-    <p class="eyebrow">Catálogo</p>
+    <p class="eyebrow">Catálogo 2026</p>
     <h1>Productos</h1>
     <p>Elaborados artesanalmente en el taller de herbolaria de Huerto Roma Verde.</p>
   </div>
@@ -53,61 +53,189 @@
 
 <section>
   <div class="container">
-    <div class="shop-grid">
-      <article class="shop-card">
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterCat(this,'todos')">Todos</button>
+      <button class="filter-btn" onclick="filterCat(this,'esencias')">Esencias</button>
+      <button class="filter-btn" onclick="filterCat(this,'corporal')">Corporal</button>
+      <button class="filter-btn" onclick="filterCat(this,'facial')">Facial</button>
+      <button class="filter-btn" onclick="filterCat(this,'cocina')">Cocina</button>
+    </div>
+    <div class="shop-grid" id="shopGrid">
+
+      <!-- ESENCIAS -->
+      <article class="shop-card" data-cat="esencias">
         <img src="../assets/images/honey-hero.jpg" alt="Esencia de Miel" loading="lazy">
         <div class="shop-body">
           <h3>Esencia de Miel</h3>
-          <p class="shop-desc">Extraída por alambique a partir de floración natural. Favorece la relajación y concentración; se aplica directo en piel o en difusor. Presentaciones: 1 ml, 4 ml, 8 ml, 15 ml.</p>
+          <p class="shop-desc">Extraída por alambique de floración natural. Favorece la producción de dopamina y oxitocina; promueve relajación y concentración. Uso corporal o difusor. Presentaciones: 4 ml, 8 ml, 15 ml.</p>
+          <span class="shop-price">desde $400 MXN</span>
+          <a href="../servicios/" class="btn btn-dark shop-cta">Pedir información</a>
+        </div>
+      </article>
+
+      <article class="shop-card" data-cat="esencias">
+        <img src="../assets/images/tl_06461-1.jpg" alt="Esencias Naturales" loading="lazy">
+        <div class="shop-body">
+          <h3>Esencias Naturales</h3>
+          <p class="shop-desc">18 aromas por alambique: Violetas, Nardo, Mandarina, Menta, Rosas, Canela, Lavanda, Eucalipto, Romero, Jazmín, Sándalo, Geranio, Limón, Bergamota, Mirra, Pino, Tabaco, Lilas. Uso corporal o difusor. Presentaciones: 4 ml, 8 ml, 15 ml.</p>
+          <span class="shop-price">desde $400 MXN</span>
+          <a href="../servicios/" class="btn btn-dark shop-cta">Pedir información</a>
+        </div>
+      </article>
+
+      <article class="shop-card" data-cat="esencias">
+        <img src="../assets/images/frascos-masajes-edited-1.png" alt="Perfume Sólido Herbal" loading="lazy">
+        <div class="shop-body">
+          <h3>Perfume Sólido Herbal</h3>
+          <p class="shop-desc">Cera de abeja, aceite de oliva y aceites esenciales botánicos. Nutre la piel mientras perfuma. 18 aromas disponibles. Desliza en muñecas, cuello o detrás de las orejas. Presentaciones: 15 gr, 50 gr.</p>
+          <span class="shop-price">desde $80 MXN</span>
+          <a href="../servicios/" class="btn btn-dark shop-cta">Pedir información</a>
+        </div>
+      </article>
+
+      <article class="shop-card" data-cat="esencias">
+        <div class="shop-badge">L</div>
+        <div class="shop-body">
+          <h3>Lágrimas de Rosas</h3>
+          <p class="shop-desc">Resina sagrada para saumerios. Limpia el aire, crea un ambiente de calma y armonía. Las propiedades terapéuticas de las rosas alivian el estrés y fomentan sentimientos de amor y bienestar. Presentaciones: 5 gr, 10 gr.</p>
           <span class="shop-price">desde $100 MXN</span>
           <a href="../servicios/" class="btn btn-dark shop-cta">Pedir información</a>
         </div>
       </article>
-      <article class="shop-card">
-        <img src="../assets/images/t13-01264.jpg" alt="Jabones Herbales" loading="lazy">
+
+      <!-- CORPORAL -->
+      <article class="shop-card" data-cat="corporal">
+        <img src="../assets/images/aceites.jpg" alt="Óleo para Masaje" loading="lazy">
         <div class="shop-body">
-          <h3>Jabones Herbales</h3>
-          <p class="shop-desc">Elaborados con aceite de coco y botánicos selectos. Seis variedades: Miel &amp; Avena, Menta &amp; Romero, Manzanilla &amp; Bergamota, Manzana &amp; Canela, Lavanda &amp; Violeta, Rosas &amp; Anís Estrella.</p>
+          <h3>Óleo para Masaje</h3>
+          <p class="shop-desc">Fusión de ingredientes naturales y esencias seleccionadas. Nutre la piel y ofrece beneficios emocionales. Todos los aromas de la colección disponibles. Presentaciones: 35 ml, 100 ml.</p>
+          <span class="shop-price">desde $150 MXN</span>
+          <a href="../servicios/" class="btn btn-dark shop-cta">Pedir información</a>
+        </div>
+      </article>
+
+      <article class="shop-card" data-cat="corporal">
+        <img src="../assets/images/frascos-masajes-edited-1.png" alt="Roll-On Anti Estrés" loading="lazy">
+        <div class="shop-body">
+          <h3>Roll-On Anti Estrés</h3>
+          <p class="shop-desc">Menta, Pino y Eucalipto. Menta despeja la mente; Pino equilibra las emociones; Eucalipto purifica y facilita la respiración profunda. Aplica en sienes para alivio instantáneo. 15 ml.</p>
+          <span class="shop-price">$200 MXN</span>
+          <a href="../servicios/" class="btn btn-dark shop-cta">Pedir información</a>
+        </div>
+      </article>
+
+      <article class="shop-card" data-cat="corporal">
+        <img src="../assets/images/ig_tapputiroca-4_mieles.png" alt="Miel Melipona" loading="lazy">
+        <div class="shop-body">
+          <h3>Miel Melipona</h3>
+          <p class="shop-desc">Recolectada por abejas sin aguijón. Tesoro sagrado ancestral de poderosas propiedades curativas. Tres usos: ocular (alivia irritación), cutáneo (cicatrizante, hidratante) y de consumo (sistema inmune). 15 ml.</p>
+          <span class="shop-price">$350 MXN</span>
+          <a href="../servicios/" class="btn btn-dark shop-cta">Pedir información</a>
+        </div>
+      </article>
+
+      <article class="shop-card" data-cat="corporal">
+        <div class="shop-badge">F</div>
+        <div class="shop-body">
+          <h3>Friega Cannabis</h3>
+          <p class="shop-desc">Sinergia de cannabis, veneno de hormiga roja y plantas medicinales. Analgésico profundo y antiinflamatorio para dolores musculares y articulares. Fabricación artesanal de autocultivo. Presentaciones: 20 ml, 50 ml.</p>
           <span class="shop-price">desde $90 MXN</span>
           <a href="../servicios/" class="btn btn-dark shop-cta">Pedir información</a>
         </div>
       </article>
-      <article class="shop-card">
-        <img src="../assets/images/aceites.jpg" alt="Óleo para Masaje" loading="lazy">
+
+      <article class="shop-card" data-cat="corporal">
+        <div class="shop-badge">C</div>
         <div class="shop-body">
-          <h3>Óleo para Masaje</h3>
-          <p class="shop-desc">Fusión de ingredientes naturales y esencias seleccionadas para una experiencia terapéutica y sensorial. Nutre la piel y ofrece beneficios emocionales. Presentaciones: 35 ml y 100 ml.</p>
-          <span class="shop-price">desde $120 MXN</span>
+          <h3>Chilcuague</h3>
+          <p class="shop-desc">Spray oral de raíz medicinal. Acción antibacteriana y antiinflamatoria sobre encías, mucosas y tejidos orales. Combate bacterias y protege la salud bucal con la sabiduría de la tierra. 30 ml.</p>
+          <span class="shop-price">$100 MXN</span>
           <a href="../servicios/" class="btn btn-dark shop-cta">Pedir información</a>
         </div>
       </article>
-      <article class="shop-card">
-        <img src="../assets/images/tl_06461-1.jpg" alt="Esencias Aromaterapia" loading="lazy">
+
+      <article class="shop-card" data-cat="corporal">
+        <img src="../assets/images/t13-01264.jpg" alt="Jabones Herbales" loading="lazy">
         <div class="shop-body">
-          <h3>Esencias Aromaterapia</h3>
-          <p class="shop-desc">Esencias naturales para aromaterapia, formuladas con plantas medicinales cultivadas en nuestro jardín.</p>
-          <span class="shop-price">Consultar precio</span>
+          <h3>Jabones Herbales</h3>
+          <p class="shop-desc">7 variedades con aceite de coco: Miel &amp; Avena, Menta &amp; Romero, Manzanilla &amp; Bergamota, Manzana &amp; Canela, Lavanda &amp; Violeta, Rosas &amp; Anís Estrella, Carbón Activado. 50 gr c/u.</p>
+          <span class="shop-price">$90 MXN / pz</span>
           <a href="../servicios/" class="btn btn-dark shop-cta">Pedir información</a>
         </div>
       </article>
-      <article class="shop-card">
+
+      <!-- FACIAL -->
+      <article class="shop-card" data-cat="facial">
+        <div class="shop-badge">A</div>
+        <div class="shop-body">
+          <h3>Agua de Rosas</h3>
+          <p class="shop-desc">Tónico natural de pétalos frescos. Calma, hidrata y equilibra la piel. Sin alcohol ni químicos agresivos. Apta para piel sensible. Refrescante después del sol o momentos de estrés. 30 ml.</p>
+          <span class="shop-price">$150 MXN</span>
+          <a href="../servicios/" class="btn btn-dark shop-cta">Pedir información</a>
+        </div>
+      </article>
+
+      <article class="shop-card" data-cat="facial">
+        <div class="shop-badge">G</div>
+        <div class="shop-body">
+          <h3>Gel de Rosas</h3>
+          <p class="shop-desc">Hidratante con extracto de pétalos frescos. Textura ligera de rápida absorción para todo tipo de piel. Propiedades antioxidantes que restauran luminosidad y elasticidad. Aroma fresco y floral. 100 ml.</p>
+          <span class="shop-price">$150 MXN</span>
+          <a href="../servicios/" class="btn btn-dark shop-cta">Pedir información</a>
+        </div>
+      </article>
+
+      <article class="shop-card" data-cat="facial">
+        <div class="shop-badge">M</div>
+        <div class="shop-body">
+          <h3>Mascarilla de Café</h3>
+          <p class="shop-desc">Tratamiento revitalizante. La cafeína estimula la circulación y despierta la piel. Tonifica, refresca y deja el rostro suave y luminoso. Aplica 15 minutos y enjuaga. 30 ml.</p>
+          <span class="shop-price">$150 MXN</span>
+          <a href="../servicios/" class="btn btn-dark shop-cta">Pedir información</a>
+        </div>
+      </article>
+
+      <article class="shop-card" data-cat="facial">
         <img src="../assets/images/t13-01311-1.jpg" alt="Pomada de Caléndula" loading="lazy">
         <div class="shop-body">
           <h3>Pomada de Caléndula</h3>
-          <p class="shop-desc">Pomada artesanal de caléndula para el cuidado y la regeneración natural de la piel.</p>
-          <span class="shop-price">Consultar precio</span>
+          <p class="shop-desc">Cera de abeja y lípido vegetal. Antiinflamatoria y cicatrizante para heridas menores, quemaduras leves e irritaciones. Hidratación profunda y efecto antiarrugas. Presentaciones: 30 gr, 50 gr.</p>
+          <span class="shop-price">desde $100 MXN</span>
           <a href="../servicios/" class="btn btn-dark shop-cta">Pedir información</a>
         </div>
       </article>
-      <article class="shop-card">
-        <img src="../assets/images/hero-band.jpg" alt="Tisanas" loading="lazy">
+
+      <article class="shop-card" data-cat="facial">
+        <div class="shop-badge">P</div>
         <div class="shop-body">
-          <h3>Tisanas</h3>
-          <p class="shop-desc">Mezclas de tisanas con hierbas del jardín medicinal de Huerto Roma Verde, preparadas para el bienestar cotidiano.</p>
-          <span class="shop-price">Consultar precio</span>
+          <h3>Pomada Cannabis</h3>
+          <p class="shop-desc">Sinergia de cannabis, veneno de hormiga roja y plantas medicinales. Diseñada para combatir dolores musculares y articulares. Formulación artesanal de alta potencia. Presentaciones: 30 gr, 50 gr.</p>
+          <span class="shop-price">desde $100 MXN</span>
           <a href="../servicios/" class="btn btn-dark shop-cta">Pedir información</a>
         </div>
       </article>
+
+      <!-- COCINA -->
+      <article class="shop-card" data-cat="cocina">
+        <img src="../assets/images/hero-band.jpg" alt="Salsas Matcha" loading="lazy">
+        <div class="shop-body">
+          <h3>Salsas Matcha</h3>
+          <p class="shop-desc">4 variedades con semillas, chiles secos e ingredientes de temporada: Chapulines, Frutos Rojos (dulce y picante), Ajo (intensa y aromática) y Habanero (tropical y ardiente). 1 pz.</p>
+          <span class="shop-price">$200 MXN / pz</span>
+          <a href="../servicios/" class="btn btn-dark shop-cta">Pedir información</a>
+        </div>
+      </article>
+
+      <article class="shop-card" data-cat="cocina">
+        <div class="shop-badge">T</div>
+        <div class="shop-body">
+          <h3>Tisanas Herbales</h3>
+          <p class="shop-desc">Mezclas con ingredientes naturales y orgánicos del jardín medicinal de Huerto Roma Verde. Sin aditivos ni conservantes artificiales. Cada sorbo es la pureza de la naturaleza. 1 kg.</p>
+          <span class="shop-price">$1,300 MXN / kg</span>
+          <a href="../servicios/" class="btn btn-dark shop-cta">Pedir información</a>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
@@ -146,5 +274,14 @@
 </footer>
 
 <script src="../assets/js/main.js"></script>
+<script>
+function filterCat(btn, cat) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#shopGrid .shop-card').forEach(c => {
+    c.style.display = (cat === 'todos' || c.dataset.cat === cat) ? '' : 'none';
+  });
+}
+</script>
 </body>
 </html>

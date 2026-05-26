@@ -221,6 +221,30 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
 .shop-card .shop-price { font-family: var(--serif); font-size: 1.5rem; color: var(--miel); margin-top: .4rem; }
 .shop-card .shop-cta { margin-top: 1rem; }
 
+/* ---------- Filtros de catálogo ---------- */
+.filter-bar { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 2.4rem; }
+.filter-btn {
+  font-family: var(--sans); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase;
+  font-weight: 500; padding: 9px 22px; background: none; border: 1px solid var(--linea);
+  color: var(--tinta-suave); cursor: pointer; transition: background .2s, color .2s, border-color .2s;
+}
+.filter-btn:hover, .filter-btn.active { background: var(--tinta); color: var(--crema); border-color: var(--tinta); }
+
+/* ---------- Card sin imagen (badge inicial) ---------- */
+.shop-badge {
+  aspect-ratio: 1/1; background: var(--crema-3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 6rem; color: var(--miel);
+  font-style: italic; font-weight: 400;
+}
+
+/* ---------- Servicios ---------- */
+.servicio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 2.4rem; }
+.servicio-card { border: 1px solid var(--linea-clara); padding: 32px 28px 36px; }
+.servicio-card .servicio-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+.servicio-card h3 { font-size: 1.5rem; margin-bottom: .7rem; color: var(--crema-texto); }
+.servicio-card p { font-size: .92rem; color: rgba(239,230,214,.75); line-height: 1.7; }
+
 /* ---------- Talleres ---------- */
 .taller-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .taller-card { background: var(--crema-2); border: 1px solid var(--linea); border-left: 3px solid var(--miel); padding: 24px 26px 28px; }
