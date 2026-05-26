@@ -221,6 +221,13 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
 .shop-card .shop-price { font-family: var(--serif); font-size: 1.5rem; color: var(--miel); margin-top: .4rem; }
 .shop-card .shop-cta { margin-top: 1rem; }
 
+/* ---------- Talleres ---------- */
+.taller-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.taller-card { background: var(--crema-2); border: 1px solid var(--linea); border-left: 3px solid var(--miel); padding: 24px 26px 28px; }
+.taller-card h3 { font-size: 1.28rem; margin-bottom: .65rem; color: var(--tinta); }
+.taller-card .taller-desc { font-size: .9rem; color: var(--tinta-suave); line-height: 1.65; margin-bottom: .85rem; }
+.taller-card .taller-llevas { font-family: var(--serif); font-style: italic; font-size: .98rem; color: var(--miel); }
+
 /* ---------- Bloque de contenido pendiente ---------- */
 .placeholder-note {
   border: 1px dashed var(--linea); padding: 32px; text-align: center;
@@ -260,9 +267,10 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
   .prod-grid { grid-template-columns: repeat(2, 1fr); }
   .valores-grid { grid-template-columns: repeat(2, 1fr); }
   .shop-grid { grid-template-columns: repeat(2, 1fr); }
+  .taller-grid { grid-template-columns: repeat(2, 1fr); }
   .exp-grid { grid-template-columns: 1fr; }
   .alianzas-grid, .footer-inner { grid-template-columns: 1fr; }
 }
 @media (max-width: 520px) {
-  .prod-grid, .valores-grid, .shop-grid { grid-template-columns: 1fr; }
+  .prod-grid, .valores-grid, .shop-grid, .taller-grid { grid-template-columns: 1fr; }
 }
