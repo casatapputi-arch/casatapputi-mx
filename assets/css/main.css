@@ -238,6 +238,44 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
   font-style: italic; font-weight: 400;
 }
 
+/* ---------- Marquee Catálogo ---------- */
+.marquee-track { overflow: hidden; width: 100%; }
+.marquee-inner {
+  display: flex;
+  gap: 18px;
+  width: max-content;
+  animation: marquee-scroll 36s linear infinite;
+}
+.marquee-track:hover .marquee-inner { animation-play-state: paused; }
+.marquee-card {
+  flex-shrink: 0;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--crema-texto);
+}
+.marquee-card img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+.marquee-card span {
+  display: block;
+  padding: 10px 12px;
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-style: italic;
+  background: var(--oscuro-2);
+  border-top: 2px solid var(--miel);
+  text-align: center;
+}
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 /* ---------- Servicios ---------- */
 .servicio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 2.4rem; }
 .ubicacion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
