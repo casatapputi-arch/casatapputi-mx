@@ -144,7 +144,7 @@ nav {
 section { padding-block: clamp(56px, 9vw, 110px); }
 .section-dark { background: var(--oscuro); color: var(--crema-texto); }
 .section-dark .eyebrow { color: var(--miel-claro); }
-.lead { font-size: 1.08rem; max-width: 720px; color: var(--tinta-suave); }
+.lead { font-size: 1.22rem; max-width: 720px; color: var(--tinta-suave); line-height: 1.72; }
 .section-dark .lead { color: rgba(239,230,214,.78); }
 
 /* ---------- Historia (dos columnas) ---------- */
@@ -210,7 +210,7 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
 .page-hero::after { content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(20,16,12,.55), rgba(20,16,12,.78)); }
 .page-hero .container { position: relative; z-index: 2; text-align: center; width: 100%; padding-block: 64px; }
 .page-hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.8rem); font-weight: 400; letter-spacing: 0.04em; }
-.page-hero p { color: rgba(239,230,214,.85); max-width: 620px; margin: 1rem auto 0; }
+.page-hero p { color: rgba(239,230,214,.85); max-width: 680px; margin: 1rem auto 0; font-size: 1.22rem; line-height: 1.72; }
 
 /* ---------- Catálogo / tienda ---------- */
 .shop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
