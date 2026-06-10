@@ -294,6 +294,7 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
 .taller-card h3 { font-size: 1.28rem; margin-bottom: .65rem; color: var(--tinta); }
 .taller-card .taller-desc { font-size: 1.02rem; color: var(--tinta-suave); line-height: 1.65; margin-bottom: .85rem; }
 .taller-card .taller-llevas { font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--miel); }
+.taller-card .taller-fecha { font-family: var(--sans); font-size: .82rem; font-weight: 600; color: var(--tinta-suave); letter-spacing: .04em; text-transform: uppercase; margin-bottom: .7rem; }
 
 /* ---------- Bloque de contenido pendiente ---------- */
 .placeholder-note {
