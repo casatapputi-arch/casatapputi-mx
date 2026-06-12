@@ -69,28 +69,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
 
   document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
-    revealObserver.observe(el);
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.classList.add('visible');
+    } else {
+      revealObserver.observe(el);
+    }
   });
 
-  /* ---------- Marquee Viewport Trigger ---------- */
-  const marqueeTrack = document.querySelector('.marquee-track');
-  if (marqueeTrack) {
-    const marqueeInner = marqueeTrack.querySelector('.marquee-inner');
-    const marqueeObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          marqueeInner.classList.add('playing');
-        } else {
-          marqueeInner.classList.remove('playing');
-        }
-      });
-    }, { threshold: 0.1 });
-    marqueeObserver.observe(marqueeTrack);
-  }
-
-  /* ---------- LQIP Blur-Up ---------- */
+  /* ---------- LQIP Blur-Up (solo <img> tags) ---------- */
   const lqipTargets = document.querySelectorAll(
-    '.hero img, .page-hero img, .prod-hero-img, .prod-img-wrap img, .marquee-card img'
+    '.prod-hero-img, .prod-img-wrap img, .marquee-card img'
   );
   lqipTargets.forEach(img => {
     if (img.complete) {
