@@ -458,7 +458,7 @@ body::before {
   justify-content: center;
   box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
-  animation: wa-pulse 2s infinite;
+  animation: wa-pulse 2s 3;
 }
 .wa-float:hover {
   transform: scale(1.12);
