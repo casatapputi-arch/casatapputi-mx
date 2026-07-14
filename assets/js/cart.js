@@ -215,3 +215,15 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCartCount();
   renderCartPage();
 });
+
+// ── Cross-tab sync ──
+// El evento 'storage' se dispara en OTRAS pestañas/ventanas cuando
+// esta clave de localStorage cambia. La pestaña que hizo el cambio
+// NO recibe el evento, así que el flujo local sigue intacto.
+window.addEventListener('storage', (e) => {
+  if (e.key !== CART_KEY) return;
+  renderCartCount();
+  if (window.location.pathname.includes('/tienda/carrito')) {
+    renderCartPage();
+  }
+});
