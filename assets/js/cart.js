@@ -32,17 +32,14 @@ function addToCart(product) {
     });
   }
   saveCart(cart);
-  renderCartCount();
+  refreshCartUI();
   showAddedFeedback(product.id);
 }
 
 function removeFromCart(id) {
   const cart = getCart().filter(item => item.id !== id);
   saveCart(cart);
-  renderCartCount();
-  if (window.location.pathname.includes('/tienda/carrito')) {
-    renderCartPage();
-  }
+  refreshCartUI();
 }
 
 function updateQuantity(id, qty) {
@@ -52,10 +49,7 @@ function updateQuantity(id, qty) {
   if (item) {
     item.quantity = qty;
     saveCart(cart);
-    renderCartCount();
-    if (window.location.pathname.includes('/tienda/carrito')) {
-      renderCartPage();
-    }
+    refreshCartUI();
   }
 }
 
@@ -65,10 +59,7 @@ function getTotal() {
 
 function clearCart() {
   localStorage.removeItem(CART_KEY);
-  renderCartCount();
-  if (window.location.pathname.includes('/tienda/carrito')) {
-    renderCartPage();
-  }
+  refreshCartUI();
 }
 
 function formatPrice(price) {
@@ -210,6 +201,13 @@ function renderCartPage() {
     </div>`;
 }
 
+function refreshCartUI() {
+  renderCartCount();
+  if (window.location.pathname.includes('/tienda/carrito')) {
+    renderCartPage();
+  }
+}
+
 // ── Init ──
 document.addEventListener('DOMContentLoaded', () => {
   renderCartCount();
@@ -222,8 +220,5 @@ document.addEventListener('DOMContentLoaded', () => {
 // NO recibe el evento, así que el flujo local sigue intacto.
 window.addEventListener('storage', (e) => {
   if (e.key !== CART_KEY) return;
-  renderCartCount();
-  if (window.location.pathname.includes('/tienda/carrito')) {
-    renderCartPage();
-  }
+  refreshCartUI();
 });
