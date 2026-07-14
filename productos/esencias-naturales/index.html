@@ -74,16 +74,46 @@
           <p>Ideales para construir tu propio lenguaje aromático: elige uno para meditar, otro para tu recámara y un tercero para la profundidad de la piel.</p>
         </div>
         <hr class="prod-divider" />
-        <p class="eyebrow" style="margin-bottom:.6rem">Presentaciones disponibles</p>
-        <div class="prod-variants">
-          <span class="prod-variant">4 ml <strong>$400 MXN</strong></span>
-          <span class="prod-variant">8 ml <strong>$700 MXN</strong></span>
-          <span class="prod-variant">15 ml <strong>$1,200 MXN</strong></span>
+        <p class="eyebrow" style="margin-bottom:.6rem">Elige tu aroma</p>
+        <select id="aromaSelect" class="prod-aroma-select" aria-label="Selecciona el aroma">
+          <option value="Violetas">Violetas</option>
+          <option value="Nardo">Nardo</option>
+          <option value="Mandarina">Mandarina</option>
+          <option value="Menta">Menta</option>
+          <option value="Rosas">Rosas</option>
+          <option value="Canela">Canela</option>
+          <option value="Lavanda">Lavanda</option>
+          <option value="Eucalipto">Eucalipto</option>
+          <option value="Romero">Romero</option>
+          <option value="Jazmín">Jazmín</option>
+          <option value="Sándalo">Sándalo</option>
+          <option value="Geranio">Geranio</option>
+          <option value="Limón">Limón</option>
+          <option value="Bergamota">Bergamota</option>
+          <option value="Mirra">Mirra</option>
+          <option value="Pino">Pino</option>
+          <option value="Tabaco">Tabaco</option>
+          <option value="Lilas">Lilas</option>
+        </select>
+        <p class="eyebrow" style="margin-bottom:.6rem;margin-top:1.2rem">Elige tu presentación</p>
+        <div class="prod-variant-radios">
+          <label class="prod-variant-radio">
+            <input type="radio" name="presSelect" value="4 ml" data-price="400" checked onchange="updateProductPrice()">
+            <span class="prod-variant-content"><strong>4 ml</strong><span class="prod-variant-price">$400 MXN</span></span>
+          </label>
+          <label class="prod-variant-radio">
+            <input type="radio" name="presSelect" value="8 ml" data-price="800" onchange="updateProductPrice()">
+            <span class="prod-variant-content"><strong>8 ml</strong><span class="prod-variant-price">$800 MXN</span></span>
+          </label>
+          <label class="prod-variant-radio">
+            <input type="radio" name="presSelect" value="15 ml" data-price="1500" onchange="updateProductPrice()">
+            <span class="prod-variant-content"><strong>15 ml</strong><span class="prod-variant-price">$1,500 MXN</span></span>
+          </label>
         </div>
         <div class="prod-price-box">
           <div class="prod-price-label">Precio</div>
-          <div class="prod-price">desde $400 MXN</div>
-          <div class="prod-price-present">4 ml · 8 ml · 15 ml — 18 aromas disponibles</div>
+          <div class="prod-price" id="displayPrice" aria-live="polite" aria-atomic="true">$400 MXN</div>
+          <div class="prod-price-present" id="displayPresentation">Esencia Natural Violetas 4 ml</div>
         </div>
         <div class="add-to-cart-wrapper">
           <div class="qty-stepper">
@@ -134,7 +164,7 @@
           <h3><a href="../esencia-miel/">Esencia de Miel</a></h3>
           <p class="shop-desc">Destilación de floración natural, favorece dopamina y oxitocina.</p>
           <span class="shop-price">desde $400 MXN</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="esencia-miel" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <a href="../esencia-miel/" class="btn btn-add-cart shop-cta">👁️ Ver opciones</a>
         </div>
       </article>
       <article class="shop-card" data-product-id="perfume-solido" data-product-name="Perfume Sólido Herbal" data-product-price="80" data-product-price-label="desde $80 MXN" data-product-image="../../assets/images/perfume-solido.jpg">
@@ -216,12 +246,28 @@
 <script>
 function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
 function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
+function updateProductPrice(){
+  const pres=document.querySelector('input[name="presSelect"]:checked');
+  const price=parseInt(pres.dataset.price);
+  document.getElementById('displayPrice').textContent='$'+price.toLocaleString('es-MX')+' MXN';
+  const aroma=document.getElementById('aromaSelect').value;
+  document.getElementById('displayPresentation').textContent='Esencia Natural '+aroma+' '+pres.value;
+}
+document.getElementById('aromaSelect').addEventListener('change', updateProductPrice);
+document.querySelectorAll('input[name="presSelect"]').forEach(function(el){el.addEventListener('change', updateProductPrice);});
+updateProductPrice();
 function addCurrentProduct(){
+  const aroma=document.getElementById('aromaSelect').value;
+  const presEl=document.querySelector('input[name="presSelect"]:checked');
+  const size=presEl.value;
+  const price=parseInt(presEl.dataset.price);
+  const aromaSlug=aroma.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,'-');
+  const sizeSlug=size.replace(/\s+/g,'').toLowerCase();
   addToCart({
-    id:'esencias-naturales',
-    name:'Esencias Naturales',
-    price:400,
-    priceLabel:'desde $400 MXN',
+    id:'esencias-naturales_'+aromaSlug+'_'+sizeSlug,
+    name:'Esencia Natural '+aroma+' '+size,
+    price:price,
+    priceLabel:'$'+price.toLocaleString('es-MX')+' MXN',
     image:'../../assets/images/esencias-naturales.jpg',
     quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)
   });

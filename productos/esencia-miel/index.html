@@ -74,16 +74,25 @@
           <p>Es una danza simbiótica entre flores y resinas. Cada gota es un instante donde el cuerpo responde y el efecto se siente de inmediato.</p>
         </div>
         <hr class="prod-divider" />
-        <p class="eyebrow" style="margin-bottom:.6rem">Presentaciones disponibles</p>
-        <div class="prod-variants">
-          <span class="prod-variant">4 ml <strong>$400 MXN</strong></span>
-          <span class="prod-variant">8 ml <strong>$700 MXN</strong></span>
-          <span class="prod-variant">15 ml <strong>$1,200 MXN</strong></span>
+        <p class="eyebrow" style="margin-bottom:.6rem">Elige tu presentación</p>
+        <div class="prod-variant-radios">
+          <label class="prod-variant-radio">
+            <input type="radio" name="presSelect" value="4 ml" data-price="400" checked onchange="updateProductPrice()">
+            <span class="prod-variant-content"><strong>4 ml</strong><span class="prod-variant-price">$400 MXN</span></span>
+          </label>
+          <label class="prod-variant-radio">
+            <input type="radio" name="presSelect" value="8 ml" data-price="800" onchange="updateProductPrice()">
+            <span class="prod-variant-content"><strong>8 ml</strong><span class="prod-variant-price">$800 MXN</span></span>
+          </label>
+          <label class="prod-variant-radio">
+            <input type="radio" name="presSelect" value="15 ml" data-price="1500" onchange="updateProductPrice()">
+            <span class="prod-variant-content"><strong>15 ml</strong><span class="prod-variant-price">$1,500 MXN</span></span>
+          </label>
         </div>
         <div class="prod-price-box">
           <div class="prod-price-label">Precio</div>
-          <div class="prod-price">desde $400 MXN</div>
-          <div class="prod-price-present">4 ml · 8 ml · 15 ml — Uso corporal o difusor</div>
+          <div class="prod-price" id="displayPrice" aria-live="polite" aria-atomic="true">$400 MXN</div>
+          <div class="prod-price-present">Esencia de Miel · 4 ml — Uso corporal o difusor</div>
         </div>
         <div class="add-to-cart-wrapper">
           <div class="qty-stepper">
@@ -134,7 +143,7 @@
           <h3><a href="../esencias-naturales/">Esencias Naturales</a></h3>
           <p class="shop-desc">18 aromas botánicos destilados por alambique.</p>
           <span class="shop-price">desde $400 MXN</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="esencias-naturales" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <a href="../esencias-naturales/" class="btn btn-add-cart shop-cta">👁️ Ver opciones</a>
         </div>
       </article>
       <article class="shop-card" data-product-id="perfume-solido" data-product-name="Perfume Sólido Herbal" data-product-price="80" data-product-price-label="desde $80 MXN" data-product-image="../../assets/images/perfume-solido.jpg">
@@ -216,12 +225,22 @@
 <script>
 function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
 function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
+function updateProductPrice(){
+  const pres=document.querySelector('input[name="presSelect"]:checked');
+  const price=parseInt(pres.dataset.price);
+  document.getElementById('displayPrice').textContent='$'+price.toLocaleString('es-MX')+' MXN';
+}
+updateProductPrice();
 function addCurrentProduct(){
+  const presEl=document.querySelector('input[name="presSelect"]:checked');
+  const size=presEl.value;
+  const price=parseInt(presEl.dataset.price);
+  const slug=size.replace(/\s+/g,'').toLowerCase();
   addToCart({
-    id:'esencia-miel',
-    name:'Esencia de Miel',
-    price:400,
-    priceLabel:'desde $400 MXN',
+    id:'esencia-miel_'+slug,
+    name:'Esencia de Miel '+size,
+    price:price,
+    priceLabel:'$'+price.toLocaleString('es-MX')+' MXN',
     image:'../../assets/images/esencias-amber.jpg',
     quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)
   });

@@ -1110,3 +1110,18 @@ body::before {
   .btn-add-cart.prod-add-btn { width: 100%; }
   .prod-title { font-size: 2.4rem; }
 }
+
+/* ============================================================
+   SELECTORES DE ESENCIAS (variantes: aroma + presentaci\u00f3n)
+   ============================================================ */
+.prod-variant-radios{display:flex;flex-direction:column;gap:.6rem;margin:0 0 1.2rem}
+.prod-variant-radio{cursor:pointer;display:flex;align-items:center;gap:.9rem;padding:.65rem .9rem;border:1px solid #dcd4c2;border-radius:8px;background:#fff;transition:border-color .15s,background .15s}
+.prod-variant-radio:hover{border-color:#b8893a}
+.prod-variant-radio:has(input:checked){border-color:#b8893a;background:#faf5ec;box-shadow:inset 0 0 0 1px #b8893a}
+.prod-variant-radio input[type="radio"]{margin:0;accent-color:#b8893a;width:18px;height:18px;cursor:pointer}
+.prod-variant-content{display:flex;justify-content:space-between;align-items:baseline;flex:1;gap:1rem}
+.prod-variant-content strong{color:#1b1611;font-size:1.05rem}
+.prod-variant-price{color:#6b5a3e;font-size:.95rem}
+.prod-aroma-select{width:100%;padding:.7rem .9rem;border:1px solid #b8893a;border-radius:6px;background:#faf5ec;color:#1b1611;font-size:1rem;margin-bottom:.5rem;cursor:pointer}
+.prod-aroma-select:focus{outline:2px solid #b8893a;outline-offset:2px}
+@media (min-width:700px){.prod-variant-radios{flex-direction:row;gap:1rem}.prod-variant-radio{flex:1}}
