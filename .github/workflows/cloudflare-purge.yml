@@ -1,0 +1,41 @@
+name: Purge Cloudflare Cache
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
+      - '.env.example'
+  workflow_dispatch:
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Esperar build de GitHub Pages
+        run: |
+          echo "Esperando 60 segundos para que GitHub Pages termine el despliegue..."
+          sleep 60
+
+      - name: Purge Cache en Cloudflare API v4
+        env:
+          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/purge_cache" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"purge_everything":true}')
+
+          SUCCESS=$(echo "$RESPONSE" | jq -r '.success')
+
+          if [ "$SUCCESS" = "true" ]; then
+            echo "✅ Caché purgado exitosamente en Cloudflare."
+            echo "$RESPONSE" | jq .
+          else
+            echo "❌ Fallo al purgar el caché. Respuesta de la API:"
+            echo "$RESPONSE" | jq .
+            exit 1
+          fi
