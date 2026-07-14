@@ -112,4 +112,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
+  /* ---------- Fallback para navegadores sin soporte :has() (Firefox < 121, etc.) ---------- */
+  const variantRadios = document.querySelectorAll('.prod-variant-radio');
+  if (variantRadios.length) {
+    const syncChecked = (target) => {
+      const name = target.name;
+      document.querySelectorAll(`.prod-variant-radio input[name="${name}"]`).forEach(other => {
+        const wrap = other.closest('.prod-variant-radio');
+        if (wrap) wrap.classList.toggle('is-checked', other.checked);
+      });
+    };
+    variantRadios.forEach(radio => {
+      const input = radio.querySelector('input[type="radio"]');
+      if (!input) return;
+      if (input.checked) radio.classList.add('is-checked');
+      input.addEventListener('change', () => syncChecked(input));
+    });
+  }
+
 });

@@ -1117,7 +1117,7 @@ body::before {
 .prod-variant-radios{display:flex;flex-direction:column;gap:.6rem;margin:0 0 1.2rem}
 .prod-variant-radio{cursor:pointer;display:flex;align-items:center;gap:.9rem;padding:.65rem .9rem;border:1px solid #dcd4c2;border-radius:8px;background:#fff;transition:border-color .15s,background .15s}
 .prod-variant-radio:hover{border-color:#b8893a}
-.prod-variant-radio:has(input:checked){border-color:#b8893a;background:#faf5ec;box-shadow:inset 0 0 0 1px #b8893a}
+.prod-variant-radio:has(input:checked),.prod-variant-radio.is-checked{border-color:#b8893a;background:#faf5ec;box-shadow:inset 0 0 0 1px #b8893a}
 .prod-variant-radio input[type="radio"]{margin:0;accent-color:#b8893a;width:18px;height:18px;cursor:pointer}
 .prod-variant-content{display:flex;justify-content:space-between;align-items:baseline;flex:1;gap:1rem}
 .prod-variant-content strong{color:#1b1611;font-size:1.05rem}
