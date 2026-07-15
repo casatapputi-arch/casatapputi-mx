@@ -1,115 +1,227 @@
 /* ============================================================
-   Casa Tapputi — Shopping Cart (localStorage + WhatsApp)
-   Sin servidor, sin comisiones. El pedido se envía por WhatsApp.
+   Casa Tapputi — Shopping Cart (Medusa API + localStorage)
+   Usa la Store API de Medusa v2.16 para gestionar el carrito.
+   Mantiene localStorage como caché para UI instantánea y
+   resiliencia offline. Checkout vía WhatsApp.
    ============================================================ */
 
-const CART_KEY = 'casatapputi_cart';
-const WA_NUMBER = '525563707034';
+const MEDUSA_URL = 'https://casatapputi-medusa.duckdns.org';
+const API_KEY  = 'pk_377afadbf71f64f6027bdb8b13691017648b70f6270ff38e4d9d3961585d2c62';
+const CART_ID_KEY = 'casatapputi_cart_id';
+const CART_KEY    = 'casatapputi_cart';   // localStorage fallback
+const WA_NUMBER   = '525563707034';
+const REGION_ID   = 'reg_01KXKKX4D00R5GCSX91T9YE2Q9';
 
-function getCart() {
+let medusaCart = null;   // cache del último fetch del cart de Medusa
+
+// ── Helpers ──────────────────────────────────────────────
+async function medusaFetch(path, opts = {}) {
+  const res = await fetch(`${MEDUSA_URL}${path}`, {
+    ...opts,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-publishable-api-key': API_KEY,
+      ...(opts.headers || {})
+    }
+  });
+  if (!res.ok) {
+    const err = await res.text().catch(() => '');
+    throw new Error(`Medusa ${res.status}: ${err}`);
+  }
+  return res.json();
+}
+
+// ── Medusa Cart ──────────────────────────────────────────
+async function getOrCreateCartId() {
+  let cartId = localStorage.getItem(CART_ID_KEY);
+  if (cartId) {
+    try {
+      const data = await medusaFetch(`/store/carts/${cartId}`);
+      medusaCart = data.cart;
+      return cartId;
+    } catch (e) {
+      localStorage.removeItem(CART_ID_KEY);
+    }
+  }
+  const data = await medusaFetch('/store/carts', {
+    method: 'POST',
+    body: JSON.stringify({ region_id: REGION_ID })
+  });
+  const id = data.cart.id;
+  localStorage.setItem(CART_ID_KEY, id);
+  medusaCart = data.cart;
+  return id;
+}
+
+async function fetchMedusaCart() {
+  const cartId = localStorage.getItem(CART_ID_KEY);
+  if (!cartId) return null;
+  try {
+    const data = await medusaFetch(`/store/carts/${cartId}`);
+    medusaCart = data.cart;
+    return medusaCart;
+  } catch (e) {
+    return null;
+  }
+}
+
+// ── localStorage fallback ────────────────────────────────
+function getLocalCart() {
   try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
-  catch(e) { return []; }
+  catch (e) { return []; }
 }
+function saveLocalCart(c) { localStorage.setItem(CART_KEY, JSON.stringify(c)); }
 
-function saveCart(cart) {
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
-}
-
-function addToCart(product) {
+// ── Public API (misma interfaz que antes) ────────────────
+async function addToCart(product) {
   if (!product || !product.id) return;
-  const cart = getCart();
-  const existing = cart.find(item => item.id === product.id);
-  if (existing) {
-    existing.quantity += product.quantity || 1;
+
+  // 1. Actualizar localStorage al instante (UI rápida)
+  const local = getLocalCart();
+  const exists = local.find(i => i.id === product.id);
+  if (exists) {
+    exists.quantity += product.quantity || 1;
   } else {
-    cart.push({
+    local.push({
       id: product.id,
+      variantId: product.variantId || '',
       name: product.name,
       price: product.price || 0,
       priceLabel: product.priceLabel || '',
       image: product.image || '',
-      quantity: product.quantity || 1,
+      quantity: product.quantity || 1
     });
   }
-  saveCart(cart);
-  refreshCartUI();
+  saveLocalCart(local);
+  renderCartCount();
   showAddedFeedback(product.id);
+
+  // 2. Sincronizar con Medusa en background (solo si hay variantId)
+  if (!product.variantId) return;
+  try {
+    const cartId = await getOrCreateCartId();
+    await medusaFetch(`/store/carts/${cartId}/line-items`, {
+      method: 'POST',
+      body: JSON.stringify({
+        variant_id: product.variantId,
+        quantity: product.quantity || 1
+      })
+    });
+    const data = await medusaFetch(`/store/carts/${cartId}`);
+    medusaCart = data.cart;
+  } catch (e) {
+    console.warn('Sincronización con Medusa falló, usando carrito local:', e.message);
+  }
 }
 
-function removeFromCart(id) {
-  const cart = getCart().filter(item => item.id !== id);
-  saveCart(cart);
+async function removeFromCart(productId) {
+  // Guardar referencia ANTES de filtrar (para sync con Medusa)
+  const oldCart = getLocalCart();
+  const removedItem = oldCart.find(i => i.id === productId);
+
+  // 1. localStorage
+  const local = oldCart.filter(i => i.id !== productId);
+  saveLocalCart(local);
   refreshCartUI();
+
+  // 2. Medusa — buscar line_item por variant_id del producto eliminado
+  try {
+    const cart = await fetchMedusaCart();
+    if (cart && cart.items && removedItem) {
+      const lineItem = cart.items.find(li => li.variant_id === removedItem.variantId);
+      if (lineItem) {
+        await medusaFetch(`/store/carts/${cart.id}/line-items/${lineItem.id}`, {
+          method: 'DELETE'
+        });
+        const data = await medusaFetch(`/store/carts/${cart.id}`);
+        medusaCart = data.cart;
+      }
+    }
+  } catch (e) {
+    console.warn('Error al eliminar de Medusa:', e.message);
+  }
 }
 
-function updateQuantity(id, qty) {
+async function updateQuantity(productId, qty) {
   if (qty < 1) return;
-  const cart = getCart();
-  const item = cart.find(item => item.id === id);
-  if (item) {
-    item.quantity = qty;
-    saveCart(cart);
-    refreshCartUI();
+
+  // 1. localStorage
+  const local = getLocalCart();
+  const item = local.find(i => i.id === productId);
+  if (item) item.quantity = qty;
+  saveLocalCart(local);
+  refreshCartUI();
+
+  // 2. Medusa — reemplazar line item con nueva cantidad
+  try {
+    const cart = await fetchMedusaCart();
+    if (cart && cart.items && item) {
+      const lineItem = cart.items.find(li => li.variant_id === item.variantId);
+      if (lineItem) {
+        // Delete + re-add con nueva cantidad
+        await medusaFetch(`/store/carts/${cart.id}/line-items/${lineItem.id}`, {
+          method: 'DELETE'
+        });
+      }
+      if (item.variantId) {
+        await medusaFetch(`/store/carts/${cart.id}/line-items`, {
+          method: 'POST',
+          body: JSON.stringify({ variant_id: item.variantId, quantity: qty })
+        });
+        const data = await medusaFetch(`/store/carts/${cart.id}`);
+        medusaCart = data.cart;
+      }
+    }
+  } catch (e) {
+    console.warn('Error al actualizar en Medusa:', e.message);
   }
 }
 
 function getTotal() {
-  return getCart().reduce((sum, item) => sum + ((parseInt(item.price) || 0) * item.quantity), 0);
+  return getLocalCart().reduce((sum, i) => sum + ((parseInt(i.price) || 0) * i.quantity), 0);
 }
 
 function clearCart() {
   localStorage.removeItem(CART_KEY);
+  localStorage.removeItem(CART_ID_KEY);
+  medusaCart = null;
   refreshCartUI();
 }
 
-function formatPrice(price) {
-  if (!price || price === 0) return 'A consultar';
-  return '$' + parseInt(price).toLocaleString('es-MX') + ' MXN';
+function formatPrice(p) {
+  if (!p || p === 0) return 'A consultar';
+  return '$' + parseInt(p).toLocaleString('es-MX') + ' MXN';
 }
 
-function renderCartCount() {
-  const cart = getCart();
-  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-  document.querySelectorAll('.cart-count').forEach(el => {
-    el.textContent = count;
-    el.setAttribute('aria-label', count + ' producto' + (count !== 1 ? 's' : '') + ' en el carrito');
-    el.style.display = count > 0 ? 'flex' : 'none';
-  });
-}
-
+// ── WhatsApp checkout ────────────────────────────────────
 function generateWhatsAppMessage() {
-  const cart = getCart();
-  if (!cart.length) return '';
+  const local = getLocalCart();
+  if (!local.length) return '';
 
   let msg = '🛒 *Pedido — Casa Tapputi* 🌿\n\n';
-
-  cart.forEach(item => {
+  local.forEach(item => {
     const price = parseInt(item.price) || 0;
     const subtotal = price > 0 ? price * item.quantity : 0;
     msg += '• ' + item.name;
     if (item.quantity > 1) msg += ' ×' + item.quantity;
-    if (subtotal > 0) {
-      msg += ' — $' + subtotal.toLocaleString('es-MX') + ' MXN';
-    } else {
-      msg += ' — *Precio a consultar*';
-    }
-    msg += '\n';
+    msg += subtotal > 0
+      ? ' — $' + subtotal.toLocaleString('es-MX') + ' MXN\n'
+      : ' — *Precio a consultar*\n';
   });
-
   const total = getTotal();
-  if (total > 0) {
-    msg += '\n💰 *Total: $' + total.toLocaleString('es-MX') + ' MXN*';
-  }
+  if (total > 0) msg += '\n💰 *Total: $' + total.toLocaleString('es-MX') + ' MXN*';
   msg += '\n\n📦 Solicito información de envío/entrega.\n📍 Huerto Roma Verde, CDMX';
 
   return 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
 }
 
+// ── Product data from DOM ─────────────────────────────────
 function getProductData(el) {
   const card = el.closest('.shop-card');
   if (!card) return null;
   return {
     id: card.dataset.productId,
+    variantId: card.dataset.variantId || '',
     name: card.dataset.productName,
     price: parseInt(card.dataset.productPrice) || 0,
     priceLabel: card.dataset.productPriceLabel || '',
@@ -118,29 +230,67 @@ function getProductData(el) {
   };
 }
 
+// ── UI feedback ───────────────────────────────────────────
 function showAddedFeedback(productId) {
-  const btns = document.querySelectorAll('[data-product-id="' + productId + '"]');
-  btns.forEach(btn => {
-    const originalHTML = btn.innerHTML;
+  document.querySelectorAll('[data-product-id="' + productId + '"]').forEach(btn => {
+    const orig = btn.innerHTML;
     btn.innerHTML = '<span class="check-icon">✓</span> Agregado';
     btn.classList.add('added');
     btn.disabled = true;
     setTimeout(() => {
-      btn.innerHTML = originalHTML;
+      btn.innerHTML = orig;
       btn.classList.remove('added');
       btn.disabled = false;
     }, 1600);
   });
 }
 
-// ── Render cart page ──
-function renderCartPage() {
+// ── Cart count badge ──────────────────────────────────────
+function renderCartCount() {
+  const cart = getLocalCart();
+  const count = cart.reduce((sum, i) => sum + i.quantity, 0);
+  document.querySelectorAll('.cart-count').forEach(el => {
+    el.textContent = count;
+    el.setAttribute('aria-label', count + ' producto' + (count !== 1 ? 's' : '') + ' en el carrito');
+    el.style.display = count > 0 ? 'flex' : 'none';
+  });
+}
+
+// ── Render cart page (tienda/carrito.html) ─────────────────
+async function renderCartPage() {
   const container = document.getElementById('cartContainer');
   if (!container) return;
 
-  const cart = getCart();
+  // Intentar obtener datos de Medusa, fallback a localStorage
+  let items = [];
+  try {
+    const cart = await fetchMedusaCart();
+    if (cart && cart.items && cart.items.length) {
+      // Mapear line items de Medusa a nuestro formato
+      items = cart.items.map(li => ({
+        id: li.variant?.product?.handle || li.variant_id,
+        variantId: li.variant_id,
+        name: li.title,
+        price: li.unit_price || 0,
+        priceLabel: formatPrice(li.unit_price),
+        image: li.variant?.product?.thumbnail || '',
+        quantity: li.quantity,
+        lineItemId: li.id
+      }));
+      // Actualizar localStorage desde Medusa
+      saveLocalCart(items.map(i => ({
+        id: i.id, variantId: i.variantId, name: i.name,
+        price: i.price, priceLabel: i.priceLabel, image: i.image,
+        quantity: i.quantity
+      })));
+    } else {
+      items = getLocalCart();
+    }
+  } catch (e) {
+    items = getLocalCart();
+  }
 
-  if (!cart.length) {
+  if (!items.length) {
     container.innerHTML = `
       <div class="cart-empty">
         <div class="cart-empty-icon">🛒</div>
@@ -152,13 +302,14 @@ function renderCartPage() {
   }
 
   let itemsHTML = '';
-  cart.forEach(item => {
+  items.forEach(item => {
     const price = parseInt(item.price) || 0;
     const subtotal = price > 0 ? price * item.quantity : 0;
     itemsHTML += `
       <div class="cart-item">
         <div class="cart-item-img">
-          <img src="${item.image}" alt="${item.name}" loading="lazy" onerror="this.src='../assets/images/casa-tapputi-logo.png'">
+          <img src="${item.image}" alt="${item.name}" loading="lazy"
+               onerror="this.src='../assets/images/casa-tapputi-logo.png'">
         </div>
         <div class="cart-item-info">
           <h3>${item.name}</h3>
@@ -179,11 +330,8 @@ function renderCartPage() {
   });
 
   const total = getTotal();
-
   container.innerHTML = `
-    <div class="cart-list">
-      ${itemsHTML}
-    </div>
+    <div class="cart-list">${itemsHTML}</div>
     <div class="cart-summary">
       <div class="cart-summary-row">
         <span>Subtotal</span>
@@ -201,24 +349,26 @@ function renderCartPage() {
     </div>`;
 }
 
-function refreshCartUI() {
+async function refreshCartUI() {
   renderCartCount();
   if (window.location.pathname.includes('/tienda/carrito')) {
-    renderCartPage();
+    await renderCartPage();
   }
 }
 
-// ── Init ──
-document.addEventListener('DOMContentLoaded', () => {
+// ── Init ──────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
   renderCartCount();
-  renderCartPage();
+  if (window.location.pathname.includes('/tienda/carrito')) {
+    await renderCartPage();
+  }
+  // Precargar cart de Medusa en background
+  if (localStorage.getItem(CART_ID_KEY)) {
+    fetchMedusaCart().catch(() => {});
+  }
 });
 
-// ── Cross-tab sync ──
-// El evento 'storage' se dispara en OTRAS pestañas/ventanas cuando
-// esta clave de localStorage cambia. La pestaña que hizo el cambio
-// NO recibe el evento, así que el flujo local sigue intacto.
+// Cross-tab sync
 window.addEventListener('storage', (e) => {
-  if (e.key !== CART_KEY) return;
-  refreshCartUI();
+  if (e.key === CART_KEY || e.key === CART_ID_KEY) refreshCartUI();
 });
