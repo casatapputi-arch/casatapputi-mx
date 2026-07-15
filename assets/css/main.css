@@ -282,6 +282,36 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
   background: var(--oscuro-2);
   border-top: 2px solid var(--miel);
   text-align: center;
+  position: relative;
+}
+.marquee-add {
+  display: none;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--miel);
+  background: var(--miel);
+  color: #fff;
+  font-size: .85rem;
+  font-weight: 700;
+  font-family: var(--sans);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  transition: transform .2s, box-shadow .2s;
+}
+.marquee-card:hover .marquee-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.marquee-add:hover {
+  transform: translateY(-50%) scale(1.2);
+  box-shadow: 0 2px 8px rgba(179,133,58,.35);
 }
 @keyframes marquee-scroll {
   0%   { transform: translateX(0); }

@@ -100,15 +100,15 @@
         <p class="eyebrow" style="margin-bottom:.6rem;margin-top:1.2rem">Elige tu presentación</p>
         <div class="prod-variant-radios">
           <label class="prod-variant-radio">
-            <input type="radio" name="presSelect" value="4 ml" data-price="400" checked onchange="updateProductPrice()">
+            <input type="radio" name="presSelect" value="4 ml" data-price="400" data-variant-id="variant_01KXKRE3YHFAZRCJCP1CJBGHF9" checked onchange="updateProductPrice()">
             <span class="prod-variant-content"><strong>4 ml</strong><span class="prod-variant-price">$400 MXN</span></span>
           </label>
           <label class="prod-variant-radio">
-            <input type="radio" name="presSelect" value="8 ml" data-price="800" onchange="updateProductPrice()">
+            <input type="radio" name="presSelect" value="8 ml" data-price="800" data-variant-id="variant_01KXKRE3YHV4H918AW23R5R20M" onchange="updateProductPrice()">
             <span class="prod-variant-content"><strong>8 ml</strong><span class="prod-variant-price">$800 MXN</span></span>
           </label>
           <label class="prod-variant-radio">
-            <input type="radio" name="presSelect" value="15 ml" data-price="1500" onchange="updateProductPrice()">
+            <input type="radio" name="presSelect" value="15 ml" data-price="1500" data-variant-id="variant_01KXKRE3YJEGDM1XGSJ14ZZBCT" onchange="updateProductPrice()">
             <span class="prod-variant-content"><strong>15 ml</strong><span class="prod-variant-price">$1,500 MXN</span></span>
           </label>
         </div>
@@ -245,7 +245,7 @@
 </footer>
 
 <script src="../../assets/js/main.js"></script>
-<script src="../../assets/js/cart.js"></script>
+<script src="../../assets/js/catalog.js"><script src="../../assets/js/cart.js"></script>
 <script>
 function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
 function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
@@ -268,6 +268,7 @@ function addCurrentProduct(){
   const sizeSlug=size.replace(/\s+/g,'').toLowerCase();
   addToCart({
     id:'esencias-naturales_'+aromaSlug+'_'+sizeSlug,
+    variantId:presEl.dataset.variantId,
     name:'Esencia Natural '+aroma+' '+size,
     price:price,
     priceLabel:'$'+price.toLocaleString('es-MX')+' MXN',

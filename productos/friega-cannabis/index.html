@@ -164,12 +164,12 @@
 </footer>
 
 <script src="../../assets/js/main.js"></script>
-<script src="../../assets/js/cart.js"></script>
+<script src="../../assets/js/catalog.js"><script src="../../assets/js/cart.js"></script>
 <script>
 function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
 function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
 function addCurrentProduct(){
-  addToCart({id:'friega-cannabis',name:'Friega Cannabis',price:90,priceLabel:'desde $90 MXN',image:'../../assets/images/friega-cannabis.jpg',quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)});
+  addToCart({id:'friega-cannabis',variantId:'variant_01KXKRE4E15AY110FFYE09DYW4',name:'Friega Cannabis',price:90,priceLabel:'desde $90 MXN',image:'../../assets/images/friega-cannabis.jpg',quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)});
 }
 </script>
 

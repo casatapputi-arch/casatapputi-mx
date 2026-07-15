@@ -79,15 +79,15 @@
         <p class="eyebrow" style="margin-bottom:.6rem">Elige tu presentación</p>
         <div class="prod-variant-radios">
           <label class="prod-variant-radio">
-            <input type="radio" name="presSelect" value="4 ml" data-price="400" checked onchange="updateProductPrice()">
+            <input type="radio" name="presSelect" value="4 ml" data-price="400" data-variant-id="variant_01KXKRE3SV6FA8G7ACK4KQS4ZJ" checked onchange="updateProductPrice()">
             <span class="prod-variant-content"><strong>4 ml</strong><span class="prod-variant-price">$400 MXN</span></span>
           </label>
           <label class="prod-variant-radio">
-            <input type="radio" name="presSelect" value="8 ml" data-price="800" onchange="updateProductPrice()">
+            <input type="radio" name="presSelect" value="8 ml" data-price="800" data-variant-id="variant_01KXKRE3SWH1NJXA2Z1K8RR4ZD" onchange="updateProductPrice()">
             <span class="prod-variant-content"><strong>8 ml</strong><span class="prod-variant-price">$800 MXN</span></span>
           </label>
           <label class="prod-variant-radio">
-            <input type="radio" name="presSelect" value="15 ml" data-price="1500" onchange="updateProductPrice()">
+            <input type="radio" name="presSelect" value="15 ml" data-price="1500" data-variant-id="variant_01KXKRE3SWGNW7T8SGJ54RBBVW" onchange="updateProductPrice()">
             <span class="prod-variant-content"><strong>15 ml</strong><span class="prod-variant-price">$1,500 MXN</span></span>
           </label>
         </div>
@@ -224,7 +224,7 @@
 </footer>
 
 <script src="../../assets/js/main.js"></script>
-<script src="../../assets/js/cart.js"></script>
+<script src="../../assets/js/catalog.js"><script src="../../assets/js/cart.js"></script>
 <script>
 function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
 function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
@@ -238,9 +238,10 @@ function addCurrentProduct(){
   const presEl=document.querySelector('input[name="presSelect"]:checked');
   const size=presEl.value;
   const price=parseInt(presEl.dataset.price);
-  const slug=size.replace(/\s+/g,'').toLowerCase();
+  const variantId=presEl.dataset.variantId;
   addToCart({
-    id:'esencia-miel_'+slug,
+    id:'esencia-miel',
+    variantId:variantId,
     name:'Esencia de Miel '+size,
     price:price,
     priceLabel:'$'+price.toLocaleString('es-MX')+' MXN',

@@ -163,12 +163,12 @@
 </footer>
 
 <script src="../../assets/js/main.js"></script>
-<script src="../../assets/js/cart.js"></script>
+<script src="../../assets/js/catalog.js"><script src="../../assets/js/cart.js"></script>
 <script>
 function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
 function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
 function addCurrentProduct(){
-  addToCart({id:'miel-melipona',name:'Miel Melipona',price:350,priceLabel:'$350 MXN',image:'../../assets/images/miel-melipona.jpg',quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)});
+  addToCart({id:'miel-melipona',variantId:'variant_01KXKRE4BERPWTVC4F4GJJVNBZ',name:'Miel Melipona',price:350,priceLabel:'$350 MXN',image:'../../assets/images/miel-melipona.jpg',quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)});
 }
 </script>
 

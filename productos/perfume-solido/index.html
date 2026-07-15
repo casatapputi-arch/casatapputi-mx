@@ -214,13 +214,11 @@
 </footer>
 
 <script src="../../assets/js/main.js"></script>
-<script src="../../assets/js/cart.js"></script>
+<script src="../../assets/js/catalog.js"><script src="../../assets/js/cart.js"></script>
 <script>
 function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
 function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
-function addCurrentProduct(){
-  addToCart({
-    id:'perfume-solido',
+function addCurrentProduct(){addToCart({id:'perfume-solido',variantId:'variant_01KXKRE415QS7VEBB249453AD2',
     name:'Perfume Sólido Herbal',
     price:80,
     priceLabel:'desde $80 MXN',

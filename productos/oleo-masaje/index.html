@@ -168,12 +168,12 @@
 </footer>
 
 <script src="../../assets/js/main.js"></script>
-<script src="../../assets/js/cart.js"></script>
+<script src="../../assets/js/catalog.js"><script src="../../assets/js/cart.js"></script>
 <script>
 function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
 function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
 function addCurrentProduct(){
-  addToCart({id:'oleo-masaje',name:'Óleo para Masaje',price:150,priceLabel:'desde $150 MXN',image:'../../assets/images/oleo-masaje.jpg',quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)});
+  addToCart({id:'oleo-masaje',variantId:'variant_01KXKRE473NKFHFQF27W65FXXT',name:'Óleo para Masaje',price:150,priceLabel:'desde $150 MXN',image:'../../assets/images/oleo-masaje.jpg',quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)});
 }
 </script>
 

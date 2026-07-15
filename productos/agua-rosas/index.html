@@ -157,12 +157,12 @@
 </footer>
 
 <script src="../../assets/js/main.js"></script>
-<script src="../../assets/js/cart.js"></script>
+<script src="../../assets/js/catalog.js"><script src="../../assets/js/cart.js"></script>
 <script>
 function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
 function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
 function addCurrentProduct(){
-  addToCart({id:'agua-rosas',name:'Agua de Rosas',price:150,priceLabel:'$150 MXN',image:'../../assets/images/agua-rosas.jpg',quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)});
+  addToCart({id:'agua-rosas',variantId:'variant_01KXKRE4PR4AKS1G2XQZ963KRR',name:'Agua de Rosas',price:150,priceLabel:'$150 MXN',image:'../../assets/images/agua-rosas.jpg',quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)});
 }
 </script>
 
