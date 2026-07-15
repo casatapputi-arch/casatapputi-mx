@@ -261,12 +261,11 @@ async function renderCartPage() {
   const container = document.getElementById('cartContainer');
   if (!container) return;
 
-  // Intentar obtener datos de Medusa, fallback a localStorage
+  // Intentar obtener datos de Medusa, merge con localStorage
   let items = [];
   try {
     const cart = await fetchMedusaCart();
     if (cart && cart.items && cart.items.length) {
-      // Mapear line items de Medusa a nuestro formato
       items = cart.items.map(li => ({
         id: li.variant?.product?.handle || li.variant_id,
         variantId: li.variant_id,
@@ -277,9 +276,15 @@ async function renderCartPage() {
         quantity: li.quantity,
         lineItemId: li.id
       }));
-      // Actualizar localStorage desde Medusa
+      // Merge: preservar items de localStorage que Medusa no conoce
+      // (ej. agregados desde páginas de detalle sin variantId)
+      const local = getLocalCart();
+      const medusaIds = new Set(items.map(i => i.id));
+      for (const li of local) {
+        if (!medusaIds.has(li.id)) items.push(li);
+      }
       saveLocalCart(items.map(i => ({
-        id: i.id, variantId: i.variantId, name: i.name,
+        id: i.id, variantId: i.variantId || '', name: i.name,
         price: i.price, priceLabel: i.priceLabel, image: i.image,
         quantity: i.quantity
       })));
