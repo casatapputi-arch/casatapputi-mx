@@ -24,31 +24,49 @@ async function iniciarPagoMercadoPago() {
     // 1. Obtener/crear cart ID
     const cartId = await getOrCreateCartId();
 
-    // 2. Inicializar sesión de pago con MercadoPago
-    const data = await medusaFetch(
-      `/store/carts/${cartId}/payment-sessions`,
+    // 2. Obtener o crear Payment Collection (Medusa v2)
+    // medusaCart ya fue poblado por getOrCreateCartId()
+    let paymentCollectionId = medusaCart?.payment_collection?.id;
+
+    if (!paymentCollectionId) {
+      const collectionData = await medusaFetch('/store/payment-collections', {
+        method: 'POST',
+        body: JSON.stringify({ cart_id: cartId }),
+      });
+      paymentCollectionId = collectionData?.payment_collection?.id;
+      if (!paymentCollectionId) {
+        throw new Error(
+          'No se pudo crear la sesión de pago. Intenta de nuevo.'
+        );
+      }
+    }
+
+    // 3. Inicializar sesión de pago con MercadoPago
+    const sessionData = await medusaFetch(
+      `/store/payment-collections/${paymentCollectionId}/payment-sessions`,
       {
         method: 'POST',
-        body: JSON.stringify({ provider_id: 'mercadopago' }),
+        body: JSON.stringify({ provider_id: 'pp_mercadopago_mercadopago' }),
       }
     );
 
-    // 3. Extraer URL de checkout de MercadoPago
-    const sessions = data?.cart?.payment_sessions || [];
+    // 4. Extraer URL de checkout de MercadoPago
+    const sessions =
+      sessionData?.payment_collection?.payment_sessions || [];
     const mpSession = sessions.find(
-      s => s.provider_id === 'mercadopago'
+      s => s.provider_id === 'pp_mercadopago_mercadopago'
     );
 
     if (!mpSession || !mpSession.data?.init_point) {
       throw new Error(
-        'MercadoPago no está configurado en el servidor. El provider "mercadopago" no respondió con una URL de pago.'
+        'MercadoPago no está configurado en el servidor. El provider "pp_mercadopago_mercadopago" no respondió con una URL de pago.'
       );
     }
 
-    // 4. Guardar cart ID para la página de retorno
+    // 5. Guardar cart ID para la página de retorno
     sessionStorage.setItem('casatapputi_mp_cart_id', cartId);
 
-    // 5. Redirigir a MercadoPago
+    // 6. Redirigir a MercadoPago
     window.location.href = mpSession.data.init_point;
   } catch (err) {
     console.error('Error al iniciar pago con MercadoPago:', err);
