@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /tienda/carrito.html
+Disallow: /tienda/gracias.html
+
+Sitemap: https://casatapputi-medusa.duckdns.org/sitemap.xml
