@@ -7,7 +7,7 @@ from pathlib import Path
 
 BASE_DIR = Path("/home/enrique/casatapputi-mx")
 BASE_URL = "https://fundacionebac.com.mx/casatapputi-mx"
-PLAUSIBLE_SCRIPT = '<script defer data-domain="fundacionebac.com.mx/casatapputi-mx" src="https://plausible.io/js/script.js"></script>'
+PLAUSIBLE_SCRIPT = '<!-- Privacy-friendly analytics by Plausible -->\n<script async src="https://plausible.io/js/pa-KVB5ye4NhSFIsTbFNkW0V.js"></script>\n<script>\n  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};\n  plausible.init()\n</script>'
 OG_IMAGE = f"{BASE_URL}/assets/images/casa-tapputi-logo.png"
 
 # Product name mapping (slug → display name + description snippet)
