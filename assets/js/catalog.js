@@ -232,6 +232,18 @@ async function renderMarquee(containerSelector) {
   // Segunda vuelta: sin botones para loop seamless
   inner.innerHTML = enriched.map(p => cardHTML(p, true)).join('')
     + enriched.map(p => cardHTML(p, false)).join('');
+
+  // LQIP Blur-Up: main.js ya corrió su querySelectorAll('.marquee-card img')
+  // en DOMContentLoaded, antes de que este fetch async insertara estas imágenes.
+  // Sin esto, .loaded nunca se agrega y el blur(12px) de main.css se queda para siempre.
+  inner.querySelectorAll('.marquee-card img').forEach(img => {
+    if (img.complete) {
+      img.classList.add('loaded');
+    } else {
+      img.addEventListener('load', () => img.classList.add('loaded'));
+      img.addEventListener('error', () => img.classList.add('loaded'));
+    }
+  });
 }
 
 // ── Detectar y renderizar automáticamente ─────────────────
