@@ -3,4 +3,4 @@ Allow: /
 Disallow: /tienda/carrito.html
 Disallow: /tienda/gracias.html
 
-Sitemap: https://casatapputi-medusa.duckdns.org/sitemap.xml
+Sitemap: https://fundacionebac.com.mx/casatapputi-mx/sitemap.xml
