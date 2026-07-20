@@ -141,9 +141,9 @@ function renderShopCard(p, assets) {
   const hasVariants = p.variants && p.variants.length > 1;
   const variantId = p.defaultVariantId;
   // Preferir thumbnail de Medusa (URL absoluta); fallback a imagen local con ruta corregida
-  const img = p.thumbnail || (p.localImg ? assets + p.localImg.replace(/^assets\//, 'images/') : (assets + 'images/casa-tapputi-logo.png'));
+  const img = p.thumbnail || (p.localImg ? assets + p.localImg.replace(/^assets\//, '') : (assets + 'images/casa-tapputi-logo.png'));
   // Para data-product-image, usar la local (el carrito la necesita como fallback display)
-  const dataImg = p.localImg ? assets + p.localImg.replace(/^assets\//, 'images/') : img;
+  const dataImg = p.localImg ? assets + p.localImg.replace(/^assets\//, '') : img;
 
   let actionHtml;
   if (hasVariants) {
@@ -216,8 +216,8 @@ async function renderMarquee(containerSelector) {
 
   function cardHTML(p, withButton) {
     // Preferir thumbnail de Medusa (URL absoluta); fallback a imagen local
-    const img = p.thumbnail || (p.localImg ? assets + p.localImg.replace(/^assets\//, 'images/') : (assets + 'images/casa-tapputi-logo.png'));
-    const dataImg = p.localImg ? assets + p.localImg.replace(/^assets\//, 'images/') : img;
+    const img = p.thumbnail || (p.localImg ? assets + p.localImg.replace(/^assets\//, '') : (assets + 'images/casa-tapputi-logo.png'));
+    const dataImg = p.localImg ? assets + p.localImg.replace(/^assets\//, '') : img;
     const vid = p.defaultVariantId;
     const btnAttrs = withButton ? ` data-product-id="${p.id}" data-variant-id="${vid}" data-product-name="${p.title}" data-product-price="${p.price}" data-product-price-label="${p.priceLabel}" data-product-image="${dataImg}"` : '';
     const btn = withButton
