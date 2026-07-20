@@ -77,12 +77,15 @@ function medusaItemsToLocal(items, existingLocal) {
   return items.map(li => {
     const handle = li.variant?.product?.handle || '';
     const id = handle || li.variant_id;
-    // Preservar imagen si ya existía en localStorage
-    let image = li.variant?.product?.thumbnail || '';
-    if (!image && existingLocal) {
+    // PRIORIZAR imagen local (source of truth) sobre la de Medusa
+    // Medusa puede tener thumbnails corruptos o desactualizados
+    let image = '';
+    if (existingLocal) {
       const prev = existingLocal.find(i => i.id === id || i.variantId === li.variant_id);
       if (prev && prev.image) image = prev.image;
     }
+    // Solo usar thumbnail de Medusa si no hay imagen local
+    if (!image) image = li.variant?.product?.thumbnail || '';
     return {
       id: id,
       variantId: li.variant_id,
