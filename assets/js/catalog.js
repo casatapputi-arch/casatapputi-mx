@@ -225,7 +225,7 @@ async function renderMarquee(containerSelector) {
       : '';
     const aria = withButton ? '' : ' aria-hidden="true"';
 
-    return `<a href="${productoUrl(p.handle)}" class="marquee-card"${btnAttrs}${aria}><img src="${img}" alt="${withButton ? p.title : ''}" loading="lazy"><span>${p.title}${btn}</span></a>`;
+    return `<a href="${productoUrl(p.handle)}" class="marquee-card"${btnAttrs}${aria}><img src="${img}" alt="${p.title}" loading="lazy"><span>${p.title}${btn}</span></a>`;
   }
 
   // Primera vuelta: con data attributes y botones
