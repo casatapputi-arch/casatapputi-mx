@@ -92,9 +92,9 @@ function medusaItemsToLocal(items, existingLocal) {
       name: li.title,
       price: li.unit_price || 0,
       priceLabel: formatPrice(li.unit_price),
-      image: image,
-      quantity: li.quantity
-    };
+    image: sanitizeImagePath(image),
+    quantity: li.quantity
+  };
   });
 }
 
@@ -132,7 +132,7 @@ async function addToCart(product) {
       name: product.name,
       price: product.price || 0,
       priceLabel: product.priceLabel || '',
-      image: product.image || '',
+      image: sanitizeImagePath(product.image || ''),
       quantity: product.quantity || 1
     });
   }
@@ -231,6 +231,12 @@ function clearCart() {
   localStorage.removeItem(CART_ID_KEY);
   medusaCart = null;
   refreshCartUI();
+}
+
+// ── Sanitizar ruta de imagen (previene images/images/ por bugs upstream) ──
+function sanitizeImagePath(path) {
+  if (!path) return '';
+  return path.replace(/images\/images\//g, 'images/');
 }
 
 function formatPrice(p) {
