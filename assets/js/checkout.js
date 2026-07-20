@@ -46,7 +46,7 @@ async function iniciarPagoMercadoPago() {
       `/store/payment-collections/${paymentCollectionId}/payment-sessions`,
       {
         method: 'POST',
-        body: JSON.stringify({ provider_id: 'pp_mercadopago_mercadopago' }),
+        body: JSON.stringify({ provider_id: 'pp_mercado-pago' }),
       }
     );
 
