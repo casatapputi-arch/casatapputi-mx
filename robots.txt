@@ -3,4 +3,4 @@ Allow: /
 Disallow: /tienda/carrito.html
 Disallow: /tienda/gracias.html
 
-Sitemap: https://fundacionebac.com.mx/casatapputi-mx/sitemap.xml
+Sitemap: https://casatapputi.com.mx/sitemap.xml
