@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 
 BASE_DIR = Path("/home/enrique/casatapputi-mx")
-BASE_URL = "https://fundacionebac.com.mx/casatapputi-mx"
+BASE_URL = "https://casatapputi.com.mx"
 
 # Product data: slug → (name, description, price, priceLabel, image)
 PRODUCTS = {

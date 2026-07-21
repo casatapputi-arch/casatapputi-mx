@@ -66,9 +66,9 @@ print("  ✅ blog/index.html updated with Árnica article")
 sitemap = BASE / "sitemap.xml"
 content = sitemap.read_text(encoding="utf-8")
 
-blog_urls = """  <url><loc>https://fundacionebac.com.mx/casatapputi-mx/blog/</loc><lastmod>2026-07-18</lastmod><changefreq>weekly</changefreq></url>
-  <url><loc>https://fundacionebac.com.mx/casatapputi-mx/blog/guia-completa-calendula-propiedades-usos-preparaciones/</loc><lastmod>2026-07-18</lastmod><changefreq>monthly</changefreq></url>
-  <url><loc>https://fundacionebac.com.mx/casatapputi-mx/blog/guia-completa-arnica-planta-botica-mexicana/</loc><lastmod>2026-07-18</lastmod><changefreq>monthly</changefreq></url>
+blog_urls = """  <url><loc>https://casatapputi.com.mx/blog/</loc><lastmod>2026-07-21</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://casatapputi.com.mx/blog/guia-completa-calendula-propiedades-usos-preparaciones/</loc><lastmod>2026-07-21</lastmod><changefreq>monthly</changefreq></url>
+  <url><loc>https://casatapputi.com.mx/blog/guia-completa-arnica-planta-botica-mexicana/</loc><lastmod>2026-07-21</lastmod><changefreq>monthly</changefreq></url>
 </urlset>"""
 
 content = content.replace("</urlset>", blog_urls, 1)
