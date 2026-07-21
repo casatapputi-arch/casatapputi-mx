@@ -3,6 +3,7 @@
 
 import re
 import os
+import json
 from pathlib import Path
 
 BASE_DIR = Path("/home/enrique/casatapputi-mx")
@@ -51,6 +52,62 @@ PAGES = {
     "tienda/gracias": ("¡Gracias por tu compra! — Casa Tapputi", "Tu pedido en Casa Tapputi ha sido recibido. Gracias por elegir herbolaria mexicana artesanal."),
 }
 
+# ── Nombres legibles para breadcrumbs ──
+BREADCRUMB_NAMES = {
+    "productos": "Catálogo",
+    "experiencias": "Experiencias",
+    "servicios": "Servicios",
+    "talleres": "Talleres",
+    "nosotros": "Nosotros",
+    "tienda": "Tienda",
+    "blog": "Blog",
+    "carrito": "Carrito",
+    "gracias": "Gracias",
+}
+
+
+def generate_breadcrumb_schema(rel_dir, page_url):
+    """Generate Schema.org BreadcrumbList JSON-LD from the URL path."""
+    if rel_dir == ".":
+        # Homepage — no breadcrumb needed (or single item)
+        return ""
+
+    parts = rel_dir.rstrip("/").split("/")
+    items = []
+    accumulated_url = BASE_URL
+
+    # Home
+    items.append({
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Inicio",
+        "item": f"{BASE_URL}/"
+    })
+
+    position = 2
+    for part in parts:
+        accumulated_url += f"/{part}"
+        name = BREADCRUMB_NAMES.get(part, part.replace("-", " ").title())
+        items.append({
+            "@type": "ListItem",
+            "position": position,
+            "name": name,
+            "item": f"{accumulated_url}/"
+        })
+        position += 1
+
+    breadcrumb_json = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": items
+    }
+
+    json_str = json.dumps(breadcrumb_json, ensure_ascii=False, indent=2)
+    return f"""<!-- Schema.org BreadcrumbList -->
+<script type="application/ld+json">
+{json_str}
+</script>"""
+
 
 def generate_og_tags(title, description, url, image=OG_IMAGE):
     """Generate OG meta tags block."""
@@ -83,6 +140,7 @@ def process_html_file(filepath: Path):
     rel_path = filepath.relative_to(BASE_DIR)
     rel_dir = str(rel_path.parent)
     is_product = rel_dir.startswith("productos/")
+    prod_name = ""
     
     if is_product:
         slug = rel_dir.split("/", 1)[1]
@@ -120,6 +178,7 @@ def process_html_file(filepath: Path):
     # Generate SEO tags to insert
     og_block = generate_og_tags(page_title, page_desc, page_url)
     canonical = generate_canonical(page_url)
+    breadcrumb = generate_breadcrumb_schema(str(rel_dir), page_url)
     
     seo_block = f"""{canonical}
 {og_block}
@@ -132,6 +191,17 @@ def process_html_file(filepath: Path):
     else:
         print(f"WARNING: No </head> found in {filepath}")
         return False
+
+    # Inject BreadcrumbList before </body>
+    if breadcrumb and "</body>" in content:
+        # Remove any existing breadcrumb
+        content = re.sub(
+            r'<!-- Schema\.org BreadcrumbList -->.*?</script>',
+            '',
+            content,
+            flags=re.DOTALL
+        )
+        content = content.replace("</body>", f"\n{breadcrumb}\n</body>", 1)
 
     with open(filepath, "w", encoding="utf-8") as f:
         f.write(content)
@@ -164,19 +234,40 @@ def fix_sitemap_xml():
 
 
 def add_schema_to_homepage():
-    """Add Schema.org Organization to homepage."""
+    """Add Schema.org LocalBusiness to homepage."""
     homepage = BASE_DIR / "index.html"
     with open(homepage, "r", encoding="utf-8") as f:
         content = f.read()
 
-    schema = """<!-- Schema.org Organization -->
+    # Remove any existing Organization/LocalBusiness schema
+    content = re.sub(
+        r'<!-- Schema\.org Organization -->.*?</script>',
+        '',
+        content,
+        flags=re.DOTALL
+    )
+    content = re.sub(
+        r'<!-- Schema\.org LocalBusiness -->.*?</script>',
+        '',
+        content,
+        flags=re.DOTALL
+    )
+
+    schema = """<!-- Schema.org LocalBusiness -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "LocalBusiness",
+  "@id": "https://casatapputi.com.mx/#business",
   "name": "Casa Tapputi",
   "url": "https://casatapputi.com.mx/",
   "description": "Perfumería botánica y herbolaria mexicana. Talleres, terapias y productos artesanales en Huerto Roma Verde, CDMX.",
+  "image": "https://casatapputi.com.mx/assets/images/casa-tapputi-logo.png",
+  "telephone": "+525563707034",
+  "email": "casatapputi@gmail.com",
+  "priceRange": "$$",
+  "currenciesAccepted": "MXN",
+  "paymentAccepted": "Efectivo, Transferencia SPEI, MercadoPago",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Jalapa 234, Roma Sur",
@@ -185,7 +276,19 @@ def add_schema_to_homepage():
     "addressCountry": "MX",
     "postalCode": "06760"
   },
-  "telephone": "+525563707034",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "19.4100",
+    "longitude": "-99.1580"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "10:00",
+      "closes": "18:00"
+    }
+  ],
   "sameAs": [
     "https://www.instagram.com/casatapputi/",
     "https://www.facebook.com/casatapputi/"
@@ -193,7 +296,7 @@ def add_schema_to_homepage():
 }
 </script>"""
 
-    # Insert schema before closing body tag, after the last script
+    # Insert schema before closing body tag
     if "</body>" in content:
         content = content.replace("</body>", f"\n{schema}\n</body>", 1)
     
