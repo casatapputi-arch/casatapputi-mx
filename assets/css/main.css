@@ -637,7 +637,10 @@ body::before {
 /* ── Carrito vacío ── */
 .cart-empty {
   text-align: center;
-  padding: 64px 24px;
+  padding: 80px 24px;
+  background: var(--crema-2);
+  border-radius: 4px;
+  border: 1px dashed var(--linea);
 }
 .cart-empty-icon {
   font-size: 4rem;
@@ -725,6 +728,32 @@ body::before {
 }
 .btn-clear-cart:hover { color: #c0392b; border-color: #c0392b; }
 
+/* ── Botón "Seguir comprando" en carrito vacío ── */
+.btn-continue-shopping {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 1.5rem;
+  padding: 14px 32px;
+  background: var(--tinta);
+  color: var(--crema);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  min-height: 44px;
+  text-decoration: none;
+  transition: background .25s, transform .15s;
+  border-radius: 2px;
+}
+.btn-continue-shopping:hover {
+  background: var(--miel);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
 /* ── Responsive carrito ── */
 @media (max-width: 768px) {
   .cart-item {
@@ -738,6 +767,22 @@ body::before {
   .cart-item { position: relative; }
   .cart-summary { padding: 20px; }
   .cart-empty { padding: 40px 16px; }
+}
+
+/* ── Touch targets accesibles (mín 44x44px en móvil) ── */
+.btn-add-cart,
+.filter-btn,
+.btn-wa-message,
+.shop-cta,
+.form-submit,
+.btn,
+.cta-button {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 /* ── Botón flotante de WhatsApp ── */
@@ -1128,11 +1173,7 @@ body::before {
 
 /* CTA final producto */
 .prod-cta-band {
-  text-align: center;
-  background: var(--crema-2);
-  padding-block: clamp(48px, 7vw, 80px);
-  border-top: 1px solid var(--linea);
-  border-bottom: 1px solid var(--linea);
+  display: none; /* El botón flotante .wa-float es suficiente; la banda inferior es redundante */
 }
 .prod-cta-band h2 {
   font-family: var(--serif);

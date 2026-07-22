@@ -321,10 +321,10 @@ async function renderCartPage() {
   if (!items.length) {
     container.innerHTML = `
       <div class="cart-empty">
-        <div class="cart-empty-icon">🛒</div>
+        <div class="cart-empty-icon">🌿</div>
         <h2>Tu carrito está vacío</h2>
-        <p>Explora nuestro catálogo de productos herbales artesanales.</p>
-        <a href="../productos/" class="btn btn-dark">Ver catálogo</a>
+        <p>Explora nuestro catálogo de productos herbales artesanales.<br>Hechos a mano en Huerto Roma Verde, CDMX.</p>
+        <a href="../productos/" class="btn-continue-shopping">← Descubrir productos</a>
       </div>`;
     return;
   }
