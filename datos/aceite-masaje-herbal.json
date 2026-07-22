@@ -1,0 +1,121 @@
+{
+  "slug": "aceite-masaje-herbal",
+  "title": "Aceite de Masaje Herbal",
+  "meta_description": "Aceite para masaje con infusión de árnica, romero y lavanda. Alivia tensión muscular y nutre la piel en profundidad.",
+  "og_title": "Aceite de Masaje Herbal — Casa Tapputi",
+  "og_description": "Aceite para masaje con infusión de árnica, romero y lavanda.",
+  "og_image": "https://casatapputi.com.mx/assets/images/aceites.webp",
+  "hero_image": "aceites.webp",
+  "product_image": "aceites.webp",
+  "breadcrumb_name": "Aceite de Masaje Herbal",
+  "prod_eyebrow": "Cuidado Corporal",
+  "prod_title": "Aceite de Masaje Herbal",
+  "prod_subtitle": "Infusión botánica de árnica, romero y lavanda en aceite de jojoba",
+  "eyebrow": "Colección Corporal",
+  "h1": "Aceite de Masaje Herbal",
+  "subtitle_short": "Tres hierbas, un masaje profundo",
+  "description": [
+    "Aceite de masaje corporal elaborado con una maceración prolongada de árnica, romero y lavanda en aceite de jojoba orgánico. Una fórmula que desliza sin dejar sensación grasosa y penetra en capas profundas.",
+    "Pensado para masajes descontracturantes, relajantes o simplemente para consentir la piel después de un día largo. El romero activa la circulación, la árnica desinflama y la lavanda relaja el sistema nervioso."
+  ],
+  "variant_type": "radio",
+  "variants": [
+    {
+      "section_label": "Elige tu tamaño",
+      "label": "60 ml",
+      "price": 180,
+      "price_label": "$180 MXN",
+      "variant_id": "variant_01TESTACEITE060"
+    },
+    {
+      "section_label": "Elige tu tamaño",
+      "label": "120 ml",
+      "price": 320,
+      "price_label": "$320 MXN",
+      "variant_id": "variant_01TESTACEITE120"
+    },
+    {
+      "section_label": "Elige tu tamaño",
+      "label": "250 ml",
+      "price": 580,
+      "price_label": "$580 MXN",
+      "variant_id": "variant_01TESTACEITE250"
+    }
+  ],
+  "price_display": "$180 MXN",
+  "price_present": "60 ml — aceite de jojoba con infusión herbal",
+  "meta_note": "Aceite de jojoba orgánico. Árnica y lavanda de Milpa Alta.",
+  "howto": {
+    "eyebrow": "Tres momentos para usarlo",
+    "title": "Formas de uso",
+    "items": [
+      {"title": "Masaje descontracturante", "description": "Aplica en hombros, espalda baja y cuello con movimientos firmes y circulares. El romero y la árnica trabajan juntos para liberar nudos musculares."},
+      {"title": "Relajación nocturna", "description": "Un masaje suave en piernas, brazos y pies antes de dormir. La lavanda calma la mente mientras el aceite nutre la piel durante toda la noche."},
+      {"title": "Después del ejercicio", "description": "Aplica en músculos cansados tras entrenar. La árnica ayuda a reducir la inflamación natural post-ejercicio y acelera la recuperación."}
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Tres plantas, un aceite",
+    "title": "Beneficios principales",
+    "items": [
+      {"icon": "🌿", "title": "Árnica antiinflamatoria", "description": "Reconocida por su capacidad para reducir inflamación muscular y articular. Ideal tras esfuerzo físico o largas horas sentado."},
+      {"icon": "💆", "title": "Romero activador", "description": "Estimula la circulación sanguínea local, lo que potencia el efecto del masaje y ayuda a eliminar toxinas acumuladas en el músculo."},
+      {"icon": "😌", "title": "Lavanda calmante", "description": "Suave pero efectiva, la lavanda relaja el sistema nervioso central mientras su aroma transforma el masaje en un ritual de autocuidado."}
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu ritual",
+    "title": "También te puede interesar",
+    "products": [
+      {
+        "id": "roll-on",
+        "name": "Roll-On Anti Estrés",
+        "slug": "roll-on",
+        "desc": "Menta, Pino y Eucalipto en formato portátil.",
+        "price": 200,
+        "price_label": "$200 MXN",
+        "image": "roll-on.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "friega-cannabis",
+        "name": "Friega Cannabis",
+        "slug": "friega-cannabis",
+        "desc": "Analgésico herbal profundo para músculos.",
+        "price": 90,
+        "price_label": "desde $90 MXN",
+        "image": "friega-cannabis.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "pomada-calendula",
+        "name": "Pomada de Caléndula",
+        "slug": "pomada-calendula",
+        "desc": "Cicatrizante para heridas y quemaduras leves.",
+        "price": 100,
+        "price_label": "desde $100 MXN",
+        "image": "pomada-calendula.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "esencia-miel",
+        "name": "Esencia de Miel",
+        "slug": "esencia-miel",
+        "desc": "Destilación alámbica que favorece la calma.",
+        "price": 400,
+        "price_label": "desde $400 MXN",
+        "image": "esencias-amber.webp",
+        "link_type": "link"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos y te ayudamos a elegir el tamaño ideal para ti."
+  },
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20el%20Aceite%20de%20Masaje%20Herbal",
+  "schema_name": "Aceite de Masaje Herbal",
+  "schema_description": "Aceite para masaje con infusión de árnica, romero y lavanda en aceite de jojoba.",
+  "schema_image": "aceites.webp",
+  "schema_price": 180
+}
