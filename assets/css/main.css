@@ -821,6 +821,7 @@ body::before {
   }
   .cart-item-subtotal { display: none; }
   .cart-item-qty { grid-column: 2; }
+  .cart-item-qty button { width: 44px; height: 44px; font-size: 1.25rem; }
   .cart-item-remove { position: absolute; top: 12px; right: 12px; }
   .cart-item { position: relative; }
   .cart-summary { padding: 20px; }
