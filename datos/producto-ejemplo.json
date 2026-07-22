@@ -1,0 +1,100 @@
+{
+  "_instrucciones": "Edita este archivo con los datos de tu producto. Luego corre: python3 scripts/generate-product.py datos/tu-producto.json",
+  "slug": "mi-producto-nuevo",
+  "title": "Mi Producto Nuevo",
+  "meta_description": "Descripción corta para Google y redes sociales (máx 160 caracteres).",
+  "og_title": "Mi Producto Nuevo — Casa Tapputi",
+  "og_description": "Descripción para Facebook/Twitter cuando compartan el link.",
+  "og_image": "https://casatapputi.com.mx/assets/images/casa-tapputi-logo.webp",
+  "hero_image": "mi-producto.webp",
+  "product_image": "mi-producto.webp",
+  "breadcrumb_name": "Mi Producto Nuevo",
+  "prod_eyebrow": "Categoría del producto",
+  "prod_title": "Mi Producto Nuevo",
+  "prod_subtitle": "Frase corta debajo del título en el hero",
+  "eyebrow": "Colección X",
+  "h1": "Mi Producto Nuevo",
+  "subtitle_short": "Frase atractiva junto al precio",
+  "description": [
+    "Primer párrafo descriptivo del producto. Explica qué es y por qué es especial.",
+    "Segundo párrafo con más detalles: ingredientes, beneficios, modo de uso."
+  ],
+  "variant_type": "single",
+  "_variant_type_opciones": "single (una presentación), radio (varias con selector de precio)",
+  "variants": [
+    {
+      "section_label": "Presentación",
+      "label": "30 ml",
+      "price": 150,
+      "price_label": "$150 MXN",
+      "variant_id": "variant_01XXXXXXXXXXXXX"
+    }
+  ],
+  "price_display": "$150 MXN",
+  "price_present": "30 ml — descripción breve de la presentación",
+  "meta_note": "Elaborado artesanalmente en Huerto Roma Verde. Envíos a toda CDMX.",
+  "howto": {
+    "eyebrow": "Cómo integrarlo a tu día",
+    "title": "Tres formas de uso",
+    "items": [
+      {
+        "title": "Uso 1",
+        "description": "Descripción del primer uso."
+      },
+      {
+        "title": "Uso 2",
+        "description": "Descripción del segundo uso."
+      },
+      {
+        "title": "Uso 3",
+        "description": "Descripción del tercer uso."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Por qué lo elegimos",
+    "title": "Beneficios principales",
+    "items": [
+      {
+        "icon": "🌿",
+        "title": "Beneficio 1",
+        "description": "Descripción del beneficio."
+      },
+      {
+        "icon": "✨",
+        "title": "Beneficio 2",
+        "description": "Descripción del beneficio."
+      },
+      {
+        "icon": "💚",
+        "title": "Beneficio 3",
+        "description": "Descripción del beneficio."
+      }
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu experiencia",
+    "title": "También te puede interesar",
+    "products": [
+      {
+        "id": "producto-relacionado-1",
+        "name": "Producto Relacionado 1",
+        "slug": "producto-relacionado-1",
+        "desc": "Descripción corta para la card.",
+        "price": 100,
+        "price_label": "$100 MXN",
+        "image": "producto-relacionado-1.webp",
+        "link_type": "button"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos por WhatsApp y te asesoramos personalmente con gusto."
+  },
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20Mi%20Producto%20Nuevo",
+  "schema_name": "Mi Producto Nuevo",
+  "schema_description": "Descripción corta para Schema.org.",
+  "schema_image": "mi-producto.webp",
+  "schema_price": 150
+}

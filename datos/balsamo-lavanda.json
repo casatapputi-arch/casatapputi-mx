@@ -1,0 +1,107 @@
+{
+  "slug": "balsamo-lavanda",
+  "title": "Bálsamo de Lavanda",
+  "meta_description": "Bálsamo relajante con aceite esencial de lavanda orgánica. Para masajes, sienes y puntos de tensión.",
+  "og_title": "Bálsamo de Lavanda — Casa Tapputi",
+  "og_description": "Bálsamo relajante con aceite esencial de lavanda orgánica.",
+  "og_image": "https://casatapputi.com.mx/assets/images/casa-tapputi-logo.webp",
+  "hero_image": "balsamo-lavanda.webp",
+  "product_image": "balsamo-lavanda.webp",
+  "breadcrumb_name": "Bálsamo de Lavanda",
+  "prod_eyebrow": "Cuidado Corporal",
+  "prod_title": "Bálsamo de Lavanda",
+  "prod_subtitle": "Aceite esencial de lavanda orgánica en bálsamo sólido",
+  "eyebrow": "Colección Corporal",
+  "h1": "Bálsamo de Lavanda",
+  "subtitle_short": "Un respiro de calma en tu piel",
+  "description": [
+    "Bálsamo sólido elaborado con cera de abeja, manteca de karité y aceite esencial puro de lavanda orgánica. Una fórmula que se funde al contacto con la piel liberando su aroma calmante.",
+    "Ideal para masajear sienes, cuello y hombros al final del día. Su formato compacto lo hace perfecto para llevar en el bolso y aplicar en cualquier momento de tensión."
+  ],
+  "variant_type": "single",
+  "variants": [
+    {
+      "section_label": "Presentación",
+      "label": "15 gr",
+      "price": 120,
+      "price_label": "$120 MXN",
+      "variant_id": "variant_01TESTLAVANDA001"
+    }
+  ],
+  "price_display": "$120 MXN",
+  "price_present": "15 gr — bálsamo sólido en lata metálica",
+  "meta_note": "Lavanda orgánica de Milpa Alta. Sin fragancias sintéticas.",
+  "howto": {
+    "eyebrow": "Momentos de calma",
+    "title": "Tres formas de uso",
+    "items": [
+      {"title": "En sienes", "description": "Frota una pequeña cantidad en las sienes con movimientos circulares. La lavanda ayuda a liberar la tensión acumulada."},
+      {"title": "En cuello y hombros", "description": "Aplica con un masaje suave sobre los hombros y la nuca. Ideal después de horas frente a la computadora."},
+      {"title": "Antes de dormir", "description": "Un toque en muñecas y detrás de las orejas. El aroma prepara el cuerpo para un sueño profundo y reparador."}
+    ]
+  },
+  "benefits": {
+    "eyebrow": "El poder de la lavanda",
+    "title": "Beneficios principales",
+    "items": [
+      {"icon": "😌", "title": "Relajante natural", "description": "El aceite esencial de lavanda es reconocido por su capacidad para calmar el sistema nervioso y reducir la ansiedad."},
+      {"icon": "💤", "title": "Sueño profundo", "description": "Aplicado antes de dormir, favorece la conciliación del sueño y mejora su calidad de forma natural."},
+      {"icon": "🌿", "title": "Piel nutrida", "description": "La manteca de karité y la cera de abeja hidratan profundamente mientras el aroma hace su efecto."}
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu ritual",
+    "title": "También te puede interesar",
+    "products": [
+      {
+        "id": "roll-on",
+        "name": "Roll-On Anti Estrés",
+        "slug": "roll-on",
+        "desc": "Menta, Pino y Eucalipto en formato portátil.",
+        "price": 200,
+        "price_label": "$200 MXN",
+        "image": "roll-on.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "oleo-masaje",
+        "name": "Óleo para Masaje",
+        "slug": "oleo-masaje",
+        "desc": "Fusión sensorial que nutre piel y emociones.",
+        "price": 150,
+        "price_label": "desde $150 MXN",
+        "image": "oleo-masaje.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "esencia-miel",
+        "name": "Esencia de Miel",
+        "slug": "esencia-miel",
+        "desc": "Destilación alámbica que favorece la calma.",
+        "price": 400,
+        "price_label": "desde $400 MXN",
+        "image": "esencias-amber.webp",
+        "link_type": "link"
+      },
+      {
+        "id": "perfume-solido",
+        "name": "Perfume Sólido",
+        "slug": "perfume-solido",
+        "desc": "Cera de abeja y aceites botánicos.",
+        "price": 80,
+        "price_label": "desde $80 MXN",
+        "image": "perfume-solido.webp",
+        "link_type": "button"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos y te contamos cómo integrarlo a tu rutina de descanso."
+  },
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20el%20B%C3%A1lsamo%20de%20Lavanda",
+  "schema_name": "Bálsamo de Lavanda",
+  "schema_description": "Bálsamo relajante con aceite esencial de lavanda orgánica en formato sólido.",
+  "schema_image": "balsamo-lavanda.webp",
+  "schema_price": 120
+}
