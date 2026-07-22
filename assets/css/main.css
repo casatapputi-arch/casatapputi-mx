@@ -439,7 +439,7 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
 @media (max-width: 480px) {
   section { padding-block: clamp(40px, 11vw, 64px); }
   .section-title { font-size: clamp(1.55rem, 6vw, 2rem); margin-bottom: 1.2rem; }
-  .container { padding-inline: 18px; }
+  
   .hero h1 { font-size: clamp(1.9rem, 8vw, 2.6rem); }
   .hero .hero-lead { font-size: clamp(.88rem, 3.5vw, 1rem); }
   .hero .container { padding-block: 48px; }
@@ -466,6 +466,8 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
   .nav-logo img { height: 44px; }
   .nav-logo .wordmark { font-size: 1.25rem; }
   .topbar { font-size: .65rem; letter-spacing: .16em; padding: 7px 12px; }
+  .filter-bar { gap: 6px; }
+  .filter-btn { font-size: .68rem; letter-spacing: .08em; padding: 7px 14px; }
 }
 
 /* ============================================================
