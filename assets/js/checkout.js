@@ -57,7 +57,7 @@ async function iniciarPagoMercadoPago() {
       s => s.provider_id === 'pp_mercadopago_mercadopago'
     );
 
-    const checkoutUrl = mpSession.data?.sandbox_init_point || mpSession.data?.init_point;
+    const checkoutUrl = mpSession.data?.init_point || mpSession.data?.sandbox_init_point;
     if (!mpSession || !checkoutUrl) {
       throw new Error(
         'MercadoPago no está configurado en el servidor. El provider "pp_mercadopago_mercadopago" no respondió con una URL de pago.'
