@@ -1052,7 +1052,8 @@ body::before {
   color: #e8c97a;
   font-weight: 500;
   line-height: 1;
-} {
+}
+.prod-price-present {
   font-family: var(--sans);
   font-size: .85rem;
   color: rgba(239,230,214,.7);
