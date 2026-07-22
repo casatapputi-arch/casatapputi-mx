@@ -57,7 +57,8 @@ async function iniciarPagoMercadoPago() {
       s => s.provider_id === 'pp_mercadopago_mercadopago'
     );
 
-    if (!mpSession || !mpSession.data?.init_point) {
+    const checkoutUrl = mpSession.data?.sandbox_init_point || mpSession.data?.init_point;
+    if (!mpSession || !checkoutUrl) {
       throw new Error(
         'MercadoPago no está configurado en el servidor. El provider "pp_mercadopago_mercadopago" no respondió con una URL de pago.'
       );
@@ -66,8 +67,8 @@ async function iniciarPagoMercadoPago() {
     // 5. Guardar cart ID para la página de retorno
     sessionStorage.setItem('casatapputi_mp_cart_id', cartId);
 
-    // 6. Redirigir a MercadoPago
-    window.location.href = mpSession.data.init_point;
+    // 6. Redirigir a MercadoPago (preferir sandbox si estamos en modo TEST)
+    window.location.href = checkoutUrl;
   } catch (err) {
     console.error('Error al iniciar pago con MercadoPago:', err);
     restaurarBotonMP(btn);
