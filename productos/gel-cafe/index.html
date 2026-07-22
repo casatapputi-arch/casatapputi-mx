@@ -63,7 +63,7 @@
   <a href="../../nosotros/" onclick="toggleMenu()">Nosotros</a>
 </div>
 
-<header class="prod-hero" style="background-image:url('../../assets/images/mascarilla-cafe.jpg')">
+<header class="prod-hero" style="background-image:url('../../assets/images/mascarilla-cafe.webp')">
   <div class="container">
     <nav class="prod-breadcrumb" aria-label="Breadcrumb"><a href="../../">Inicio</a> <span class="breadcrumb-sep">›</span> <a href="../../productos/">Productos</a> <span class="breadcrumb-sep">›</span> <span aria-current="page">Mascarilla de Café</span></nav>
     <main id="main-content">
@@ -76,7 +76,7 @@
 <section class="prod-section">
   <div class="container">
     <div class="prod-layout">
-      <div class="prod-img-wrap"><img src="../../assets/images/mascarilla-cafe.jpg" alt="Mascarilla de Café" loading="lazy" /></div>
+      <div class="prod-img-wrap"><img src="../../assets/images/mascarilla-cafe.webp" alt="Mascarilla de Café" loading="lazy" /></div>
       <div class="prod-info">
         <p class="eyebrow">Colección Facial</p>
         <h1>Mascarilla de Café</h1>
@@ -149,8 +149,8 @@
         <div class="shop-body"><h3><a href="../salsa-matcha/">Salsas Matcha</a></h3><p class="shop-desc">Chiles secos y semillas de temporada.</p><span class="shop-price">$200 MXN / pz</span>
         <button class="btn btn-add-cart shop-cta" data-product-id="salsa-matcha" onclick="addToCart(getProductData(this))">🛒 Agregar</button></div>
       </article>
-      <article class="shop-card" data-product-id="tisanas" data-product-name="Tisanas Herbales" data-product-price="1300" data-product-price-label="$1,300 MXN / kg" data-product-image="../../assets/images/t13-01264.jpg">
-        <a href="../tisanas/"><img src="../../assets/images/t13-01264.jpg" alt="Tisanas Herbales" loading="lazy"></a>
+      <article class="shop-card" data-product-id="tisanas" data-product-name="Tisanas Herbales" data-product-price="1300" data-product-price-label="$1,300 MXN / kg" data-product-image="../../assets/images/t13-01264.webp">
+        <a href="../tisanas/"><img src="../../assets/images/t13-01264.webp" alt="Tisanas Herbales" loading="lazy"></a>
         <div class="shop-body"><h3><a href="../tisanas/">Tisanas Herbales</a></h3><p class="shop-desc">Para acompañar el ritual con una infusión.</p><span class="shop-price">$1,300 MXN / kg</span>
         <button class="btn btn-add-cart shop-cta" data-product-id="tisanas" onclick="addToCart(getProductData(this))">🛒 Agregar</button></div>
       </article>
@@ -187,7 +187,7 @@
 function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
 function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
 function addCurrentProduct(){
-  addToCart({id:'mascarilla-cafe',variantId:'variant_01KXKRE4WAFYVHCPZP65K62X5C',name:'Mascarilla de Café',price:150,priceLabel:'$150 MXN',image:'../../assets/images/mascarilla-cafe.jpg',quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)});
+  addToCart({id:'mascarilla-cafe',variantId:'variant_01KXKRE4WAFYVHCPZP65K62X5C',name:'Mascarilla de Café',price:150,priceLabel:'$150 MXN',image:'../../assets/images/mascarilla-cafe.webp',quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)});
 }
 </script>
 
