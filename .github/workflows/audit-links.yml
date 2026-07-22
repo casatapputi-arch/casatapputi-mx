@@ -18,8 +18,5 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Pillow
-        run: pip install Pillow
-
       - name: Run link audit
         run: python3 scripts/audit-links.py

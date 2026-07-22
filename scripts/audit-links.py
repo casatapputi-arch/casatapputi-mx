@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Audita enlaces, breadcrumbs y navegación del sitio Casa Tapputi."""
 
-import re, os
+import re, os, sys
 from pathlib import Path
 from collections import Counter
 
@@ -65,6 +65,7 @@ def check_navigation(html_path: Path):
 
 def main():
     html_files = find_all_html()
+    found_issues = False
     print(f"📊 Auditando {len(html_files)} páginas HTML...\n")
     
     # ─── 1. ENLACES ROTOS ───
@@ -89,6 +90,7 @@ def main():
         for link, count in link_counts.most_common():
             pages = [p for p, l in broken if l == link]
             print(f"   ❌ {link}  (desde {len(pages)} páginas: {', '.join(pages[:3])}{'...' if len(pages)>3 else ''})")
+        found_issues = True
     else:
         print("   ✅ 0 enlaces rotos encontrados")
     
@@ -177,8 +179,13 @@ def main():
                 print(f"      {p}")
     
     print(f"\n{'='*60}")
-    print("✅ Auditoría completada")
+    if found_issues:
+        print("❌ Auditoría encontró problemas. Corrígelos antes de deployar.")
+    else:
+        print("✅ Auditoría completada — todo limpio.")
     print(f"{'='*60}")
+    
+    sys.exit(1 if found_issues else 0)
 
 if __name__ == "__main__":
     main()
