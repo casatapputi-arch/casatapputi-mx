@@ -141,7 +141,7 @@ function renderShopCard(p, assets) {
   const hasVariants = p.variants && p.variants.length > 1;
   const variantId = p.defaultVariantId;
   // Preferir thumbnail de Medusa (URL absoluta); fallback a imagen local con ruta corregida
-  const img = p.thumbnail || (p.localImg ? assets + p.localImg.replace(/^assets\//, '') : (assets + 'images/casa-tapputi-logo.png'));
+  const img = p.thumbnail || (p.localImg ? assets + p.localImg.replace(/^assets\//, '') : (assets + 'images/casa-tapputi-logo.webp'));
   // Para data-product-image, usar la local (el carrito la necesita como fallback display)
   const dataImg = p.localImg ? assets + p.localImg.replace(/^assets\//, '') : img;
 
@@ -164,7 +164,7 @@ function renderShopCard(p, assets) {
       data-product-price-label="${p.priceLabel}"
       data-product-image="${dataImg}">
       <img src="${img}" alt="${p.title}" loading="lazy"
-           onerror="this.src='${assets}images/casa-tapputi-logo.png'">
+           onerror="this.src='${assets}images/casa-tapputi-logo.webp'">
       <div class="shop-body">
         <h3><a href="${productoUrl(p.handle)}">${p.title}</a></h3>
         <p class="shop-desc">${p.description || ''}</p>
@@ -216,7 +216,7 @@ async function renderMarquee(containerSelector) {
 
   function cardHTML(p, withButton) {
     // Preferir thumbnail de Medusa (URL absoluta); fallback a imagen local
-    const img = p.thumbnail || (p.localImg ? assets + p.localImg.replace(/^assets\//, '') : (assets + 'images/casa-tapputi-logo.png'));
+    const img = p.thumbnail || (p.localImg ? assets + p.localImg.replace(/^assets\//, '') : (assets + 'images/casa-tapputi-logo.webp'));
     const dataImg = p.localImg ? assets + p.localImg.replace(/^assets\//, '') : img;
     const vid = p.defaultVariantId;
     const btnAttrs = withButton ? ` data-product-id="${p.id}" data-variant-id="${vid}" data-product-name="${p.title}" data-product-price="${p.price}" data-product-price-label="${p.priceLabel}" data-product-image="${dataImg}"` : '';

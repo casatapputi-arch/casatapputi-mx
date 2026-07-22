@@ -337,7 +337,7 @@ async function renderCartPage() {
       <div class="cart-item">
         <div class="cart-item-img">
           <img src="${item.image}" alt="${item.name}" loading="lazy"
-               onerror="this.src='../assets/images/casa-tapputi-logo.png'">
+               onerror="this.src='../assets/images/casa-tapputi-logo.webp'">
         </div>
         <div class="cart-item-info">
           <h3>${item.name}</h3>
