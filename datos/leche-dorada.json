@@ -32,34 +32,95 @@
     "eyebrow": "Una pausa caliente",
     "title": "Tres formas de prepararla",
     "items": [
-      {"title": "Con leche entera", "description": "Calienta una taza de leche y disuelve una cucharadita de la mezcla. La grasa de la leche ayuda a absorber mejor la cúrcuma."},
-      {"title": "Con leche vegetal", "description": "Funciona perfecto con leche de almendras, avena o coco. Una opción deliciosa para quienes no consumen lácteos."},
-      {"title": "Endulza a tu gusto", "description": "Añade miel Melipona, agave o azúcar mascabado. El ritual se vuelve ceremonia. Una pizca de canela encima y listo."}
+      {
+        "title": "Con leche entera",
+        "description": "Calienta una taza de leche y disuelve una cucharadita de la mezcla. La grasa de la leche ayuda a absorber mejor la cúrcuma."
+      },
+      {
+        "title": "Con leche vegetal",
+        "description": "Funciona perfecto con leche de almendras, avena o coco. Una opción deliciosa para quienes no consumen lácteos."
+      },
+      {
+        "title": "Endulza a tu gusto",
+        "description": "Añade miel Melipona, agave o azúcar mascabado. El ritual se vuelve ceremonia. Una pizca de canela encima y listo."
+      }
     ]
   },
   "benefits": {
     "eyebrow": "Una raíz con historia",
     "title": "Beneficios principales",
     "items": [
-      {"icon": "🔥", "title": "Antiinflamatoria potente", "description": "La cúrcuma con pimienta negra es una de las combinaciones antiinflamatorias naturales más estudiadas y efectivas."},
-      {"icon": "☕", "title": "Reconfortante natural", "description": "El calor de la bebida, el aroma envolvente y la sensación de cuidado. Una pausa que verdaderamente sostiene al final del día."},
-      {"icon": "🌽", "title": "Tradición milenaria", "description": "Recetas mexicas y ayurvédicas comparten el uso de cúrcuma y especias. Una bebida con miles de años de historia."}
+      {
+        "icon": "🔥",
+        "title": "Antiinflamatoria potente",
+        "description": "La cúrcuma con pimienta negra es una de las combinaciones antiinflamatorias naturales más estudiadas y efectivas."
+      },
+      {
+        "icon": "☕",
+        "title": "Reconfortante natural",
+        "description": "El calor de la bebida, el aroma envolvente y la sensación de cuidado. Una pausa que verdaderamente sostiene al final del día."
+      },
+      {
+        "icon": "🌽",
+        "title": "Tradición milenaria",
+        "description": "Recetas mexicas y ayurvédicas comparten el uso de cúrcuma y especias. Una bebida con miles de años de historia."
+      }
     ]
   },
   "related": {
     "eyebrow": "Acompaña tu ritual",
     "title": "También te puede interesar",
     "products": [
-      {"id": "tisanas", "name": "Tisanas Herbales", "slug": "tisanas", "desc": "Mezclas del jardín medicinal de HRV.", "price": 1300, "price_label": "$1,300 MXN / kg", "image": "t13-01264.webp", "link_type": "button"},
-      {"id": "miel-melipona", "name": "Miel Melipona", "slug": "miel-melipona", "desc": "Dulzura perfecta para tu leche dorada.", "price": 350, "price_label": "$350 MXN", "image": "miel-melipona.webp", "link_type": "button"},
-      {"id": "salsa-matcha", "name": "Salsas Matcha", "slug": "salsa-matcha", "desc": "Sabor intenso con chiles secos.", "price": 200, "price_label": "$200 MXN / pz", "image": "salsa-matcha.webp", "link_type": "button"},
-      {"id": "chilcuague", "name": "Chilcuague", "slug": "chilcuague", "desc": "Salud bucal con raíz medicinal.", "price": 100, "price_label": "$100 MXN", "image": "chilcuague.webp", "link_type": "button"}
+      {
+        "id": "tisanas",
+        "name": "Tisanas Herbales",
+        "slug": "tisanas",
+        "desc": "Mezclas del jardín medicinal de HRV.",
+        "price": 1300,
+        "price_label": "$1,300 MXN / kg",
+        "image": "t13-01264.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "miel-melipona",
+        "name": "Miel Melipona",
+        "slug": "miel-melipona",
+        "desc": "Dulzura perfecta para tu leche dorada.",
+        "price": 350,
+        "price_label": "$350 MXN",
+        "image": "miel-melipona.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "salsa-matcha",
+        "name": "Salsas Matcha",
+        "slug": "salsa-matcha",
+        "desc": "Sabor intenso con chiles secos.",
+        "price": 200,
+        "price_label": "$200 MXN / pz",
+        "image": "salsa-matcha.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "chilcuague",
+        "name": "Chilcuague",
+        "slug": "chilcuague",
+        "desc": "Salud bucal con raíz medicinal.",
+        "price": 100,
+        "price_label": "$100 MXN",
+        "image": "chilcuague.webp",
+        "link_type": "button"
+      }
     ]
   },
-  "cta": {"title": "¿Tienes dudas sobre este producto?", "subtitle": "Escríbenos para conocer presentaciones y disponibilidad."},
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos para conocer presentaciones y disponibilidad."
+  },
   "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20la%20Leche%20Dorada",
   "schema_name": "Leche Dorada",
   "schema_description": "Mezcla ancestral de cúrcuma, pimienta negra y especias. Bebida antiinflamatoria tradicional.",
   "schema_image": "leche-dorada.webp",
-  "schema_price": 0
+  "schema_price": 0,
+  "og_image": "https://casatapputi.com.mx/assets/images/leche-dorada.webp"
 }

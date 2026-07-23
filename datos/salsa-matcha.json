@@ -32,34 +32,95 @@
     "eyebrow": "Cuatro sabores",
     "title": "Variedades disponibles",
     "items": [
-      {"title": "Chapulines", "description": "La más atrevida. Chapulines tostados con chile guajillo y ajo. Umami profundo para tacos, quesadillas y huevos."},
-      {"title": "Frutos Rojos", "description": "La más sorprendente. Zarzamora y frambuesa con chile de árbol. Dulce, ácida y picosita. Perfecta para carnes blancas."},
-      {"title": "Ajo", "description": "La clásica. Ajo confitado con chile cascabel. Suave pero presente. La favorita para botanear con totopos."}
+      {
+        "title": "Chapulines",
+        "description": "La más atrevida. Chapulines tostados con chile guajillo y ajo. Umami profundo para tacos, quesadillas y huevos."
+      },
+      {
+        "title": "Frutos Rojos",
+        "description": "La más sorprendente. Zarzamora y frambuesa con chile de árbol. Dulce, ácida y picosita. Perfecta para carnes blancas."
+      },
+      {
+        "title": "Ajo",
+        "description": "La clásica. Ajo confitado con chile cascabel. Suave pero presente. La favorita para botanear con totopos."
+      }
     ]
   },
   "benefits": {
     "eyebrow": "Sabor con historia",
     "title": "Beneficios principales",
     "items": [
-      {"icon": "🌶️", "title": "Chiles 100% mexicanos", "description": "Guajillo, árbol, cascabel y habanero de pequeños productores. Cada chile conserva su perfil de sabor único sin aditivos."},
-      {"icon": "🫒", "title": "Sin conservadores", "description": "Solo chiles, semillas, ajo, sal y un toque de vinagre. Nada que no reconozcas. Sabor limpio que dura semanas en tu refri."},
-      {"icon": "🎨", "title": "Cuatro experiencias", "description": "Del umami terroso del chapulín al dulzor ácido de los frutos rojos. Una salsa para cada antojo y cada ocasión."}
+      {
+        "icon": "🌶️",
+        "title": "Chiles 100% mexicanos",
+        "description": "Guajillo, árbol, cascabel y habanero de pequeños productores. Cada chile conserva su perfil de sabor único sin aditivos."
+      },
+      {
+        "icon": "🫒",
+        "title": "Sin conservadores",
+        "description": "Solo chiles, semillas, ajo, sal y un toque de vinagre. Nada que no reconozcas. Sabor limpio que dura semanas en tu refri."
+      },
+      {
+        "icon": "🎨",
+        "title": "Cuatro experiencias",
+        "description": "Del umami terroso del chapulín al dulzor ácido de los frutos rojos. Una salsa para cada antojo y cada ocasión."
+      }
     ]
   },
   "related": {
     "eyebrow": "Complementa tu mesa",
     "title": "También te puede interesar",
     "products": [
-      {"id": "leche-dorada", "name": "Leche Dorada", "slug": "leche-dorada", "desc": "Cúrcuma y especias antiinflamatorias.", "price": 0, "price_label": "Consultar precio", "image": "leche-dorada.webp", "link_type": "link"},
-      {"id": "chilcuague", "name": "Chilcuague", "slug": "chilcuague", "desc": "Salud bucal con raíz medicinal.", "price": 100, "price_label": "$100 MXN", "image": "chilcuague.webp", "link_type": "button"},
-      {"id": "tisanas", "name": "Tisanas Herbales", "slug": "tisanas", "desc": "Mezclas del jardín medicinal de HRV.", "price": 1300, "price_label": "$1,300 MXN / kg", "image": "t13-01264.webp", "link_type": "button"},
-      {"id": "miel-melipona", "name": "Miel Melipona", "slug": "miel-melipona", "desc": "Miel sagrada de abejas sin aguijón.", "price": 350, "price_label": "$350 MXN", "image": "miel-melipona.webp", "link_type": "button"}
+      {
+        "id": "leche-dorada",
+        "name": "Leche Dorada",
+        "slug": "leche-dorada",
+        "desc": "Cúrcuma y especias antiinflamatorias.",
+        "price": 0,
+        "price_label": "Consultar precio",
+        "image": "leche-dorada.webp",
+        "link_type": "link"
+      },
+      {
+        "id": "chilcuague",
+        "name": "Chilcuague",
+        "slug": "chilcuague",
+        "desc": "Salud bucal con raíz medicinal.",
+        "price": 100,
+        "price_label": "$100 MXN",
+        "image": "chilcuague.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "tisanas",
+        "name": "Tisanas Herbales",
+        "slug": "tisanas",
+        "desc": "Mezclas del jardín medicinal de HRV.",
+        "price": 1300,
+        "price_label": "$1,300 MXN / kg",
+        "image": "t13-01264.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "miel-melipona",
+        "name": "Miel Melipona",
+        "slug": "miel-melipona",
+        "desc": "Miel sagrada de abejas sin aguijón.",
+        "price": 350,
+        "price_label": "$350 MXN",
+        "image": "miel-melipona.webp",
+        "link_type": "button"
+      }
     ]
   },
-  "cta": {"title": "¿Tienes dudas sobre este producto?", "subtitle": "Escríbenos para elegir tu variedad favorita o pedir las cuatro."},
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos para elegir tu variedad favorita o pedir las cuatro."
+  },
   "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesan%20las%20Salsas%20Matcha",
   "schema_name": "Salsas Matcha",
   "schema_description": "4 variedades de salsa artesanal con chiles secos y semillas de temporada.",
   "schema_image": "salsa-matcha.webp",
-  "schema_price": 200
+  "schema_price": 200,
+  "og_image": "https://casatapputi.com.mx/assets/images/salsa-matcha.webp"
 }

@@ -32,34 +32,95 @@
     "eyebrow": "Tres aplicaciones",
     "title": "Cómo usarla",
     "items": [
-      {"title": "Aplicación ocular", "description": "Una pequeña cantidad diluida en agua estéril alivia irritaciones y refresca la vista cansada. Solo melipona tiene esta propiedad."},
-      {"title": "Aplicación cutánea", "description": "Aplica sobre heridas menores, cicatrices o zonas resecas. Su acción cicatrizante es superior a la miel convencional gracias a sus enzimas únicas."},
-      {"title": "Consumo directo", "description": "Una cucharadita diaria refuerza tu sistema inmune y te conecta con la tradición mesoamericana. Su sabor es más cítrico y menos dulce."}
+      {
+        "title": "Aplicación ocular",
+        "description": "Una pequeña cantidad diluida en agua estéril alivia irritaciones y refresca la vista cansada. Solo melipona tiene esta propiedad."
+      },
+      {
+        "title": "Aplicación cutánea",
+        "description": "Aplica sobre heridas menores, cicatrices o zonas resecas. Su acción cicatrizante es superior a la miel convencional gracias a sus enzimas únicas."
+      },
+      {
+        "title": "Consumo directo",
+        "description": "Una cucharadita diaria refuerza tu sistema inmune y te conecta con la tradición mesoamericana. Su sabor es más cítrico y menos dulce."
+      }
     ]
   },
   "benefits": {
     "eyebrow": "Por qué es especial",
     "title": "Beneficios principales",
     "items": [
-      {"icon": "🩹", "title": "Cicatrizante natural", "description": "Su composición enzimática favorece la regeneración celular. Ideal para heridas menores y quemaduras leves."},
-      {"icon": "🛡️", "title": "Refuerzo inmune", "description": "Consumida en pequeñas cantidades, fortalece las defensas del cuerpo gracias a sus propiedades antimicrobianas concentradas."},
-      {"icon": "🏺", "title": "Tesoro mesoamericano", "description": "La meliponicultura es una tradición milenaria maya. Cada frasco honra ese conocimiento y a las abejas nativas sin aguijón."}
+      {
+        "icon": "🩹",
+        "title": "Cicatrizante natural",
+        "description": "Su composición enzimática favorece la regeneración celular. Ideal para heridas menores y quemaduras leves."
+      },
+      {
+        "icon": "🛡️",
+        "title": "Refuerzo inmune",
+        "description": "Consumida en pequeñas cantidades, fortalece las defensas del cuerpo gracias a sus propiedades antimicrobianas concentradas."
+      },
+      {
+        "icon": "🏺",
+        "title": "Tesoro mesoamericano",
+        "description": "La meliponicultura es una tradición milenaria maya. Cada frasco honra ese conocimiento y a las abejas nativas sin aguijón."
+      }
     ]
   },
   "related": {
     "eyebrow": "Complementa tu ritual",
     "title": "También te puede interesar",
     "products": [
-      {"id": "tisanas", "name": "Tisanas Herbales", "slug": "tisanas", "desc": "Mezclas naturales del jardín medicinal.", "price": 1300, "price_label": "$1,300 MXN / kg", "image": "t13-01264.webp", "link_type": "button"},
-      {"id": "jabones", "name": "Jabones Herbales", "slug": "jabones", "desc": "Siete variedades con aceite de coco.", "price": 90, "price_label": "$90 MXN / pz", "image": "jabones-herbales.webp", "link_type": "button"},
-      {"id": "leche-dorada", "name": "Leche Dorada", "slug": "leche-dorada", "desc": "Cúrcuma y especias antiinflamatorias.", "price": 0, "price_label": "Consultar precio", "image": "leche-dorada.webp", "link_type": "link"},
-      {"id": "agua-rosas", "name": "Agua de Rosas", "slug": "agua-rosas", "desc": "Tónico natural de pétalos frescos.", "price": 150, "price_label": "$150 MXN", "image": "agua-rosas.webp", "link_type": "button"}
+      {
+        "id": "tisanas",
+        "name": "Tisanas Herbales",
+        "slug": "tisanas",
+        "desc": "Mezclas naturales del jardín medicinal.",
+        "price": 1300,
+        "price_label": "$1,300 MXN / kg",
+        "image": "t13-01264.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "jabones",
+        "name": "Jabones Herbales",
+        "slug": "jabones",
+        "desc": "Siete variedades con aceite de coco.",
+        "price": 90,
+        "price_label": "$90 MXN / pz",
+        "image": "jabones-herbales.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "leche-dorada",
+        "name": "Leche Dorada",
+        "slug": "leche-dorada",
+        "desc": "Cúrcuma y especias antiinflamatorias.",
+        "price": 0,
+        "price_label": "Consultar precio",
+        "image": "leche-dorada.webp",
+        "link_type": "link"
+      },
+      {
+        "id": "agua-rosas",
+        "name": "Agua de Rosas",
+        "slug": "agua-rosas",
+        "desc": "Tónico natural de pétalos frescos.",
+        "price": 150,
+        "price_label": "$150 MXN",
+        "image": "agua-rosas.webp",
+        "link_type": "button"
+      }
     ]
   },
-  "cta": {"title": "¿Tienes dudas sobre este producto?", "subtitle": "Escríbenos y te explicamos sus usos tradicionales."},
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos y te explicamos sus usos tradicionales."
+  },
   "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20la%20Miel%20Melipona",
   "schema_name": "Miel Melipona",
   "schema_description": "Miel pura de abeja melipona, la abeja sagrada maya. Propiedades medicinales superiores.",
   "schema_image": "miel-melipona.webp",
-  "schema_price": 350
+  "schema_price": 350,
+  "og_image": "https://casatapputi.com.mx/assets/images/miel-melipona.webp"
 }

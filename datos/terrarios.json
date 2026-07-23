@@ -32,34 +32,95 @@
     "eyebrow": "Tres estilos",
     "title": "Tipos de terrario",
     "items": [
-      {"title": "Candeleros", "description": "Pequeños terrarios con vela integrada. La luz atraviesa el vidrio y las plantas creando un juego de sombras hipnótico. Perfecto para mesas de centro."},
-      {"title": "Joyeros", "description": "Terrarios de escritorio con tapa de cristal. Guarda tus anillos y collares dentro de un jardín en miniatura. Funcional y decorativo."},
-      {"title": "Aparadores", "description": "Piezas grandes para vitrinas o mostradores. Ecosistemas completos con varias especies de plantas. Ideales para negocios y espacios comerciales."}
+      {
+        "title": "Candeleros",
+        "description": "Pequeños terrarios con vela integrada. La luz atraviesa el vidrio y las plantas creando un juego de sombras hipnótico. Perfecto para mesas de centro."
+      },
+      {
+        "title": "Joyeros",
+        "description": "Terrarios de escritorio con tapa de cristal. Guarda tus anillos y collares dentro de un jardín en miniatura. Funcional y decorativo."
+      },
+      {
+        "title": "Aparadores",
+        "description": "Piezas grandes para vitrinas o mostradores. Ecosistemas completos con varias especies de plantas. Ideales para negocios y espacios comerciales."
+      }
     ]
   },
   "benefits": {
     "eyebrow": "Vida en vidrio",
     "title": "Beneficios principales",
     "items": [
-      {"icon": "🪴", "title": "Ecosistema autosuficiente", "description": "Cada terrario es un ciclo cerrado. Las plantas reciclan su propia humedad y requieren mínimo mantenimiento. Ideal para espacios con poca luz."},
-      {"icon": "🎨", "title": "Pieza única", "description": "No hay dos iguales. Cada terrario se diseña según el espacio, la luz disponible y tus preferencias. Una obra viva que evoluciona con el tiempo."},
-      {"icon": "🏡", "title": "Hecho en CDMX", "description": "Vidrio soplado por artesanos locales y plantas cultivadas en Huerto Roma Verde. Cada terrario apoya a la economía creativa de la ciudad."}
+      {
+        "icon": "🪴",
+        "title": "Ecosistema autosuficiente",
+        "description": "Cada terrario es un ciclo cerrado. Las plantas reciclan su propia humedad y requieren mínimo mantenimiento. Ideal para espacios con poca luz."
+      },
+      {
+        "icon": "🎨",
+        "title": "Pieza única",
+        "description": "No hay dos iguales. Cada terrario se diseña según el espacio, la luz disponible y tus preferencias. Una obra viva que evoluciona con el tiempo."
+      },
+      {
+        "icon": "🏡",
+        "title": "Hecho en CDMX",
+        "description": "Vidrio soplado por artesanos locales y plantas cultivadas en Huerto Roma Verde. Cada terrario apoya a la economía creativa de la ciudad."
+      }
     ]
   },
   "related": {
     "eyebrow": "Complementa tu espacio",
     "title": "También te puede interesar",
     "products": [
-      {"id": "talabarteria", "name": "Talabartería", "slug": "talabarteria", "desc": "Piel reciclada en piezas únicas.", "price": 0, "price_label": "A cotizar", "image": "talabarteria.webp", "link_type": "link"},
-      {"id": "esencia-miel", "name": "Esencia de Miel", "slug": "esencia-miel", "desc": "Destilación alámbica para difusor.", "price": 400, "price_label": "desde $400 MXN", "image": "esencias-amber.webp", "link_type": "link"},
-      {"id": "lagrimas-rosas", "name": "Lágrimas de Rosas", "slug": "lagrimas-rosas", "desc": "Resina sagrada para armonizar el aire.", "price": 100, "price_label": "desde $100 MXN", "image": "lagrimas-rosas.webp", "link_type": "button"},
-      {"id": "jabones", "name": "Jabones Herbales", "slug": "jabones", "desc": "Siete variedades con aceite de coco.", "price": 90, "price_label": "$90 MXN / pz", "image": "jabones-herbales.webp", "link_type": "button"}
+      {
+        "id": "talabarteria",
+        "name": "Talabartería",
+        "slug": "talabarteria",
+        "desc": "Piel reciclada en piezas únicas.",
+        "price": 0,
+        "price_label": "A cotizar",
+        "image": "talabarteria.webp",
+        "link_type": "link"
+      },
+      {
+        "id": "esencia-miel",
+        "name": "Esencia de Miel",
+        "slug": "esencia-miel",
+        "desc": "Destilación alámbica para difusor.",
+        "price": 400,
+        "price_label": "desde $400 MXN",
+        "image": "esencias-amber.webp",
+        "link_type": "link"
+      },
+      {
+        "id": "lagrimas-rosas",
+        "name": "Lágrimas de Rosas",
+        "slug": "lagrimas-rosas",
+        "desc": "Resina sagrada para armonizar el aire.",
+        "price": 100,
+        "price_label": "desde $100 MXN",
+        "image": "lagrimas-rosas.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "jabones",
+        "name": "Jabones Herbales",
+        "slug": "jabones",
+        "desc": "Siete variedades con aceite de coco.",
+        "price": 90,
+        "price_label": "$90 MXN / pz",
+        "image": "jabones-herbales.webp",
+        "link_type": "button"
+      }
     ]
   },
-  "cta": {"title": "¿Quieres un terrario a tu medida?", "subtitle": "Escríbenos con fotos de tu espacio y te armamos una propuesta sin compromiso."},
+  "cta": {
+    "title": "¿Quieres un terrario a tu medida?",
+    "subtitle": "Escríbenos con fotos de tu espacio y te armamos una propuesta sin compromiso."
+  },
   "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20un%20terrario%20personalizado",
   "schema_name": "Terrarios",
   "schema_description": "Piezas decorativas de vidrio con plantas vivas en medidas personalizadas. Hechos a mano en CDMX.",
   "schema_image": "terrarios.webp",
-  "schema_price": 0
+  "schema_price": 0,
+  "og_image": "https://casatapputi.com.mx/assets/images/terrarios.webp"
 }

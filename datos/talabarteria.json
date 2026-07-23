@@ -32,34 +32,95 @@
     "eyebrow": "Cuatro piezas",
     "title": "Lo que hacemos",
     "items": [
-      {"title": "Cinturones", "description": "Piel completa con hebilla de metal reciclado. Disponible en varios anchos y acabados. El cinturón que te dura años, no meses."},
-      {"title": "Pulseras", "description": "Diseños minimalistas de una sola pieza de cuero. Se adaptan a la muñeca con el uso. Perfectas para el día a día."},
-      {"title": "Carteras y mochilas", "description": "Piezas funcionales con costura reforzada. Cada bolsillo y compartimento está pensado para el uso real de una persona real."}
+      {
+        "title": "Cinturones",
+        "description": "Piel completa con hebilla de metal reciclado. Disponible en varios anchos y acabados. El cinturón que te dura años, no meses."
+      },
+      {
+        "title": "Pulseras",
+        "description": "Diseños minimalistas de una sola pieza de cuero. Se adaptan a la muñeca con el uso. Perfectas para el día a día."
+      },
+      {
+        "title": "Carteras y mochilas",
+        "description": "Piezas funcionales con costura reforzada. Cada bolsillo y compartimento está pensado para el uso real de una persona real."
+      }
     ]
   },
   "benefits": {
     "eyebrow": "Cuero con conciencia",
     "title": "Beneficios principales",
     "items": [
-      {"icon": "♻️", "title": "Piel reciclada", "description": "Rescatamos recortes y piezas de curtidurías que irían al desperdicio. Cada producto es un gesto de economía circular real."},
-      {"icon": "🖐️", "title": "Hecho a mano", "description": "Sin máquinas industriales. Cada pieza es cortada, cosida y acabada por manos que conocen el oficio. Las imperfecciones son la firma del artesano."},
-      {"icon": "🇲🇽", "title": "Diseño mexicano", "description": "Formas limpias inspiradas en la talabartería tradicional mexicana. Piezas que cruzan lo rural y lo contemporáneo sin esfuerzo."}
+      {
+        "icon": "♻️",
+        "title": "Piel reciclada",
+        "description": "Rescatamos recortes y piezas de curtidurías que irían al desperdicio. Cada producto es un gesto de economía circular real."
+      },
+      {
+        "icon": "🖐️",
+        "title": "Hecho a mano",
+        "description": "Sin máquinas industriales. Cada pieza es cortada, cosida y acabada por manos que conocen el oficio. Las imperfecciones son la firma del artesano."
+      },
+      {
+        "icon": "🇲🇽",
+        "title": "Diseño mexicano",
+        "description": "Formas limpias inspiradas en la talabartería tradicional mexicana. Piezas que cruzan lo rural y lo contemporáneo sin esfuerzo."
+      }
     ]
   },
   "related": {
     "eyebrow": "Complementa tu estilo",
     "title": "También te puede interesar",
     "products": [
-      {"id": "terrarios", "name": "Terrarios", "slug": "terrarios", "desc": "Piezas de vidrio con plantas vivas.", "price": 0, "price_label": "A cotizar", "image": "terrarios.webp", "link_type": "link"},
-      {"id": "perfume-solido", "name": "Perfume Sólido", "slug": "perfume-solido", "desc": "Cera de abeja y aceites botánicos.", "price": 80, "price_label": "desde $80 MXN", "image": "perfume-solido.webp", "link_type": "button"},
-      {"id": "esencia-miel", "name": "Esencia de Miel", "slug": "esencia-miel", "desc": "Destilación alámbica artesanal.", "price": 400, "price_label": "desde $400 MXN", "image": "esencias-amber.webp", "link_type": "link"},
-      {"id": "roll-on", "name": "Roll-On Anti Estrés", "slug": "roll-on", "desc": "Menta, Pino y Eucalipto portátil.", "price": 200, "price_label": "$200 MXN", "image": "roll-on.webp", "link_type": "button"}
+      {
+        "id": "terrarios",
+        "name": "Terrarios",
+        "slug": "terrarios",
+        "desc": "Piezas de vidrio con plantas vivas.",
+        "price": 0,
+        "price_label": "A cotizar",
+        "image": "terrarios.webp",
+        "link_type": "link"
+      },
+      {
+        "id": "perfume-solido",
+        "name": "Perfume Sólido",
+        "slug": "perfume-solido",
+        "desc": "Cera de abeja y aceites botánicos.",
+        "price": 80,
+        "price_label": "desde $80 MXN",
+        "image": "perfume-solido.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "esencia-miel",
+        "name": "Esencia de Miel",
+        "slug": "esencia-miel",
+        "desc": "Destilación alámbica artesanal.",
+        "price": 400,
+        "price_label": "desde $400 MXN",
+        "image": "esencias-amber.webp",
+        "link_type": "link"
+      },
+      {
+        "id": "roll-on",
+        "name": "Roll-On Anti Estrés",
+        "slug": "roll-on",
+        "desc": "Menta, Pino y Eucalipto portátil.",
+        "price": 200,
+        "price_label": "$200 MXN",
+        "image": "roll-on.webp",
+        "link_type": "button"
+      }
     ]
   },
-  "cta": {"title": "¿Quieres una pieza de talabartería?", "subtitle": "Escríbenos con tu idea y te cotizamos sin compromiso."},
+  "cta": {
+    "title": "¿Quieres una pieza de talabartería?",
+    "subtitle": "Escríbenos con tu idea y te cotizamos sin compromiso."
+  },
   "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20una%20pieza%20de%20talabarter%C3%ADa",
   "schema_name": "Talabartería",
   "schema_description": "Piel reciclada transformada en piezas únicas: cinturones, pulseras, carteras y mochilas. Hecho a mano en CDMX.",
   "schema_image": "talabarteria.webp",
-  "schema_price": 0
+  "schema_price": 0,
+  "og_image": "https://casatapputi.com.mx/assets/images/talabarteria.webp"
 }
