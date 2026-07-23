@@ -180,7 +180,11 @@ async function renderShopGrid(containerId) {
   const grid = document.getElementById(containerId || 'shopGrid');
   if (!grid) return;
 
-  grid.innerHTML = '<div class="catalog-loading" style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--clay)">Cargando catálogo…</div>';
+  // Si hay skeletons, se quedan mientras carga (efecto shimmer)
+  const hasSkeleton = grid.querySelector('.skeleton-card');
+  if (!hasSkeleton) {
+    grid.innerHTML = '<div class="catalog-loading" style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--clay)">Cargando catálogo…</div>';
+  }
 
   const products = await fetchCatalog();
   if (!products.length) {
@@ -198,6 +202,11 @@ async function renderShopGrid(containerId) {
   });
 
   grid.innerHTML = enriched.map(p => renderShopCard(p, assets)).join('');
+
+  // Activar scroll reveal en las tarjetas recién renderizadas
+  if (typeof window.initReveal === 'function') {
+    window.initReveal(grid);
+  }
 }
 
 // ── Render carrusel (marquee) ─────────────────────────────
@@ -234,6 +243,11 @@ async function renderMarquee(containerSelector) {
   // Segunda vuelta: sin botones para loop seamless
   inner.innerHTML = enriched.map(p => cardHTML(p, true)).join('')
     + enriched.map(p => cardHTML(p, false)).join('');
+
+  // Activar scroll reveal en marquee si aplica (aunque marquee no usa reveal)
+  if (typeof window.initReveal === 'function') {
+    window.initReveal(inner);
+  }
 
   // LQIP Blur-Up: main.js ya corrió su querySelectorAll('.marquee-card img')
   // en DOMContentLoaded, antes de que este fetch async insertara estas imágenes.

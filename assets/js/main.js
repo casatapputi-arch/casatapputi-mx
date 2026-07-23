@@ -1,6 +1,20 @@
 function toggleMenu() {
-  document.getElementById('mobileMenu').classList.toggle('open');
+  const menu = document.getElementById('mobileMenu');
+  const overlay = document.getElementById('menuOverlay');
+  const hamburger = document.querySelector('.hamburger');
+  const isOpen = menu.classList.toggle('open');
+  if (overlay) overlay.classList.toggle('open', isOpen);
+  if (hamburger) hamburger.classList.toggle('active', isOpen);
+  document.body.classList.toggle('menu-open', isOpen);
 }
+
+// Cerrar menú con tecla Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const menu = document.getElementById('mobileMenu');
+    if (menu && menu.classList.contains('open')) toggleMenu();
+  }
+});
 
 // Endpoint de Formspree de Casa Tapputi — reemplazar TU_FORM_ID por el id real.
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaqkplnb';
@@ -43,6 +57,27 @@ function handleSubmit(e) {
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Scroll Reveal ---------- */
+  // Función expuesta globalmente para que catalog.js pueda revelar elementos dinámicos
+  window.initReveal = function(target) {
+    if (!target) return;
+    const els = target.querySelectorAll ?
+      target.querySelectorAll('.shop-card, .prod-card, .valor, .exp-card, .servicio-card, .taller-card, .alianza, .form-card') :
+      [target];
+    els.forEach(el => {
+      if (!el.classList.contains('reveal') && !el.classList.contains('reveal-left') && !el.classList.contains('reveal-right')) {
+        el.classList.add('reveal');
+        el.style.setProperty('--i', [...el.parentElement.children].indexOf(el));
+      }
+      // Si ya está visible en pantalla, mostrarlo inmediatamente
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add('visible');
+      } else {
+        revealObserver.observe(el);
+      }
+    });
+  };
+
   const revealTargets = document.querySelectorAll(
     '.section-title, .valor, .exp-card, .servicio-card, .taller-card, .alianza, .form-card, .split'
   );

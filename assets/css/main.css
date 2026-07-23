@@ -841,6 +841,282 @@ body::before {
   box-sizing: border-box;
 }
 
+/* ============================================================
+   Refinements de diseño 2026-07-22
+   Animaciones, micro-interacciones, profundidad, textura
+   ============================================================ */
+
+/* ---------- Staggered reveal para grids ---------- */
+.valor, .exp-card, .servicio-card, .taller-card, .alianza {
+  transition-delay: calc(var(--i, 0) * 0.08s);
+}
+.valor:nth-child(1), .exp-card:nth-child(1), .servicio-card:nth-child(1),
+.taller-card:nth-child(1), .alianza:nth-child(1) { --i: 0; }
+.valor:nth-child(2), .exp-card:nth-child(2), .servicio-card:nth-child(2),
+.taller-card:nth-child(2), .alianza:nth-child(2) { --i: 1; }
+.valor:nth-child(3), .exp-card:nth-child(3), .servicio-card:nth-child(3),
+.taller-card:nth-child(3), .alianza:nth-child(3) { --i: 2; }
+.valor:nth-child(4), .exp-card:nth-child(4), .servicio-card:nth-child(4),
+.taller-card:nth-child(4), .alianza:nth-child(4) { --i: 3; }
+.valor:nth-child(5), .exp-card:nth-child(5), .servicio-card:nth-child(5),
+.taller-card:nth-child(5), .alianza:nth-child(5) { --i: 4; }
+.valor:nth-child(6), .exp-card:nth-child(6) { --i: 5; }
+
+.reveal-left, .reveal-right {
+  transition-delay: calc(var(--i, 0) * 0.1s);
+}
+
+/* ---------- 3D Card Hover para tienda ---------- */
+.shop-card {
+  perspective: 1000px;
+}
+.shop-card:hover {
+  transform: translateY(-6px) rotateX(2deg) rotateY(-1deg);
+  box-shadow: 0 24px 48px rgba(43,34,24,.16);
+}
+
+/* ---------- Shine effect en botones light ---------- */
+.btn-light {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-light::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+  transform: skewX(-20deg);
+  transition: left .5s ease;
+  pointer-events: none;
+}
+.btn-light:hover::before {
+  left: 125%;
+}
+
+/* ---------- Skeleton loading para catálogo ---------- */
+.skeleton {
+  background: linear-gradient(90deg, var(--crema-2) 25%, var(--crema-3) 50%, var(--crema-2) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+  border-radius: 2px;
+}
+.skeleton-card {
+  background: var(--crema-2);
+  border: 1px solid var(--linea);
+  display: flex;
+  flex-direction: column;
+}
+.skeleton-card .skeleton-img {
+  aspect-ratio: 1/1;
+  width: 100%;
+}
+.skeleton-card .skeleton-body {
+  padding: 22px 22px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.skeleton-card .skeleton-line {
+  height: 16px;
+  width: 80%;
+}
+.skeleton-card .skeleton-line:last-child {
+  width: 50%;
+}
+@keyframes skeleton-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ---------- Cart count bounce ---------- */
+.cart-count.pop {
+  animation: cart-bounce .35s cubic-bezier(.4, 0, .2, 1);
+}
+@keyframes cart-bounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.35); }
+  60% { transform: scale(.92); }
+  100% { transform: scale(1); }
+}
+
+/* ---------- Filter bar mejorado ---------- */
+.filter-btn {
+  position: relative;
+}
+.filter-btn::after {
+  content: '';
+  position: absolute;
+  left: 50%; bottom: 0;
+  width: 0; height: 2px;
+  background: var(--miel);
+  transition: width .3s ease, left .3s ease;
+}
+.filter-btn.active::after {
+  width: 100%;
+  left: 0;
+}
+.filter-btn.active {
+  background: var(--tinta);
+  color: var(--crema);
+  border-color: var(--tinta);
+}
+
+/* ---------- Footer micro-interacciones ---------- */
+.footer-col a {
+  display: inline-block;
+  transition: color .2s, transform .2s;
+}
+.footer-col a:hover {
+  color: var(--miel-claro);
+  transform: translateX(4px);
+}
+
+/* ---------- Custom scrollbar ---------- */
+@media (hover: hover) {
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--crema); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--crema-3);
+    border-radius: 4px;
+    border: 2px solid var(--crema);
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--miel); }
+  * { scrollbar-width: thin; scrollbar-color: var(--crema-3) var(--crema); }
+}
+
+/* ---------- Background texture sutil ---------- */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: .035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ---------- Botón hamburguesa animado (X) ---------- */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ---------- Menú móvil overlay mejorado ---------- */
+@media (max-width: 900px) {
+  .mobile-menu {
+    position: fixed;
+    top: 0; right: 0;
+    width: min(320px, 80vw);
+    height: 100dvh;
+    background: var(--crema);
+    padding: 100px var(--pad) 40px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-left: 1px solid var(--linea);
+    box-shadow: -8px 0 32px rgba(0,0,0,.1);
+    transform: translateX(100%);
+    transition: transform .35s cubic-bezier(.4, 0, .2, 1);
+    overflow-y: auto;
+  }
+  .mobile-menu.open {
+    transform: translateX(0);
+    display: flex;
+  }
+  .mobile-menu a {
+    padding: 16px 0;
+    font-size: .95rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--linea);
+    color: var(--tinta);
+    transition: color .2s, padding-left .2s;
+  }
+  .mobile-menu a:hover {
+    color: var(--miel);
+    padding-left: 8px;
+  }
+  
+  /* Overlay backdrop */
+  .menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(27,22,17,.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 90;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .35s ease;
+  }
+  .menu-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Prevenir scroll cuando menú abierto */
+  body.menu-open {
+    overflow: hidden;
+  }
+}
+
+/* ---------- Form input focus glow ---------- */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--miel);
+  box-shadow: 0 0 0 3px rgba(179,133,58,.12);
+}
+
+/* ---------- Image zoom en catálogo ---------- */
+.shop-card img {
+  transition: transform .5s ease, filter .5s ease;
+}
+.shop-card:hover img {
+  transform: scale(1.08);
+  filter: brightness(1.05);
+}
+
+/* ---------- Hero entrance animation ---------- */
+.hero h1 {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: hero-entrance .9s .2s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+.hero .hero-lead {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: hero-entrance .9s .4s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+.hero .btn {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: hero-entrance .7s .6s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+@keyframes hero-entrance {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Page hero entrance ---------- */
+.page-hero h1 {
+  opacity: 0;
+  animation: hero-entrance .7s .2s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+.page-hero p {
+  opacity: 0;
+  animation: hero-entrance .7s .35s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+
 /* ── Botón flotante de WhatsApp ── */
 .wa-float {
   position: fixed;

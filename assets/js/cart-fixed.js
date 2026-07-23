@@ -304,6 +304,10 @@ function renderCartCount() {
     el.textContent = count;
     el.setAttribute('aria-label', count + ' producto' + (count !== 1 ? 's' : '') + ' en el carrito');
     el.style.display = count > 0 ? 'flex' : 'none';
+    // Bounce animation
+    el.classList.remove('pop');
+    void el.offsetWidth; // reflow trigger
+    if (count > 0) el.classList.add('pop');
   });
 }
 
