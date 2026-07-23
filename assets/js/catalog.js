@@ -164,7 +164,7 @@ function renderShopCard(p, assets) {
       data-product-price-label="${p.priceLabel}"
       data-product-image="${dataImg}">
       <img src="${img}" alt="${p.title}" loading="lazy"
-           onerror="this.src='${assets}images/casa-tapputi-logo.webp'">
+           onerror="this.onerror=null;this.src='${dataImg}'">
       <div class="shop-body">
         <h3><a href="${productoUrl(p.handle)}">${p.title}</a></h3>
         <p class="shop-desc">${p.description || ''}</p>
