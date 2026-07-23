@@ -76,7 +76,7 @@ async function fetchCatalog(force = false) {
 
   try {
     const data = await catalogFetch('/store/products?limit=50');
-    _catalog = data.products || [];
+    _catalog = (data.products || []).filter(p => !p.handle || !p.handle.includes('prueba'));
     try {
       sessionStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify({
         data: _catalog,
