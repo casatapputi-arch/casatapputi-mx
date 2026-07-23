@@ -5,7 +5,7 @@
    resiliencia offline. Checkout vía WhatsApp.
    ============================================================ */
 
-const MEDUSA_URL = 'https://casatapputi-medusa.duckdns.org';
+const MEDUSA_URL = 'https://medusa.casatapputi.com.mx';
 const API_KEY  = 'pk_377afadbf71f64f6027bdb8b13691017648b70f6270ff38e4d9d3961585d2c62';
 const CART_ID_KEY = 'casatapputi_cart_id';
 const CART_KEY    = 'casatapputi_cart';   // localStorage fallback

@@ -4,7 +4,7 @@
    la grilla (productos/) y el carrusel (index.html) dinámicamente.
    ============================================================ */
 
-const CATALOG_URL  = 'https://casatapputi-medusa.duckdns.org';
+const CATALOG_URL  = 'https://medusa.casatapputi.com.mx';
 const CATALOG_KEY  = 'pk_377afadbf71f64f6027bdb8b13691017648b70f6270ff38e4d9d3961585d2c62';
 const CATALOG_CACHE_KEY = 'ct_catalog';
 const CATALOG_CACHE_TTL = 15 * 60 * 1000; // 15 minutos
