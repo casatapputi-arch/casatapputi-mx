@@ -42,6 +42,11 @@
   .was { font-size: 20px; color: #999; text-decoration: line-through; margin-bottom: 5px; }
   .now { font-size: 48px; font-weight: 700; color: #2b2218; letter-spacing: 2px; }
   .save { font-size: 16px; color: #b3853a; font-weight: 600; margin-top: 5px; }
+  .counter { margin: 25px 0; padding: 15px; background: #2b2218; color: #f3ece1; border-radius: 6px; }
+  .counter .big { font-size: 36px; font-weight: 700; }
+  .counter .label { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; }
+  .bar-wrap { height: 8px; background: rgba(255,255,255,0.15); border-radius: 4px; margin-top: 10px; overflow: hidden; }
+  .bar-fill { height: 100%; background: #b3853a; border-radius: 4px; transition: width 0.5s; }
   .desc { font-size: 14px; color: #6b5b4a; margin: 20px 0 30px; line-height: 1.6; max-width: 500px; margin-left: auto; margin-right: auto; }
   .contact { margin: 20px 0; }
   .wa { display: inline-block; background: #25D366; color: #fff; text-decoration: none; padding: 14px 40px; border-radius: 30px; font-size: 18px; font-weight: 600; font-family: sans-serif; }
@@ -95,6 +100,12 @@
   <div class="desc">
     Miel · dopamina y oxitocina, calma profunda<br>
     Rosas · delicadeza y armonía para la piel
+  </div>
+
+  <div class="counter">
+    <div class="label">Vendidos</div>
+    <div class="big"><span id="sold">1</span>/12</div>
+    <div class="bar-wrap"><div class="bar-fill" style="width:8.3%"></div></div>
   </div>
 
   <div class="contact">
