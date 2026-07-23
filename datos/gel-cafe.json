@@ -1,0 +1,126 @@
+{
+  "slug": "gel-cafe",
+  "title": "Gel de Café",
+  "meta_description": "Tratamiento revitalizante. La cafeína estimula la circulación y despierta la piel. Tonifica y refresca.",
+  "og_image": "https://casatapputi.com.mx/assets/images/mascarilla-cafe.webp",
+  "hero_image": "mascarilla-cafe.webp",
+  "product_image": "mascarilla-cafe.webp",
+  "breadcrumb_name": "Gel de Café",
+  "prod_eyebrow": "Cuidado Facial",
+  "prod_title": "Gel de Café",
+  "prod_subtitle": "Tratamiento revitalizante con cafeína natural",
+  "eyebrow": "Colección Facial",
+  "h1": "Gel de Café",
+  "subtitle_short": "Tratamiento revitalizante con cafeína natural",
+  "description": [
+    "Tratamiento facial revitalizante formulado con cafeína natural extraída de café orgánico. La cafeína estimula la microcirculación, despierta la piel y reduce la apariencia de ojeras y bolsas.",
+    "Textura gel ligera que se absorbe instantáneamente. Ideal para las mañanas o antes de un evento. Tonifica, refresca y deja el rostro suave y luminoso. 30 ml."
+  ],
+  "variant_type": "single",
+  "variants": [
+    {
+      "section_label": "Presentación",
+      "label": "30 ml",
+      "price": 150,
+      "price_label": "$150 MXN",
+      "variant_id": "variant_01KXKRE4VBFHPMSDGDMWCM69VX"
+    }
+  ],
+  "price_display": "$150 MXN",
+  "price_present": "30 ml",
+  "meta_note": "Cafeína natural de café orgánico. Textura gel ligera. 30 ml.",
+  "howto": {
+    "eyebrow": "Tu café matutino para la piel",
+    "title": "Tres formas de uso",
+    "items": [
+      {
+        "title": "En la mañana",
+        "description": "Aplica después de lavar el rostro. El frescor y la cafeína despiertan la piel al instante."
+      },
+      {
+        "title": "En ojeras",
+        "description": "Un toque ligero con la yema del dedo debajo de los ojos. La cafeína reduce la hinchazón."
+      },
+      {
+        "title": "Antes de un evento",
+        "description": "Aplica 15 minutos antes de maquillarte. La piel se ve más firme, luminosa y despierta."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Cafeína para tu rostro",
+    "title": "Beneficios principales",
+    "items": [
+      {
+        "icon": "☕",
+        "title": "Cafeína activa",
+        "description": "Estimula la circulación, reduce bolsas y ojeras y da un efecto tensor inmediato."
+      },
+      {
+        "icon": "❄️",
+        "title": "Efecto refrescante",
+        "description": "La textura gel proporciona una sensación fría que despierta y tonifica al contacto."
+      },
+      {
+        "icon": "🌱",
+        "title": "Café orgánico",
+        "description": "Usamos café de comercio justo. Lo que es bueno para tu piel también es bueno para quien lo cultiva."
+      }
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu experiencia",
+    "title": "También te puede interesar",
+    "products": [
+      {
+        "id": "agua-rosas",
+        "name": "Agua de Rosas",
+        "slug": "agua-rosas",
+        "desc": "Tónico de pétalos frescos.",
+        "price": 150,
+        "price_label": "$150 MXN",
+        "image": "agua-rosas.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "gel-rosas",
+        "name": "Gel de Rosas",
+        "slug": "gel-rosas",
+        "desc": "Hidratante ligera facial.",
+        "price": 150,
+        "price_label": "$150 MXN",
+        "image": "gel-rosas.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "pomada-calendula",
+        "name": "Pomada Caléndula",
+        "slug": "pomada-calendula",
+        "desc": "Cicatrizante natural.",
+        "price": 100,
+        "price_label": "desde $100 MXN",
+        "image": "pomada-calendula.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "agua-rosas",
+        "name": "Agua de Rosas",
+        "slug": "agua-rosas",
+        "desc": "Tónico de pétalos frescos.",
+        "price": 150,
+        "price_label": "$150 MXN",
+        "image": "agua-rosas.webp",
+        "link_type": "button"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos por WhatsApp y te asesoramos personalmente."
+  },
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20el%20Gel%20de%20Caf%C3%A9",
+  "schema_name": "Gel de Café",
+  "schema_description": "Tratamiento revitalizante. La cafeína estimula la circulación y despierta la piel. Tonifica y refresca.",
+  "schema_image": "mascarilla-cafe.webp",
+  "schema_price": 150
+}

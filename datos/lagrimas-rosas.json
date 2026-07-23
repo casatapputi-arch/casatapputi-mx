@@ -1,0 +1,126 @@
+{
+  "slug": "lagrimas-rosas",
+  "title": "Lágrimas de Rosas",
+  "meta_description": "Resina sagrada para saumerios. Limpia el aire, crea un ambiente de calma y armonía.",
+  "og_image": "https://casatapputi.com.mx/assets/images/lagrimas-rosas.webp",
+  "hero_image": "lagrimas-rosas.webp",
+  "product_image": "lagrimas-rosas.webp",
+  "breadcrumb_name": "Lágrimas de Rosas",
+  "prod_eyebrow": "Esencias",
+  "prod_title": "Lágrimas de Rosas",
+  "prod_subtitle": "Resina de rosas para saumerios — limpia y armoniza el ambiente",
+  "eyebrow": "Colección Esencias",
+  "h1": "Lágrimas de Rosas",
+  "subtitle_short": "Resina sagrada para saumerios y armonización del aire",
+  "description": [
+    "Resina sagrada de rosas seleccionadas a mano para su uso en saumerios y limpieza energética del hogar. Al quemarse sobre carbón vegetal, libera un humo blanco denso con aroma floral profundo que transforma el ambiente.",
+    "Usada tradicionalmente para armonizar espacios, acompañar meditaciones y rituales, y crear una atmósfera de calma y protección. Cada lágrima es un fragmento de resina pura, sin aditivos ni esencias sintéticas."
+  ],
+  "variant_type": "single",
+  "variants": [
+    {
+      "section_label": "Presentación",
+      "label": "50 gr",
+      "price": 100,
+      "price_label": "desde $100 MXN",
+      "variant_id": "variant_01KXKRE42HG3QYR1F7G7323N6P"
+    }
+  ],
+  "price_display": "desde $100 MXN",
+  "price_present": "50 gr",
+  "meta_note": "Resina pura de rosas. Sin aditivos. Rendimiento: ~20 saumerios por frasco.",
+  "howto": {
+    "eyebrow": "El arte del saumerio",
+    "title": "Tres formas de uso",
+    "items": [
+      {
+        "title": "Sobre carbón vegetal",
+        "description": "Enciende un carboncillo, colócalo en un recipiente seguro y deposita una pequeña cantidad de resina encima. Disfruta el humo blanco y el aroma."
+      },
+      {
+        "title": "En difusor de resinas",
+        "description": "Los difusores eléctricos con platillo caliente funcionan perfecto. Sin humo, solo el aroma floral puro."
+      },
+      {
+        "title": "Como ofrenda",
+        "description": "Parte de la tradición mesoamericana de ofrendar resinas a los espacios que habitamos. Un gesto de gratitud y presencia."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Aromaterapia ancestral",
+    "title": "Beneficios principales",
+    "items": [
+      {
+        "icon": "🏠",
+        "title": "Armoniza el hogar",
+        "description": "El humo de resina de rosas limpia energéticamente los espacios, ideal después de visitas o al iniciar la semana."
+      },
+      {
+        "icon": "🧘",
+        "title": "Acompaña la meditación",
+        "description": "Su aroma profundo y envolvente ayuda a centrar la mente y profundizar la práctica meditativa."
+      },
+      {
+        "icon": "🌸",
+        "title": "100% resina pura",
+        "description": "Sin carbón vegetal añadido, sin esencias sintéticas. Solo resina de rosas recolectada a mano."
+      }
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu experiencia",
+    "title": "También te puede interesar",
+    "products": [
+      {
+        "id": "esencia-miel",
+        "name": "Esencia de Miel",
+        "slug": "esencia-miel",
+        "desc": "Destilación alámbica artesanal.",
+        "price": 400,
+        "price_label": "desde $400 MXN",
+        "image": "esencias-amber.webp",
+        "link_type": "link"
+      },
+      {
+        "id": "perfume-solido",
+        "name": "Perfume Sólido",
+        "slug": "perfume-solido",
+        "desc": "Cera de abeja y aceites botánicos.",
+        "price": 80,
+        "price_label": "desde $80 MXN",
+        "image": "perfume-solido.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "oleo-masaje",
+        "name": "Óleo para Masaje",
+        "slug": "oleo-masaje",
+        "desc": "Fusión sensorial que nutre la piel.",
+        "price": 150,
+        "price_label": "desde $150 MXN",
+        "image": "oleo-masaje.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "esencia-miel",
+        "name": "Esencia de Miel",
+        "slug": "esencia-miel",
+        "desc": "Destilación alámbica artesanal.",
+        "price": 400,
+        "price_label": "desde $400 MXN",
+        "image": "esencias-amber.webp",
+        "link_type": "link"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos por WhatsApp y te asesoramos personalmente."
+  },
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesan%20las%20L%C3%A1grimas%20de%20Rosas",
+  "schema_name": "Lágrimas de Rosas",
+  "schema_description": "Resina sagrada para saumerios. Limpia el aire, crea un ambiente de calma y armonía.",
+  "schema_image": "lagrimas-rosas.webp",
+  "schema_price": 100
+}

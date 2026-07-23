@@ -1,0 +1,126 @@
+{
+  "slug": "agua-rosas",
+  "title": "Agua de Rosas",
+  "meta_description": "Tónico natural de pétalos frescos. Calma, hidrata y equilibra la piel. Sin alcohol ni químicos agresivos.",
+  "og_image": "https://casatapputi.com.mx/assets/images/agua-rosas.webp",
+  "hero_image": "agua-rosas.webp",
+  "product_image": "agua-rosas.webp",
+  "breadcrumb_name": "Agua de Rosas",
+  "prod_eyebrow": "Cuidado Facial",
+  "prod_title": "Agua de Rosas",
+  "prod_subtitle": "Tónico natural de pétalos frescos sin alcohol",
+  "eyebrow": "Colección Facial",
+  "h1": "Agua de Rosas",
+  "subtitle_short": "Tónico natural de pétalos frescos sin alcohol",
+  "description": [
+    "Tónico natural elaborado con pétalos frescos de rosa. Calma, hidrata y equilibra la piel sin alcohol ni químicos agresivos.",
+    "Apta para piel sensible. Refrescante después del sol o en momentos de estrés. Un básico del cuidado facial diario."
+  ],
+  "variant_type": "single",
+  "variants": [
+    {
+      "section_label": "Presentación",
+      "label": "30 ml",
+      "price": 150,
+      "price_label": "$150 MXN",
+      "variant_id": "variant_01KXKRE4PR4AKS1G2XQZ963KRR"
+    }
+  ],
+  "price_display": "$150 MXN",
+  "price_present": "30 ml",
+  "meta_note": "Sin alcohol · Apto para piel sensible.",
+  "howto": {
+    "eyebrow": "En tu rutina facial",
+    "title": "Tres formas de uso",
+    "items": [
+      {
+        "title": "Con algodón",
+        "description": "Tras la limpieza, aplica con un disco de algodón para tonificar y cerrar los poros."
+      },
+      {
+        "title": "Como bruma",
+        "description": "Transfiere a un atomizador y rocía sobre el rostro durante el día para refrescar al instante."
+      },
+      {
+        "title": "Después del sol",
+        "description": "Aplica generosamente sobre piel caliente para calmar y rehidratar tras la exposición solar."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "El tónico ideal",
+    "title": "Beneficios principales",
+    "items": [
+      {
+        "icon": "💧",
+        "title": "Calma e hidratación",
+        "description": "La rosa fresca calma irritaciones y devuelve la hidratación sin agredir. Ideal para pieles reactivas."
+      },
+      {
+        "icon": "⚖️",
+        "title": "Tónico equilibrante",
+        "description": "Restablece el pH natural de la piel tras la limpieza, dejándola lista para tu serum o crema."
+      },
+      {
+        "icon": "🌸",
+        "title": "Piel sensible",
+        "description": "Sin alcohol, sin químicos agresivos. Una fórmula amable que respeta tu piel y el medio ambiente."
+      }
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu experiencia",
+    "title": "También te puede interesar",
+    "products": [
+      {
+        "id": "gel-rosas",
+        "name": "Gel de Rosas",
+        "slug": "gel-rosas",
+        "desc": "Hidratante ligera facial.",
+        "price": 150,
+        "price_label": "$150 MXN",
+        "image": "gel-rosas.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "gel-cafe",
+        "name": "Gel de Café",
+        "slug": "gel-cafe",
+        "desc": "Tratamiento revitalizante.",
+        "price": 150,
+        "price_label": "$150 MXN",
+        "image": "mascarilla-cafe.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "pomada-calendula",
+        "name": "Pomada Caléndula",
+        "slug": "pomada-calendula",
+        "desc": "Cicatrizante natural.",
+        "price": 100,
+        "price_label": "desde $100 MXN",
+        "image": "pomada-calendula.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "gel-rosas",
+        "name": "Gel de Rosas",
+        "slug": "gel-rosas",
+        "desc": "Hidratante ligera facial.",
+        "price": 150,
+        "price_label": "$150 MXN",
+        "image": "gel-rosas.webp",
+        "link_type": "button"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos por WhatsApp y te asesoramos personalmente."
+  },
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20el%20Agua%20de%20Rosas",
+  "schema_name": "Agua de Rosas",
+  "schema_description": "Tónico natural de pétalos frescos. Calma, hidrata y equilibra la piel. Sin alcohol ni químicos agresivos.",
+  "schema_image": "agua-rosas.webp",
+  "schema_price": 150
+}

@@ -1,0 +1,126 @@
+{
+  "slug": "pomada-calendula",
+  "title": "Pomada de Caléndula",
+  "meta_description": "Cera de abeja y lípido vegetal. Antiinflamatoria y cicatrizante para heridas menores, quemaduras leves e irritaciones.",
+  "og_image": "https://casatapputi.com.mx/assets/images/pomada-calendula.webp",
+  "hero_image": "pomada-calendula.webp",
+  "product_image": "pomada-calendula.webp",
+  "breadcrumb_name": "Pomada de Caléndula",
+  "prod_eyebrow": "Cuidado Facial",
+  "prod_title": "Pomada de Caléndula",
+  "prod_subtitle": "El botiquín natural de tu casa — cicatriza, calma y protege",
+  "eyebrow": "Colección Facial",
+  "h1": "Pomada de Caléndula",
+  "subtitle_short": "Cicatrizante y antiinflamatoria con cera de abeja y caléndula",
+  "description": [
+    "Cera de abeja y lípido vegetal con extracto de caléndula. Antiinflamatoria y cicatrizante para heridas menores, quemaduras leves, irritaciones y zonas resecas.",
+    "Hidratación profunda y efecto antiarrugas preventivo. Una pomada multitarea que merece un lugar en tu botiquín natural."
+  ],
+  "variant_type": "single",
+  "variants": [
+    {
+      "section_label": "Presentaciones",
+      "label": "30 gr / 50 gr",
+      "price": 100,
+      "price_label": "desde $100 MXN",
+      "variant_id": "variant_01KXKRE4Y7BRJ43SP68NJCQP2A"
+    }
+  ],
+  "price_display": "desde $100 MXN",
+  "price_present": "30 gr / 50 gr",
+  "meta_note": "Caléndula cultivada en Huerto Roma Verde.",
+  "howto": {
+    "eyebrow": "Una pomada, muchos usos",
+    "title": "Tres formas de uso",
+    "items": [
+      {
+        "title": "En heridas menores",
+        "description": "Aplica una capa fina sobre raspones, cortaditas o picaduras. Acelera la regeneración y previene infecciones."
+      },
+      {
+        "title": "En quemaduras leves",
+        "description": "Tras la exposición solar o en zonas irritadas. Calma la rojez y devuelve el confort a la piel."
+      },
+      {
+        "title": "Como hidratante",
+        "description": "En zonas secas del rostro o las manos. La cera de abeja sella la hidratación durante horas."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Una flor que cuida",
+    "title": "Beneficios principales",
+    "items": [
+      {
+        "icon": "🩹",
+        "title": "Cicatrizante natural",
+        "description": "Estimula la regeneración celular y reduce el tiempo de curación de heridas y quemaduras leves."
+      },
+      {
+        "icon": "🧴",
+        "title": "Antiinflamatoria",
+        "description": "Calma la rojez, hinchazón e irritación en piel sensible, zonas reactivas o quemadas por el sol."
+      },
+      {
+        "icon": "✨",
+        "title": "Antiarrugas natural",
+        "description": "Hidrata capas profundas y previene líneas de expresión por deshidratación. Uso preventivo diario."
+      }
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu experiencia",
+    "title": "También te puede interesar",
+    "products": [
+      {
+        "id": "agua-rosas",
+        "name": "Agua de Rosas",
+        "slug": "agua-rosas",
+        "desc": "Tónico de pétalos frescos.",
+        "price": 150,
+        "price_label": "$150 MXN",
+        "image": "agua-rosas.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "gel-rosas",
+        "name": "Gel de Rosas",
+        "slug": "gel-rosas",
+        "desc": "Hidratante ligera facial.",
+        "price": 150,
+        "price_label": "$150 MXN",
+        "image": "gel-rosas.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "gel-cafe",
+        "name": "Gel de Café",
+        "slug": "gel-cafe",
+        "desc": "Tratamiento revitalizante.",
+        "price": 150,
+        "price_label": "$150 MXN",
+        "image": "mascarilla-cafe.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "agua-rosas",
+        "name": "Agua de Rosas",
+        "slug": "agua-rosas",
+        "desc": "Tónico de pétalos frescos.",
+        "price": 150,
+        "price_label": "$150 MXN",
+        "image": "agua-rosas.webp",
+        "link_type": "button"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos por WhatsApp y te asesoramos personalmente."
+  },
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20la%20Pomada%20de%20Cal%C3%A9ndula",
+  "schema_name": "Pomada de Caléndula",
+  "schema_description": "Cera de abeja y lípido vegetal. Antiinflamatoria y cicatrizante para heridas menores, quemaduras leves e irritaciones.",
+  "schema_image": "pomada-calendula.webp",
+  "schema_price": 100
+}

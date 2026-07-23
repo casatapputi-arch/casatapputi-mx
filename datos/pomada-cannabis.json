@@ -1,0 +1,126 @@
+{
+  "slug": "pomada-cannabis",
+  "title": "Pomada Cannabis",
+  "meta_description": "Sinergia de cannabis, veneno de hormiga roja y plantas medicinales. Para dolores musculares y articulares.",
+  "og_image": "https://casatapputi.com.mx/assets/images/pomada-cannabis.webp",
+  "hero_image": "pomada-cannabis.webp",
+  "product_image": "pomada-cannabis.webp",
+  "breadcrumb_name": "Pomada Cannabis",
+  "prod_eyebrow": "Cuidado Facial",
+  "prod_title": "Pomada Cannabis",
+  "prod_subtitle": "Sinergia de cannabis y plantas — alivio muscular localizado",
+  "eyebrow": "Colección Facial",
+  "h1": "Pomada Cannabis",
+  "subtitle_short": "Sinergia herbal para dolores musculares y articulares",
+  "description": [
+    "Sinergia de cannabis, veneno de hormiga roja y plantas medicinales en formato pomada. Para dolores musculares, articulares y reumáticos. Aplicación local sin efectos psicoactivos.",
+    "La base de cera de abeja y aceites vegetales permite una liberación sostenida de los compuestos activos sobre la zona afectada."
+  ],
+  "variant_type": "single",
+  "variants": [
+    {
+      "section_label": "Presentaciones",
+      "label": "30 gr / 50 gr",
+      "price": 100,
+      "price_label": "desde $100 MXN",
+      "variant_id": "variant_01KXKRE50MP0WH4HM59A4YAN3D"
+    }
+  ],
+  "price_display": "desde $100 MXN",
+  "price_present": "30 gr / 50 gr",
+  "meta_note": "Uso tópico. No ingerir. Cannabis de cultivo orgánico.",
+  "howto": {
+    "eyebrow": "Aplicación local",
+    "title": "Tres formas de uso",
+    "items": [
+      {
+        "title": "En articulaciones",
+        "description": "Aplica una capa generosa sobre la zona afectada y masajea suavemente. Úsalo 2-3 veces al día."
+      },
+      {
+        "title": "En contracturas",
+        "description": "Aplica sobre el músculo tenso y cubre con una toalla tibia. El calor potencia la absorción."
+      },
+      {
+        "title": "Masaje terapéutico",
+        "description": "Combínalo con un masaje suave para distribuir el producto y activar la circulación local."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Alivio natural",
+    "title": "Beneficios principales",
+    "items": [
+      {
+        "icon": "🌿",
+        "title": "Cannabis + hierbas",
+        "description": "La sinergia de cannabinoides con plantas medicinales crea un efecto analgésico más completo."
+      },
+      {
+        "icon": "🐝",
+        "title": "Cera de abeja",
+        "description": "Base natural que permite una liberación lenta y sostenida de los activos sobre la piel."
+      },
+      {
+        "icon": "⚡",
+        "title": "Sin efectos psicoactivos",
+        "description": "Uso tópico local. Los cannabinoides actúan sobre receptores locales sin llegar al torrente sanguíneo."
+      }
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu experiencia",
+    "title": "También te puede interesar",
+    "products": [
+      {
+        "id": "agua-rosas",
+        "name": "Agua de Rosas",
+        "slug": "agua-rosas",
+        "desc": "Tónico de pétalos frescos.",
+        "price": 150,
+        "price_label": "$150 MXN",
+        "image": "agua-rosas.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "gel-rosas",
+        "name": "Gel de Rosas",
+        "slug": "gel-rosas",
+        "desc": "Hidratante ligera facial.",
+        "price": 150,
+        "price_label": "$150 MXN",
+        "image": "gel-rosas.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "gel-cafe",
+        "name": "Gel de Café",
+        "slug": "gel-cafe",
+        "desc": "Tratamiento revitalizante.",
+        "price": 150,
+        "price_label": "$150 MXN",
+        "image": "mascarilla-cafe.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "pomada-calendula",
+        "name": "Pomada Caléndula",
+        "slug": "pomada-calendula",
+        "desc": "Cicatrizante natural.",
+        "price": 100,
+        "price_label": "desde $100 MXN",
+        "image": "pomada-calendula.webp",
+        "link_type": "button"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos por WhatsApp y te asesoramos personalmente."
+  },
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20la%20Pomada%20Cannabis",
+  "schema_name": "Pomada Cannabis",
+  "schema_description": "Sinergia de cannabis, veneno de hormiga roja y plantas medicinales. Para dolores musculares y articulares.",
+  "schema_image": "pomada-cannabis.webp",
+  "schema_price": 100
+}

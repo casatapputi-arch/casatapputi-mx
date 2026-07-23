@@ -1,0 +1,126 @@
+{
+  "slug": "esencias-naturales",
+  "title": "Esencias Naturales",
+  "meta_description": "18 aromas por alambique: Violetas, Nardo, Mandarina, Menta, Rosas, Canela, Lavanda, Eucalipto, Romero, Jazmín, Sándalo, Geranio, Limón, Bergamota, Mirra, Pino, ",
+  "og_image": "https://casatapputi.com.mx/assets/images/esencias-naturales.webp",
+  "hero_image": "esencias-naturales.webp",
+  "product_image": "esencias-naturales.webp",
+  "breadcrumb_name": "Esencias Naturales",
+  "prod_eyebrow": "Esencias",
+  "prod_title": "Esencias Naturales",
+  "prod_subtitle": "18 aromas por alambique: Violetas, Rosas, Lavanda, Jazmín y más",
+  "eyebrow": "Colección Esencias",
+  "h1": "Esencias Naturales",
+  "subtitle_short": "18 aromas botánicos destilados por alambique",
+  "description": [
+    "Colección de 18 esencias botánicas destiladas por alambique: Violetas, Nardo, Mandarina, Menta, Rosas, Canela, Lavanda, Eucalipto, Romero, Jazmín, Sándalo, Geranio, Limón, Bergamota, Mirra, Pino, Tabaco y Lilas. Cada una captura la firma aromática única de su planta.",
+    "Uso corporal o en difusor de vela. Cada esencia es pura, sin diluyentes ni fragancias sintéticas. Un viaje olfativo por 18 paisajes botánicos diferentes."
+  ],
+  "variant_type": "single",
+  "variants": [
+    {
+      "section_label": "Presentación",
+      "label": "4 ml",
+      "price": 400,
+      "price_label": "desde $400 MXN",
+      "variant_id": "variant_01KXKRE3TSYGV34TGDR9AMJMXT"
+    }
+  ],
+  "price_display": "desde $400 MXN",
+  "price_present": "4 ml",
+  "meta_note": "Destilación artesanal en alambique. 4 ml por esencia.",
+  "howto": {
+    "eyebrow": "18 aromas, infinitas combinaciones",
+    "title": "Tres formas de uso",
+    "items": [
+      {
+        "title": "Aplicación corporal",
+        "description": "Elige tu aroma favorito y aplica en muñecas y cuello. Cada esencia tiene una personalidad distinta."
+      },
+      {
+        "title": "En difusor",
+        "description": "4-5 gotas en agua para aromatizar espacios. Combina dos o tres esencias para crear tu propia sinfonía."
+      },
+      {
+        "title": "En óleo base",
+        "description": "Mezcla unas gotas con óleo de masaje para personalizar tu experiencia corporal con el aroma que necesites."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Destilación pura",
+    "title": "Beneficios principales",
+    "items": [
+      {
+        "icon": "🌺",
+        "title": "18 aromas puros",
+        "description": "De las notas cítricas de la Mandarina a la profundidad de la Mirra. Sin diluyentes ni sintéticos."
+      },
+      {
+        "icon": "🧪",
+        "title": "Alambique artesanal",
+        "description": "Cada esencia se destila en pequeños lotes para preservar la integridad aromática de la planta."
+      },
+      {
+        "icon": "🎨",
+        "title": "Personalización total",
+        "description": "Combina aromas según tu estado de ánimo, la ocasión o el efecto que busques. Las posibilidades son infinitas."
+      }
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu experiencia",
+    "title": "También te puede interesar",
+    "products": [
+      {
+        "id": "esencia-miel",
+        "name": "Esencia de Miel",
+        "slug": "esencia-miel",
+        "desc": "Destilación alámbica artesanal.",
+        "price": 400,
+        "price_label": "desde $400 MXN",
+        "image": "esencias-amber.webp",
+        "link_type": "link"
+      },
+      {
+        "id": "perfume-solido",
+        "name": "Perfume Sólido",
+        "slug": "perfume-solido",
+        "desc": "Cera de abeja y aceites botánicos.",
+        "price": 80,
+        "price_label": "desde $80 MXN",
+        "image": "perfume-solido.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "lagrimas-rosas",
+        "name": "Lágrimas de Rosas",
+        "slug": "lagrimas-rosas",
+        "desc": "Resina sagrada para saumerios.",
+        "price": 100,
+        "price_label": "desde $100 MXN",
+        "image": "lagrimas-rosas.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "oleo-masaje",
+        "name": "Óleo para Masaje",
+        "slug": "oleo-masaje",
+        "desc": "Fusión sensorial que nutre la piel.",
+        "price": 150,
+        "price_label": "desde $150 MXN",
+        "image": "oleo-masaje.webp",
+        "link_type": "button"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos por WhatsApp y te asesoramos personalmente."
+  },
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesan%20las%20Esencias%20Naturales",
+  "schema_name": "Esencias Naturales",
+  "schema_description": "18 aromas por alambique: Violetas, Nardo, Mandarina, Menta, Rosas, Canela, Lavanda, Eucalipto, Romero, Jazmín, Sándalo, Geranio, Limón, Bergamota, Mirra, Pino, ",
+  "schema_image": "esencias-naturales.webp",
+  "schema_price": 400
+}

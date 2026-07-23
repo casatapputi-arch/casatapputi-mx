@@ -1,0 +1,126 @@
+{
+  "slug": "oleo-masaje",
+  "title": "Óleo para Masaje",
+  "meta_description": "Fusión de ingredientes naturales y esencias seleccionadas. Nutre la piel y ofrece beneficios emocionales.",
+  "og_image": "https://casatapputi.com.mx/assets/images/oleo-masaje.webp",
+  "hero_image": "oleo-masaje.webp",
+  "product_image": "oleo-masaje.webp",
+  "breadcrumb_name": "Óleo para Masaje",
+  "prod_eyebrow": "Cuidado Corporal",
+  "prod_title": "Óleo para Masaje",
+  "prod_subtitle": "Fusión sensorial que nutre la piel y ofrece beneficios emocionales",
+  "eyebrow": "Colección Corporal",
+  "h1": "Óleo para Masaje",
+  "subtitle_short": "Fusión sensorial que nutre la piel y ofrece beneficios emocionales",
+  "description": [
+    "Fusión de ingredientes naturales y esencias seleccionadas para crear una experiencia de masaje completa. La base de aceites vegetales nutre profundamente mientras los aromas activan respuestas emocionales positivas.",
+    "Disponible en varias combinaciones aromáticas. Ideal para masajes relajantes, descontracturantes o simplemente para consentir la piel después de un día largo."
+  ],
+  "variant_type": "single",
+  "variants": [
+    {
+      "section_label": "Presentación",
+      "label": "60 ml",
+      "price": 150,
+      "price_label": "desde $150 MXN",
+      "variant_id": "variant_01KXKRE44WX0Z8NW0RYQEXAE6Q"
+    }
+  ],
+  "price_display": "desde $150 MXN",
+  "price_present": "60 ml",
+  "meta_note": "Aceites vegetales orgánicos. Varias combinaciones aromáticas disponibles.",
+  "howto": {
+    "eyebrow": "El arte del masaje",
+    "title": "Tres formas de uso",
+    "items": [
+      {
+        "title": "Masaje relajante",
+        "description": "Aplica en espalda y hombros con movimientos largos y suaves. Ideal antes de dormir para soltar las tensiones del día."
+      },
+      {
+        "title": "Masaje descontracturante",
+        "description": "Usa mayor presión en puntos específicos de tensión. La combinación de aceites y presión libera nudos musculares."
+      },
+      {
+        "title": "Automasaje",
+        "description": "Aplica en piernas y pies al final del día. Un gesto de autocuidado que toma solo 5 minutos."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Piel nutrida, mente en calma",
+    "title": "Beneficios principales",
+    "items": [
+      {
+        "icon": "💆",
+        "title": "Hidratación profunda",
+        "description": "Los aceites vegetales penetran en capas profundas de la piel, nutriendo desde adentro sin sensación grasosa."
+      },
+      {
+        "icon": "😌",
+        "title": "Aromaterapia integrada",
+        "description": "Cada variedad combina aceites esenciales que trabajan sobre el estado de ánimo durante el masaje."
+      },
+      {
+        "icon": "🌱",
+        "title": "Ingredientes naturales",
+        "description": "Sin parabenos, sin siliconas, sin fragancias sintéticas. Solo lo que tu piel reconoce."
+      }
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu experiencia",
+    "title": "También te puede interesar",
+    "products": [
+      {
+        "id": "roll-on",
+        "name": "Roll-On Anti Estrés",
+        "slug": "roll-on",
+        "desc": "Menta, Pino y Eucalipto.",
+        "price": 200,
+        "price_label": "$200 MXN",
+        "image": "roll-on.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "friega-cannabis",
+        "name": "Friega Cannabis",
+        "slug": "friega-cannabis",
+        "desc": "Analgésico herbal profundo.",
+        "price": 90,
+        "price_label": "desde $90 MXN",
+        "image": "friega-cannabis.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "esencia-miel",
+        "name": "Esencia de Miel",
+        "slug": "esencia-miel",
+        "desc": "Destilación alámbica.",
+        "price": 400,
+        "price_label": "desde $400 MXN",
+        "image": "esencias-amber.webp",
+        "link_type": "link"
+      },
+      {
+        "id": "roll-on",
+        "name": "Roll-On Anti Estrés",
+        "slug": "roll-on",
+        "desc": "Menta, Pino y Eucalipto.",
+        "price": 200,
+        "price_label": "$200 MXN",
+        "image": "roll-on.webp",
+        "link_type": "button"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos por WhatsApp y te asesoramos personalmente."
+  },
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20el%20%C3%93leo%20para%20Masaje",
+  "schema_name": "Óleo para Masaje",
+  "schema_description": "Fusión de ingredientes naturales y esencias seleccionadas. Nutre la piel y ofrece beneficios emocionales.",
+  "schema_image": "oleo-masaje.webp",
+  "schema_price": 150
+}

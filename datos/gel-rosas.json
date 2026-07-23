@@ -1,0 +1,126 @@
+{
+  "slug": "gel-rosas",
+  "title": "Gel de Rosas",
+  "meta_description": "Hidratante con extracto de pétalos frescos. Textura ligera de rápida absorción. Propiedades antioxidantes.",
+  "og_image": "https://casatapputi.com.mx/assets/images/gel-rosas.webp",
+  "hero_image": "gel-rosas.webp",
+  "product_image": "gel-rosas.webp",
+  "breadcrumb_name": "Gel de Rosas",
+  "prod_eyebrow": "Cuidado Facial",
+  "prod_title": "Gel de Rosas",
+  "prod_subtitle": "Hidratante ligera con extracto de pétalos frescos",
+  "eyebrow": "Colección Facial",
+  "h1": "Gel de Rosas",
+  "subtitle_short": "Hidratante ligera con extracto de pétalos frescos",
+  "description": [
+    "Hidratante con extracto de pétalos frescos. Textura ligera de rápida absorción para todo tipo de piel. Deja una sensación fresca sin sensación grasosa.",
+    "Propiedades antioxidantes que restauran luminosidad y elasticidad. Aroma fresco y floral que se percibe sutil durante todo el día."
+  ],
+  "variant_type": "single",
+  "variants": [
+    {
+      "section_label": "Presentación",
+      "label": "100 ml",
+      "price": 150,
+      "price_label": "$150 MXN",
+      "variant_id": "variant_01KXKRE4T1WVW6DCMJC6PBMY2H"
+    }
+  ],
+  "price_display": "$150 MXN",
+  "price_present": "100 ml",
+  "meta_note": "Apto para todo tipo de piel · Libre de parabenos.",
+  "howto": {
+    "eyebrow": "Cada día y cada noche",
+    "title": "Tres formas de uso",
+    "items": [
+      {
+        "title": "Mañana y noche",
+        "description": "Aplica sobre piel limpia después del tónico. Se absorbe rápido y deja la piel lista para el día."
+      },
+      {
+        "title": "Antes del maquillaje",
+        "description": "Una capa ligera prepara la piel, mantiene la hidratación y prolonga la duración del maquillaje."
+      },
+      {
+        "title": "Tras la limpieza",
+        "description": "Después de tu jabón herbal, calma y equilibra la piel antes del serum o aceite facial."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Una piel luminosa",
+    "title": "Beneficios principales",
+    "items": [
+      {
+        "icon": "💦",
+        "title": "Hidratación profunda",
+        "description": "Penetra capas superficiales de la piel y retiene humedad durante horas sin sensación pegajosa."
+      },
+      {
+        "icon": "🌹",
+        "title": "Antioxidante natural",
+        "description": "El extracto de pétalos frescos combate los radicales libres que causan envejecimiento prematuro."
+      },
+      {
+        "icon": "✨",
+        "title": "Luminosidad",
+        "description": "Restaura la luz natural del rostro. La piel luce más fresca, descansada y con tono uniforme."
+      }
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu experiencia",
+    "title": "También te puede interesar",
+    "products": [
+      {
+        "id": "agua-rosas",
+        "name": "Agua de Rosas",
+        "slug": "agua-rosas",
+        "desc": "Tónico de pétalos frescos.",
+        "price": 150,
+        "price_label": "$150 MXN",
+        "image": "agua-rosas.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "gel-cafe",
+        "name": "Gel de Café",
+        "slug": "gel-cafe",
+        "desc": "Tratamiento revitalizante.",
+        "price": 150,
+        "price_label": "$150 MXN",
+        "image": "mascarilla-cafe.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "pomada-calendula",
+        "name": "Pomada Caléndula",
+        "slug": "pomada-calendula",
+        "desc": "Cicatrizante natural.",
+        "price": 100,
+        "price_label": "desde $100 MXN",
+        "image": "pomada-calendula.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "agua-rosas",
+        "name": "Agua de Rosas",
+        "slug": "agua-rosas",
+        "desc": "Tónico de pétalos frescos.",
+        "price": 150,
+        "price_label": "$150 MXN",
+        "image": "agua-rosas.webp",
+        "link_type": "button"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos por WhatsApp y te asesoramos personalmente."
+  },
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20el%20Gel%20de%20Rosas",
+  "schema_name": "Gel de Rosas",
+  "schema_description": "Hidratante con extracto de pétalos frescos. Textura ligera de rápida absorción. Propiedades antioxidantes.",
+  "schema_image": "gel-rosas.webp",
+  "schema_price": 150
+}

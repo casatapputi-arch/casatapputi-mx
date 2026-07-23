@@ -1,0 +1,140 @@
+{
+  "slug": "esencia-miel",
+  "title": "Esencia de Miel",
+  "meta_description": "Extraída por alambique de floración natural. Favorece dopamina y oxitocina; promueve relajación y concentración.",
+  "og_image": "https://casatapputi.com.mx/assets/images/esencias-amber.webp",
+  "hero_image": "esencias-amber.webp",
+  "product_image": "esencias-amber.webp",
+  "breadcrumb_name": "Esencia de Miel",
+  "prod_eyebrow": "Esencias",
+  "prod_title": "Esencia de Miel",
+  "prod_subtitle": "Destilación alámbica de floración natural · Néctar aromático de la colmena",
+  "eyebrow": "Colección Esencias",
+  "h1": "Esencia de Miel",
+  "subtitle_short": "Destilación alámbica de floración natural",
+  "description": [
+    "Destilada por alambique de floración natural, esta esencia pura se activa al contacto con la piel y despliega sus capas en el tiempo. Su acción sutil favorece la producción de dopamina y oxitocina, acompañando la jornada como un ritual silencioso.",
+    "Es una danza simbiótica entre flores y resinas. Cada gota es un instante donde el cuerpo responde y el efecto se siente de inmediato."
+  ],
+  "variant_type": "radio",
+  "variants": [
+    {
+      "section_label": "Elige tu presentación",
+      "label": "4 ml",
+      "price": 400,
+      "price_label": "$400 MXN",
+      "variant_id": "variant_01KXKRE3SV6FA8G7ACK4KQS4ZJ"
+    },
+    {
+      "section_label": "Elige tu presentación",
+      "label": "8 ml",
+      "price": 800,
+      "price_label": "$800 MXN",
+      "variant_id": "variant_01KXKRE3SWH1NJXA2Z1K8RR4ZD"
+    },
+    {
+      "section_label": "Elige tu presentación",
+      "label": "15 ml",
+      "price": 1500,
+      "price_label": "$1,500 MXN",
+      "variant_id": "variant_01KXKRE3SWGNW7T8SGJ54RBBVW"
+    }
+  ],
+  "price_display": "desde $400 MXN",
+  "price_present": "4 ml",
+  "meta_note": "Elaborado artesanalmente en Huerto Roma Verde. Envíos a toda CDMX.",
+  "howto": {
+    "eyebrow": "Cómo integrarlo a tu día",
+    "title": "Tres formas de uso",
+    "items": [
+      {
+        "title": "Aplicación corporal",
+        "description": "Una o dos gotas en sienes, detrás de las orejas o en el pulso. Frotar suavemente para que el calor de la piel active la esencia."
+      },
+      {
+        "title": "Difusor de vela",
+        "description": "Añade 4-5 gotas en agua para armonizar tu recámara o estudio con el dulce aroma floral de la miel."
+      },
+      {
+        "title": "Masaje ritual",
+        "description": "Combinado con óleo base, transforma un masaje cotidiano en un cuidado profundo para cuerpo y emociones."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Por qué la elegimos",
+    "title": "Beneficios principales",
+    "items": [
+      {
+        "icon": "🌼",
+        "title": "Dopamina natural",
+        "description": "Al inhalar o aplicar, el cerebro experimenta una estimulación suave que eleva el estado de ánimo de forma natural."
+      },
+      {
+        "icon": "🌙",
+        "title": "Relajación profunda",
+        "description": "Ideal para combatir el estrés acumulado al final del día gracias a sus notas cálidas y envolventes."
+      },
+      {
+        "icon": "✨",
+        "title": "Concentración consciente",
+        "description": "Ayuda a centrar la mente, optimizando la atención en actividades que requieren presencia y reflexión."
+      }
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu experiencia",
+    "title": "También te puede interesar",
+    "products": [
+      {
+        "id": "perfume-solido",
+        "name": "Perfume Sólido",
+        "slug": "perfume-solido",
+        "desc": "Cera de abeja y aceites botánicos.",
+        "price": 80,
+        "price_label": "desde $80 MXN",
+        "image": "perfume-solido.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "lagrimas-rosas",
+        "name": "Lágrimas de Rosas",
+        "slug": "lagrimas-rosas",
+        "desc": "Resina sagrada para saumerios.",
+        "price": 100,
+        "price_label": "desde $100 MXN",
+        "image": "lagrimas-rosas.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "oleo-masaje",
+        "name": "Óleo para Masaje",
+        "slug": "oleo-masaje",
+        "desc": "Fusión sensorial que nutre la piel.",
+        "price": 150,
+        "price_label": "desde $150 MXN",
+        "image": "oleo-masaje.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "perfume-solido",
+        "name": "Perfume Sólido",
+        "slug": "perfume-solido",
+        "desc": "Cera de abeja y aceites botánicos.",
+        "price": 80,
+        "price_label": "desde $80 MXN",
+        "image": "perfume-solido.webp",
+        "link_type": "button"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos por WhatsApp y te asesoramos personalmente."
+  },
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20la%20Esencia%20de%20Miel",
+  "schema_name": "Esencia de Miel",
+  "schema_description": "Extraída por alambique de floración natural. Favorece dopamina y oxitocina; promueve relajación y concentración.",
+  "schema_image": "esencias-amber.webp",
+  "schema_price": 400
+}

@@ -1,0 +1,126 @@
+{
+  "slug": "jabones",
+  "title": "Jabones Herbales",
+  "meta_description": "7 variedades con aceite de coco: Miel & Avena, Menta & Romero, Manzanilla & Bergamota, Manzana & Canela, Lavanda & Violeta, Rosas & Anís Estrella, Carbón Activa",
+  "og_image": "https://casatapputi.com.mx/assets/images/jabones-herbales.webp",
+  "hero_image": "jabones-herbales.webp",
+  "product_image": "jabones-herbales.webp",
+  "breadcrumb_name": "Jabones Herbales",
+  "prod_eyebrow": "Cuidado Corporal",
+  "prod_title": "Jabones Herbales",
+  "prod_subtitle": "7 variedades con aceite de coco y botánicos — jabón artesanal",
+  "eyebrow": "Colección Corporal",
+  "h1": "Jabones Herbales",
+  "subtitle_short": "7 variedades artesanales con aceite de coco",
+  "description": [
+    "Siete variedades de jabón artesanal elaboradas con aceite de coco como base: Miel & Avena, Menta & Romero, Manzanilla & Bergamota, Manzana & Canela, Lavanda & Violeta, Rosas & Anís Estrella y Carbón Activado.",
+    "Cada variedad está formulada con ingredientes botánicos que aportan propiedades específicas: exfoliación suave, hidratación, efecto calmante o purificante. Sin detergentes agresivos, sin parabenos, sin fragancias sintéticas."
+  ],
+  "variant_type": "single",
+  "variants": [
+    {
+      "section_label": "Presentación",
+      "label": "100 gr / pz",
+      "price": 90,
+      "price_label": "$90 MXN / pz",
+      "variant_id": "variant_01KXKRE4EPW3GRAZ2WAYKJ4HX2"
+    }
+  ],
+  "price_display": "$90 MXN / pz",
+  "price_present": "100 gr / pz",
+  "meta_note": "7 variedades disponibles. Pregunta por el catálogo completo.",
+  "howto": {
+    "eyebrow": "Elige tu variedad",
+    "title": "Tres favoritos",
+    "items": [
+      {
+        "title": "Miel & Avena",
+        "description": "El más hidratante. La avena exfolia suavemente y la miel humecta. Ideal para piel seca o sensible."
+      },
+      {
+        "title": "Carbón Activado",
+        "description": "El más purificante. El carbón arrastra impurezas y toxinas. Ideal para piel grasa o con acné."
+      },
+      {
+        "title": "Lavanda & Violeta",
+        "description": "El más relajante. La lavanda calma la piel y la mente. El aroma perfecto para el baño nocturno."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Jabón de verdad",
+    "title": "Beneficios principales",
+    "items": [
+      {
+        "icon": "🥥",
+        "title": "Aceite de coco real",
+        "description": "A diferencia de los jabones comerciales, conservamos la glicerina natural. Tu piel queda limpia pero no reseca."
+      },
+      {
+        "icon": "🌿",
+        "title": "7 botánicos distintos",
+        "description": "Cada variedad está pensada para una necesidad diferente. Encuentra el tuyo o colecciona los siete."
+      },
+      {
+        "icon": "🧼",
+        "title": "Sin detergentes",
+        "description": "Sin SLS, sin parabenos, sin fragancias sintéticas. Solo ingredientes que reconoces y puedes pronunciar."
+      }
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu experiencia",
+    "title": "También te puede interesar",
+    "products": [
+      {
+        "id": "roll-on",
+        "name": "Roll-On Anti Estrés",
+        "slug": "roll-on",
+        "desc": "Menta, Pino y Eucalipto.",
+        "price": 200,
+        "price_label": "$200 MXN",
+        "image": "roll-on.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "friega-cannabis",
+        "name": "Friega Cannabis",
+        "slug": "friega-cannabis",
+        "desc": "Analgésico herbal profundo.",
+        "price": 90,
+        "price_label": "desde $90 MXN",
+        "image": "friega-cannabis.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "oleo-masaje",
+        "name": "Óleo para Masaje",
+        "slug": "oleo-masaje",
+        "desc": "Nutre piel y emociones.",
+        "price": 150,
+        "price_label": "desde $150 MXN",
+        "image": "oleo-masaje.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "esencia-miel",
+        "name": "Esencia de Miel",
+        "slug": "esencia-miel",
+        "desc": "Destilación alámbica.",
+        "price": 400,
+        "price_label": "desde $400 MXN",
+        "image": "esencias-amber.webp",
+        "link_type": "link"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos por WhatsApp y te asesoramos personalmente."
+  },
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesan%20los%20Jabones%20Herbales",
+  "schema_name": "Jabones Herbales",
+  "schema_description": "7 variedades con aceite de coco: Miel & Avena, Menta & Romero, Manzanilla & Bergamota, Manzana & Canela, Lavanda & Violeta, Rosas & Anís Estrella, Carbón Activa",
+  "schema_image": "jabones-herbales.webp",
+  "schema_price": 90
+}

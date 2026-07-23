@@ -1,0 +1,126 @@
+{
+  "slug": "roll-on",
+  "title": "Roll-On Anti Estrés",
+  "meta_description": "Menta, Pino y Eucalipto. Menta despeja la mente; Pino equilibra; Eucalipto purifica y facilita la respiración profunda.",
+  "og_image": "https://casatapputi.com.mx/assets/images/roll-on.webp",
+  "hero_image": "roll-on.webp",
+  "product_image": "roll-on.webp",
+  "breadcrumb_name": "Roll-On Anti Estrés",
+  "prod_eyebrow": "Cuidado Corporal",
+  "prod_title": "Roll-On Anti Estrés",
+  "prod_subtitle": "Menta, Pino y Eucalipto en aplicación puntual",
+  "eyebrow": "Colección Corporal",
+  "h1": "Roll-On Anti Estrés",
+  "subtitle_short": "Menta, Pino y Eucalipto en aplicación puntual",
+  "description": [
+    "Una sinergia precisa de tres plantas: Menta que despeja la mente, Pino que equilibra las emociones y Eucalipto que facilita la respiración profunda. Su formato roll-on lo convierte en el compañero discreto para el día a día.",
+    "Aplica en sienes, cuello o detrás de las orejas y permite que los aceites hagan el resto."
+  ],
+  "variant_type": "single",
+  "variants": [
+    {
+      "section_label": "Presentación",
+      "label": "15 ml",
+      "price": 200,
+      "price_label": "$200 MXN",
+      "variant_id": "variant_01KXKRE4975W7NKDNMH2WCT3S7"
+    }
+  ],
+  "price_display": "$200 MXN",
+  "price_present": "15 ml",
+  "meta_note": "Cabe en bolsa o bolsillo. Sin alcohol.",
+  "howto": {
+    "eyebrow": "Cuándo aplicarlo",
+    "title": "Tres momentos clave",
+    "items": [
+      {
+        "title": "En sienes",
+        "description": "Cuando la cabeza se siente nublada o el día fue intenso. La menta activa claridad casi inmediata."
+      },
+      {
+        "title": "En el pecho",
+        "description": "Para abrir la respiración. El eucalipto y el pino facilitan inhalaciones profundas en momentos de tensión."
+      },
+      {
+        "title": "Antes de dormir",
+        "description": "Aplica en sienes y debajo de la nariz. El pino ayuda a soltar la mente y prepara el cuerpo para el descanso."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Por qué funciona",
+    "title": "Beneficios principales",
+    "items": [
+      {
+        "icon": "🧠",
+        "title": "Claridad mental",
+        "description": "La menta activa los receptores fríos de la piel y la temperatura baja induce atención inmediata."
+      },
+      {
+        "icon": "🌲",
+        "title": "Respiración profunda",
+        "description": "Eucalipto y pino abren las vías respiratorias. Una inhalación larga se siente como un pequeño respiro pulmonar."
+      },
+      {
+        "icon": "⏱️",
+        "title": "Alivio instantáneo",
+        "description": "Sin necesidad de esperar. Aplica y respira — la sensación se percibe desde los primeros segundos."
+      }
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu experiencia",
+    "title": "También te puede interesar",
+    "products": [
+      {
+        "id": "friega-cannabis",
+        "name": "Friega Cannabis",
+        "slug": "friega-cannabis",
+        "desc": "Analgésico herbal profundo.",
+        "price": 90,
+        "price_label": "desde $90 MXN",
+        "image": "friega-cannabis.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "oleo-masaje",
+        "name": "Óleo para Masaje",
+        "slug": "oleo-masaje",
+        "desc": "Nutre piel y emociones.",
+        "price": 150,
+        "price_label": "desde $150 MXN",
+        "image": "oleo-masaje.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "esencia-miel",
+        "name": "Esencia de Miel",
+        "slug": "esencia-miel",
+        "desc": "Destilación alámbica.",
+        "price": 400,
+        "price_label": "desde $400 MXN",
+        "image": "esencias-amber.webp",
+        "link_type": "link"
+      },
+      {
+        "id": "friega-cannabis",
+        "name": "Friega Cannabis",
+        "slug": "friega-cannabis",
+        "desc": "Analgésico herbal profundo.",
+        "price": 90,
+        "price_label": "desde $90 MXN",
+        "image": "friega-cannabis.webp",
+        "link_type": "button"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos por WhatsApp y te asesoramos personalmente."
+  },
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20el%20Roll-On%20Anti%20Estr%C3%A9s",
+  "schema_name": "Roll-On Anti Estrés",
+  "schema_description": "Menta, Pino y Eucalipto. Menta despeja la mente; Pino equilibra; Eucalipto purifica y facilita la respiración profunda.",
+  "schema_image": "roll-on.webp",
+  "schema_price": 200
+}

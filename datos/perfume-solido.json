@@ -1,0 +1,126 @@
+{
+  "slug": "perfume-solido",
+  "title": "Perfume Sólido Herbal",
+  "meta_description": "Cera de abeja, aceite de oliva y aceites esenciales botánicos. Nutre la piel mientras perfuma. 18 aromas disponibles.",
+  "og_image": "https://casatapputi.com.mx/assets/images/perfume-solido.webp",
+  "hero_image": "perfume-solido.webp",
+  "product_image": "perfume-solido.webp",
+  "breadcrumb_name": "Perfume Sólido Herbal",
+  "prod_eyebrow": "Esencias",
+  "prod_title": "Perfume Sólido Herbal",
+  "prod_subtitle": "Cera de abeja, aceite de oliva y aceites esenciales — 18 aromas",
+  "eyebrow": "Colección Esencias",
+  "h1": "Perfume Sólido Herbal",
+  "subtitle_short": "Cera de abeja y aceites botánicos que nutren mientras perfuman",
+  "description": [
+    "Perfume en formato sólido elaborado con cera de abeja, aceite de oliva orgánico y aceites esenciales botánicos puros. Se funde con el calor de la piel liberando su aroma gradualmente durante horas. Nutre mientras perfuma.",
+    "Disponible en 18 aromas. Sin alcohol, sin conservadores, sin fragancias sintéticas. Ideal para llevar en el bolsillo o en el bolso. Un gesto de autocuidado que cabe en la palma de la mano."
+  ],
+  "variant_type": "single",
+  "variants": [
+    {
+      "section_label": "Presentación",
+      "label": "10 gr",
+      "price": 80,
+      "price_label": "desde $80 MXN",
+      "variant_id": "variant_01KXKRE41BMQFKQQGN24NNGN3K"
+    }
+  ],
+  "price_display": "desde $80 MXN",
+  "price_present": "10 gr",
+  "meta_note": "18 aromas disponibles. Pregunta por el catálogo completo.",
+  "howto": {
+    "eyebrow": "Un perfume que se aplica con los dedos",
+    "title": "Tres formas de uso",
+    "items": [
+      {
+        "title": "En muñecas y cuello",
+        "description": "Frota una pequeña cantidad con la yema del dedo y aplica en puntos de pulso. El calor corporal activa el aroma."
+      },
+      {
+        "title": "En las puntas del cabello",
+        "description": "Un toque ligero en las puntas perfuma sutilmente y nutre el cabello seco con los aceites naturales."
+      },
+      {
+        "title": "Como bálsamo multiuso",
+        "description": "La cera de abeja y el aceite de oliva también hidratan cutículas, codos y zonas resecas."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Belleza consciente",
+    "title": "Beneficios principales",
+    "items": [
+      {
+        "icon": "🐝",
+        "title": "Cera de abeja pura",
+        "description": "Crea una barrera protectora que sella la hidratación mientras libera el aroma lentamente."
+      },
+      {
+        "icon": "🌿",
+        "title": "Sin alcohol",
+        "description": "No reseca la piel. Ideal para personas con sensibilidad a los perfumes convencionales."
+      },
+      {
+        "icon": "🎒",
+        "title": "Portátil y duradero",
+        "description": "Formato sólido que no se derrama. Ideal para viaje, gimnasio o retoques durante el día."
+      }
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu experiencia",
+    "title": "También te puede interesar",
+    "products": [
+      {
+        "id": "esencia-miel",
+        "name": "Esencia de Miel",
+        "slug": "esencia-miel",
+        "desc": "Destilación alámbica artesanal.",
+        "price": 400,
+        "price_label": "desde $400 MXN",
+        "image": "esencias-amber.webp",
+        "link_type": "link"
+      },
+      {
+        "id": "lagrimas-rosas",
+        "name": "Lágrimas de Rosas",
+        "slug": "lagrimas-rosas",
+        "desc": "Resina sagrada para saumerios.",
+        "price": 100,
+        "price_label": "desde $100 MXN",
+        "image": "lagrimas-rosas.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "oleo-masaje",
+        "name": "Óleo para Masaje",
+        "slug": "oleo-masaje",
+        "desc": "Fusión sensorial que nutre la piel.",
+        "price": 150,
+        "price_label": "desde $150 MXN",
+        "image": "oleo-masaje.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "esencia-miel",
+        "name": "Esencia de Miel",
+        "slug": "esencia-miel",
+        "desc": "Destilación alámbica artesanal.",
+        "price": 400,
+        "price_label": "desde $400 MXN",
+        "image": "esencias-amber.webp",
+        "link_type": "link"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos por WhatsApp y te asesoramos personalmente."
+  },
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20el%20Perfume%20S%C3%B3lido",
+  "schema_name": "Perfume Sólido Herbal",
+  "schema_description": "Cera de abeja, aceite de oliva y aceites esenciales botánicos. Nutre la piel mientras perfuma. 18 aromas disponibles.",
+  "schema_image": "perfume-solido.webp",
+  "schema_price": 80
+}

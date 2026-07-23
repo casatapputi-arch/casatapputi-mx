@@ -1,0 +1,126 @@
+{
+  "slug": "chilcuague",
+  "title": "Chilcuague",
+  "meta_description": "Spray oral de raíz medicinal. Acción antibacteriana y antiinflamatoria sobre encías, mucosas y tejidos orales.",
+  "og_image": "https://casatapputi.com.mx/assets/images/chilcuague.webp",
+  "hero_image": "chilcuague.webp",
+  "product_image": "chilcuague.webp",
+  "breadcrumb_name": "Chilcuague",
+  "prod_eyebrow": "Cuidado Corporal",
+  "prod_title": "Chilcuague",
+  "prod_subtitle": "Raíz medicinal mexicana en spray — salud bucal natural",
+  "eyebrow": "Colección Corporal",
+  "h1": "Chilcuague",
+  "subtitle_short": "Spray oral de raíz medicinal para salud bucal",
+  "description": [
+    "Spray oral elaborado con extracto puro de raíz de chilcuague, una planta medicinal mexicana usada tradicionalmente para la salud bucal. Acción antibacteriana y antiinflamatoria sobre encías, mucosas y tejidos orales.",
+    "Alivia el dolor de muelas, reduce la inflamación de encías y combate bacterias causantes del mal aliento. Un botiquín dental natural en tu bolsillo. 30 ml."
+  ],
+  "variant_type": "single",
+  "variants": [
+    {
+      "section_label": "Presentación",
+      "label": "30 ml",
+      "price": 100,
+      "price_label": "$100 MXN",
+      "variant_id": "variant_01KXKRE4CW0CFEC7G70EEGNEPH"
+    }
+  ],
+  "price_display": "$100 MXN",
+  "price_present": "30 ml",
+  "meta_note": "Extracto puro de raíz de chilcuague. 30 ml.",
+  "howto": {
+    "eyebrow": "Salud bucal natural",
+    "title": "Tres formas de uso",
+    "items": [
+      {
+        "title": "Para encías",
+        "description": "Aplica 2-3 sprays directamente sobre la encía inflamada. Masajea suavemente con la lengua. Usar 2-3 veces al día."
+      },
+      {
+        "title": "Para dolor de muelas",
+        "description": "Aplica directamente sobre la muela afectada. El efecto anestésico natural del chilcuague se siente en segundos."
+      },
+      {
+        "title": "Como enjuague",
+        "description": "5 sprays en un poco de agua para enjuague bucal diario. Combate bacterias y refresca el aliento."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "La farmacia en tu boca",
+    "title": "Beneficios principales",
+    "items": [
+      {
+        "icon": "🦷",
+        "title": "Antibacteriano natural",
+        "description": "El extracto de chilcuague combate las bacterias que causan caries, gingivitis y mal aliento."
+      },
+      {
+        "icon": "🌱",
+        "title": "Raíz 100% mexicana",
+        "description": "Planta medicinal usada desde tiempos prehispánicos. Rescatamos este conocimiento ancestral en formato moderno."
+      },
+      {
+        "icon": "⚡",
+        "title": "Alivio inmediato",
+        "description": "El efecto anestésico natural del chilcuague se percibe desde la primera aplicación. Sin químicos sintéticos."
+      }
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu experiencia",
+    "title": "También te puede interesar",
+    "products": [
+      {
+        "id": "roll-on",
+        "name": "Roll-On Anti Estrés",
+        "slug": "roll-on",
+        "desc": "Menta, Pino y Eucalipto.",
+        "price": 200,
+        "price_label": "$200 MXN",
+        "image": "roll-on.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "friega-cannabis",
+        "name": "Friega Cannabis",
+        "slug": "friega-cannabis",
+        "desc": "Analgésico herbal profundo.",
+        "price": 90,
+        "price_label": "desde $90 MXN",
+        "image": "friega-cannabis.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "oleo-masaje",
+        "name": "Óleo para Masaje",
+        "slug": "oleo-masaje",
+        "desc": "Nutre piel y emociones.",
+        "price": 150,
+        "price_label": "desde $150 MXN",
+        "image": "oleo-masaje.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "esencia-miel",
+        "name": "Esencia de Miel",
+        "slug": "esencia-miel",
+        "desc": "Destilación alámbica.",
+        "price": 400,
+        "price_label": "desde $400 MXN",
+        "image": "esencias-amber.webp",
+        "link_type": "link"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos por WhatsApp y te asesoramos personalmente."
+  },
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20el%20Chilcuague",
+  "schema_name": "Chilcuague",
+  "schema_description": "Spray oral de raíz medicinal. Acción antibacteriana y antiinflamatoria sobre encías, mucosas y tejidos orales.",
+  "schema_image": "chilcuague.webp",
+  "schema_price": 100
+}

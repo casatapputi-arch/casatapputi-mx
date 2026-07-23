@@ -1,0 +1,126 @@
+{
+  "slug": "friega-cannabis",
+  "title": "Friega Cannabis",
+  "meta_description": "Sinergia de cannabis, veneno de hormiga roja y plantas medicinales. Analgésico profundo y antiinflamatorio.",
+  "og_image": "https://casatapputi.com.mx/assets/images/friega-cannabis.webp",
+  "hero_image": "friega-cannabis.webp",
+  "product_image": "friega-cannabis.webp",
+  "breadcrumb_name": "Friega Cannabis",
+  "prod_eyebrow": "Cuidado Corporal",
+  "prod_title": "Friega Cannabis",
+  "prod_subtitle": "Sinergia de cannabis y plantas medicinales — analgésico profundo",
+  "eyebrow": "Colección Corporal",
+  "h1": "Friega Cannabis",
+  "subtitle_short": "Analgésico herbal profundo para dolores musculares y articulares",
+  "description": [
+    "Sinergia de cannabis, veneno de hormiga roja y plantas medicinales seleccionadas. Una fórmula líquida de alta potencia para aplicación local en zonas de dolor muscular, articular o reumático.",
+    "La combinación de cannabinoides con compuestos antiinflamatorios naturales crea un efecto analgésico profundo. Aplicación en friega sobre la zona afectada. Alivio que se siente en minutos."
+  ],
+  "variant_type": "single",
+  "variants": [
+    {
+      "section_label": "Presentación",
+      "label": "60 ml",
+      "price": 90,
+      "price_label": "desde $90 MXN",
+      "variant_id": "variant_01KXKRE4A5NZG8PFKH6BB4Y3ET"
+    }
+  ],
+  "price_display": "desde $90 MXN",
+  "price_present": "60 ml",
+  "meta_note": "Uso tópico exclusivamente. No ingerir.",
+  "howto": {
+    "eyebrow": "Aplicación local",
+    "title": "Tres formas de uso",
+    "items": [
+      {
+        "title": "En articulaciones",
+        "description": "Aplica generosamente sobre rodillas, codos o muñecas con movimientos circulares hasta que se absorba."
+      },
+      {
+        "title": "En espalda",
+        "description": "Para lumbalgias o contracturas. Pide ayuda para aplicar en la zona y cubre con una toalla tibia después."
+      },
+      {
+        "title": "Después del ejercicio",
+        "description": "Aplica en músculos fatigados tras entrenar. Ayuda a reducir la inflamación y acelera la recuperación."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Potencia herbal",
+    "title": "Beneficios principales",
+    "items": [
+      {
+        "icon": "🌿",
+        "title": "Cannabis analgésico",
+        "description": "Los cannabinoides interactúan con receptores locales del dolor, proporcionando alivio sin efectos psicoactivos."
+      },
+      {
+        "icon": "🔥",
+        "title": "Antiinflamatorio",
+        "description": "La combinación de hierbas reduce la inflamación local y mejora la movilidad articular."
+      },
+      {
+        "icon": "⚡",
+        "title": "Absorción rápida",
+        "description": "Fórmula líquida que penetra rápidamente. No deja sensación grasosa ni mancha la ropa."
+      }
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu experiencia",
+    "title": "También te puede interesar",
+    "products": [
+      {
+        "id": "roll-on",
+        "name": "Roll-On Anti Estrés",
+        "slug": "roll-on",
+        "desc": "Menta, Pino y Eucalipto.",
+        "price": 200,
+        "price_label": "$200 MXN",
+        "image": "roll-on.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "oleo-masaje",
+        "name": "Óleo para Masaje",
+        "slug": "oleo-masaje",
+        "desc": "Nutre piel y emociones.",
+        "price": 150,
+        "price_label": "desde $150 MXN",
+        "image": "oleo-masaje.webp",
+        "link_type": "button"
+      },
+      {
+        "id": "esencia-miel",
+        "name": "Esencia de Miel",
+        "slug": "esencia-miel",
+        "desc": "Destilación alámbica.",
+        "price": 400,
+        "price_label": "desde $400 MXN",
+        "image": "esencias-amber.webp",
+        "link_type": "link"
+      },
+      {
+        "id": "roll-on",
+        "name": "Roll-On Anti Estrés",
+        "slug": "roll-on",
+        "desc": "Menta, Pino y Eucalipto.",
+        "price": 200,
+        "price_label": "$200 MXN",
+        "image": "roll-on.webp",
+        "link_type": "button"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Tienes dudas sobre este producto?",
+    "subtitle": "Escríbenos por WhatsApp y te asesoramos personalmente."
+  },
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20la%20Friega%20Cannabis",
+  "schema_name": "Friega Cannabis",
+  "schema_description": "Sinergia de cannabis, veneno de hormiga roja y plantas medicinales. Analgésico profundo y antiinflamatorio.",
+  "schema_image": "friega-cannabis.webp",
+  "schema_price": 90
+}
