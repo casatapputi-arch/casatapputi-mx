@@ -1,7 +1,7 @@
 # 🛍️ Cómo agregar un producto nuevo al catálogo
 
 > **Para:** Erandi y Franco  
-> **Actualizado:** Julio 2026  
+> **Actualizado:** Julio 2026 · **Última prueba:** 22 julio 2026 ✅  
 > **Tiempo estimado:** 5-10 minutos por producto
 
 ---
@@ -146,6 +146,89 @@ python3 -m http.server 8000 -d .
 ```
 
 Luego abre `http://localhost:8000/productos/tu-producto/` en tu navegador.
+
+---
+
+## ✅ Prueba verificada — 22 julio 2026
+
+El script fue probado con un producto real (**Aceite de Masaje Herbal**, 3 tamaños con selector de precio) y revisado visualmente en celular (iPhone SE, 375px). Resultado: **9 de 9 checks aprobados.**
+
+| Verificación | Resultado |
+|---|---|
+| 🖼️ Hero con imagen, breadcrumb, título | ✅ |
+| 📝 Descripción y párrafos legibles | ✅ |
+| 🔘 Selector de precio (60ml→$180, 120ml→$320, 250ml→$580) | ✅ |
+| 🛒 Botón carrito + stepper de cantidad (+/−) | ✅ |
+| 📋 3 formas de uso numeradas | ✅ |
+| 🌿 3 beneficios con íconos | ✅ |
+| 🃏 4 productos relacionados con imágenes | ✅ |
+| 📱 Sin desbordes horizontales, espaciado profesional | ✅ |
+| 👣 Footer + botón WhatsApp flotante | ✅ |
+
+---
+
+## ❓ Preguntas frecuentes
+
+### ¿Cómo obtengo el `variant_id`?
+
+El `variant_id` lo necesitas para que el botón de "Agregar al carrito" funcione con MercadoPago. Lo obtienes del panel de **Medusa**:
+
+1. Entra al panel de administración de Medusa (la URL la tiene Franco)
+2. Ve a **Products** → busca tu producto (o créalo si es nuevo)
+3. Dentro del producto, ve a la pestaña **Variants**
+4. Cada variante tiene un ID que empieza con `variant_`. Cópialo y pégalo en el JSON.
+
+> ⚠️ **Si el producto NO existe en Medusa**, necesitas crearlo primero en el panel antes de generar la página. Pídele ayuda a Franco para esta parte.
+
+### ¿Qué hago si no tengo imagen del producto?
+
+Tienes tres opciones:
+
+| Opción | Cuándo usarla |
+|---|---|
+| **Usar una imagen genérica** | Si el producto es nuevo y aún no tienes foto. Usa `casa-tapputi-logo.webp` como placeholder temporal. |
+| **Usar imagen de un producto similar** | Si es de la misma familia (ej. otra esencia, otra pomada). Revisa qué hay en `assets/images/`. |
+| **Convertir una foto que ya tengas** | Si tienes un JPG o PNG en tu compu, conviértelo a WebP y súbelo (ver abajo). |
+
+Para convertir una imagen a WebP:
+```bash
+# Si tienes ImageMagick instalado:
+convert mi-foto.jpg assets/images/mi-producto.webp
+
+# O con cwebp (más ligero):
+cwebp -q 80 mi-foto.jpg -o assets/images/mi-producto.webp
+```
+
+> 💡 **Tip:** Las imágenes no necesitan ser perfectas. Con que se vea el producto claramente es suficiente. Erandi puede mandarle la foto a Franco por WhatsApp y él la convierte.
+
+### ¿Qué pasa si me equivoqué en algo?
+
+Tranquila. Solo corrige el JSON y vuelve a correr el script:
+```bash
+python3 scripts/generate-product.py datos/tu-producto.json
+```
+El script **sobrescribe** la página anterior con los nuevos datos. Luego haces commit y push otra vez.
+
+### ¿Puedo borrar un producto?
+
+Sí. Elimina la carpeta y el JSON:
+```bash
+rm -rf productos/mi-producto datos/mi-producto.json
+git add -A && git commit -m "eliminar: Mi Producto" && git push
+```
+
+### ¿Necesito actualizar el catálogo manualmente?
+
+**No.** El catálogo (`productos/index.html`) se carga automáticamente desde Medusa. Solo necesitas:
+1. Crear el producto en Medusa (panel de admin)
+2. Generar la página de detalle con este script
+
+### El script dice "module not found" o "python3 no encontrado"
+
+Pídele a Franco que revise. Es probable que necesite instalar Python 3:
+```bash
+sudo apt install python3
+```
 
 ---
 
