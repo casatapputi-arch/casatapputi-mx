@@ -1,0 +1,65 @@
+{
+  "slug": "talabarteria",
+  "title": "Talabartería",
+  "meta_description": "Piel reciclada transformada en piezas elegantes y funcionales: cinturones, pulseras, carteras y mochilas. Hecho a mano en CDMX.",
+  "hero_image": "talabarteria.webp",
+  "product_image": "talabarteria.webp",
+  "breadcrumb_name": "Talabartería",
+  "prod_eyebrow": "Estilo",
+  "prod_title": "Talabartería",
+  "prod_subtitle": "Piel reciclada transformada en piezas elegantes y funcionales",
+  "eyebrow": "Colección Estilo",
+  "h1": "Talabartería",
+  "subtitle_short": "La segunda vida del cuero",
+  "description": [
+    "Piel reciclada transformada en piezas únicas: cinturones, pulseras, carteras, mochilas y más. Cada pieza es el resultado de un proceso artesanal que rescata materiales y los convierte en objetos de uso diario con carácter.",
+    "Trabajamos con piel de curtidurías locales que de otro modo sería desecho. Cada corte, costura y acabado es hecho a mano en el taller de Huerto Roma Verde. Piezas que cuentan una historia desde el primer día."
+  ],
+  "variant_type": "single",
+  "variants": [
+    {
+      "section_label": "Pedidos",
+      "label": "Piezas personalizadas",
+      "price": 0,
+      "price_label": "A cotizar",
+      "variant_id": "variant_01KXKRE5CDBYRPQ91JQQMS9W2V"
+    }
+  ],
+  "price_display": "A cotizar",
+  "price_present": "Piezas personalizadas — escríbenos para cotizar tu diseño",
+  "meta_note": "Piel reciclada de curtidurías locales. Hecho a mano en Huerto Roma Verde.",
+  "howto": {
+    "eyebrow": "Cuatro piezas",
+    "title": "Lo que hacemos",
+    "items": [
+      {"title": "Cinturones", "description": "Piel completa con hebilla de metal reciclado. Disponible en varios anchos y acabados. El cinturón que te dura años, no meses."},
+      {"title": "Pulseras", "description": "Diseños minimalistas de una sola pieza de cuero. Se adaptan a la muñeca con el uso. Perfectas para el día a día."},
+      {"title": "Carteras y mochilas", "description": "Piezas funcionales con costura reforzada. Cada bolsillo y compartimento está pensado para el uso real de una persona real."}
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Cuero con conciencia",
+    "title": "Beneficios principales",
+    "items": [
+      {"icon": "♻️", "title": "Piel reciclada", "description": "Rescatamos recortes y piezas de curtidurías que irían al desperdicio. Cada producto es un gesto de economía circular real."},
+      {"icon": "🖐️", "title": "Hecho a mano", "description": "Sin máquinas industriales. Cada pieza es cortada, cosida y acabada por manos que conocen el oficio. Las imperfecciones son la firma del artesano."},
+      {"icon": "🇲🇽", "title": "Diseño mexicano", "description": "Formas limpias inspiradas en la talabartería tradicional mexicana. Piezas que cruzan lo rural y lo contemporáneo sin esfuerzo."}
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu estilo",
+    "title": "También te puede interesar",
+    "products": [
+      {"id": "terrarios", "name": "Terrarios", "slug": "terrarios", "desc": "Piezas de vidrio con plantas vivas.", "price": 0, "price_label": "A cotizar", "image": "terrarios.webp", "link_type": "link"},
+      {"id": "perfume-solido", "name": "Perfume Sólido", "slug": "perfume-solido", "desc": "Cera de abeja y aceites botánicos.", "price": 80, "price_label": "desde $80 MXN", "image": "perfume-solido.webp", "link_type": "button"},
+      {"id": "esencia-miel", "name": "Esencia de Miel", "slug": "esencia-miel", "desc": "Destilación alámbica artesanal.", "price": 400, "price_label": "desde $400 MXN", "image": "esencias-amber.webp", "link_type": "link"},
+      {"id": "roll-on", "name": "Roll-On Anti Estrés", "slug": "roll-on", "desc": "Menta, Pino y Eucalipto portátil.", "price": 200, "price_label": "$200 MXN", "image": "roll-on.webp", "link_type": "button"}
+    ]
+  },
+  "cta": {"title": "¿Quieres una pieza de talabartería?", "subtitle": "Escríbenos con tu idea y te cotizamos sin compromiso."},
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20una%20pieza%20de%20talabarter%C3%ADa",
+  "schema_name": "Talabartería",
+  "schema_description": "Piel reciclada transformada en piezas únicas: cinturones, pulseras, carteras y mochilas. Hecho a mano en CDMX.",
+  "schema_image": "talabarteria.webp",
+  "schema_price": 0
+}

@@ -1,0 +1,65 @@
+{
+  "slug": "terrarios",
+  "title": "Terrarios",
+  "meta_description": "Piezas decorativas de vidrio en medidas personalizadas: candeleros, joyeros, aparadores y mostradores. Hechos a mano en CDMX.",
+  "hero_image": "terrarios.webp",
+  "product_image": "terrarios.webp",
+  "breadcrumb_name": "Terrarios",
+  "prod_eyebrow": "Hogar",
+  "prod_title": "Terrarios",
+  "prod_subtitle": "Piezas de vidrio en medidas personalizadas — candeleros, joyeros, aparadores",
+  "eyebrow": "Colección Hogar",
+  "h1": "Terrarios",
+  "subtitle_short": "Naturaleza encapsulada en vidrio",
+  "description": [
+    "Piezas decorativas de vidrio soplado elaboradas artesanalmente en Huerto Roma Verde. Cada terrario es una ventana a un ecosistema en miniatura: suculentas, cactus, musgo y piedras conviven en equilibrio dentro de geometrías de cristal.",
+    "Disponibles en medidas personalizadas. Desde pequeños joyeros de escritorio hasta aparadores y mostradores para espacios comerciales. Cada pieza es única y se adapta al espacio y la luz de tu hogar o negocio."
+  ],
+  "variant_type": "single",
+  "variants": [
+    {
+      "section_label": "Pedidos",
+      "label": "Medidas personalizadas",
+      "price": 0,
+      "price_label": "A cotizar",
+      "variant_id": "variant_01KXKRE5ACE6ZWXPTRXJ54YW1D"
+    }
+  ],
+  "price_display": "A cotizar",
+  "price_present": "Medidas personalizadas — escríbenos para cotizar tu diseño",
+  "meta_note": "Vidrio soplado artesanalmente. Plantas vivas de Huerto Roma Verde.",
+  "howto": {
+    "eyebrow": "Tres estilos",
+    "title": "Tipos de terrario",
+    "items": [
+      {"title": "Candeleros", "description": "Pequeños terrarios con vela integrada. La luz atraviesa el vidrio y las plantas creando un juego de sombras hipnótico. Perfecto para mesas de centro."},
+      {"title": "Joyeros", "description": "Terrarios de escritorio con tapa de cristal. Guarda tus anillos y collares dentro de un jardín en miniatura. Funcional y decorativo."},
+      {"title": "Aparadores", "description": "Piezas grandes para vitrinas o mostradores. Ecosistemas completos con varias especies de plantas. Ideales para negocios y espacios comerciales."}
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Vida en vidrio",
+    "title": "Beneficios principales",
+    "items": [
+      {"icon": "🪴", "title": "Ecosistema autosuficiente", "description": "Cada terrario es un ciclo cerrado. Las plantas reciclan su propia humedad y requieren mínimo mantenimiento. Ideal para espacios con poca luz."},
+      {"icon": "🎨", "title": "Pieza única", "description": "No hay dos iguales. Cada terrario se diseña según el espacio, la luz disponible y tus preferencias. Una obra viva que evoluciona con el tiempo."},
+      {"icon": "🏡", "title": "Hecho en CDMX", "description": "Vidrio soplado por artesanos locales y plantas cultivadas en Huerto Roma Verde. Cada terrario apoya a la economía creativa de la ciudad."}
+    ]
+  },
+  "related": {
+    "eyebrow": "Complementa tu espacio",
+    "title": "También te puede interesar",
+    "products": [
+      {"id": "talabarteria", "name": "Talabartería", "slug": "talabarteria", "desc": "Piel reciclada en piezas únicas.", "price": 0, "price_label": "A cotizar", "image": "talabarteria.webp", "link_type": "link"},
+      {"id": "esencia-miel", "name": "Esencia de Miel", "slug": "esencia-miel", "desc": "Destilación alámbica para difusor.", "price": 400, "price_label": "desde $400 MXN", "image": "esencias-amber.webp", "link_type": "link"},
+      {"id": "lagrimas-rosas", "name": "Lágrimas de Rosas", "slug": "lagrimas-rosas", "desc": "Resina sagrada para armonizar el aire.", "price": 100, "price_label": "desde $100 MXN", "image": "lagrimas-rosas.webp", "link_type": "button"},
+      {"id": "jabones", "name": "Jabones Herbales", "slug": "jabones", "desc": "Siete variedades con aceite de coco.", "price": 90, "price_label": "$90 MXN / pz", "image": "jabones-herbales.webp", "link_type": "button"}
+    ]
+  },
+  "cta": {"title": "¿Quieres un terrario a tu medida?", "subtitle": "Escríbenos con fotos de tu espacio y te armamos una propuesta sin compromiso."},
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20un%20terrario%20personalizado",
+  "schema_name": "Terrarios",
+  "schema_description": "Piezas decorativas de vidrio con plantas vivas en medidas personalizadas. Hechos a mano en CDMX.",
+  "schema_image": "terrarios.webp",
+  "schema_price": 0
+}
