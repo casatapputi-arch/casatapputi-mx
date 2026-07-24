@@ -268,7 +268,7 @@ function generateWhatsAppMessage() {
 
 // ── Product data from DOM ─────────────────────────────────
 function getProductData(el) {
-  const card = el.closest('.shop-card') || el.closest('.marquee-card');
+  const card = el.closest('.shop-card') || el.closest('.specimen-card') || el.closest('.marquee-card');
   if (!card) return null;
   return {
     id: card.dataset.productId,
