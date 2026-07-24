@@ -50,6 +50,7 @@
       <li><a href="../../servicios/">Servicios</a></li>
       <li><a href="../../talleres/">Talleres</a></li>
       <li><a href="../../nosotros/">Nosotros</a></li>
+      <li class="nav-blog"><a href="../../blog/">Blog</a></li>
     </ul>
     <a href="../../tienda/carrito.html" class="cart-icon" aria-label="Carrito de compras">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
@@ -71,6 +72,7 @@
   <a href="../../servicios/" onclick="toggleMenu()">Servicios</a>
   <a href="../../talleres/" onclick="toggleMenu()">Talleres</a>
   <a href="../../nosotros/" onclick="toggleMenu()">Nosotros</a>
+  <a href="../../blog/" onclick="toggleMenu()">Blog</a>
 </div>
 
 <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
@@ -99,13 +101,45 @@
           <p>Uso corporal o en difusor de vela. Cada esencia es pura, sin diluyentes ni fragancias sintéticas. Un viaje olfativo por 18 paisajes botánicos diferentes.</p>
         </div>
         <hr class="prod-divider" />
-        <p class="eyebrow" style="margin-bottom:.6rem">Presentación</p>
-        <div class="prod-variants">
-          <span class="prod-variant">4 ml <strong>desde $400 MXN</strong></span>
+        <p class="eyebrow" style="margin-bottom:.6rem">Elige tu presentación</p>
+        <div class="prod-variant-radios">
+          <label class="prod-variant-radio">
+            <input type="radio" name="presSelect" value="4 ml" data-price="400" checked onchange="updateProductPrice()">
+            <span class="prod-variant-content"><strong>4 ml</strong><span class="prod-variant-price">$400 MXN</span></span>
+          </label>
+          <label class="prod-variant-radio">
+            <input type="radio" name="presSelect" value="8 ml" data-price="800" onchange="updateProductPrice()">
+            <span class="prod-variant-content"><strong>8 ml</strong><span class="prod-variant-price">$800 MXN</span></span>
+          </label>
+          <label class="prod-variant-radio">
+            <input type="radio" name="presSelect" value="15 ml" data-price="1500" onchange="updateProductPrice()">
+            <span class="prod-variant-content"><strong>15 ml</strong><span class="prod-variant-price">$1,500 MXN</span></span>
+          </label>
         </div>
+        <p class="eyebrow" style="margin:1.1rem 0 .6rem">Elige tu aroma</p>
+        <select id="aromaSelect" class="prod-aroma-select" onchange="updateProductPrice()" aria-label="Elige tu aroma">
+          <option value="Violetas">Violetas</option>
+          <option value="Nardo">Nardo</option>
+          <option value="Mandarina">Mandarina</option>
+          <option value="Menta">Menta</option>
+          <option value="Rosas">Rosas</option>
+          <option value="Canela">Canela</option>
+          <option value="Lavanda">Lavanda</option>
+          <option value="Eucalipto">Eucalipto</option>
+          <option value="Romero">Romero</option>
+          <option value="Jazmín">Jazmín</option>
+          <option value="Sándalo">Sándalo</option>
+          <option value="Geranio">Geranio</option>
+          <option value="Limón">Limón</option>
+          <option value="Bergamota">Bergamota</option>
+          <option value="Mirra">Mirra</option>
+          <option value="Pino">Pino</option>
+          <option value="Tabaco">Tabaco</option>
+          <option value="Lilas">Lilas</option>
+        </select>
         <div class="prod-price-box">
           <div class="prod-price-label">Precio</div>
-          <div class="prod-price" >desde $400 MXN</div>
+          <div class="prod-price" id="displayPrice">$400 MXN</div>
           <div class="prod-price-present">4 ml</div>
         </div>
         <div class="add-to-cart-wrapper">
@@ -238,13 +272,27 @@
 <script>
 function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
 function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
+const VARIANT_MAP = {"4 ml|Violetas": "variant_01KYAZG6KZ4BZW1YCF2QC0CANS", "4 ml|Nardo": "variant_01KYAZG6KZAV4SSA8GYN73T5V6", "4 ml|Menta": "variant_01KYAZG6M09HR857WMV99N146X", "4 ml|Lavanda": "variant_01KYAZG6M0JWBJENCY3JC0AVZD", "4 ml|Mandarina": "variant_01KYAZG6M0K9HSMN3NGWHRA1WF", "4 ml|Rosas": "variant_01KYAZG6M0WM3QBBSJE9SK54Z8", "4 ml|Canela": "variant_01KYAZG6M0YGBHM8E7X1VBSKQN", "4 ml|Jazmín": "variant_01KYAZG6M127J42N63W9P9WFVP", "4 ml|Eucalipto": "variant_01KYAZG6M16CFAW75NX1M944WS", "4 ml|Sándalo": "variant_01KYAZG6M17HX5P4EKJVE12A3K", "4 ml|Geranio": "variant_01KYAZG6M1JF4D87J99YCF82Y3", "4 ml|Romero": "variant_01KYAZG6M1V2Y3TKDEBV9KT6XZ", "4 ml|Limón": "variant_01KYAZG6M2DM36AQ5MCEHRBJ4R", "4 ml|Bergamota": "variant_01KYAZG6M2E3Z9TA7G89S4K2ZW", "4 ml|Mirra": "variant_01KYAZG6M2JGCC9JZNGEYPVFPK", "4 ml|Tabaco": "variant_01KYAZG6M31K5ZA4B51YWDS0R7", "4 ml|Lilas": "variant_01KYAZG6M3JMY539CGNMC373ZC", "4 ml|Pino": "variant_01KYAZG6M3T6CP4VG11XRZAX64", "8 ml|Canela": "variant_01KYAZG6M4736HZPDBWV9A32RN", "8 ml|Menta": "variant_01KYAZG6M4GZAD0415B4MNWG03", "8 ml|Rosas": "variant_01KYAZG6M4J6TNTC13WPQW4Z11", "8 ml|Violetas": "variant_01KYAZG6M4RAB9E0Z0TW7SBJDX", "8 ml|Nardo": "variant_01KYAZG6M4T28D6XWHZ6E6CC9V", "8 ml|Mandarina": "variant_01KYAZG6M4W1ADY04VQ6PFH7EP", "8 ml|Eucalipto": "variant_01KYAZG6M546830GVQF8VSWQFN", "8 ml|Romero": "variant_01KYAZG6M55R1D06Y6QCFNRWRC", "8 ml|Lavanda": "variant_01KYAZG6M5N1JY7EBPV0ZZXKSC", "8 ml|Sándalo": "variant_01KYAZG6M5X9ZRCNBQ6NH12XPD", "8 ml|Jazmín": "variant_01KYAZG6M5Y1Z390B2E67TTEHF", "8 ml|Mirra": "variant_01KYAZG6M62S41NSM3RNQ32ZJZ", "8 ml|Bergamota": "variant_01KYAZG6M6371JM4CH94S38JY5", "8 ml|Lilas": "variant_01KYAZG6M68P4B1DMT145TFFWB", "8 ml|Geranio": "variant_01KYAZG6M68VJ6B3ZXG6W65AF1", "8 ml|Tabaco": "variant_01KYAZG6M6VV53B77CH52ZE6NM", "8 ml|Limón": "variant_01KYAZG6M6Z5YTCHZ9R1XRM6WV", "8 ml|Pino": "variant_01KYAZG6M6ZVN12MNKB9FMG3PR", "15 ml|Mandarina": "variant_01KYAZG6M76A3GV8JSVX0MQQY4", "15 ml|Menta": "variant_01KYAZG6M7FXACE0Z7E3WWA52V", "15 ml|Violetas": "variant_01KYAZG6M7QMHN5TZGT9SYYAF8", "15 ml|Rosas": "variant_01KYAZG6M7TKZZGYW948V86DMC", "15 ml|Nardo": "variant_01KYAZG6M7XEJPQ9C2BVA6CPB5", "15 ml|Eucalipto": "variant_01KYAZG6M81VR54D7Y9JC71V8H", "15 ml|Romero": "variant_01KYAZG6M86REKG90RSA85FF8H", "15 ml|Canela": "variant_01KYAZG6M8BA9FQHAZZ2RY4T9R", "15 ml|Jazmín": "variant_01KYAZG6M8FNBC315C13B11B1K", "15 ml|Lavanda": "variant_01KYAZG6M8QNDA6BJ5Q6R914J3", "15 ml|Limón": "variant_01KYAZG6M92E7ZPP15HB7P7T6W", "15 ml|Geranio": "variant_01KYAZG6M99P51DCPEQXTYCAQA", "15 ml|Sándalo": "variant_01KYAZG6M9D949Y1F246WZSHV2", "15 ml|Pino": "variant_01KYAZG6MAB7Z5KEFZ1BH3XEYQ", "15 ml|Tabaco": "variant_01KYAZG6MABE03TC03J0Q2T8MB", "15 ml|Lilas": "variant_01KYAZG6MAGR7STDVJ7TXA4E5N", "15 ml|Bergamota": "variant_01KYAZG6MAT11R6JV2FP67YWKE", "15 ml|Mirra": "variant_01KYAZG6MAVGTKSGBJ1JVATPA1"};
+function updateProductPrice(){
+  const pres=document.querySelector('input[name="presSelect"]:checked');
+  const price=parseInt(pres.dataset.price);
+  document.getElementById('displayPrice').textContent='$'+price.toLocaleString('es-MX')+' MXN';
+  document.querySelector('.prod-price-present').textContent=pres.value;
+}
+updateProductPrice();
 function addCurrentProduct(){
+  const presEl=document.querySelector('input[name="presSelect"]:checked');
+  const size=presEl.value;
+  const price=parseInt(presEl.dataset.price);
+  const aroma=document.getElementById('aromaSelect').value;
+  const variantId=VARIANT_MAP[size+'|'+aroma];
+  if(!variantId){alert('Esa combinación de tamaño y aroma no está disponible. Escríbenos por WhatsApp.');return;}
   addToCart({
-    id:'esencias-naturales',
-    variantId:'variant_01KXKRE3TSYGV34TGDR9AMJMXT',
-    name:'Esencias Naturales',
-    price:400,
-    priceLabel:'desde $400 MXN',
+    id:'esencias-naturales-'+size+'-'+aroma,
+    variantId:variantId,
+    name:'Esencias Naturales — '+aroma+' ('+size+')',
+    price:price,
+    priceLabel:'$'+price.toLocaleString('es-MX')+' MXN',
     image:'../../assets/images/esencias-naturales.webp',
     quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)
   });
