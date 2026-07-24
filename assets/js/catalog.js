@@ -33,7 +33,8 @@ const PRODUCT_META = {
   'tisanas':            { cat:'cocina',   price:1300, priceLabel:'$1,300 MXN / kg',   img:'assets/images/t13-01264.webp',           desc:'Mezclas con ingredientes naturales y orgánicos del jardín medicinal de Huerto Roma Verde. Sin aditivos. 1 kg.',            latin:'(Species variae)',          usage:'Infusión medicinal' },
   'leche-dorada':       { cat:'cocina',   price:0,    priceLabel:'Consultar precio',  img:'assets/images/leche-dorada.webp',        desc:'Mezcla ancestral de cúrcuma, pimienta negra, clavo y especias. Potente antiinflamatoria y reconfortante.',                 latin:'Curcuma longa',              usage:'Antiinflamatorio' },
   'terrarios':          { cat:'hogar',    price:0,    priceLabel:'Medidas personalizadas', img:'assets/images/terrarios-vidrio.webp', desc:'Piezas decorativas de vidrio en medidas personalizadas: candeleros, joyeros, aparadores y mostradores.',                latin:'Vitrum arte',                usage:'Decoración' },
-  'talabarteria':       { cat:'estilo',   price:0,    priceLabel:'Piezas personalizadas', img:'assets/images/talabarteria.webp',     desc:'Piel reciclada transformada en piezas elegantes y funcionales: cinturones, pulseras, carteras, mochilas.',                latin:'Corium arte',                usage:'Accesorios' }
+  'talabarteria':       { cat:'estilo',   price:0,    priceLabel:'Piezas personalizadas', img:'assets/images/talabarteria.webp',     desc:'Piel reciclada transformada en piezas elegantes y funcionales: cinturones, pulseras, carteras, mochilas.',                latin:'Corium arte',                usage:'Accesorios' },
+  'muestra-de-regalo':  { cat:'esencias', price:10,   priceLabel:'$10 MXN',           img:'assets/images/esencias-amber.webp',      desc:'Producto simbólico para verificar el flujo de compra del carrito.' }
 };
 
 // Catálogo cacheado en memoria
