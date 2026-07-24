@@ -270,6 +270,12 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
   font-family: var(--serif); font-size: 1.35rem; font-weight: 500;
   color: var(--miel); margin-top: auto; padding-top: 4px;
 }
+.specimen-desc {
+  font-size: .78rem; color: var(--tinta-suave);
+  line-height: 1.45; margin-top: 6px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .specimen-cta {
   margin-top: 10px;
 }

@@ -181,6 +181,7 @@ function renderShopCard(p, assets) {
         ${usageTag ? `<span class="specimen-usage">${usageTag}</span>` : ''}
       </div>
       <span class="specimen-price">${p.priceLabel}</span>
+      ${p.description ? `<p class="specimen-desc">${p.description}</p>` : ''}
       ${actionHtml}
     </article>`;
 }
