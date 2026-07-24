@@ -191,7 +191,7 @@ async function renderShopGrid(containerId) {
   if (!grid) return;
 
   // Si hay skeletons, se quedan mientras carga (efecto shimmer)
-  const hasSkeleton = grid.querySelector('.skeleton-card');
+  const hasSkeleton = grid.querySelector('.skeleton-specimen');
   if (!hasSkeleton) {
     grid.innerHTML = '<div class="catalog-loading" style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--clay)">Cargando catálogo…</div>';
   }
