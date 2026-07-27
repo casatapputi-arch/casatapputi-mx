@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Directorio de Universidades CDMX · Fundación EBAC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════ RESET & BASE ═══════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #2b2218;
+    background: #FDFCFA;
+    min-height: 100vh;
+}
+
+/* ═══════════ HEADER ═══════════ */
+.site-header {
+    background: linear-gradient(135deg, #1b4d1e 0%, #2C5F2E 40%, #3a7d3d 100%);
+    color: #F5F0E8;
+    padding: 2.5rem 1.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+.site-header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+}
+.site-header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 10%;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+}
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+.header-content h1 {
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 600;
+    letter-spacing: -0.3pt;
+    margin-bottom: 0.3rem;
+}
+.header-content .subtitle {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2.5pt;
+    color: #A8C5A0;
+    margin-bottom: 1.2rem;
+}
+.header-stats {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+.header-stat {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+}
+.header-stat .hs-num {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+.header-stat .hs-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1pt;
+    color: #A8C5A0;
+}
+
+/* ═══════════ SEARCH & FILTERS ═══════════ */
+.filters-bar {
+    background: #fff;
+    border-bottom: 1px solid #E8DCC8;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+}
+.filters-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.8rem 1.5rem;
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.search-wrap {
+    flex: 1 1 280px;
+    position: relative;
+}
+.search-wrap input {
+    width: 100%;
+    padding: 0.65rem 0.8rem 0.65rem 2.4rem;
+    border: 1.5px solid #D4C9B0;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    color: #2b2218;
+    background: #FDFCFA;
+    transition: all 0.2s;
+}
+.search-wrap input:focus {
+    outline: none;
+    border-color: #2C5F2E;
+    box-shadow: 0 0 0 3px rgba(44,95,46,0.08);
+}
+.search-wrap input::placeholder { color: #B5A690; }
+.search-icon {
+    position: absolute;
+    left: 0.75rem; top: 50%;
+    transform: translateY(-50%);
+    width: 16px; height: 16px;
+    color: #8B7355;
+    opacity: 0.5;
+}
+
+.filter-select {
+    padding: 0.65rem 2rem 0.65rem 0.8rem;
+    border: 1.5px solid #D4C9B0;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    color: #2b2218;
+    background: #FDFCFA url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238B7355'/%3E%3C/svg%3E") no-repeat right 0.6rem center;
+    appearance: none;
+    cursor: pointer;
+    min-width: 140px;
+    transition: all 0.2s;
+}
+.filter-select:focus {
+    outline: none;
+    border-color: #2C5F2E;
+    box-shadow: 0 0 0 3px rgba(44,95,46,0.08);
+}
+
+.filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1.5px solid #D4C9B0;
+    background: #FDFCFA;
+    color: #6b5d4f;
+    transition: all 0.2s;
+    user-select: none;
+    white-space: nowrap;
+}
+.filter-chip:hover { border-color: #8B5E3C; color: #2b2218; }
+.filter-chip.active {
+    background: #2C5F2E;
+    color: #F5F0E8;
+    border-color: #2C5F2E;
+}
+.filter-chip .chip-count {
+    font-size: 0.65rem;
+    opacity: 0.8;
+}
+
+.results-info {
+    flex-basis: 100%;
+    font-size: 0.73rem;
+    color: #8B7355;
+    padding-top: 0.3rem;
+}
+.results-info strong { color: #2C5F2E; }
+
+/* ═══════════ GRID ═══════════ */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+.univ-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1rem;
+}
+
+/* ═══════════ CARD ═══════════ */
+.univ-card {
+    background: #fff;
+    border: 1px solid #E8DCC8;
+    border-radius: 10px;
+    padding: 1.2rem;
+    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+}
+.univ-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(44,47,30,0.10);
+    border-color: #A8C5A0;
+}
+.univ-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    transition: width 0.25s;
+}
+.univ-card.publica::before { background: #8B5E3C; }
+.univ-card.privada::before { background: #4A7C59; }
+.univ-card:hover::before { width: 6px; }
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+.card-name {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #1a1814;
+    line-height: 1.25;
+}
+.card-badges {
+    display: flex;
+    gap: 0.3rem;
+    flex-shrink: 0;
+}
+.badge {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5pt;
+    white-space: nowrap;
+}
+.badge.publica { background: #F5EDE0; color: #8B5E3C; }
+.badge.privada { background: #EBF5EB; color: #2C5F2E; }
+.badge.ss { background: #E8F0E8; color: #1b4d1e; }
+.badge.ct { background: #E8F0E8; color: #1b4d1e; border: 1px solid #A8C5A0; }
+.badge.noct { background: #FAF7F2; color: #B5A690; }
+
+.card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1rem;
+    font-size: 0.73rem;
+    color: #6b5d4f;
+}
+.card-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+.card-meta-item svg {
+    width: 13px; height: 13px;
+    opacity: 0.55;
+    flex-shrink: 0;
+}
+
+.card-carreras {
+    margin-top: 0.3rem;
+}
+.carreras-toggle {
+    font-size: 0.73rem;
+    font-weight: 500;
+    color: #2C5F2E;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    transition: color 0.2s;
+}
+.carreras-toggle:hover { color: #1b4d1e; }
+
+
+.carreras-list {
+    display: none;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-top: 0.4rem;
+}
+.carreras-list.open { display: flex; }
+.carrera-tag {
+    display: inline-block;
+    padding: 0.15rem 0.45rem;
+    background: #F5F0E8;
+    color: #5a4a38;
+    border-radius: 3px;
+    font-size: 0.67rem;
+    line-height: 1.4;
+}
+
+/* ═══════════ EMPTY STATE ═══════ */
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 1rem;
+    color: #8B7355;
+}
+.empty-state h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.5rem;
+    color: #2C5F2E;
+    margin-bottom: 0.5rem;
+}
+.empty-state p { font-size: 0.85rem; }
+
+/* ═══════════ FOOTER ═══════ */
+.site-footer {
+    background: #1b4d1e;
+    color: #A8C5A0;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    margin-top: 3rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.3pt;
+}
+.site-footer span { margin: 0 0.8rem; }
+.site-footer strong { color: #F5F0E8; }
+
+/* ═══════════ RESPONSIVE ═══════ */
+@media (max-width: 768px) {
+    .univ-grid { grid-template-columns: 1fr; }
+    .filters-inner { padding: 0.6rem 1rem; }
+    .site-header { padding: 1.5rem 1rem; }
+    .header-stats { gap: 0.8rem; }
+    .header-stat .hs-num { font-size: 1.5rem; }
+    .filter-select { min-width: 120px; font-size: 0.73rem; }
+}
+
+@media (max-width: 480px) {
+    .card-meta { gap: 0.3rem 0.6rem; font-size: 0.68rem; }
+    .card-name { font-size: 0.95rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header class="site-header">
+    <div class="header-content">
+        <h1>Directorio de Universidades CDMX</h1>
+        <div class="subtitle">Fundación E.B.A.C. · 24 de julio de 2026 · 16 Alcaldías</div>
+        <div class="header-stats">
+            <div class="header-stat">
+                <span class="hs-num">123</span>
+                <span class="hs-label">Instituciones</span>
+            </div>
+            <div class="header-stat">
+                <span class="hs-num">68</span>
+                <span class="hs-label">Públicas</span>
+            </div>
+            <div class="header-stat">
+                <span class="hs-num">55</span>
+                <span class="hs-label">Privadas</span>
+            </div>
+            <div class="header-stat">
+                <span class="hs-num">16</span>
+                <span class="hs-label">con CT</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ═══════════ FILTERS ═══════════ -->
+<div class="filters-bar">
+    <div class="filters-inner">
+        <div class="search-wrap">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" id="searchInput" placeholder="Buscar por nombre, colonia o dirección..." autocomplete="off">
+        </div>
+        <select class="filter-select" id="filterAlcaldia">
+            <option value="">🏙️ Todas las alcaldías</option>
+            <option value="Azcapotzalco">Azcapotzalco</option><option value="Benito Juárez">Benito Juárez</option><option value="Coyoacán">Coyoacán</option><option value="Cuajimalpa de Morelos">Cuajimalpa de Morelos</option><option value="Cuauhtémoc">Cuauhtémoc</option><option value="Gustavo A. Madero">Gustavo A. Madero</option><option value="Iztacalco">Iztacalco</option><option value="Iztapalapa">Iztapalapa</option><option value="Magdalena Contreras">Magdalena Contreras</option><option value="Miguel Hidalgo">Miguel Hidalgo</option><option value="Milpa Alta">Milpa Alta</option><option value="Tlalpan">Tlalpan</option><option value="Tláhuac">Tláhuac</option><option value="Venustiano Carranza">Venustiano Carranza</option><option value="Xochimilco">Xochimilco</option><option value="Álvaro Obregón">Álvaro Obregón</option>
+        </select>
+        <button class="filter-chip active" data-filter="tipo" data-value="">Todos</button>
+        <button class="filter-chip" data-filter="tipo" data-value="Pública">Públicas</button>
+        <button class="filter-chip" data-filter="tipo" data-value="Privada">Privadas</button>
+        <button class="filter-chip" data-filter="carreras_tecnicas" data-value="Sí">🎓 Carreras Técnicas</button>
+        <div class="results-info" id="resultsInfo">
+            Mostrando <strong id="filteredCount">123</strong> de 123 instituciones
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════ GRID ═══════════ -->
+<main class="main-content">
+    <div class="univ-grid" id="univGrid"></div>
+</main>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="site-footer">
+    <span>Fundación <strong>EBAC</strong> · Jalapa 234, Roma Sur, CDMX</span>
+    <span>contacto@fundacionebac.com.mx</span>
+    <span>ANUIES · SIRVOES-SEP · 24 de julio de 2026</span>
+</footer>
+
+<!-- ═══════════ DATA & SCRIPTS ═══════════ -->
+<script>
+const UNIVERSIDADES = [{"alcaldia": "Álvaro Obregón", "nombre": "ITAM — Instituto Tecnológico Autónomo de México", "colonia": "Progreso Tizapán", "direccion": "Río Hondo 1, Progreso Tizapán, 01080", "telefono": "55 5628 4000", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 15, "carreras": ["Actuaría", "Administración de Empresas", "Ciencia de Datos", "Ciencia Política y Relaciones Internacionales", "Contaduría Pública", "Derecho", "Dirección Financiera", "Economía", "Ingeniería en Computación", "Ingeniería en Mecatrónica", "Ingeniería en Negocios y Tecnologías de Información", "Ingeniería en Telecomunicaciones", "Ingeniería Industrial", "Matemáticas Aplicadas", "Relaciones Internacionales"]}, {"alcaldia": "Álvaro Obregón", "nombre": "IBERO — Universidad Iberoamericana CDMX", "colonia": "Santa Fe", "direccion": "Prol. Paseo de la Reforma 880, Lomas de Santa Fe, 01219", "telefono": "55 5950 4000", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 29, "carreras": ["Administración de Empresas", "Arquitectura", "Ciencia Política", "Ciencias de la Comunicación", "Comercio Internacional", "Contaduría y Estrategia Financiera", "Derecho", "Diseño Gráfico", "Diseño Industrial", "Diseño Textil", "Economía", "Filosofía", "Historia", "Ingeniería Biomédica", "Ingeniería Civil", "Ingeniería en Sistemas", "Ingeniería Física", "Ingeniería Industrial", "Ingeniería Mecánica", "Ingeniería Química", "Ingeniería en Alimentos", "Literatura", "Mercadotecnia", "Negocios Internacionales", "Nutrición", "Pedagogía", "Psicología", "Relaciones Internacionales", "Administración Turística"]}, {"alcaldia": "Álvaro Obregón", "nombre": "ITESM — Tecnológico de Monterrey Campus Santa Fe", "colonia": "Santa Fe", "direccion": "Av. Carlos Lazo 100, Santa Fe, 01389", "telefono": "55 9177 8000", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 15, "carreras": ["Administración de Empresas", "Arquitectura", "Comunicación", "Derecho", "Diseño Industrial", "Economía", "Finanzas", "Ingeniería Biomédica", "Ingeniería Civil", "Ingeniería en Sistemas Computacionales", "Ingeniería Industrial", "Ingeniería Mecatrónica", "Mercadotecnia", "Negocios Internacionales", "Relaciones Internacionales"]}, {"alcaldia": "Álvaro Obregón", "nombre": "CENTRO — Diseño, Cine y Televisión", "colonia": "América", "direccion": "Av. Constituyentes 455, Col. América, 11820", "telefono": "55 2789 9000", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 7, "carreras": ["Arquitectura", "Cine y Televisión", "Comunicación Visual", "Diseño de Moda y Textil", "Diseño Industrial", "Diseño de Interiores", "Mercadotecnia y Publicidad"]}, {"alcaldia": "Álvaro Obregón", "nombre": "Universidad Anáhuac México Campus Sur", "colonia": "Torres de Potrero", "direccion": "Av. de las Torres 131, Col. Olivar de los Padres, 01780", "telefono": "55 5628 8800", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 12, "carreras": ["Administración", "Arquitectura", "Comunicación", "Derecho", "Diseño", "Ingeniería Civil", "Ingeniería en Sistemas", "Medicina", "Mercadotecnia", "Negocios Internacionales", "Nutrición", "Psicología"]}, {"alcaldia": "Álvaro Obregón", "nombre": "Universidad Westhill", "colonia": "Santa Fe", "direccion": "Domingo García Ramos 56, Santa Fe, 05608", "telefono": "55 8851 7000", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 8, "carreras": ["Medicina", "Cirujano Dentista", "Arquitectura", "Derecho", "Mercadotecnia", "Administración", "Ingeniería en Sistemas", "Psicología"]}, {"alcaldia": "Álvaro Obregón", "nombre": "Instituto Tecnológico de la Construcción", "colonia": "Olivar de los Padres", "direccion": "Av. Revolución 1425, Olivar de los Padres, 01780", "telefono": "55 5271 4000", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "Sí", "n_carreras": 3, "carreras": ["Licenciatura en Arquitectura", "Licenciatura en Ingeniería Civil", "Maestría en Gestión de la Construcción"]}, {"alcaldia": "Álvaro Obregón", "nombre": "CIDE — Centro de Investigación y Docencia Económicas", "colonia": "Santa Fe", "direccion": "Carretera México-Toluca 3655, Lomas de Santa Fe, 01210", "telefono": "55 5727 9800", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 4, "carreras": ["Ciencia Política y Relaciones Internacionales", "Derecho", "Economía", "Políticas Públicas"]}, {"alcaldia": "Álvaro Obregón", "nombre": "CESSA Universidad — Centro de Estudios Superiores de San Ángel", "colonia": "Tizapán San Ángel", "direccion": "Morelos 7, Tizapán San Ángel, 01090", "telefono": "55 8503 8800", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 5, "carreras": ["Gastronomía y Arte Culinario", "Administración de Restaurantes", "Hotelería", "Nutrición", "Relaciones Públicas y Dirección de Eventos"]}, {"alcaldia": "Álvaro Obregón", "nombre": "Universidad Humanitas — Campus Santa Fe", "colonia": "Santa Fe", "direccion": "Av. Vasco de Quiroga 2121, Santa Fe, 01219", "telefono": "55 5559 3888", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 4, "carreras": ["Administración", "Contabilidad", "Derecho", "Psicología"]}, {"alcaldia": "Azcapotzalco", "nombre": "UAM — Unidad Azcapotzalco", "colonia": "Nueva El Rosario", "direccion": "Av. San Pablo 420, Nueva El Rosario, 02128", "telefono": "55 5318 9000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 16, "carreras": ["Administración", "Arquitectura", "Derecho", "Diseño de la Comunicación Gráfica", "Diseño Industrial", "Economía", "Ingeniería Ambiental", "Ingeniería Civil", "Ingeniería en Computación", "Ingeniería en Electrónica", "Ingeniería Física", "Ingeniería Industrial", "Ingeniería Mecánica", "Ingeniería Metalúrgica", "Ingeniería Química", "Sociología"]}, {"alcaldia": "Azcapotzalco", "nombre": "IPN — ESIME Azcapotzalco (Escuela Superior de Ingeniería Mecánica y Eléctrica)", "colonia": "Santa Catarina", "direccion": "Av. de las Granjas 682, Santa Catarina, 02250", "telefono": "55 5729 6000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 5, "carreras": ["Ingeniería en Control y Automatización", "Ingeniería en Comunicaciones y Electrónica", "Ingeniería en Sistemas Automotrices", "Ingeniería Mecánica", "Ingeniería en Robótica"]}, {"alcaldia": "Azcapotzalco", "nombre": "UPN — Universidad Pedagógica Nacional Unidad Azcapotzalco", "colonia": "El Rosario", "direccion": "Calz. Camarones s/n, El Rosario, 02100", "telefono": "55 5630 9700", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 4, "carreras": ["Licenciatura en Pedagogía", "Licenciatura en Educación Preescolar", "Licenciatura en Educación Primaria", "Licenciatura en Psicología Educativa"]}, {"alcaldia": "Azcapotzalco", "nombre": "Escuela Normal Superior de México", "colonia": "Nueva Santa María", "direccion": "Manuel Salazar 201, Nueva Santa María, 02800", "telefono": "55 5341 9436", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 3, "carreras": ["Licenciatura en Educación Secundaria (12 especialidades)", "Licenciatura en Enseñanza del Inglés", "Licenciatura en Enseñanza del Francés"]}, {"alcaldia": "Benito Juárez", "nombre": "Universidad Panamericana — Campus Mixcoac", "colonia": "Insurgentes Mixcoac", "direccion": "Augusto Rodin 498, Insurgentes Mixcoac, 03920", "telefono": "55 5482 1600", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 16, "carreras": ["Administración de Empresas", "Arquitectura", "Comunicación", "Contaduría", "Derecho", "Economía", "Filosofía", "Finanzas", "Ingeniería en Sistemas", "Ingeniería Industrial", "Medicina", "Mercadotecnia", "Negocios Internacionales", "Pedagogía", "Psicología", "Relaciones Internacionales"]}, {"alcaldia": "Benito Juárez", "nombre": "UACM — Plantel Del Valle", "colonia": "Del Valle Sur", "direccion": "San Lorenzo 290, Del Valle Sur, 03100", "telefono": "55 5488 6661", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 5, "carreras": ["Ciencia Política y Administración Urbana", "Creación Literaria", "Filosofía e Historia de las Ideas", "Comunicación y Cultura", "Derecho"]}, {"alcaldia": "Benito Juárez", "nombre": "Universidad Simón Bolívar México", "colonia": "Mixcoac", "direccion": "Av. Río Mixcoac 48, Mixcoac, 03920", "telefono": "55 5563 2739", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 7, "carreras": ["Administración", "Comercio Internacional", "Contaduría", "Derecho", "Informática", "Psicología", "Relaciones Internacionales"]}, {"alcaldia": "Benito Juárez", "nombre": "Escuela Bancaria y Comercial (EBC) — Campus CDMX", "colonia": "Del Valle", "direccion": "Av. División del Norte 1809, Del Valle, 03100", "telefono": "55 5534 0715", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 7, "carreras": ["Administración de Empresas", "Contaduría Pública", "Comercio y Negocios Internacionales", "Derecho", "Finanzas y Banca", "Mercadotecnia", "Negocios de Hospitalidad"]}, {"alcaldia": "Benito Juárez", "nombre": "Centro de Estudios Superiores Monte Fénix", "colonia": "San Ángel Inn", "direccion": "Av. Revolución 1532, San Ángel Inn, 01060", "telefono": "55 5550 4942", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 3, "carreras": ["Psicología", "Psicología con especialidad en Adicciones", "Tanatología"]}, {"alcaldia": "Benito Juárez", "nombre": "Universidad Chapultepec", "colonia": "Del Valle", "direccion": "Adolfo Prieto 628, Del Valle, 03100", "telefono": "55 1167 5773", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 5, "carreras": ["Administración de Empresas", "Derecho", "Educación", "Informática Administrativa", "Marketing"]}, {"alcaldia": "Benito Juárez", "nombre": "UNIVDEP — Universidad del Desarrollo Empresarial y Pedagógico", "colonia": "Del Valle", "direccion": "Torres Adalid 912, Del Valle, 03100", "telefono": "55 5688 8315", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "Sí", "n_carreras": 6, "carreras": ["Administración de Empresas Turísticas", "Negocios", "Contaduría y Finanzas", "Gastronomía", "Derecho", "Pedagogía"]}, {"alcaldia": "Benito Juárez", "nombre": "Centro Universitario Columbia", "colonia": "Narvarte Poniente", "direccion": "Dr. Río de la Loza 212, Narvarte Poniente, 03020", "telefono": "55 5530 1614", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "Sí", "n_carreras": 5, "carreras": ["Administración", "Derecho", "Contaduría", "Mercadotecnia", "Ciencias de la Comunicación"]}, {"alcaldia": "Benito Juárez", "nombre": "Universidad de Negocios ISEC", "colonia": "Del Valle", "direccion": "Av. Xola 535, Del Valle, 03100", "telefono": "55 5639 9623", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 8, "carreras": ["Administración de Empresas", "Comercio Internacional", "Contaduría Pública", "Derecho", "Economía", "Ingeniería Industrial", "Psicología", "Turismo"]}, {"alcaldia": "Benito Juárez", "nombre": "Universidad Humanitas — Campus Del Valle", "colonia": "Insurgentes San Borja", "direccion": "California 212, Insurgentes San Borja, 03100", "telefono": "55 5559 3888", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 4, "carreras": ["Administración", "Contabilidad", "Derecho", "Psicología"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — ENEO (Escuela Nacional de Enfermería y Obstetricia)", "colonia": "Ciudad Universitaria", "direccion": "Circuito Escolar s/n, Ciudad Universitaria, 04510", "telefono": "55 5623 2300", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 2, "carreras": ["Licenciatura en Enfermería", "Licenciatura en Enfermería y Obstetricia"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — ENTS (Escuela Nacional de Trabajo Social)", "colonia": "Ciudad Universitaria", "direccion": "Circuito Exterior s/n, Ciudad Universitaria, 04510", "telefono": "55 5622 8770", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 1, "carreras": ["Licenciatura en Trabajo Social"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — ENALLT (Escuela Nacional de Lenguas, Lingüística y Traducción)", "colonia": "Ciudad Universitaria", "direccion": "Circuito Escolar s/n, Ciudad Universitaria, 04510", "telefono": "55 5622 0647", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 3, "carreras": ["Licenciatura en Enseñanza de Inglés", "Licenciatura en Traducción", "Licenciatura en Lingüística Aplicada"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — Facultad de Arquitectura (Ciudad Universitaria)", "colonia": "Ciudad Universitaria", "direccion": "Circuito Escolar s/n, Ciudad Universitaria, 04510", "telefono": "55 5622 0284", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 4, "carreras": ["Arquitectura", "Arquitectura de Paisaje", "Urbanismo", "Diseño Industrial"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — Facultad de Artes y Diseño (FAD)", "colonia": "Ciudad Universitaria", "direccion": "Av. Constitución 600, Xoco, 03330", "telefono": "55 5622 0469", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 2, "carreras": ["Artes Visuales", "Diseño y Comunicación Visual"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — Facultad de Ciencias", "colonia": "Ciudad Universitaria", "direccion": "Circuito Exterior s/n, Ciudad Universitaria, 04510", "telefono": "55 5622 4837", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 10, "carreras": ["Actuaría", "Biología", "Ciencias de la Computación", "Ciencias de la Tierra", "Física", "Física Biomédica", "Matemáticas", "Matemáticas Aplicadas", "Ciencias Ambientales", "Neurociencias"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — Facultad de Ciencias Políticas y Sociales", "colonia": "Ciudad Universitaria", "direccion": "Circuito Mario de la Cueva s/n, Ciudad Universitaria, 04510", "telefono": "55 5622 9470", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 5, "carreras": ["Ciencias de la Comunicación", "Ciencias Políticas", "Relaciones Internacionales", "Sociología", "Administración Pública"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — Facultad de Contaduría y Administración", "colonia": "Ciudad Universitaria", "direccion": "Circuito Exterior s/n, Ciudad Universitaria, 04510", "telefono": "55 5622 8384", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 4, "carreras": ["Administración", "Contaduría", "Informática", "Negocios Internacionales"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — Facultad de Derecho", "colonia": "Ciudad Universitaria", "direccion": "Circuito Interior s/n, Ciudad Universitaria, 04510", "telefono": "55 5622 1313", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 1, "carreras": ["Derecho"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — Facultad de Economía", "colonia": "Ciudad Universitaria", "direccion": "Circuito Interior s/n, Ciudad Universitaria, 04510", "telefono": "55 5622 2135", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 1, "carreras": ["Economía"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — Facultad de Filosofía y Letras", "colonia": "Ciudad Universitaria", "direccion": "Circuito Interior s/n, Ciudad Universitaria, 04510", "telefono": "55 5622 1865", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 12, "carreras": ["Filosofía", "Historia", "Letras Clásicas", "Letras Hispánicas", "Letras Modernas", "Lengua y Literaturas Modernas (Inglesas/Francesas/Italianas/Alemanas)", "Pedagogía", "Teatro y Actuación", "Bibliotecología y Estudios de la Información", "Desarrollo y Gestión Interculturales", "Geografía", "Estudios Latinoamericanos"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — Facultad de Ingeniería", "colonia": "Ciudad Universitaria", "direccion": "Circuito Escolar s/n, Ciudad Universitaria, 04510", "telefono": "55 5622 3001", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 14, "carreras": ["Ingeniería Civil", "Ingeniería de Minas y Metalurgia", "Ingeniería Eléctrica Electrónica", "Ingeniería en Computación", "Ingeniería en Sistemas Biomédicos", "Ingeniería en Telecomunicaciones", "Ingeniería Geofísica", "Ingeniería Geológica", "Ingeniería Geomática", "Ingeniería Industrial", "Ingeniería Mecánica", "Ingeniería Mecatrónica", "Ingeniería Petrolera", "Ingeniería Química"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — Facultad de Medicina", "colonia": "Ciudad Universitaria", "direccion": "Circuito Interior, Edif. B, Ciudad Universitaria, 04510", "telefono": "55 5623 2404", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 4, "carreras": ["Médico Cirujano", "Investigación Biomédica Básica", "Ciencia Forense", "Fisioterapia"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — Facultad de Medicina Veterinaria y Zootecnia", "colonia": "Ciudad Universitaria", "direccion": "Circuito Exterior, Ciudad Universitaria, 04510", "telefono": "55 5622 5880", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 1, "carreras": ["Medicina Veterinaria y Zootecnia"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — Facultad de Música", "colonia": "Ciudad Universitaria", "direccion": "Circuito Cultural Universitario, Ciudad Universitaria, 04510", "telefono": "55 5622 6203", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 6, "carreras": ["Canto", "Composición", "Educación Musical", "Etnomusicología", "Instrumentista", "Piano"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — Facultad de Odontología", "colonia": "Ciudad Universitaria", "direccion": "Circuito Escolar s/n, Ciudad Universitaria, 04510", "telefono": "55 5622 5531", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 1, "carreras": ["Cirujano Dentista"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — Facultad de Psicología", "colonia": "Ciudad Universitaria", "direccion": "Circuito Escolar s/n, Edif. D, Ciudad Universitaria, 04510", "telefono": "55 5622 2229", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 2, "carreras": ["Psicología", "Neurociencias"]}, {"alcaldia": "Coyoacán", "nombre": "UNAM — Facultad de Química", "colonia": "Ciudad Universitaria", "direccion": "Circuito Escolar s/n, Ciudad Universitaria, 04510", "telefono": "55 5622 3509", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 5, "carreras": ["Ingeniería Química", "Química", "Química de Alimentos", "Química Farmacéutico Biológica", "Ingeniería en Alimentos"]}, {"alcaldia": "Coyoacán", "nombre": "UAM — Unidad Xochimilco", "colonia": "Villa Quietud", "direccion": "Calz. del Hueso 1100, Villa Quietud, 04960", "telefono": "55 5483 7000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 18, "carreras": ["Administración", "Agronomía", "Arquitectura", "Biología", "Comunicación Social", "Derecho", "Diseño de la Comunicación Gráfica", "Diseño Industrial", "Economía", "Enfermería", "Estomatología", "Medicina", "Medicina Veterinaria y Zootecnia", "Nutrición Humana", "Política y Gestión Social", "Psicología", "Química Farmacéutica Biológica", "Sociología"]}, {"alcaldia": "Coyoacán", "nombre": "UVM — Campus Coyoacán", "colonia": "Espartaco", "direccion": "Calz. de Tlalpan 3016, Espartaco, 04870", "telefono": "55 5599 2600", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "Sí", "n_carreras": 17, "carreras": ["Administración", "Arquitectura", "Comunicación", "Contaduría", "Derecho", "Diseño Gráfico", "Enfermería", "Fisioterapia", "Gastronomía", "Ingeniería en Sistemas", "Medicina", "Mercadotecnia", "Negocios Internacionales", "Nutrición", "Odontología", "Pedagogía", "Psicología"]}, {"alcaldia": "Coyoacán", "nombre": "ICEL — Campus Tlalpan", "colonia": "Ex-Ejido Santa Úrsula Coapa", "direccion": "Calzada de Tlalpan 3058, Ex-Ejido Santa Úrsula Coapa, 04850", "telefono": "55 5677 3635", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 9, "carreras": ["Administración de Empresas", "Ciencias de la Comunicación", "Comercio Internacional", "Contaduría Pública", "Derecho", "Diseño Gráfico", "Ingeniería Industrial", "Pedagogía", "Psicología"]}, {"alcaldia": "Coyoacán", "nombre": "Universidad Latina (UNILA) — Campus Sur", "colonia": "Los Reyes", "direccion": "Av. Pedro Henríquez Ureña 173, Los Reyes, 04330", "telefono": "55 9171 9670", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 7, "carreras": ["Administración", "Comunicación", "Contaduría", "Derecho", "Gastronomía", "Pedagogía", "Psicología"]}, {"alcaldia": "Coyoacán", "nombre": "ENCRyM — Escuela Nacional de Conservación, Restauración y Museografía (INAH)", "colonia": "San Diego Churubusco", "direccion": "General Anaya 187, San Diego Churubusco, 04120", "telefono": "55 4166 0770", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 1, "carreras": ["Licenciatura en Restauración de Bienes Muebles"]}, {"alcaldia": "Coyoacán", "nombre": "INBAL — Escuela Nacional de Pintura, Escultura y Grabado \"La Esmeralda\"", "colonia": "Country Club", "direccion": "Av. Río Churubusco 79, Country Club, 04220", "telefono": "55 4155 0000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 1, "carreras": ["Licenciatura en Artes Visuales"]}, {"alcaldia": "Coyoacán", "nombre": "CCC — Centro de Capacitación Cinematográfica", "colonia": "Country Club", "direccion": "Calzada de Tlalpan 1670, Country Club, 04220", "telefono": "55 4155 0090", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "Sí", "n_carreras": 1, "carreras": ["Licenciatura en Cinematografía"]}, {"alcaldia": "Cuajimalpa de Morelos", "nombre": "UAM — Unidad Cuajimalpa", "colonia": "Artificios", "direccion": "Av. Vasco de Quiroga 4871, Santa Fe, 05348", "telefono": "55 5814 6500", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 10, "carreras": ["Administración", "Biología Molecular", "Ciencias de la Comunicación", "Derecho", "Diseño", "Estudios Socioterritoriales", "Ingeniería Biológica", "Ingeniería en Computación", "Matemáticas Aplicadas", "Tecnologías y Sistemas de Información"]}, {"alcaldia": "Cuajimalpa de Morelos", "nombre": "Universidad Westhill — Campus Santa Fe", "colonia": "Santa Fe", "direccion": "Domingo García Ramos 56, Santa Fe, 05608", "telefono": "55 8851 7000", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 6, "carreras": ["Medicina", "Cirujano Dentista", "Arquitectura", "Derecho", "Mercadotecnia", "Administración"]}, {"alcaldia": "Cuajimalpa de Morelos", "nombre": "Instituto Nacional de Administración Pública (INAP)", "colonia": "San Fernando", "direccion": "Av. México s/n, San Fernando, 05240", "telefono": "55 5257 7644", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 2, "carreras": ["Licenciatura en Administración Pública", "Licenciatura en Gobierno y Políticas Públicas"]}, {"alcaldia": "Cuauhtémoc", "nombre": "Universidad La Salle — Campus Condesa", "colonia": "Hipódromo Condesa", "direccion": "Benjamín Franklin 45, Hipódromo Condesa, 06140", "telefono": "55 5278 9500", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 25, "carreras": ["Actuaría", "Administración de Empresas", "Arquitectura", "Comercio y Negocios Internacionales", "Comunicación", "Contaduría", "Derecho", "Diseño Gráfico", "Filosofía", "Finanzas", "Ingeniería Ambiental", "Ingeniería Biomédica", "Ingeniería Civil", "Ingeniería en Cibernética y Sistemas", "Ingeniería en Electrónica", "Ingeniería en Sistemas", "Ingeniería Industrial", "Mercadotecnia", "Medicina", "Nutrición", "Pedagogía", "Psicología", "Químico Farmacéutico Biólogo", "Relaciones Internacionales", "Turismo"]}, {"alcaldia": "Cuauhtémoc", "nombre": "UACM — Plantel Centro Histórico", "colonia": "Centro", "direccion": "Fray Servando Teresa de Mier 92, Centro, 06080", "telefono": "55 5134 9804", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 6, "carreras": ["Ciencia Política y Administración Urbana", "Creación Literaria", "Filosofía e Historia de las Ideas", "Historia y Sociedad", "Comunicación y Cultura", "Arte y Patrimonio Cultural"]}, {"alcaldia": "Cuauhtémoc", "nombre": "Universidad del Claustro de Sor Juana", "colonia": "Centro", "direccion": "Izazaga 92, Col. Centro, 06080", "telefono": "55 5130 3309", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 10, "carreras": ["Artes Plásticas", "Ciencias de la Cultura", "Derecho", "Filosofía", "Gastronomía", "Historia", "Humanidades", "Lengua y Literaturas Hispánicas", "Psicología", "Teatro"]}, {"alcaldia": "Cuauhtémoc", "nombre": "Escuela Libre de Derecho", "colonia": "Doctores", "direccion": "Dr. José María Vértiz 12, Doctores, 06720", "telefono": "55 5588 0211", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 1, "carreras": ["Derecho"]}, {"alcaldia": "Cuauhtémoc", "nombre": "Universidad de la Comunicación", "colonia": "Roma Norte", "direccion": "Zacatecas 120, Roma Norte, 06700", "telefono": "55 4913 5206", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 5, "carreras": ["Comunicación", "Publicidad", "Cine", "Comunicación Visual", "Comunicación y Gestión de las Artes"]}, {"alcaldia": "Cuauhtémoc", "nombre": "Universidad Motolinía del Pedregal", "colonia": "Juárez", "direccion": "Londres 119, Juárez, 06600", "telefono": "55 5533 0100", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 6, "carreras": ["Administración", "Comunicación", "Diseño Gráfico", "Pedagogía", "Psicología", "Relaciones Internacionales"]}, {"alcaldia": "Cuauhtémoc", "nombre": "Universidad Londres", "colonia": "Roma Sur", "direccion": "Chihuahua 157, Roma Sur, 06760", "telefono": "55 5564 2800", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 6, "carreras": ["Administración", "Comercio Internacional", "Contaduría", "Derecho", "Informática", "Mercadotecnia"]}, {"alcaldia": "Cuauhtémoc", "nombre": "Instituto Nacional de Bellas Artes — Escuela Nacional de Danza", "colonia": "Centro", "direccion": "Plaza de la Ciudadela 4, Centro, 06040", "telefono": "55 5529 6439", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 3, "carreras": ["Licenciatura en Danza Clásica", "Licenciatura en Danza Contemporánea", "Licenciatura en Coreografía"]}, {"alcaldia": "Cuauhtémoc", "nombre": "Centro Universitario Internacional (CUIN)", "colonia": "Juárez", "direccion": "Versalles 27, Juárez, 06600", "telefono": "55 5535 0123", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "Sí", "n_carreras": 5, "carreras": ["Administración de Empresas", "Comunicación", "Psicología", "Relaciones Internacionales", "Ciencias Sociales"]}, {"alcaldia": "Cuauhtémoc", "nombre": "Escuela Superior de Comercio Internacional", "colonia": "Jardín Balbuena", "direccion": "Av. del Taller 35, Jardín Balbuena, 15900", "telefono": "55 5571 0050", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "Sí", "n_carreras": 3, "carreras": ["Comercio Internacional", "Negocios Internacionales", "Logística"]}, {"alcaldia": "Cuauhtémoc", "nombre": "ICEL — Campus Zona Rosa", "colonia": "Juárez", "direccion": "Londres 164, Juárez, 06600", "telefono": "55 5207 1742", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 8, "carreras": ["Administración de Empresas", "Ciencias de la Comunicación", "Comercio Internacional", "Contaduría Pública", "Derecho", "Diseño Gráfico", "Pedagogía", "Psicología"]}, {"alcaldia": "Cuauhtémoc", "nombre": "UDLA — Universidad de las Américas CDMX", "colonia": "Roma Norte", "direccion": "Puebla 223, Roma Norte, 06700", "telefono": "55 5525 2917", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 6, "carreras": ["Administración de Empresas", "Comunicación", "Comunicación Humana", "Derecho", "Psicología", "Relaciones Internacionales"]}, {"alcaldia": "Cuauhtémoc", "nombre": "Escuela de Periodismo Carlos Septién García", "colonia": "Tabacalera", "direccion": "Basilio Vadillo 43, Tabacalera, 06030", "telefono": "55 5705 0663", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 1, "carreras": ["Licenciatura en Periodismo"]}, {"alcaldia": "Cuauhtémoc", "nombre": "Universidad Latina (UNILA) — Campus Roma", "colonia": "Roma Norte", "direccion": "Chihuahua 202, Roma Norte, 06700", "telefono": "55 9448 4587", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 6, "carreras": ["Administración", "Comunicación", "Contaduría", "Derecho", "Pedagogía", "Psicología"]}, {"alcaldia": "Cuauhtémoc", "nombre": "Universidad Tres Culturas (UTC) — Campus Zona Rosa", "colonia": "Juárez", "direccion": "Londres 77, Juárez, 06600", "telefono": "55 5525 0390", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "Sí", "n_carreras": 7, "carreras": ["Administración de Empresas", "Comercio Internacional", "Contaduría y Finanzas", "Criminalística", "Derecho", "Pedagogía", "Psicología"]}, {"alcaldia": "Cuauhtémoc", "nombre": "Universidad ETAC — Campus Tlatelolco", "colonia": "San Simón Tolnahuac", "direccion": "Manuel González 113, San Simón Tolnahuac, 06920", "telefono": "55 1493 3677", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "Sí", "n_carreras": 9, "carreras": ["Administración", "Comercio Internacional", "Contaduría Pública", "Criminología", "Derecho", "Enfermería", "Ingeniería Industrial", "Pedagogía", "Psicología"]}, {"alcaldia": "Cuauhtémoc", "nombre": "INBAL — Escuela de Diseño", "colonia": "Tránsito", "direccion": "Xocongo 138, Tránsito, 06820", "telefono": "55 5529 6257", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 1, "carreras": ["Licenciatura en Diseño"]}, {"alcaldia": "Gustavo A. Madero", "nombre": "IPN — ESCOM (Escuela Superior de Cómputo)", "colonia": "Zacatenco", "direccion": "Av. Juan de Dios Bátiz s/n, Zacatenco, 07738", "telefono": "55 5729 6000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 3, "carreras": ["Ingeniería en Sistemas Computacionales", "Ciencia de Datos", "Ingeniería en Inteligencia Artificial"]}, {"alcaldia": "Gustavo A. Madero", "nombre": "IPN — ESFM (Escuela Superior de Física y Matemáticas)", "colonia": "Zacatenco", "direccion": "Av. Luis Enrique Erro s/n, Zacatenco, 07738", "telefono": "55 5729 6000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 3, "carreras": ["Física y Matemáticas", "Matemática Algorítmica", "Ciencia de Datos"]}, {"alcaldia": "Gustavo A. Madero", "nombre": "IPN — ESIA Zacatenco (Escuela Superior de Ingeniería y Arquitectura)", "colonia": "Zacatenco", "direccion": "Av. Luis Enrique Erro s/n, Zacatenco, 07738", "telefono": "55 5729 6000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 2, "carreras": ["Ingeniería Civil", "Arquitectura"]}, {"alcaldia": "Gustavo A. Madero", "nombre": "IPN — UPIITA (Unidad Profesional Interdisciplinaria en Ingeniería y Tecnologías Avanzadas)", "colonia": "Zacatenco", "direccion": "Av. Luis Enrique Erro s/n, Zacatenco, 07738", "telefono": "55 5729 6000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 4, "carreras": ["Ingeniería Biónica", "Ingeniería en Mecatrónica", "Ingeniería Telemática", "Ingeniería en Energía"]}, {"alcaldia": "Gustavo A. Madero", "nombre": "IPN — ESIT (Escuela Superior de Ingeniería Textil)", "colonia": "Zacatenco", "direccion": "Av. Luis Enrique Erro s/n, Zacatenco, 07738", "telefono": "55 5729 6000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 1, "carreras": ["Ingeniería Textil"]}, {"alcaldia": "Gustavo A. Madero", "nombre": "IPN — ENCB (Escuela Nacional de Ciencias Biológicas)", "colonia": "Casco de Santo Tomás", "direccion": "Prol. de Carpio y Plan de Ayala s/n, Santo Tomás, 11340", "telefono": "55 5729 6000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 5, "carreras": ["Biología", "Ingeniería Bioquímica", "Ingeniería en Alimentos", "Químico Bacteriólogo Parasitólogo", "Químico Farmacéutico Industrial"]}, {"alcaldia": "Gustavo A. Madero", "nombre": "IPN — ESM (Escuela Superior de Medicina)", "colonia": "Casco de Santo Tomás", "direccion": "Plan de San Luis y Díaz Mirón s/n, Santo Tomás, 11340", "telefono": "55 5729 6000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 3, "carreras": ["Médico Cirujano y Partero", "Nutrición", "Optometría"]}, {"alcaldia": "Gustavo A. Madero", "nombre": "IPN — ENMH (Escuela Nacional de Medicina y Homeopatía)", "colonia": "Casco de Santo Tomás", "direccion": "Guillermo Massieu Helguera 239, La Escalera, 07320", "telefono": "55 5729 6000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 2, "carreras": ["Médico Cirujano y Homeópata", "Médico Cirujano y Partero"]}, {"alcaldia": "Gustavo A. Madero", "nombre": "IPN — ESCA Tepepan (Escuela Superior de Comercio y Administración)", "colonia": "Tepepan", "direccion": "Av. Tepepan s/n, Tepepan, 16020", "telefono": "55 5729 6000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 3, "carreras": ["Contaduría Pública", "Negocios Internacionales", "Administración y Desarrollo de Negocios"]}, {"alcaldia": "Gustavo A. Madero", "nombre": "UACM — Plantel Cuautepec", "colonia": "Loma de la Palma", "direccion": "Av. La Corona 320, Loma de la Palma, 07160", "telefono": "55 5740 5200", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 5, "carreras": ["Ciencia Política", "Ciencias Sociales", "Derecho", "Filosofía e Historia de las Ideas", "Comunicación y Cultura"]}, {"alcaldia": "Gustavo A. Madero", "nombre": "Universidad Justo Sierra", "colonia": "Lindavista", "direccion": "Av. Montevideo 910, Lindavista, 07300", "telefono": "55 5747 9215", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 9, "carreras": ["Administración", "Arquitectura", "Derecho", "Gastronomía", "Medicina", "Nutrición", "Odontología", "Psicología", "Ingeniería en Sistemas Computacionales"]}, {"alcaldia": "Gustavo A. Madero", "nombre": "Universidad Insurgentes — Plantel Lindavista", "colonia": "Lindavista", "direccion": "Av. Montevideo 480, Lindavista, 07300", "telefono": "55 5512 1212", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 8, "carreras": ["Administración", "Comunicación", "Contaduría", "Derecho", "Informática", "Mercadotecnia", "Pedagogía", "Psicología"]}, {"alcaldia": "Gustavo A. Madero", "nombre": "ICEL — Campus La Villa", "colonia": "Rosas del Tepeyac", "direccion": "Av. Cantera 16, Rosas del Tepeyac, 07010", "telefono": "55 5750 3570", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 9, "carreras": ["Administración de Empresas", "Ciencias de la Comunicación", "Comercio Internacional", "Contaduría Pública", "Derecho", "Diseño Gráfico", "Ingeniería Industrial", "Pedagogía", "Psicología"]}, {"alcaldia": "Gustavo A. Madero", "nombre": "IPN — EST (Escuela Superior de Turismo)", "colonia": "La Purísima Ticomán", "direccion": "Miguel Bernard 39, La Purísima Ticomán, 07738", "telefono": "55 5729 6000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 1, "carreras": ["Licenciatura en Turismo"]}, {"alcaldia": "Iztacalco", "nombre": "IPN — ESIME Culhuacán", "colonia": "Culhuacán", "direccion": "Av. Santa Ana 1000, San Francisco Culhuacán, 04430", "telefono": "55 5729 6000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 4, "carreras": ["Ingeniería en Computación", "Ingeniería en Control y Automatización", "Ingeniería en Comunicaciones y Electrónica", "Ingeniería Mecánica"]}, {"alcaldia": "Iztacalco", "nombre": "Escuela Superior de Educación Física", "colonia": "Santa Anita", "direccion": "Calz. de la Viga 1200, Santa Anita, 08300", "telefono": "55 5696 7506", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 1, "carreras": ["Licenciatura en Educación Física"]}, {"alcaldia": "Iztacalco", "nombre": "UPN — Unidad 098", "colonia": "Agrícola Oriental", "direccion": "Oriente 227 s/n, Agrícola Oriental, 08500", "telefono": "55 5630 9700", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 2, "carreras": ["Licenciatura en Pedagogía", "Licenciatura en Educación"]}, {"alcaldia": "Iztacalco", "nombre": "Universidad Victoria", "colonia": "Del Recreo", "direccion": "Sur 137 1041, Del Recreo, 08390", "telefono": "55 5648 8303", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 4, "carreras": ["Administración", "Derecho", "Contaduría", "Ciencias Sociales"]}, {"alcaldia": "Iztapalapa", "nombre": "UAM — Unidad Iztapalapa", "colonia": "Leyes de Reforma", "direccion": "Av. Ferrocarril San Rafael Atlixco 186, Leyes de Reforma, 09310", "telefono": "55 5804 4600", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 24, "carreras": ["Administración", "Antropología Social", "Biología", "Biología Experimental", "Ciencia Política", "Computación", "Economía", "Filosofía", "Física", "Geografía Humana", "Hidrobiología", "Historia", "Ingeniería Biomédica", "Ingeniería Electrónica", "Ingeniería en Energía", "Ingeniería Hidrológica", "Ingeniería Química", "Letras Hispánicas", "Lingüística", "Matemáticas", "Producción Animal", "Psicología Social", "Química", "Sociología"]}, {"alcaldia": "Iztapalapa", "nombre": "UNAM — FES Zaragoza", "colonia": "Santa Martha Acatitla", "direccion": "Av. Guelatao 66, Ejército de Oriente, 09230", "telefono": "55 5773 6277", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 9, "carreras": ["Biología", "Cirujano Dentista", "Desarrollo Comunitario", "Enfermería", "Ingeniería Química", "Medicina", "Nutrición", "Psicología", "Química Farmacéutica Biológica"]}, {"alcaldia": "Iztapalapa", "nombre": "UACM — Plantel San Lorenzo Tezonco", "colonia": "San Lorenzo Tezonco", "direccion": "Prol. San Isidro 151, San Lorenzo Tezonco, 09900", "telefono": "55 5134 9804", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 9, "carreras": ["Ciencia Política", "Ciencias Sociales", "Derecho", "Filosofía", "Historia", "Ingeniería en Sistemas Electrónicos", "Matemáticas Aplicadas", "Comunicación y Cultura", "Promoción de la Salud"]}, {"alcaldia": "Iztapalapa", "nombre": "UACM — Plantel Casa Libertad", "colonia": "Santa Martha Acatitla", "direccion": "Calz. Ermita Iztapalapa 4163, Santa Martha Acatitla, 09510", "telefono": "55 5850 1901", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 4, "carreras": ["Derecho", "Ciencias Sociales", "Ciencia Política", "Estudios de Género"]}, {"alcaldia": "Iztapalapa", "nombre": "UNITEC — Campus Sur", "colonia": "Pueblo Culhuacán", "direccion": "Calz. Ermita Iztapalapa 557, Culhuacán, 09810", "telefono": "800 786 4832", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "Sí", "n_carreras": 12, "carreras": ["Administración", "Arquitectura", "Comunicación", "Contaduría", "Derecho", "Diseño Gráfico", "Gastronomía", "Ingeniería en Sistemas", "Ingeniería Industrial", "Mercadotecnia", "Negocios Internacionales", "Psicología"]}, {"alcaldia": "Iztapalapa", "nombre": "Tecnológico de Iztapalapa", "colonia": "San Miguel Teotongo", "direccion": "Av. de las Torres s/n, San Miguel Teotongo, 09630", "telefono": "55 5429 5800", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 3, "carreras": ["Ingeniería en Sistemas Computacionales", "Ingeniería Industrial", "Ingeniería en Gestión Empresarial"]}, {"alcaldia": "Iztapalapa", "nombre": "ICEL — Campus Ermita", "colonia": "Santa María Aztahuacán", "direccion": "Calzada Ermita Iztapalapa 2928, Santa María Aztahuacán, 09500", "telefono": "55 5426 0643", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 9, "carreras": ["Administración de Empresas", "Ciencias de la Comunicación", "Comercio Internacional", "Contaduría Pública", "Derecho", "Diseño Gráfico", "Ingeniería Industrial", "Pedagogía", "Psicología"]}, {"alcaldia": "Iztapalapa", "nombre": "UNIREM — Universidad de la República Mexicana", "colonia": "El Vergel", "direccion": "Av. Texcoco 265, El Vergel, 09880", "telefono": "55 5037 0100", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 7, "carreras": ["Administración", "Arquitectura", "Comunicación Social", "Derecho", "Diseño Gráfico", "Ingeniería Industrial", "Ingeniería en Sistemas"]}, {"alcaldia": "Magdalena Contreras", "nombre": "ITESM — Tecnológico de Monterrey Campus CDMX", "colonia": "San Bartolo el Chico", "direccion": "Calle Puente 222, Ejidos de Huipulco, 14380", "telefono": "55 5483 2020", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 15, "carreras": ["Administración de Empresas", "Arquitectura", "Comunicación", "Derecho", "Diseño Industrial", "Economía", "Finanzas", "Ingeniería Biomédica", "Ingeniería Civil", "Ingeniería en Sistemas Computacionales", "Ingeniería Industrial y de Sistemas", "Ingeniería Mecatrónica", "Mercadotecnia", "Negocios Internacionales", "Relaciones Internacionales"]}, {"alcaldia": "Magdalena Contreras", "nombre": "Universidad Nacional Rosario Castellanos — Unidad Magdalena Contreras", "colonia": "San Bernabé Ocotepec", "direccion": "Av. San Bernabé s/n, San Bernabé Ocotepec, 10300", "telefono": "55 5512 8373", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 3, "carreras": ["Ciencias de Datos", "Derecho", "Urbanismo y Desarrollo Comunitario"]}, {"alcaldia": "Miguel Hidalgo", "nombre": "UNITEC — Campus Cuitláhuac", "colonia": "Anáhuac", "direccion": "Av. Marina Nacional 162, Anáhuac, 11320", "telefono": "800 786 4832", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "Sí", "n_carreras": 10, "carreras": ["Administración", "Arquitectura", "Comunicación", "Contaduría", "Derecho", "Diseño Gráfico", "Ingeniería en Sistemas", "Ingeniería Industrial", "Mercadotecnia", "Psicología"]}, {"alcaldia": "Miguel Hidalgo", "nombre": "UVM — Campus San Rafael", "colonia": "San Rafael", "direccion": "Sadi Carnot 57-59, San Rafael, 06470", "telefono": "55 5535 0005", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "Sí", "n_carreras": 8, "carreras": ["Administración", "Comunicación", "Contaduría", "Derecho", "Ingeniería en Sistemas", "Mercadotecnia", "Pedagogía", "Psicología"]}, {"alcaldia": "Miguel Hidalgo", "nombre": "Universidad Hebraica", "colonia": "Polanco", "direccion": "Anatole France 555, Polanco, 11560", "telefono": "55 5245 8600", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 6, "carreras": ["Administración de Empresas", "Comunicación", "Derecho", "Psicología", "Pedagogía", "Estudios Judaicos"]}, {"alcaldia": "Miguel Hidalgo", "nombre": "Centro de Arte Mexicano", "colonia": "Lomas de Chapultepec", "direccion": "Monte Líbano 985, Lomas de Chapultepec, 11000", "telefono": "55 5540 1234", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 3, "carreras": ["Artes Visuales", "Diseño", "Fotografía"]}, {"alcaldia": "Miguel Hidalgo", "nombre": "Universidad Salesiana (UNISAL)", "colonia": "Anáhuac I Secc", "direccion": "Laguna de Términos 260, Anáhuac I Secc, 11320", "telefono": "55 6211 4038", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "Sí", "n_carreras": 5, "carreras": ["Administración", "Ciencias de la Comunicación", "Derecho", "Pedagogía", "Psicología"]}, {"alcaldia": "Miguel Hidalgo", "nombre": "Universidad Tres Culturas (UTC) — Campus Observatorio", "colonia": "Observatorio", "direccion": "Av. Observatorio 181, Observatorio, 11860", "telefono": "55 5272 2438", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "Sí", "n_carreras": 6, "carreras": ["Administración de Empresas", "Comercio Internacional", "Contaduría y Finanzas", "Derecho", "Pedagogía", "Psicología"]}, {"alcaldia": "Miguel Hidalgo", "nombre": "INBAL — Conservatorio Nacional de Música", "colonia": "Polanco", "direccion": "Av. Presidente Masaryk 582, Polanco, 11560", "telefono": "55 8647 5390", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "Sí", "n_carreras": 5, "carreras": ["Instrumentista (arpa, clarinete, contrabajo, corno, fagot, flauta, guitarra, oboe, órgano, percusiones, piano, saxofón, viola, violín, violonchelo)", "Canto", "Composición", "Dirección Coral", "Dirección de Orquesta"]}, {"alcaldia": "Milpa Alta", "nombre": "IPN — CICS Unidad Milpa Alta", "colonia": "Ex Hacienda del Mayorazgo", "direccion": "Km. 39 Carretera Xochimilco-Oaxtepec, San Lorenzo, 12300", "telefono": "55 5729 6000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 6, "carreras": ["Medicina", "Nutrición", "Odontología", "Optometría", "Enfermería", "Trabajo Social"]}, {"alcaldia": "Milpa Alta", "nombre": "TecNM — Instituto Tecnológico de Milpa Alta II", "colonia": "San Juan Tepenáhuac", "direccion": "Camino a San Juan Tepenáhuac s/n, 12300", "telefono": "55 5862 3550", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 4, "carreras": ["Ingeniería en Sistemas Computacionales", "Ingeniería en Gestión Empresarial", "Ingeniería Industrial", "Licenciatura en Turismo"]}, {"alcaldia": "Tláhuac", "nombre": "Universidad para el Bienestar Benito Juárez García (UBBJ) — Sede Tláhuac", "colonia": "San Francisco Tlaltenco", "direccion": "Av. Tláhuac s/n, San Francisco Tlaltenco, 13400", "telefono": "55 5134 3100", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 5, "carreras": ["Ingeniería Agroalimentaria", "Ingeniería en Procesos Alimentarios", "Medicina Integral y Salud Comunitaria", "Formación Docente en Educación Básica", "Administración Municipal y Políticas Públicas"]}, {"alcaldia": "Tláhuac", "nombre": "Universidad Insurgentes — Plantel Tláhuac", "colonia": "San José", "direccion": "Av. Tláhuac 5231, San José, 13540", "telefono": "55 5512 1212", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 6, "carreras": ["Administración", "Comunicación", "Contaduría", "Derecho", "Pedagogía", "Psicología"]}, {"alcaldia": "Tláhuac", "nombre": "Universidad Marista CDMX", "colonia": "San Francisco Tlaltenco", "direccion": "Canal de Chalco 928, San Francisco Tlaltenco, 13200", "telefono": "55 5845 0850", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 13, "carreras": ["Actuaría", "Administración y Mercadotecnia", "Administración y Dirección del Deporte", "Arquitectura", "Ciencias de la Comunicación", "Contaduría", "Derecho", "Diseño Gráfico", "Educación Media-Superior Intercultural", "Ingeniería Industrial", "Ingeniería Mecatrónica", "Negocios Internacionales", "Psicología"]}, {"alcaldia": "Tláhuac", "nombre": "TecNM — Instituto Tecnológico de Tláhuac (ITT I)", "colonia": "Estación La Turba", "direccion": "Av. Estanislao Ramírez s/n, La Turba, 13270", "telefono": "55 5842 8560", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 5, "carreras": ["Ingeniería en Sistemas Computacionales", "Ingeniería en Electrónica", "Ingeniería en Mecatrónica", "Ingeniería en Sistemas Automotrices", "Arquitectura"]}, {"alcaldia": "Tlalpan", "nombre": "UPN — Unidad Ajusco (Sede Nacional)", "colonia": "Héroes de Padierna", "direccion": "Carretera al Ajusco 24, Héroes de Padierna, 14200", "telefono": "55 5630 9700", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 8, "carreras": ["Administración Educativa", "Pedagogía", "Psicología Educativa", "Sociología de la Educación", "Educación Indígena", "Educación Preescolar", "Educación Primaria", "Enseñanza del Inglés"]}, {"alcaldia": "Tlalpan", "nombre": "Universidad Intercontinental (UIC)", "colonia": "Insurgentes Cuicuilco", "direccion": "Av. Insurgentes Sur 4303, Santa Úrsula Xitla, 14420", "telefono": "55 5513 9100", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 10, "carreras": ["Administración", "Arquitectura", "Comunicación", "Derecho", "Odontología", "Psicología", "Mercadotecnia", "Contaduría", "Filosofía", "Teología"]}, {"alcaldia": "Tlalpan", "nombre": "COLMEX — El Colegio de México", "colonia": "Fuentes del Pedregal", "direccion": "Carretera Picacho Ajusco 20, Ampl. Fuentes del Pedregal, 14110", "telefono": "55 5449 3000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 3, "carreras": ["Licenciatura en Economía", "Licenciatura en Política y Administración Pública", "Licenciatura en Relaciones Internacionales"]}, {"alcaldia": "Tlalpan", "nombre": "UNAM — ENES Morelia (sede CDMX-Tlalpan)", "colonia": "Pedregal de Santa Úrsula", "direccion": "Cto. Mario de la Cueva s/n, Pedregal de Santa Úrsula, 14110", "telefono": "55 5622 7000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 2, "carreras": ["Estudios Sociales y Gestión Local", "Desarrollo Territorial"]}, {"alcaldia": "Tlalpan", "nombre": "ENAH — Escuela Nacional de Antropología e Historia (INAH)", "colonia": "Isidro Fabela", "direccion": "Periférico Sur y Zapote s/n, Isidro Fabela, 14030", "telefono": "55 5666 3454", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 7, "carreras": ["Antropología Física", "Antropología Social", "Arqueología", "Etnohistoria", "Etnología", "Historia", "Lingüística"]}, {"alcaldia": "Venustiano Carranza", "nombre": "IPN — ESIA Tecamachalco", "colonia": "Pensador Mexicano", "direccion": "Av. Constitución de Apatzingán s/n, Pensador Mexicano, 15510", "telefono": "55 5729 6000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 3, "carreras": ["Ingeniería Civil", "Arquitectura", "Ingeniería en Topografía y Geodesia"]}, {"alcaldia": "Venustiano Carranza", "nombre": "Instituto Nacional de Bellas Artes — CENADAC", "colonia": "Jardín Balbuena", "direccion": "Av. del Taller 35, Jardín Balbuena, 15900", "telefono": "55 5529 6185", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 2, "carreras": ["Licenciatura en Danza Contemporánea", "Licenciatura en Coreografía"]}, {"alcaldia": "Venustiano Carranza", "nombre": "Escuela de Tráfico y Tramitación Aduanal (ETTA)", "colonia": "Jardín Balbuena", "direccion": "Av. del Taller 45, Jardín Balbuena, 15900", "telefono": "55 5558 7578", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "Sí", "n_carreras": 2, "carreras": ["Licenciatura en Comercio Internacional", "Licenciatura en Aduanas y Logística"]}, {"alcaldia": "Xochimilco", "nombre": "UAM — Unidad Xochimilco (ver ficha completa en Coyoacán)", "colonia": "Villa Quietud", "direccion": "Calz. del Hueso 1100, Villa Quietud, 04960", "telefono": "55 5483 7000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 1, "carreras": ["→ Consultar listado completo en la sección de Coyoacán"]}, {"alcaldia": "Xochimilco", "nombre": "UNAM — ENES Morelia, Extensión Xochimilco", "colonia": "San Gregorio Atlapulco", "direccion": "Av. 16 de Septiembre s/n, San Gregorio Atlapulco, 16600", "telefono": "55 5622 6000", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 3, "carreras": ["Desarrollo y Gestión Interculturales", "Ciencias Agrogenómicas", "Estudios Sociales y Gestión Local"]}, {"alcaldia": "Xochimilco", "nombre": "TecNM — Instituto Tecnológico de Milpa Alta I", "colonia": "San Pablo Oztotepec", "direccion": "Carretera Xochimilco-Oaxtepec Km. 28, San Pablo Oztotepec, 12600", "telefono": "55 5848 1024", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 4, "carreras": ["Ingeniería en Sistemas Computacionales", "Ingeniería en Gestión Empresarial", "Ingeniería en Desarrollo Comunitario", "Licenciatura en Biología"]}, {"alcaldia": "Xochimilco", "nombre": "Universidad Autónoma Chapingo — Preparatoria Agrícola UACh (Xochimilco)", "colonia": "San Luis Tlaxialtemalco", "direccion": "Carretera Xochimilco-Tulyehualco Km 12.5, San Luis Tlaxialtemalco, 16610", "telefono": "55 2157 8325", "tipo": "Pública", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 2, "carreras": ["Licenciatura en Agronomía", "Licenciatura en Desarrollo Rural"]}, {"alcaldia": "Xochimilco", "nombre": "Universidad Católica Lumen Gentium — Plantel Xochimilco", "colonia": "Barrio San Marcos", "direccion": "Av. Nuevo León 161, Barrio San Marcos, 16070", "telefono": "55 5641 5300", "tipo": "Privada", "servicio_social": "Sí", "carreras_tecnicas": "No", "n_carreras": 4, "carreras": ["Filosofía", "Teología", "Pedagogía", "Ciencias Humanas"]}];
+
+const ALDIAS = ["Azcapotzalco", "Benito Juárez", "Coyoacán", "Cuajimalpa de Morelos", "Cuauhtémoc", "Gustavo A. Madero", "Iztacalco", "Iztapalapa", "Magdalena Contreras", "Miguel Hidalgo", "Milpa Alta", "Tlalpan", "Tláhuac", "Venustiano Carranza", "Xochimilco", "Álvaro Obregón"];
+
+const grid = document.getElementById('univGrid');
+const searchInput = document.getElementById('searchInput');
+const filterAlcaldia = document.getElementById('filterAlcaldia');
+const filteredCount = document.getElementById('filteredCount');
+const resultsInfo = document.getElementById('resultsInfo');
+
+let activeFilters = { tipo: '', carreras_tecnicas: '' };
+
+// ─── RENDER ───
+function renderUniversidades(data) {
+    filteredCount.textContent = data.length;
+    if (data.length === 0) {
+        grid.innerHTML = `<div class="empty-state">
+            <h3>Sin resultados</h3>
+            <p>Ajusta los filtros o la búsqueda para encontrar universidades.</p>
+        </div>`;
+        return;
+    }
+    grid.innerHTML = data.map(u => {
+        const tipoClass = u.tipo === 'Pública' ? 'publica' : 'privada';
+        const ctBadge = u.carreras_tecnicas === 'Sí'
+            ? '<span class="badge ct">🎓 CT</span>'
+            : '<span class="badge noct">Sin CT</span>';
+        const carrerasTags = u.carreras.map(c => `<span class="carrera-tag">${c}</span>`).join('');
+        return `
+        <article class="univ-card ${tipoClass}">
+            <div class="card-header">
+                <h2 class="card-name">${u.nombre}</h2>
+                <div class="card-badges">
+                    <span class="badge ${tipoClass}">${u.tipo}</span>
+                    <span class="badge ss">✓ SS</span>
+                    ${ctBadge}
+                </div>
+            </div>
+            <div class="card-meta">
+                <span class="card-meta-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    ${u.alcaldia} · ${u.colonia}
+                </span>
+                <span class="card-meta-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    ${u.direccion}
+                </span>
+                <span class="card-meta-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    ${u.telefono}
+                </span>
+            </div>
+            <div class="card-carreras">
+                <button class="carreras-toggle" onclick="toggleCarreras(this)" aria-expanded="false">
+                    ${u.n_carreras} carreras
+                </button>
+                <div class="carreras-list">${carrerasTags}</div>
+            </div>
+        </article>`;
+    }).join('');
+}
+
+function toggleCarreras(btn) {
+    const list = btn.nextElementSibling;
+    const isOpen = list.classList.toggle('open');
+    btn.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen);
+    const n = list.querySelectorAll('.carrera-tag').length;
+    btn.innerHTML = isOpen ? `${n} carreras <span style="font-size:0.6rem">▲</span>` : `${n} carreras <span style="font-size:0.6rem">▾</span>`;
+}
+
+// ─── FILTER LOGIC ───
+function getFilteredData() {
+    const query = searchInput.value.toLowerCase().trim();
+    const alcaldia = filterAlcaldia.value;
+    const tipo = activeFilters.tipo;
+    const ct = activeFilters.carreras_tecnicas;
+
+    return UNIVERSIDADES.filter(u => {
+        if (query) {
+            const haystack = (u.nombre + ' ' + u.colonia + ' ' + u.direccion + ' ' + u.alcaldia).toLowerCase();
+            if (!haystack.includes(query)) return false;
+        }
+        if (alcaldia && u.alcaldia !== alcaldia) return false;
+        if (tipo && u.tipo !== tipo) return false;
+        if (ct && u.carreras_tecnicas !== ct) return false;
+        return true;
+    });
+}
+
+function updateView() {
+    const filtered = getFilteredData();
+    renderUniversidades(filtered);
+}
+
+// ─── EVENT LISTENERS ───
+searchInput.addEventListener('input', updateView);
+filterAlcaldia.addEventListener('change', updateView);
+
+document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+        const filter = chip.dataset.filter;
+        const value = chip.dataset.value;
+
+        // Toggle active state for this filter group
+        document.querySelectorAll(`.filter-chip[data-filter="${filter}"]`).forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+
+        if (filter === 'tipo') {
+            activeFilters.tipo = value;
+        } else if (filter === 'carreras_tecnicas') {
+            // Toggle: if already active, deactivate
+            if (activeFilters.carreras_tecnicas === value) {
+                activeFilters.carreras_tecnicas = '';
+                chip.classList.remove('active');
+            } else {
+                activeFilters.carreras_tecnicas = value;
+            }
+        }
+        updateView();
+    });
+});
+
+// ─── INITIAL RENDER ───
+updateView();
+
+// ─── KEYBOARD SHORTCUT: Ctrl+K to focus search ───
+document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInput.focus();
+        searchInput.select();
+    }
+});
+</script>
+</body>
+</html>
