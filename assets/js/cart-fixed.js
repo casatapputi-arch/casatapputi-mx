@@ -80,16 +80,21 @@ function medusaItemsToLocal(items, existingLocal) {
     // PRIORIZAR imagen local (source of truth) sobre la de Medusa
     // Medusa puede tener thumbnails corruptos o desactualizados
     let image = '';
+    let name = li.title;
     if (existingLocal) {
       const prev = existingLocal.find(i => i.id === id || i.variantId === li.variant_id);
       if (prev && prev.image) image = prev.image;
+      // Preservar nombre local si tiene info de variedades (ej: "Paquete 6 (2 Menta, 2 Miel...)")
+      if (prev && prev.name && prev.name !== li.title && prev.name.length > li.title.length) {
+        name = prev.name;
+      }
     }
     // Solo usar thumbnail de Medusa si no hay imagen local
     if (!image) image = li.variant?.product?.thumbnail || '';
     return {
       id: id,
       variantId: li.variant_id,
-      name: li.title,
+      name: name,
       price: li.unit_price || 0,
       priceLabel: formatPrice(li.unit_price),
     image: sanitizeImagePath(image),
@@ -474,11 +479,6 @@ window.addEventListener('storage', (e) => {
   if (e.key === CART_KEY || e.key === CART_ID_KEY) refreshCartUI();
 });
 
-// ── WhatsApp tracking global (event delegation) ───────────
-document.addEventListener('click', (e) => {
-  const wa = e.target.closest('.wa-float, .btn-wa-checkout, .btn-wa-message');
-  if (wa) {
-    cons
 // ── WhatsApp tracking global (event delegation) ───────────
 document.addEventListener('click', (e) => {
   const wa = e.target.closest('.wa-float, .btn-wa-checkout, .btn-wa-message');

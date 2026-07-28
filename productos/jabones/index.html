@@ -11,6 +11,53 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="../../assets/images/casa-tapputi-logo.webp">
 
+  <style>
+    /* ── Tier Selector ─────────────────────────── */
+    .jabones-tier-selector { display:flex; gap:10px; flex-wrap:wrap }
+    .jabones-tier-card {
+      flex:1; min-width:110px; display:flex; flex-direction:column;
+      align-items:center; gap:2px; padding:14px 10px;
+      background:rgba(255,255,255,.03); border:1.5px solid rgba(239,230,214,.12);
+      border-radius:10px; cursor:pointer; transition:all .2s; text-align:center
+    }
+    .jabones-tier-card:hover { border-color:rgba(239,230,214,.3); background:rgba(255,255,255,.06) }
+    .jabones-tier-card.selected { border-color:var(--miel); background:rgba(212,175,55,.08) }
+    .tier-qty { font-weight:600; font-size:.95rem; color:var(--tinta) }
+    .tier-price { font-size:1.2rem; font-weight:700; color:var(--miel) }
+    .tier-unit { font-size:.72rem; color:var(--tinta-suave) }
+    /* ── Variety Radios ────────────────────────── */
+    .jabones-variety-radios { display:flex; flex-direction:column; gap:6px }
+    .jabones-variety-radio {
+      display:flex; align-items:center; gap:10px; padding:10px 14px;
+      background:rgba(255,255,255,.02); border:1px solid rgba(239,230,214,.1);
+      border-radius:8px; cursor:pointer; transition:all .15s
+    }
+    .jabones-variety-radio:hover { background:rgba(255,255,255,.05) }
+    .jabones-variety-radio.selected { border-color:var(--miel); background:rgba(212,175,55,.06) }
+    .jabones-variety-radio input { accent-color:var(--miel) }
+    .jabones-variety-radio .var-name { flex:1; font-size:.9rem }
+    /* ── Variety Steppers ──────────────────────── */
+    .jabones-variety-steppers { display:flex; flex-direction:column; gap:8px }
+    .jabones-stepper-row {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:8px 12px; background:rgba(255,255,255,.02);
+      border-radius:8px; gap:10px
+    }
+    .jabones-stepper-row .var-name { flex:1; font-size:.88rem; font-weight:500 }
+    .stepper-controls { display:flex; align-items:center; gap:8px }
+    .stepper-controls button {
+      width:30px; height:30px; border-radius:50%; border:1px solid rgba(239,230,214,.2);
+      background:rgba(255,255,255,.04); color:var(--tinta); font-size:1.1rem;
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+      transition:all .15s
+    }
+    .stepper-controls button:hover { background:rgba(255,255,255,.1) }
+    .stepper-controls button:disabled { opacity:.3; cursor:not-allowed }
+    .stepper-controls .stepper-val { min-width:24px; text-align:center; font-weight:600; font-size:.95rem }
+    /* ── Add to cart disabled ──────────────────── */
+    #btnAddJabones:disabled { opacity:.4; cursor:not-allowed }
+  </style>
+
   <link rel="canonical" href="https://casatapputi.com.mx/productos/jabones/">
   <!-- Open Graph -->
   <meta property="og:title" content="Jabones Herbales — Casa Tapputi">
@@ -101,24 +148,45 @@
           <p>Cada variedad está formulada con ingredientes botánicos que aportan propiedades específicas: exfoliación suave, hidratación, efecto calmante o purificante. Sin detergentes agresivos, sin parabenos, sin fragancias sintéticas.</p>
         </div>
         <hr class="prod-divider" />
-        <p class="eyebrow" style="margin-bottom:.6rem">Presentación</p>
-        <div class="prod-variants">
-          <span class="prod-variant">100 gr / pz <strong>$90 MXN / pz</strong></span>
+        <p class="eyebrow" style="margin-bottom:.6rem">Elige tu paquete</p>
+        <div class="jabones-tier-selector" id="tierSelector">
+          <label class="jabones-tier-card" data-tier="1" data-price="90" data-total="1">
+            <input type="radio" name="tier" value="1" hidden>
+            <span class="tier-qty">1 unidad</span>
+            <span class="tier-price">$90 MXN</span>
+            <span class="tier-unit">$90 c/u</span>
+          </label>
+          <label class="jabones-tier-card" data-tier="6" data-price="450" data-total="6">
+            <input type="radio" name="tier" value="6" hidden>
+            <span class="tier-qty">Paquete de 6</span>
+            <span class="tier-price">$450 MXN</span>
+            <span class="tier-unit">$75 c/u</span>
+          </label>
+          <label class="jabones-tier-card" data-tier="12" data-price="600" data-total="12">
+            <input type="radio" name="tier" value="12" hidden>
+            <span class="tier-qty">Docena</span>
+            <span class="tier-price">$600 MXN</span>
+            <span class="tier-unit">$50 c/u</span>
+          </label>
         </div>
-        <div class="prod-price-box">
-          <div class="prod-price-label">Precio</div>
-          <div class="prod-price" >$90 MXN / pz</div>
-          <div class="prod-price-present">100 gr / pz</div>
+
+        <div id="varietySection" style="display:none;margin-top:1.2rem">
+          <p class="eyebrow" style="margin-bottom:.6rem" id="varietyLabel">Elige tu variedad</p>
+          <div id="varietyRadios" class="jabones-variety-radios" style="display:none"></div>
+          <div id="varietySteppers" class="jabones-variety-steppers" style="display:none"></div>
+          <p id="varietyCounter" style="text-align:center;font-size:.82rem;color:var(--tinta-suave);margin-top:.6rem;display:none">Seleccionados: <strong id="selectedCount">0</strong> de <strong id="totalCount">0</strong></p>
         </div>
-        <div class="add-to-cart-wrapper">
-          <div class="qty-stepper">
-            <button type="button" aria-label="Restar cantidad" onclick="decrementQty()">−</button>
-            <input type="number" id="productQty" value="1" min="1" aria-label="Cantidad"/>
-            <button type="button" aria-label="Sumar cantidad" onclick="incrementQty()">+</button>
+
+        <div id="addToCartSection" style="display:none;margin-top:1rem">
+          <div class="prod-price-box" id="dynamicPriceBox">
+            <div class="prod-price-label">Total</div>
+            <div class="prod-price" id="dynamicPrice">$90 MXN</div>
+            <div class="prod-price-present" id="dynamicUnit">$90 c/u</div>
           </div>
-          <button class="btn btn-add-cart prod-add-btn" data-product-id="jabones" onclick="addCurrentProduct()">🛒 Agregar al carrito</button>
+          <button class="btn btn-add-cart prod-add-btn" id="btnAddJabones" disabled onclick="addJabonesToCart()">🛒 Agregar al carrito</button>
         </div>
-        <p class="prod-meta-note">7 variedades disponibles. Pregunta por el catálogo completo.</p>
+
+        <p class="prod-meta-note">4 variedades: Menta Romero, Miel Avena, Violetas Lavanda y Jamaica Mandarina. Combínalas como quieras.</p>
       </div>
     </div>
   </div>
@@ -238,17 +306,174 @@
 <script src="../../assets/js/catalog.js?v=8"></script>
 <script src="../../assets/js/cart-fixed.js"></script>
 <script>
-function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
-function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
-function addCurrentProduct(){
+/* ── Variedades y precios ─────────────────────────────── */
+const VARIETIES = [
+  { name: 'Menta Romero', variantId: 'variant_01KXKRE4KNPWB0ARHC88MGYH8D' },
+  { name: 'Miel Avena',    variantId: 'variant_01KXKRE4KN302BSH67Q50FC0GZ' },
+  { name: 'Violetas Lavanda', variantId: 'variant_01KXKRE4KP3Q4E3TFV8D4DKPDH' },
+  { name: 'Jamaica Mandarina', variantId: 'variant_01KXKRE4KNBSR89E23PRV70T3G' }
+];
+
+let selectedTier = null;    // { tier: 1|6|12, price: number, total: number }
+let varietyCounts = {};     // { 'Menta Romero': 0, 'Miel Avena': 0, ... }
+
+// ── Init ──────────────────────────────────────────────────
+document.querySelectorAll('.jabones-tier-card').forEach(card => {
+  card.addEventListener('click', () => selectTier(card));
+});
+
+function selectTier(card) {
+  document.querySelectorAll('.jabones-tier-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  card.querySelector('input').checked = true;
+
+  const tier = parseInt(card.dataset.tier);
+  const price = parseInt(card.dataset.price);
+  const total = parseInt(card.dataset.total);
+  selectedTier = { tier, price, total };
+
+  // Reset counts
+  VARIETIES.forEach(v => { varietyCounts[v.name] = 0; });
+
+  renderVarietyUI();
+  updateUI();
+}
+
+function renderVarietyUI() {
+  const section = document.getElementById('varietySection');
+  const radios = document.getElementById('varietyRadios');
+  const steppers = document.getElementById('varietySteppers');
+  const counter = document.getElementById('varietyCounter');
+  const label = document.getElementById('varietyLabel');
+  const addSection = document.getElementById('addToCartSection');
+
+  section.style.display = 'block';
+  addSection.style.display = 'block';
+
+  if (selectedTier.tier === 1) {
+    // Modo: radio buttons (elegir 1 variedad)
+    label.textContent = 'Elige tu variedad';
+    radios.style.display = 'flex';
+    steppers.style.display = 'none';
+    counter.style.display = 'none';
+
+    radios.innerHTML = VARIETIES.map(v => `
+      <label class="jabones-variety-radio" data-var="${v.name}">
+        <input type="radio" name="variety" value="${v.name}">
+        <span class="var-name">${v.name}</span>
+      </label>
+    `).join('');
+
+    radios.querySelectorAll('.jabones-variety-radio').forEach(radio => {
+      radio.addEventListener('click', () => {
+        radios.querySelectorAll('.jabones-variety-radio').forEach(r => r.classList.remove('selected'));
+        radio.classList.add('selected');
+        radio.querySelector('input').checked = true;
+        // Reset counts: solo la seleccionada = 1
+        VARIETIES.forEach(v => { varietyCounts[v.name] = 0; });
+        varietyCounts[radio.dataset.var] = 1;
+        updateUI();
+      });
+    });
+  } else {
+    // Modo: steppers (distribuir entre variedades)
+    label.textContent = 'Distribuye tus ' + selectedTier.total + ' jabones';
+    radios.style.display = 'none';
+    steppers.style.display = 'flex';
+    counter.style.display = 'block';
+    document.getElementById('totalCount').textContent = selectedTier.total;
+
+    steppers.innerHTML = VARIETIES.map(v => `
+      <div class="jabones-stepper-row">
+        <span class="var-name">${v.name}</span>
+        <div class="stepper-controls">
+          <button onclick="adjustVariety('${v.name}', -1)" data-dec="${v.name}">−</button>
+          <span class="stepper-val" id="count-${v.name.replace(/\s/g,'')}">0</span>
+          <button onclick="adjustVariety('${v.name}', +1)" data-inc="${v.name}">+</button>
+        </div>
+      </div>
+    `).join('');
+
+    updateUI();
+  }
+}
+
+function adjustVariety(name, delta) {
+  const current = varietyCounts[name] || 0;
+  const selected = Object.values(varietyCounts).reduce((a,b) => a+b, 0);
+  const nuevo = current + delta;
+
+  if (nuevo < 0) return;
+  if (selected + delta > selectedTier.total) return; // no exceder total
+
+  varietyCounts[name] = nuevo;
+  updateUI();
+}
+
+function updateUI() {
+  const selected = Object.values(varietyCounts).reduce((a,b) => a+b, 0);
+  const btn = document.getElementById('btnAddJabones');
+  const counter = document.getElementById('selectedCount');
+
+  // Actualizar contador
+  if (counter) counter.textContent = selected;
+
+  // Actualizar stepper displays
+  VARIETIES.forEach(v => {
+    const el = document.getElementById('count-' + v.name.replace(/\s/g, ''));
+    if (el) el.textContent = varietyCounts[v.name] || 0;
+  });
+
+  // Actualizar precio y botón
+  const priceBox = document.getElementById('dynamicPrice');
+  const unitBox = document.getElementById('dynamicUnit');
+
+  if (selected === selectedTier.total) {
+    btn.disabled = false;
+    btn.textContent = '🛒 Agregar al carrito';
+  } else {
+    btn.disabled = true;
+    if (selectedTier.tier === 1) {
+      btn.textContent = '🛒 Elige una variedad';
+    } else {
+      btn.textContent = '🛒 Selecciona ' + selectedTier.total + ' jabones (' + selected + '/' + selectedTier.total + ')';
+    }
+  }
+
+  priceBox.textContent = '$' + selectedTier.price.toLocaleString('es-MX') + ' MXN';
+  unitBox.textContent = '$' + (selectedTier.price / selectedTier.total) + ' c/u';
+}
+
+function addJabonesToCart() {
+  if (!selectedTier) return;
+  const selected = Object.values(varietyCounts).reduce((a,b) => a+b, 0);
+  if (selected !== selectedTier.total) return;
+
+  // Construir nombre del bundle
+  const parts = VARIETIES
+    .filter(v => varietyCounts[v.name] > 0)
+    .map(v => varietyCounts[v.name] + ' ' + v.name);
+
+  let bundleName;
+  if (selectedTier.tier === 1) {
+    bundleName = 'Jabón Herbal ' + parts[0];
+  } else if (selectedTier.tier === 6) {
+    bundleName = 'Paquete 6 Jabones (' + parts.join(', ') + ')';
+  } else {
+    bundleName = 'Docena Jabones (' + parts.join(', ') + ')';
+  }
+
+  // Usar variantId de la primera variedad con cantidad > 0 como representante
+  const firstVar = VARIETIES.find(v => varietyCounts[v.name] > 0);
+
   addToCart({
-    id:'jabones',
-    variantId:'variant_01KXKRE4EPW3GRAZ2WAYKJ4HX2',
-    name:'Jabones Herbales',
-    price:90,
-    priceLabel:'$90 MXN / pz',
-    image:'../../assets/images/jabones-herbales.webp',
-    quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)
+    id: 'jabones-tier-' + selectedTier.tier,
+    variantId: firstVar ? firstVar.variantId : 'variant_01KXKRE4KNPWB0ARHC88MGYH8D',
+    name: bundleName,
+    price: selectedTier.price,
+    priceLabel: '$' + selectedTier.price.toLocaleString('es-MX') + ' MXN',
+    image: '../../assets/images/jabones-herbales.webp',
+    quantity: 1
   });
 }
 </script>
