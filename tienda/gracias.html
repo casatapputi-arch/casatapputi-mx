@@ -203,23 +203,38 @@ function enviarConfirmacionWhatsApp() {
   let msg = '';
   if (cust.mode === 'recoger') {
     const desc = Math.round(total * 0.10);
-    msg = `🌿 *Confirmación — Recoger en Huerto*\n\n` +
-      `*Cliente:* ${cust.name}\n` +
-      `*Tel:* ${cust.phone}\n\n` +
-      `*Pedido:*\n${items.join('\n')}\n\n` +
-      `Total: $${total} → *$${total - desc} MXN* (10% desc)\n` +
-      `📍 Jalapa 234, Roma Sur, CDMX\n` +
-      `💵 Pago en efectivo al recoger 🏡`;
+    const lines = [
+      '🌿 *Confirmación — Recoger en Huerto*',
+      '',
+      '*Cliente:* ' + cust.name,
+      '*Tel:* ' + cust.phone,
+      '',
+      '*Pedido:*',
+      ...items,
+      '',
+      'Total: $' + total + ' → *$' + (total - desc) + ' MXN* (10% desc)',
+      '📍 Jalapa 234, Roma Sur, CDMX',
+      '💵 Pago en efectivo al recoger 🏡'
+    ];
+    msg = lines.join('\n');
   } else {
     const cp = cust.cp || '';
-    msg = `📦 *Confirmación — Envío a domicilio*\n\n` +
-      `*Cliente:* ${cust.name}\n` +
-      `*Tel:* ${cust.phone}\n` +
-      `*Dirección:* ${cust.address}\n` +
-      `*CP:* ${cp}\n\n` +
-      `*Pedido:*\n${items.join('\n')}\n\n` +
-      `*Total pagado: $${total} MXN* ✅ (MercadoPago)\n\n` +
-      `🚀 Envío por Uber o Didi — coordinamos por aquí`;
+    const lines = [
+      '📦 *Confirmación — Envío a domicilio*',
+      '',
+      '*Cliente:* ' + cust.name,
+      '*Tel:* ' + cust.phone,
+      '*Dirección:* ' + cust.address,
+      '*CP:* ' + cp,
+      '',
+      '*Pedido:*',
+      ...items,
+      '',
+      '*Total pagado: $' + total + ' MXN* ✅ (MercadoPago)',
+      '',
+      '🚀 Envío por Uber o Didi — coordinamos por aquí'
+    ];
+    msg = lines.join('\n');
   }
 
   window.open(`https://wa.me/525563707034?text=${encodeURIComponent(msg)}`, '_blank');

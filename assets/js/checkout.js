@@ -197,17 +197,23 @@ function iniciarWhatsAppRecoger() {
   const descuento = Math.round(total * PICKUP_DISCOUNT);
   const totalConDesc = total - descuento;
 
-  const msg = encodeURIComponent(
-    `🌿 *Pedido Casa Tapputi — Recoger en Huerto*\n\n` +
-    `*Cliente:* ${custData.name}\n` +
-    `*Teléfono:* ${custData.phone}\n\n` +
-    `*Productos:*\n${items.join('\n')}\n\n` +
-    `Subtotal: $${total} MXN\n` +
-    `Descuento (10% recoger): -$${descuento} MXN\n` +
-    `*Total: $${totalConDesc} MXN*\n\n` +
-    `📍 Recoger en: Jalapa 234, Roma Sur, CDMX\n` +
-    `💵 Pagaré en efectivo al recoger 🌿`
-  );
+  const lines = [
+    '🌿 *Pedido Casa Tapputi — Recoger en Huerto*',
+    '',
+    '*Cliente:* ' + custData.name,
+    '*Teléfono:* ' + custData.phone,
+    '',
+    '*Productos:*',
+    ...items,
+    '',
+    'Subtotal: $' + total + ' MXN',
+    'Descuento (10% recoger): -$' + descuento + ' MXN',
+    '*Total: $' + totalConDesc + ' MXN*',
+    '',
+    '📍 Recoger en: Jalapa 234, Roma Sur, CDMX',
+    '💵 Pagaré en efectivo al recoger 🌿'
+  ];
+  const msg = encodeURIComponent(lines.join('\n'));
 
   sessionStorage.setItem('casatapputi_customer', JSON.stringify(custData));
   sessionStorage.setItem('casatapputi_cart_snapshot', JSON.stringify(local));
