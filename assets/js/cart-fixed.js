@@ -233,6 +233,14 @@ function clearCart() {
   refreshCartUI();
 }
 
+function checkoutWhatsApp(e) {
+  e.preventDefault();
+  const waUrl = generateWhatsAppMessage();
+  window.open(waUrl, '_blank', 'noopener');
+  clearCart();
+  setTimeout(() => { window.location.href = 'gracias-wa.html'; }, 500);
+}
+
 // ── Sanitizar ruta de imagen (previene images/images/ por bugs upstream) ──
 function sanitizeImagePath(path) {
   if (!path) return '';
@@ -245,15 +253,37 @@ function formatPrice(p) {
 }
 
 // ── WhatsApp checkout ────────────────────────────────────
+function generarRefPedido() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let ref = '';
+  for (let i = 0; i < 6; i++) ref += chars.charAt(Math.floor(Math.random() * chars.length));
+  return 'CT' + ref;
+}
+
+function trackWAEvent(action, label) {
+  if (typeof plausible === 'function') {
+    plausible('WhatsApp', { props: { action: action, label: label } });
+  }
+}
+
 function generateWhatsAppMessage() {
   const local = getLocalCart();
   if (!local.length) return '';
 
-  let msg = '🛒 *Pedido — Casa Tapputi* 🌿\n\n';
+  const ref = generarRefPedido();
+  const now = new Date();
+  const fecha = now.toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' });
+  const hora = now.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+
+  let msg = '🛒 *PEDIDO NUEVO — Casa Tapputi* 🌿\n';
+  msg += '📋 Ref: ' + ref + '\n';
+  msg += '📅 ' + fecha + ' · ' + hora + '\n\n';
+  msg += '*Productos solicitados:*\n';
   local.forEach(item => {
     const price = parseInt(item.price) || 0;
     const subtotal = price > 0 ? price * item.quantity : 0;
     msg += '• ' + item.name;
+    if (item.variantId) msg += ' (var:' + item.variantId.slice(-6) + ')';
     if (item.quantity > 1) msg += ' ×' + item.quantity;
     msg += subtotal > 0
       ? ' — $' + subtotal.toLocaleString('es-MX') + ' MXN\n'
@@ -261,8 +291,9 @@ function generateWhatsAppMessage() {
   });
   const total = getTotal();
   if (total > 0) msg += '\n💰 *Total: $' + total.toLocaleString('es-MX') + ' MXN*';
-  msg += '\n\n📦 Solicito información de envío/entrega.\n📍 Huerto Roma Verde, CDMX';
+  msg += '\n\n📦 Solicito información de envío y pago.\n📍 Huerto Roma Verde, CDMX\n\n🧾 Ref: ' + ref;
 
+  trackWAEvent('checkout_cart', 'cart_' + ref);
   return 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
 }
 
@@ -373,7 +404,7 @@ async function renderCartPage() {
         <span>Total</span>
         <span>${total > 0 ? '$' + total.toLocaleString('es-MX') + ' MXN' : 'A consultar'}</span>
       </div>
-      <a href="${generateWhatsAppMessage()}" class="btn-wa-checkout" target="_blank" rel="noopener">
+      <a href="${generateWhatsAppMessage()}" class="btn-wa-checkout" target="_blank" rel="noopener" onclick="checkoutWhatsApp(event)">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Comprar por WhatsApp
       </a>
@@ -441,4 +472,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Cross-tab sync
 window.addEventListener('storage', (e) => {
   if (e.key === CART_KEY || e.key === CART_ID_KEY) refreshCartUI();
+});
+
+// ── WhatsApp tracking global (event delegation) ───────────
+document.addEventListener('click', (e) => {
+  const wa = e.target.closest('.wa-float, .btn-wa-checkout, .btn-wa-message');
+  if (wa) {
+    cons
+// ── WhatsApp tracking global (event delegation) ───────────
+document.addEventListener('click', (e) => {
+  const wa = e.target.closest('.wa-float, .btn-wa-checkout, .btn-wa-message');
+  if (wa && typeof plausible === 'function') {
+    const label = wa.classList.contains('wa-float') ? 'flotante'
+      : wa.classList.contains('btn-wa-checkout') ? 'checkout'
+      : 'producto';
+    plausible('WhatsApp', { props: { action: 'click_' + label, href: wa.getAttribute('href') || '' } });
+  }
 });
