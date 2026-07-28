@@ -103,13 +103,17 @@ function medusaItemsToLocal(items, existingLocal) {
   });
 }
 
-// Sincroniza localStorage desde el cart de Medusa (source of truth)
+// Sincroniza localStorage desde el cart de Medusa + preserva items locales no sincronizados
 async function syncLocalFromMedusa() {
   try {
     const cart = await fetchMedusaCart();
     if (cart && cart.items) {
       const existing = getLocalCart();
-      const merged = medusaItemsToLocal(cart.items, existing);
+      const medusaItems = medusaItemsToLocal(cart.items, existing);
+      // Preservar items locales que NO estan en Medusa (fallo de POST o en cola)
+      const medusaIds = new Set(medusaItems.map(i => i.id));
+      const localOnly = existing.filter(i => !medusaIds.has(i.id));
+      const merged = [...medusaItems, ...localOnly];
       saveLocalCart(merged);
       return merged;
     }
