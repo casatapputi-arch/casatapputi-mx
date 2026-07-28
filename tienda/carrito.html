@@ -37,7 +37,7 @@
 </script>
   <!-- MercadoPago SDK V2 -->
 <script src="https://sdk.mercadopago.com/js/v2"></script>
-<script>const mp=new MercadoPago('APP_USR-2afcb72e-ed92-4c9b-8283-6844895e4ddd');</script>
+<script>const mp=new MercadoPago('APP_USR-5215e212-ea55-41df-ad06-c828ebdfc562');</script>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
@@ -86,12 +86,59 @@
   <div class="container">
     <p class="eyebrow">Finaliza tu compra</p>
     <h1>Tu Carrito</h1>
-    <p>Revisa tus productos y completa tu pedido por WhatsApp.</p>
+    <p>Revisa tus productos y completa tu pedido.</p>
   </div>
 </header>
 
 <section>
   <div class="container">
+    <!-- Formulario de datos del comprador -->
+    <div id="customerForm" style="display:none; max-width:600px; margin:0 auto 32px; background:rgba(255,255,255,.03); border:1px solid rgba(239,230,214,.12); border-radius:8px; padding:28px 24px">
+      <h3 style="margin:0 0 20px; font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--miel)">Datos de contacto</h3>
+
+      <label style="display:block; margin-bottom:14px">
+        <span style="display:block; font-size:.85rem; color:var(--tinta-suave); margin-bottom:4px">Nombre completo *</span>
+        <input type="text" id="custName" placeholder="Ej. María García" required
+          style="width:100%; padding:10px 12px; background:rgba(0,0,0,.3); border:1px solid rgba(239,230,214,.2); border-radius:4px; color:var(--tinta); font-family:inherit; font-size:.95rem">
+      </label>
+
+      <label style="display:block; margin-bottom:14px">
+        <span style="display:block; font-size:.85rem; color:var(--tinta-suave); margin-bottom:4px">Teléfono *</span>
+        <input type="tel" id="custPhone" placeholder="Ej. 55-1234-5678" required
+          style="width:100%; padding:10px 12px; background:rgba(0,0,0,.3); border:1px solid rgba(239,230,214,.2); border-radius:4px; color:var(--tinta); font-family:inherit; font-size:.95rem">
+      </label>
+
+      <fieldset style="border:1px solid rgba(239,230,214,.15); border-radius:6px; padding:16px; margin:20px 0 0">
+        <legend style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--tinta); padding:0 8px">¿Cómo recibes tu pedido?</legend>
+
+        <label id="optDelivery" style="display:flex; align-items:flex-start; padding:10px 8px; cursor:pointer; border-radius:4px; margin-bottom:4px; transition:background .2s"
+               onclick="selectDeliveryMode('envio')">
+          <input type="radio" name="deliveryMode" value="envio" style="margin-top:3px; accent-color:var(--miel)">
+          <div style="margin-left:10px">
+            <strong style="display:block">📦 Envío a domicilio</strong>
+            <span style="font-size:.82rem; color:var(--tinta-suave)">Envíos a toda CDMX. Paga con MercadoPago.</span>
+          </div>
+        </label>
+
+        <label id="optPickup" style="display:flex; align-items:flex-start; padding:10px 8px; cursor:pointer; border-radius:4px; transition:background .2s"
+               onclick="selectDeliveryMode('recoger')">
+          <input type="radio" name="deliveryMode" value="recoger" style="margin-top:3px; accent-color:var(--miel)">
+          <div style="margin-left:10px">
+            <strong style="display:block">🌿 Recoger en Huerto Roma Verde</strong>
+            <span style="font-size:.82rem; color:var(--tinta-suave)">Jalapa 234, Roma Sur, CDMX. <span style="color:#a5d6a7">💰 10% de descuento pagando en efectivo</span></span>
+          </div>
+        </label>
+      </fieldset>
+
+      <div id="deliveryAddress" style="display:none; margin-top:14px">
+        <label style="display:block">
+          <span style="display:block; font-size:.85rem; color:var(--tinta-suave); margin-bottom:4px">Dirección de envío *</span>
+          <textarea id="custAddress" rows="2" placeholder="Calle, número, colonia, CP, CDMX"
+            style="width:100%; padding:10px 12px; background:rgba(0,0,0,.3); border:1px solid rgba(239,230,214,.2); border-radius:4px; color:var(--tinta); font-family:inherit; font-size:.95rem; resize:vertical"></textarea>
+        </label>
+      </div>
+    </div>
+
     <div id="cartContainer">
       <!-- Rendered by cart.js -->
     </div>
@@ -148,7 +195,7 @@
 
 <script src="../assets/js/main.js"></script>
 <script src="../assets/js/cart-fixed.js"></script>
-<script src="../assets/js/checkout.js?v=20260715"></script>
+<script src="../assets/js/checkout.js?v=20260728"></script>
 
 <style>
 /* ── Botón MercadoPago ─────────────────────────── */
