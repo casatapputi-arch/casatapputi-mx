@@ -131,9 +131,16 @@
       </fieldset>
 
       <div id="deliveryAddress" style="display:none; margin-top:14px">
+        <label style="display:block; margin-bottom:10px">
+          <span style="display:block; font-size:.85rem; color:var(--tinta-suave); margin-bottom:4px">Código Postal *</span>
+          <input type="text" id="custCP" placeholder="Ej. 06760" maxlength="5"
+            style="width:100%; padding:10px 12px; background:rgba(0,0,0,.3); border:1px solid rgba(239,230,214,.2); border-radius:4px; color:var(--tinta); font-family:inherit; font-size:.95rem"
+            oninput="this.value=this.value.replace(/[^0-9]/g,''); if(this.value.length===5) actualizarInfoEnvio()">
+          <small id="shippingInfo" style="display:none;color:var(--tinta-suave);font-size:.78rem;margin-top:4px"></small>
+        </label>
         <label style="display:block">
-          <span style="display:block; font-size:.85rem; color:var(--tinta-suave); margin-bottom:4px">Dirección de envío *</span>
-          <textarea id="custAddress" rows="2" placeholder="Calle, número, colonia, CP, CDMX"
+          <span style="display:block; font-size:.85rem; color:var(--tinta-suave); margin-bottom:4px">Dirección completa *</span>
+          <textarea id="custAddress" rows="2" placeholder="Calle, número, colonia, referencias"
             style="width:100%; padding:10px 12px; background:rgba(0,0,0,.3); border:1px solid rgba(239,230,214,.2); border-radius:4px; color:var(--tinta); font-family:inherit; font-size:.95rem; resize:vertical"></textarea>
         </label>
       </div>

@@ -8,6 +8,8 @@
 
 const PICKUP_DISCOUNT = 0.10; // 10% descuento por recoger
 const WHATSAPP_NUMBER = '525563707034';
+const SHIPPING_CDMX = 80;    // Uber Direct / Rappi
+const SHIPPING_FORANEO = 150; // Estafeta / Redpack
 let deliveryMode = null;
 
 // ── Control de modo de entrega ──────────────────────────
@@ -36,7 +38,33 @@ function getCustomerData() {
   const name = document.getElementById('custName')?.value?.trim() || '';
   const phone = document.getElementById('custPhone')?.value?.trim() || '';
   const address = document.getElementById('custAddress')?.value?.trim() || '';
-  return { name, phone, address, mode: deliveryMode };
+  const cp = document.getElementById('custCP')?.value?.trim() || '';
+  return { name, phone, address, cp, mode: deliveryMode };
+}
+
+// ── Detectar zona de envío por CP ────────────────────────
+function getShippingInfo(cp) {
+  if (!cp || cp.length < 5) return { isCDMX: false, cost: SHIPPING_FORANEO, label: 'Foráneo ~$150 MXN (Estafeta)' };
+  const num = parseInt(cp, 10);
+  if (num >= 1000 && num <= 17999)  return { isCDMX: true, cost: SHIPPING_CDMX, label: 'CDMX ~$80 MXN (Uber/Rappi)' };
+  if (num >= 50000 && num <= 57999) return { isCDMX: true, cost: SHIPPING_CDMX, label: 'Edo. Méx ~$80 MXN (Uber/Rappi)' };
+  return { isCDMX: false, cost: SHIPPING_FORANEO, label: 'Foráneo ~$150 MXN (Estafeta)' };
+}
+
+// ── Actualizar info de envío en el formulario ────────────
+function actualizarInfoEnvio() {
+  const cp = document.getElementById('custCP')?.value?.trim() || '';
+  const info = document.getElementById('shippingInfo');
+  if (!info) return;
+  if (cp.length === 5) {
+    const ship = getShippingInfo(cp);
+    info.style.display = 'block';
+    info.innerHTML = ship.isCDMX
+      ? '🚀 <strong style="color:#a5d6a7">' + ship.label + '</strong> — mismo día'
+      : '📦 <strong style="color:#ffb74d">' + ship.label + '</strong> — 2-5 días';
+  } else {
+    info.style.display = 'none';
+  }
 }
 
 // ── Validar formulario de cliente ─────────────────────────
@@ -56,6 +84,10 @@ function validarFormularioCliente() {
   }
   if (data.mode === 'envio' && !data.address) {
     mostrarErrorMP('Por favor ingresa tu dirección de envío.');
+    return null;
+  }
+  if (data.mode === 'envio' && (!data.cp || data.cp.length < 5)) {
+    mostrarErrorMP('Por favor ingresa tu código postal.');
     return null;
   }
   return data;
@@ -173,7 +205,8 @@ function iniciarWhatsAppRecoger() {
     `Subtotal: $${total} MXN\\n` +
     `Descuento (10% recoger): -$${descuento} MXN\\n` +
     `*Total: $${totalConDesc} MXN*\\n\\n` +
-    `Pagaré en efectivo al recoger en Huerto Roma Verde 🌿`
+    `📍 Recoger en: Jalapa 234, Roma Sur, CDMX\\n` +
+    `💵 Pagaré en efectivo al recoger 🌿`
   );
 
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');

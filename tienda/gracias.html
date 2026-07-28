@@ -186,7 +186,17 @@ function enviarConfirmacionWhatsApp() {
     const desc = Math.round(total * 0.10);
     msg = `🌿 *Confirmación — Recoger en Huerto*\\n\\n*Cliente:* ${cust.name}\\n*Tel:* ${cust.phone}\\n\\n*Pedido:*\\n${items.join('\\n')}\\n\\nTotal: $${total} → *$${total - desc} MXN* (10% desc)\\nPago en efectivo al recoger 🏡`;
   } else {
-    msg = `📦 *Confirmación — Envío a domicilio*\\n\\n*Cliente:* ${cust.name}\\n*Tel:* ${cust.phone}\\n*Dirección:* ${cust.address}\\n\\n*Pedido:*\\n${items.join('\\n')}\\n\\n*Total: $${total} MXN*\\nPago con MercadoPago ✅`;
+    const cp = cust.cp || '';
+    let shipNote = '';
+    if (cp && cp.length === 5) {
+      const n = parseInt(cp, 10);
+      if ((n >= 1000 && n <= 17999) || (n >= 50000 && n <= 57999)) {
+        shipNote = '\\n🚀 Envío CDMX ~$80 MXN (Uber/Rappi, mismo día)';
+      } else {
+        shipNote = '\\n📦 Envío foráneo ~$150 MXN (Estafeta, 2-5 días)';
+      }
+    }
+    msg = `📦 *Confirmación — Envío a domicilio*\\n\\n*Cliente:* ${cust.name}\\n*Tel:* ${cust.phone}\\n*Dirección:* ${cust.address}\\n*CP:* ${cp}\\n\\n*Pedido:*\\n${items.join('\\n')}\\n\\n*Total: $${total} MXN*\\nPago con MercadoPago ✅${shipNote}`;
   }
 
   window.open(`https://wa.me/525563707034?text=${encodeURIComponent(msg)}`, '_blank');
