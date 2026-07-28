@@ -23,7 +23,7 @@ const PRODUCT_META = {
   'miel-melipona':      { cat:'corporal', price:350,  priceLabel:'$350 MXN',          img:'assets/images/miel-melipona.webp',       desc:'Recolectada por abejas sin aguijón. Tesoro sagrado ancestral de poderosas propiedades curativas.',                       latin:'Melipona beecheii',          usage:'Nutritivo' },
   'friega-cannabis':    { cat:'corporal', price:90,   priceLabel:'desde $90 MXN',     img:'assets/images/friega-cannabis.webp',     desc:'Sinergia de cannabis, veneno de hormiga roja y plantas medicinales. Analgésico profundo y antiinflamatorio.',              latin:'Cannabis sativa',            usage:'Analgésico' },
   'chilcuague':         { cat:'corporal', price:100,  priceLabel:'$100 MXN',          img:'assets/images/chilcuague.webp',          desc:'Spray oral de raíz medicinal. Acción antibacteriana y antiinflamatoria sobre encías, mucosas y tejidos orales. 30 ml.',   latin:'Heliopsis longipes',         usage:'Salud bucal' },
-  'jabones':            { cat:'corporal', price:90,   priceLabel:'$90 MXN / pz',      img:'assets/images/jabones-herbales.webp',    desc:'7 variedades con aceite de coco: Miel & Avena, Menta & Romero, Manzanilla & Bergamota, Manzana & Canela, Lavanda & Violeta, Rosas & Anís Estrella, Carbón Activado.', latin:'(Species variae)', usage:'Limpieza corporal' },
+  'jabones':            { cat:'corporal', price:90,   priceLabel:'desde $90 MXN',     img:'assets/images/jabones-herbales.webp',    desc:'4 variedades con aceite de coco: Menta Romero, Miel Avena, Violetas Lavanda y Jamaica Mandarina. Paquetes desde 1 hasta 12 pzas.', latin:'(Species variae)', usage:'Limpieza corporal' },
   'agua-rosas':         { cat:'facial',   price:150,  priceLabel:'$150 MXN',          img:'assets/images/agua-rosas.webp',          desc:'Tónico natural de pétalos frescos. Calma, hidrata y equilibra la piel. Sin alcohol ni químicos agresivos. 30 ml.',        latin:'Rosa damascena',             usage:'Tónico facial' },
   'gel-rosas':          { cat:'facial',   price:150,  priceLabel:'$150 MXN',          img:'assets/images/gel-rosas.webp',           desc:'Hidratante con extracto de pétalos frescos. Textura ligera de rápida absorción. Propiedades antioxidantes. 100 ml.',      latin:'Rosa damascena',             usage:'Hidratante facial' },
   'gel-cafe':           { cat:'facial',   price:150,  priceLabel:'$150 MXN',          img:'assets/images/mascarilla-cafe.webp',     desc:'Tratamiento revitalizante. La cafeína estimula la circulación y despierta la piel. Tonifica, refresca y deja el rostro suave y luminoso. 30 ml.', latin:'Coffea arabica', usage:'Revitalizante facial' },
@@ -156,6 +156,9 @@ function renderShopCard(p, assets) {
   let actionHtml;
   if (hasVariants) {
     actionHtml = `<a href="${productoUrl(p.handle)}" class="btn btn-add-cart specimen-cta">Ver opciones</a>`;
+  } else if (!p.price || p.price <= 0) {
+    // Productos sin precio fijo → link a página de detalle
+    actionHtml = `<a href="${productoUrl(p.handle)}" class="btn btn-add-cart specimen-cta">Ver detalles</a>`;
   } else {
     actionHtml = `<button class="btn btn-add-cart specimen-cta"
       data-product-id="${p.id}"
