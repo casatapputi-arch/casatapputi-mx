@@ -10,6 +10,14 @@
   const CACHE_TTL = 15 * 60 * 1000; // 15 min
 
   let _products = null;
+
+  // ── Escapar HTML contra XSS ─────────────────────────────
+  function escapeHTML(str) {
+    const div = document.createElement('div');
+    div.textContent = str || '';
+    return div.innerHTML;
+  }
+
   let _pages = [
     { title: 'Inicio', url: '/', keywords: 'casa tapputi herbolaria perfumeria botanica' },
     { title: 'Productos', url: '/productos/', keywords: 'catalogo esencias pomadas jabones tisanas perfumes' },
@@ -39,7 +47,7 @@
       });
       if (!res.ok) return [];
       const json = await res.json();
-      _products = (json.products || []).filter(p => !p.handle || !p.handle.includes('prueba'));
+      _products = (json.products || []).filter(p => p.handle && !p.handle.includes('prueba'));
       try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ data: _products, ts: Date.now() })); } catch (e) { /* ignore */ }
       return _products;
     } catch (e) {
@@ -62,8 +70,8 @@
         (desc.includes(q) ? 1 : 0);
       if (score > 0) {
         results.push({
-          title: p.title || handle,
-          url: `/productos/${handle}/`,
+          title: escapeHTML(p.title || handle),
+          url: `/productos/${escapeHTML(handle)}/`,
           type: 'producto',
           thumbnail: p.thumbnail || '',
           score
@@ -188,8 +196,13 @@
   let productsLoaded = false;
   async function loadProducts() {
     if (productsLoaded) return;
-    productsLoaded = true;
     await getProducts();
+    productsLoaded = true;
+    // Re-disparar búsqueda si el usuario ya escribió algo
+    const input = document.getElementById('searchInput');
+    if (input && input.value.trim().length >= 2) {
+      handleInput({ target: input });
+    }
   }
 
   // ── Manejar input ─────────────────────────────────────────
@@ -202,7 +215,9 @@
   }
 
   // ── Init ──────────────────────────────────────────────────
-  document.addEventListener('DOMContentLoaded', () => {
+  function init() {
+    createSearchUI();
+    injectSearchButton();
     createSearchUI();
     injectSearchButton();
 
@@ -217,5 +232,11 @@
         openSearch();
       }
     });
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
