@@ -105,6 +105,8 @@ function medusaItemsToLocal(items, existingLocal) {
 
 // Sincroniza localStorage desde el cart de Medusa (source of truth)
 async function syncLocalFromMedusa() {
+  // Esperar a que todos los addToCart pendientes terminen
+  await _addToCartLock;
   try {
     const cart = await fetchMedusaCart();
     if (cart && cart.items) {
