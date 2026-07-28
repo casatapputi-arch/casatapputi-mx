@@ -209,6 +209,9 @@ function iniciarWhatsAppRecoger() {
     `💵 Pagaré en efectivo al recoger 🌿`
   );
 
+  sessionStorage.setItem('casatapputi_customer', JSON.stringify(custData));
+  sessionStorage.setItem('casatapputi_cart_snapshot', JSON.stringify(local));
+
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
 }
 

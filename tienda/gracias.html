@@ -55,38 +55,55 @@
 <section style="text-align:center; padding-block:80px">
   <div class="container">
     <div style="font-size:5rem; margin-bottom:1rem">🌿</div>
-    <h1 style="font-size:clamp(2rem,5vw,3.4rem); margin-bottom:1rem" id="graciasTitle">¡Gracias por tu compra!</h1>
+    <h1 style="font-size:clamp(2rem,5vw,3.4rem); margin-bottom:1rem" id="graciasTitle">✅ ¡Pago confirmado!</h1>
     <div id="paymentStatus" style="margin-bottom:1.5rem"></div>
-    <p style="font-size:1.1rem; color:var(--tinta-suave); max-width:500px; margin:0 auto 2rem" id="graciasMsg">Tu pedido está siendo procesado. Te contactaremos pronto para coordinar la entrega.</p>
+    <p style="font-size:1.1rem; color:var(--tinta-suave); max-width:500px; margin:0 auto 2rem" id="graciasMsg">Tu pago fue aprobado por MercadoPago. Recibirás tu recibo en el correo asociado a tu cuenta de MercadoPago.</p>
 
     <!-- Resumen automático del pedido -->
     <div id="orderSummary" style="max-width:500px; margin:0 auto 28px; text-align:left; display:none"></div>
 
-    <!-- Confirmación de datos -->
-    <div id="postPagoForm" class="gracias-form" style="display:none">
-      <h3 style="color:var(--miel); margin-bottom:16px; text-align:center">Confirma tus datos de envío</h3>
-      <p style="font-size:.85rem; color:var(--tinta-suave); margin-bottom:16px; text-align:center">
-        Ya recibimos tu pago. Solo necesitamos confirmar dónde entregamos tu pedido.
-      </p>
-      <label><span>Nombre</span><input type="text" id="confirmName" readonly></label>
-      <label><span>Teléfono</span><input type="tel" id="confirmPhone" readonly></label>
-      <label><span>Dirección de envío</span><textarea id="confirmAddress" rows="2" readonly></textarea></label>
+    <!-- Envío: confirmación post-pago con Uber/Didi -->
+    <div id="envioConfirm" style="display:none; max-width:500px; margin:0 auto">
+      <div style="background:rgba(0,158,227,.06); border:1px solid rgba(0,158,227,.2); border-radius:8px; padding:24px; text-align:center; margin-bottom:20px">
+        <p style="font-size:1.25rem; margin:0 0 8px">🚀 <strong>Te enviamos por Uber o Didi</strong></p>
+        <p style="font-size:.95rem; color:var(--tinta-suave); margin:0 0 6px">Envío en CDMX · Mismo día · Coordinamos por WhatsApp</p>
+        <p style="font-size:.82rem; color:rgba(239,230,214,.5); margin:0">El costo del envío se coordina al confirmar tu entrega.</p>
+      </div>
+
+      <!-- Datos de envío confirmados -->
+      <div class="gracias-form" style="margin-bottom:16px">
+        <label><span>Nombre</span><input type="text" id="confirmName" readonly></label>
+        <label><span>Teléfono</span><input type="tel" id="confirmPhone" readonly></label>
+        <label><span>Dirección de envío</span><textarea id="confirmAddress" rows="2" readonly></textarea></label>
+        <label><span>CP</span><input type="text" id="confirmCP" readonly></label>
+      </div>
+
       <button onclick="enviarConfirmacionWhatsApp()"
-        style="display:block; width:100%; padding:14px; background:#25D366; color:#fff; border:none; border-radius:6px; font-size:1rem; font-weight:600; cursor:pointer; margin-top:16px; font-family:inherit">
-        📱 Confirmar por WhatsApp
+        style="display:block; width:100%; padding:14px; background:#25D366; color:#fff; border:none; border-radius:6px; font-size:1rem; font-weight:600; cursor:pointer; font-family:inherit">
+        📱 Confirmar mi pedido por WhatsApp
       </button>
+      <p style="text-align:center; font-size:.8rem; color:var(--tinta-suave); margin-top:10px">
+        Te contactamos para coordinar el envío por Uber o Didi 🚀
+      </p>
     </div>
 
     <!-- Pickup: mensaje directo -->
     <div id="pickupConfirm" style="display:none; max-width:500px; margin:0 auto">
-      <div style="background:rgba(165,214,167,.08); border:1px solid rgba(165,214,167,.2); border-radius:8px; padding:20px; text-align:center">
-        <p style="font-size:1.1rem; color:#a5d6a7; margin:0 0 8px">🌿 Tu pedido estará listo en Huerto Roma Verde</p>
-        <p style="font-size:.9rem; color:var(--tinta-suave); margin:0 0 16px">Jalapa 234, Roma Sur, CDMX · Lunes a Viernes 8am-4pm</p>
-        <button onclick="enviarConfirmacionWhatsApp()"
-          style="display:inline-block; padding:12px 28px; background:#25D366; color:#fff; border:none; border-radius:6px; font-size:1rem; font-weight:600; cursor:pointer; font-family:inherit">
-          📱 Confirmar por WhatsApp
-        </button>
+      <div style="background:rgba(165,214,167,.08); border:1px solid rgba(165,214,167,.2); border-radius:8px; padding:24px; text-align:center; margin-bottom:20px">
+        <p style="font-size:1.25rem; color:#a5d6a7; margin:0 0 12px">🌿 Tu pedido estará listo en Huerto Roma Verde</p>
+        <p style="font-size:.95rem; color:var(--tinta-suave); margin:0 0 4px">📍 Jalapa 234, Roma Sur, CDMX</p>
+        <p style="font-size:.85rem; color:rgba(239,230,214,.5); margin:0">🕐 Lunes a Viernes · 8am – 4pm</p>
       </div>
+
+      <div class="gracias-form" style="margin-bottom:16px">
+        <label><span>Nombre</span><input type="text" id="confirmNamePickup" readonly></label>
+        <label><span>Teléfono</span><input type="tel" id="confirmPhonePickup" readonly></label>
+      </div>
+
+      <button onclick="enviarConfirmacionWhatsApp()"
+        style="display:block; width:100%; padding:14px; background:#25D366; color:#fff; border:none; border-radius:6px; font-size:1rem; font-weight:600; cursor:pointer; font-family:inherit">
+        📱 Confirmar por WhatsApp
+      </button>
     </div>
 
     <a href="../productos/" class="btn btn-dark" style="margin-top:28px">Seguir comprando</a>
@@ -153,19 +170,21 @@ function mostrarFormularioPostPago() {
     document.getElementById('orderSummary').innerHTML = `
       <h4 style="color:var(--miel);margin-bottom:8px">📦 Tu pedido</h4>
       <table style="width:100%;color:var(--tinta-suave);font-size:.9rem">${items.join('')}
-        <tr style="border-top:1px solid rgba(239,230,214,.1)"><td style="padding-top:8px;font-weight:600">Total</td><td style="text-align:right;padding-top:8px;font-weight:600;color:var(--tinta)">$${total} MXN</td></tr>
+        <tr style="border-top:1px solid rgba(239,230,214,.1)"><td style="padding-top:8px;font-weight:600">Total pagado</td><td style="text-align:right;padding-top:8px;font-weight:600;color:var(--tinta)">$${total} MXN ✅</td></tr>
       </table>`;
     document.getElementById('orderSummary').style.display = 'block';
   }
 
   if (cust.mode === 'recoger') {
     document.getElementById('pickupConfirm').style.display = 'block';
+    document.getElementById('confirmNamePickup').value = cust.name || '';
+    document.getElementById('confirmPhonePickup').value = cust.phone || '';
   } else {
-    const form = document.getElementById('postPagoForm');
-    form.style.display = 'block';
+    document.getElementById('envioConfirm').style.display = 'block';
     document.getElementById('confirmName').value = cust.name || '';
     document.getElementById('confirmPhone').value = cust.phone || '';
     document.getElementById('confirmAddress').value = cust.address || '';
+    document.getElementById('confirmCP').value = cust.cp || '';
   }
 }
 
@@ -184,24 +203,27 @@ function enviarConfirmacionWhatsApp() {
   let msg = '';
   if (cust.mode === 'recoger') {
     const desc = Math.round(total * 0.10);
-    msg = `🌿 *Confirmación — Recoger en Huerto*\\n\\n*Cliente:* ${cust.name}\\n*Tel:* ${cust.phone}\\n\\n*Pedido:*\\n${items.join('\\n')}\\n\\nTotal: $${total} → *$${total - desc} MXN* (10% desc)\\nPago en efectivo al recoger 🏡`;
+    msg = `🌿 *Confirmación — Recoger en Huerto*\\n\\n` +
+      `*Cliente:* ${cust.name}\\n` +
+      `*Tel:* ${cust.phone}\\n\\n` +
+      `*Pedido:*\\n${items.join('\\n')}\\n\\n` +
+      `Total: $${total} → *$${total - desc} MXN* (10% desc)\\n` +
+      `📍 Jalapa 234, Roma Sur, CDMX\\n` +
+      `💵 Pago en efectivo al recoger 🏡`;
   } else {
     const cp = cust.cp || '';
-    let shipNote = '';
-    if (cp && cp.length === 5) {
-      const n = parseInt(cp, 10);
-      if ((n >= 1000 && n <= 17999) || (n >= 50000 && n <= 57999)) {
-        shipNote = '\\n🚀 Envío CDMX ~$80 MXN (Uber/Rappi, mismo día)';
-      } else {
-        shipNote = '\\n📦 Envío foráneo ~$150 MXN (Estafeta, 2-5 días)';
-      }
-    }
-    msg = `📦 *Confirmación — Envío a domicilio*\\n\\n*Cliente:* ${cust.name}\\n*Tel:* ${cust.phone}\\n*Dirección:* ${cust.address}\\n*CP:* ${cp}\\n\\n*Pedido:*\\n${items.join('\\n')}\\n\\n*Total: $${total} MXN*\\nPago con MercadoPago ✅${shipNote}`;
+    msg = `📦 *Confirmación — Envío a domicilio*\\n\\n` +
+      `*Cliente:* ${cust.name}\\n` +
+      `*Tel:* ${cust.phone}\\n` +
+      `*Dirección:* ${cust.address}\\n` +
+      `*CP:* ${cp}\\n\\n` +
+      `*Pedido:*\\n${items.join('\\n')}\\n\\n` +
+      `*Total pagado: $${total} MXN* ✅ (MercadoPago)\\n\\n` +
+      `🚀 Envío por Uber o Didi — coordinamos por aquí`;
   }
 
   window.open(`https://wa.me/525563707034?text=${encodeURIComponent(msg)}`, '_blank');
 
-  // Limpiar datos de sesión
   sessionStorage.removeItem('casatapputi_customer');
   sessionStorage.removeItem('casatapputi_cart_snapshot');
 }
