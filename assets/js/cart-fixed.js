@@ -362,10 +362,17 @@ async function renderCartPage() {
   const container = document.getElementById('cartContainer');
   if (!container) return;
 
-  // Siempre sincronizar desde Medusa primero (source of truth)
-  let items = await syncLocalFromMedusa();
+  // Usar localStorage primero (siempre tiene los datos reales)
+  let items = getLocalCart();
+  // Si esta vacio, intentar recuperar desde Medusa como fallback
   if (!items || !items.length) {
-    items = getLocalCart();
+    items = await syncLocalFromMedusa();
+    if (!items || !items.length) {
+      items = [];
+    }
+  } else {
+    // Background sync con Medusa sin bloquear la UI
+    syncLocalFromMedusa().catch(() => {});
   }
 
   if (!items.length) {
