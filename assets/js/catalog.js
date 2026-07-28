@@ -246,7 +246,9 @@ async function renderMarquee(containerSelector) {
     const dataImg = localSrc || img;
     const vid = p.defaultVariantId;
     const btnAttrs = withButton ? ` data-product-id="${p.id}" data-variant-id="${vid}" data-product-name="${p.title}" data-product-price="${p.price}" data-product-price-label="${p.priceLabel}" data-product-image="${dataImg}"` : '';
-    const btn = withButton
+    // No mostrar botón + en productos sin precio
+    const hasPrice = p.price && p.price > 0;
+    const btn = (withButton && hasPrice)
       ? `<button class="marquee-add" onclick="addToCart(getProductData(this));event.preventDefault();event.stopPropagation()" aria-label="Agregar al carrito">+</button>`
       : '';
     const aria = withButton ? '' : ' aria-hidden="true"';
