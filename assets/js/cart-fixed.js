@@ -117,59 +117,56 @@ async function syncLocalFromMedusa() {
   return null;
 }
 
-// ── Mutex para serializar addToCart (evita race condition) ──
+// ── Mutex para serializar sync con Medusa (evita race condition) ──
 let _addToCartLock = Promise.resolve();
 
 // ── Public API (misma interfaz que antes) ────────────────
 async function addToCart(product) {
-  // Serializar: esperar a que termine el addToCart anterior
+  if (!product || !product.id) return;
+  if (!product.variantId) {
+    console.warn('addToCart: falta variantId, no se sincroniza con Medusa');
+    return;
+  }
+
+  // 1. Optimistic UI: actualizar localStorage al instante (fuera del lock)
+  const local = getLocalCart();
+  const exists = local.find(i => i.id === product.id);
+  if (exists) {
+    exists.quantity += product.quantity || 1;
+  } else {
+    local.push({
+      id: product.id,
+      variantId: product.variantId,
+      name: product.name,
+      price: product.price || 0,
+      priceLabel: product.priceLabel || '',
+      image: sanitizeImagePath(product.image || ''),
+      quantity: product.quantity || 1
+    });
+  }
+  saveLocalCart(local);
+  renderCartCount();
+  showAddedFeedback(product.id);
+
+  // 2. Serializar sync con Medusa para evitar race condition
   const prevLock = _addToCartLock;
   let releaseLock;
   _addToCartLock = new Promise(resolve => { releaseLock = resolve; });
   await prevLock;
 
   try {
-    if (!product || !product.id) return;
-    if (!product.variantId) {
-      console.warn('addToCart: falta variantId, no se sincroniza con Medusa');
-      return;
-    }
-
-    // 1. Optimistic UI: actualizar localStorage al instante
-    const local = getLocalCart();
-    const exists = local.find(i => i.id === product.id);
-    if (exists) {
-      exists.quantity += product.quantity || 1;
-    } else {
-      local.push({
-        id: product.id,
-        variantId: product.variantId,
-        name: product.name,
-        price: product.price || 0,
-        priceLabel: product.priceLabel || '',
-        image: sanitizeImagePath(product.image || ''),
+    const cartId = await getOrCreateCartId();
+    await medusaFetch(`/store/carts/${cartId}/line-items`, {
+      method: 'POST',
+      body: JSON.stringify({
+        variant_id: product.variantId,
         quantity: product.quantity || 1
-      });
-    }
-    saveLocalCart(local);
-    renderCartCount();
-    showAddedFeedback(product.id);
-
-    // 2. Sincronizar con Medusa y actualizar localStorage desde Medusa
-    try {
-      const cartId = await getOrCreateCartId();
-      await medusaFetch(`/store/carts/${cartId}/line-items`, {
-        method: 'POST',
-        body: JSON.stringify({
-          variant_id: product.variantId,
-          quantity: product.quantity || 1
-        })
-      });
-      // Refrescar localStorage desde Medusa (source of truth)
-      await syncLocalFromMedusa();
-    } catch (e) {
-      console.warn('Sincronizacion con Medusa fallo, usando carrito local:', e.message);
-    }
+      })
+    });
+    // Refrescar localStorage desde Medusa (source of truth)
+    await syncLocalFromMedusa();
+  } catch (e) {
+    console.warn('Sincronizacion con Medusa fallo, usando carrito local:', e.message);
   } finally {
     releaseLock();
   }
