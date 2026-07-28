@@ -358,6 +358,24 @@ function renderCartCount() {
 }
 
 // ── Render cart page (tienda/carrito.html) ─────────────────
+// ── CSS para input de cantidad en el carrito (se inyecta una vez) ──
+(function injectCartQtyCSS() {
+  if (document.getElementById('cartQtyCSS')) return;
+  const style = document.createElement('style');
+  style.id = 'cartQtyCSS';
+  style.textContent = `
+    .cart-qty-input {
+      width:44px; text-align:center; font-size:.9rem; font-family:inherit;
+      background:rgba(255,255,255,.04); border:1px solid rgba(239,230,214,.12);
+      border-radius:4px; padding:4px; color:inherit; outline:none;
+      -moz-appearance:textfield;
+    }
+    .cart-qty-input::-webkit-inner-spin-button,
+    .cart-qty-input::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
+  `;
+  document.head.appendChild(style);
+})();
+
 async function renderCartPage() {
   const container = document.getElementById('cartContainer');
   if (!container) return;
@@ -402,7 +420,9 @@ async function renderCartPage() {
         </div>
         <div class="cart-item-qty">
           <button onclick="updateQuantity('${item.id}', ${item.quantity - 1})" aria-label="Restar">−</button>
-          <span>${item.quantity}</span>
+          <input type="number" class="cart-qty-input" value="${item.quantity}" min="1" max="999"
+                 onchange="updateQuantity('${item.id}', parseInt(this.value) || 1)"
+                 onfocus="this.select()" aria-label="Cantidad">
           <button onclick="updateQuantity('${item.id}', ${item.quantity + 1})" aria-label="Sumar">+</button>
         </div>
         <div class="cart-item-subtotal">
