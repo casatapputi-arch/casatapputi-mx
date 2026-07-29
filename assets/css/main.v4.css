@@ -255,22 +255,31 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
 .specimen-img-wrap::before {
   content: '';
   position: absolute; inset: 0; z-index: 1;
-  background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.5) 100%);
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,.3) 100%);
   opacity: 0;
   transition: opacity .4s ease;
   pointer-events: none;
 }
-.specimen-card:hover .specimen-img-wrap::before {
+.specimen-img-wrap::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 2;
+  background: radial-gradient(ellipse at 50% 40%, rgba(211,171,102,.12) 0%, transparent 55%);
+  opacity: 0;
+  transition: opacity .5s ease;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+.specimen-card:hover .specimen-img-wrap::before,
+.specimen-card:hover .specimen-img-wrap::after {
   opacity: 1;
 }
 .specimen-card img {
   aspect-ratio: 1/1; object-fit: cover;
   width: 100%; display: block;
-  transition: transform .4s ease, filter .4s ease;
+  transition: transform .4s ease;
 }
 .specimen-card:hover img {
-  transform: scale(1.05);
-  filter: brightness(1.1);
+  transform: scale(1.03);
 }
 .specimen-tags {
   display: flex; flex-wrap: wrap; gap: 8px;
@@ -1362,17 +1371,26 @@ body::after {
 .prod-img-wrap::before {
   content: '';
   position: absolute; inset: 0; z-index: 1;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,.45) 100%);
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.25) 100%);
   opacity: 0;
   transition: opacity .4s ease;
   pointer-events: none;
 }
-.prod-img-wrap:hover::before {
+.prod-img-wrap::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 2;
+  background: radial-gradient(ellipse at 50% 40%, rgba(211,171,102,.1) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity .5s ease;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+.prod-img-wrap:hover::before,
+.prod-img-wrap:hover::after {
   opacity: 1;
 }
 .prod-img-wrap:hover img {
-  transform: scale(1.05);
-  filter: brightness(1.08);
+  transform: scale(1.03);
 }
 .prod-img-wrap img {
   width: 100%;
