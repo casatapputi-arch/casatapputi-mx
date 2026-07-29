@@ -1179,6 +1179,7 @@ body::after {
 }
 
 /* ---------- Shoe hover swap (talabartería) ---------- */
+/* ── Contenedor de imagen de zapato ── */
 .shoe-img-wrap {
   position: relative;
   overflow: hidden;
@@ -1190,19 +1191,69 @@ body::after {
   object-fit: cover;
   display: block;
 }
-.shoe-img-wrap .shoe-hover {
+
+/* ── Shoe Card: elevate + shine sweep + zoom ── */
+.shoe-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.45s cubic-bezier(.25,.1,.25,1),
+              box-shadow 0.45s cubic-bezier(.25,.1,.25,1);
+}
+
+/* Elevación */
+.shoe-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 24px 56px rgba(41,33,26,.28);
+}
+
+/* Brillo que barre de izquierda a derecha */
+.shoe-card::after {
+  content: '';
   position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.35s ease;
+  top: 0;
+  left: -150%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.06) 30%,
+    rgba(255,255,255,0.18) 50%,
+    rgba(255,255,255,0.06) 70%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  transition: left 0.7s ease;
+  pointer-events: none;
+  z-index: 3;
 }
-.shop-card:hover .shoe-img-wrap .shoe-hover {
-  opacity: 1;
+.shoe-card:hover::after {
+  left: 150%;
 }
-/* Evitar zoom/brightness en imágenes de zapato (el highlight ya es el efecto) */
-.shop-card:hover .shoe-img-wrap img {
-  transform: none;
+
+/* Zoom sutil en la imagen */
+.shoe-card:hover .shoe-img-wrap img {
+  transform: scale(1.08);
   filter: none;
+}
+
+/* Suavizar transición de imagen */
+.shoe-card .shoe-img-wrap img {
+  transition: transform 0.5s ease;
+}
+
+/* ── Accesibilidad: respetar prefers-reduced-motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .shoe-card,
+  .shoe-card::after,
+  .shoe-card .shoe-img-wrap img {
+    transition: none !important;
+    animation: none !important;
+  }
+  .shoe-card:hover {
+    transform: none;
+    box-shadow: 0 4px 16px rgba(41,33,26,.18);
+  }
 }
 
 /* ---------- Image zoom en catálogo ---------- */
