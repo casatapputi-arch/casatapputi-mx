@@ -1189,20 +1189,17 @@ body::after {
   aspect-ratio: 1/1;
   object-fit: cover;
   display: block;
-  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 .shoe-img-wrap .shoe-hover {
   position: absolute;
   inset: 0;
   opacity: 0;
+  transition: opacity 0.35s ease;
 }
 .shop-card:hover .shoe-img-wrap .shoe-hover {
   opacity: 1;
 }
-.shop-card:hover .shoe-img-wrap .shoe-main:not(:only-child) {
-  opacity: 0.5;
-}
-/* Evitar zoom en imágenes de zapato (el swap ya es el efecto) */
+/* Evitar zoom/brightness en imágenes de zapato (el highlight ya es el efecto) */
 .shop-card:hover .shoe-img-wrap img {
   transform: none;
   filter: none;
