@@ -1253,6 +1253,7 @@ body::after {
   object-fit: cover;
   width: 100%;
   height: 100%;
+  filter: brightness(1.15) contrast(1.05);
 }
 .shop-card:hover .shoe-detail,
 .card:hover .shoe-detail {
@@ -1263,10 +1264,7 @@ body::after {
   opacity: 0;
 }
 
-/* ── Brillo en zapato (solo sobre la imagen detalle) ── */
-.shoe-detail {
-  filter: brightness(1.15) contrast(1.05);
-}
+
 
 /* ── Sección Manifiesto Ecológico ── */
 .eco-manifesto {
@@ -1393,14 +1391,18 @@ body::after {
 /* ── Accesibilidad ── */
 @media (prefers-reduced-motion: reduce) {
   .card,
-  .card .media img {
+  .card .media img,
+  .shoe-ambient,
+  .shoe-detail {
     transition: none;
   }
   .card:hover {
     transform: none;
   }
-  .card:hover .media::after {
+  .card:hover .media::after,
+  .btn-season::after {
     animation: none;
+    transition: none;
   }
 }
 
