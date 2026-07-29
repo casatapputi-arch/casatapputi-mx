@@ -101,14 +101,21 @@
           <p>Disponible en varias combinaciones aromáticas. Ideal para masajes relajantes, descontracturantes o simplemente para consentir la piel después de un día largo.</p>
         </div>
         <hr class="prod-divider" />
-        <p class="eyebrow" style="margin-bottom:.6rem">Presentación</p>
-        <div class="prod-variants">
-          <span class="prod-variant">60 ml <strong>desde $150 MXN</strong></span>
+        <p class="eyebrow" style="margin-bottom:.6rem">Elige tu tamaño</p>
+        <div class="oleo-size-selector">
+          <div class="oleo-size-card selected" data-size="35" data-variant="variant_01KXKRE473NKFHFQF27W65FXXT" data-price="150" onclick="selectOleoSize(this)">
+            <span class="oleo-size-amount">35 ml</span>
+            <span class="oleo-size-price">$150 MXN</span>
+          </div>
+          <div class="oleo-size-card" data-size="100" data-variant="variant_01KXKRE473AKP6XBFF57ENXHKA" data-price="400" onclick="selectOleoSize(this)">
+            <span class="oleo-size-amount">100 ml</span>
+            <span class="oleo-size-price">$400 MXN</span>
+          </div>
         </div>
         <div class="prod-price-box">
           <div class="prod-price-label">Precio</div>
-          <div class="prod-price" >desde $150 MXN</div>
-          <div class="prod-price-present">60 ml</div>
+          <div class="prod-price" id="oleoPriceDisplay">$150 MXN</div>
+          <div class="prod-price-present" id="oleoSizeDisplay">35 ml</div>
         </div>
         <div class="add-to-cart-wrapper">
           <div class="qty-stepper">
@@ -116,7 +123,7 @@
             <input type="number" id="productQty" value="1" min="1" aria-label="Cantidad"/>
             <button type="button" aria-label="Sumar cantidad" onclick="incrementQty()">+</button>
           </div>
-          <button class="btn btn-add-cart prod-add-btn" data-product-id="oleo-masaje" onclick="addCurrentProduct()">🛒 Agregar al carrito</button>
+          <button class="btn btn-add-cart prod-add-btn" onclick="addOleoToCart()">🛒 Agregar al carrito</button>
         </div>
         <p class="prod-meta-note">Aceites vegetales orgánicos. Varias combinaciones aromáticas disponibles.</p>
       </div>
@@ -237,20 +244,79 @@
 <script src="../../assets/js/main.js"></script>
 <script src="../../assets/js/catalog.js?v=8"></script>
 <script src="../../assets/js/cart-fixed.js"></script>
+<style>
+.oleo-size-selector {
+  display: flex; gap: 12px; margin: 1rem 0 1.5rem;
+  flex-wrap: wrap;
+}
+.oleo-size-card {
+  flex: 1; min-width: 120px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(239,230,214,.15);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all .25s ease;
+  user-select: none;
+}
+.oleo-size-card:hover {
+  background: rgba(255,255,255,.08);
+  border-color: rgba(239,230,214,.3);
+  transform: translateY(-2px);
+}
+.oleo-size-card.selected {
+  background: rgba(169,121,69,.15);
+  border-color: var(--gold);
+  box-shadow: 0 0 15px rgba(169,121,69,.15);
+}
+.oleo-size-amount {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  color: var(--cream);
+  margin-bottom: 4px;
+}
+.oleo-size-price {
+  display: block;
+  font-size: .85rem;
+  color: var(--gold);
+  font-weight: 500;
+}
+</style>
 <script>
+let _oleoSelectedSize = null;
+
+function selectOleoSize(el) {
+  document.querySelectorAll('.oleo-size-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  _oleoSelectedSize = el;
+  document.getElementById('oleoPriceDisplay').textContent = '$' + el.dataset.price + ' MXN';
+  document.getElementById('oleoSizeDisplay').textContent = el.dataset.size + ' ml';
+}
+
 function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
 function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
-function addCurrentProduct(){
+
+function addOleoToCart(){
+  const el = _oleoSelectedSize || document.querySelector('.oleo-size-card.selected');
+  if (!el) return;
   addToCart({
-    id:'oleo-masaje',
-    variantId:'variant_01KXKRE44WX0Z8NW0RYQEXAE6Q',
-    name:'Óleo para Masaje',
-    price:150,
-    priceLabel:'desde $150 MXN',
-    image:'../../assets/images/oleo-masaje.webp',
-    quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)
+    id: 'oleo-masaje-' + el.dataset.size,
+    variantId: el.dataset.variant,
+    name: 'Óleo para Masaje ' + el.dataset.size + ' ml',
+    price: parseInt(el.dataset.price),
+    priceLabel: '$' + el.dataset.price + ' MXN',
+    image: '../../assets/images/oleo-masaje.webp',
+    quantity: Math.max(1, parseInt(document.getElementById("productQty").value) || 1)
   });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Seleccionar 35ml por defecto
+  const first = document.querySelector('.oleo-size-card');
+  if (first) selectOleoSize(first);
+});
 </script>
 
 <a href="https://wa.me/525563707034?text=Hola%20Casa%20Tapputi" class="wa-float" target="_blank" rel="noopener" aria-label="Chatea por WhatsApp">
