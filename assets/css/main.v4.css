@@ -252,14 +252,25 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
   box-shadow: inset 0 0 0 1px rgba(43,34,24,.06);
   overflow: hidden;
 }
+.specimen-img-wrap::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 1;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.5) 100%);
+  opacity: 0;
+  transition: opacity .4s ease;
+  pointer-events: none;
+}
+.specimen-card:hover .specimen-img-wrap::before {
+  opacity: 1;
+}
 .specimen-card img {
   aspect-ratio: 1/1; object-fit: cover;
   width: 100%; display: block;
   transition: transform .4s ease, filter .4s ease;
 }
 .specimen-card:hover img {
-  transform: scale(1.08);
-  filter: brightness(1.6) contrast(1.15);
+  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 .specimen-tags {
   display: flex; flex-wrap: wrap; gap: 8px;
@@ -1348,9 +1359,20 @@ body::after {
   overflow: hidden;
   border: 1px solid var(--linea);
 }
+.prod-img-wrap::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 1;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,.45) 100%);
+  opacity: 0;
+  transition: opacity .4s ease;
+  pointer-events: none;
+}
+.prod-img-wrap:hover::before {
+  opacity: 1;
+}
 .prod-img-wrap:hover img {
-  transform: scale(1.07);
-  filter: brightness(1.6) contrast(1.1);
+  transform: scale(1.05);
+  filter: brightness(1.08);
 }
 .prod-img-wrap img {
   width: 100%;
