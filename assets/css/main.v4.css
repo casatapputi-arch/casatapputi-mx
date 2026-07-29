@@ -1,21 +1,21 @@
 /* ============================================================
-   Casa Tapputi — Paleta Lino + Oxido
-   Paredes lino claro + rojo oxido + luz indirecta de museo
+   Casa Tapputi — Paleta Tierra Terracota (Refinada)
+   Terracota cálido + lino + calidez natural y sofisticada
    ============================================================ */
 
 :root {
-  --crema:        #f5ede3;   /* lino natural — fondo principal */
-  --crema-2:      #ece1d1;   /* lino mas oscuro */
-  --crema-3:      #e4d7c3;   /* lino aun mas oscuro */
-  --tinta:        #2b2218;   /* texto sobre claro */
-  --tinta-suave:  #7a6a58;   /* texto secundario */
-  --oscuro:       #2a231c;   /* hero, footer, nav */
-  --oscuro-2:     #3d3229;   /* reservado */
-  --crema-texto:  #efe6d6;   /* texto sobre oscuro */
-  --miel:         #8a3f2b;   /* ROJO OXIDO — acento principal */
-  --miel-claro:   #d4a574;   /* caramelo — acento secundario */
-  --linea:        rgba(43,34,24,0.10);
-  --linea-clara:  rgba(239,230,214,0.14);
+  --crema:        #f7f1e9;   /* lino cálido — fondo principal */
+  --crema-2:      #ede3d3;   /* arena suave */
+  --crema-3:      #e0d2be;   /* arena profunda */
+  --tinta:        #2d241a;   /* espresso cálido — texto principal */
+  --tinta-suave:  #7a6b58;   /* taupe — texto secundario */
+  --oscuro:       #29211a;   /* chocolate profundo — hero, footer, nav */
+  --oscuro-2:     #3a3026;   /* chocolate medio */
+  --crema-texto:  #efe5d8;   /* texto sobre oscuro */
+  --miel:         #b8653b;   /* TERRACOTA CÁLIDO — acento principal */
+  --miel-claro:   #d4956a;   /* melocotón terracota — acento secundario */
+  --linea:        rgba(45,36,26,0.10);
+  --linea-clara:  rgba(239,229,216,0.16);
 
   --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --sans:  "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -75,22 +75,23 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.12; let
 /* ---------- Navegación ---------- */
 nav {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(42, 35, 28, 0.97);
+  background: rgba(41, 33, 26, 0.97);
   border-bottom: 1px solid var(--linea);
 }
 .nav-inner {
   max-width: var(--maxw); margin: 0 auto;
-  padding: 14px var(--pad);
-  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding: 10px var(--pad);
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
 .nav-logo { display: flex; align-items: center; gap: 12px; }
-.nav-logo img { height: 52px; width: auto; }
+.nav-logo img { height: 44px; width: auto; flex-shrink: 0; }
 .nav-logo .wordmark {
   font-family: var(--serif);
-  font-size: 1.5rem; letter-spacing: 0.18em;
-  line-height: 1; color: var(--tinta);
+  font-size: 1.3rem; letter-spacing: 0.08em;
+  line-height: 1; color: var(--crema-texto);
+  white-space: nowrap;
 }
-.nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+.nav-links { display: flex; gap: 24px; list-style: none; align-items: center; flex-wrap: wrap; row-gap: 8px; }
 .nav-links a {
   font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
   font-weight: 400; color: var(--crema-texto);
@@ -132,9 +133,9 @@ nav {
   position: relative; min-height: 62vh;
   display: flex; align-items: center;
   background: var(--oscuro) center/cover no-repeat;
-  color: var(--tinta);
+  color: var(--crema-texto);
 }
-.hero::after { content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(20,16,12,.22), rgba(20,16,12,.45)); }
+.hero::after { content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(20,16,12,.28), rgba(20,16,12,.52)); }
 .hero .container { position: relative; z-index: 2; text-align: center; width: 100%; padding-block: 90px; }
 .hero h1 { font-size: clamp(2.6rem, 7vw, 5rem); font-weight: 400; letter-spacing: 0.06em; }
 .hero .hero-lead { font-size: clamp(1rem, 2vw, 1.25rem); font-weight: 300; max-width: 620px; margin: 1.4rem auto 2.2rem; color: rgba(239,230,214,.93); }
@@ -225,7 +226,7 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
   position: relative;
 }
 .specimen-card:hover {
-  box-shadow: 0 18px 40px rgba(0,0,0,.35);
+  box-shadow: 0 18px 40px rgba(41,33,26,.28);
   transform: translateY(-3px);
 }
 .specimen-latin {
@@ -263,7 +264,7 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
 .specimen-img-wrap::after {
   content: '';
   position: absolute; inset: 0; z-index: 2;
-  background: radial-gradient(ellipse at 50% 40%, rgba(211,171,102,.12) 0%, transparent 55%);
+  background: radial-gradient(ellipse at 50% 40%, rgba(212,149,106,.12) 0%, transparent 55%);
   opacity: 0;
   transition: opacity .5s ease;
   pointer-events: none;
@@ -319,7 +320,7 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
 
 /* Keep old .shop-card for backward compat (cart, etc.) */
 .shop-card { background: var(--crema-2); border: 1px solid var(--linea); display: flex; flex-direction: column; transition: box-shadow .3s, transform .3s; }
-.shop-card:hover { box-shadow: 0 18px 40px rgba(0,0,0,.35); transform: translateY(-4px); }
+.shop-card:hover { box-shadow: 0 18px 40px rgba(41,33,26,.28); transform: translateY(-4px); }
 .shop-card img { aspect-ratio: 1/1; object-fit: cover; }
 .shop-card .shop-body { padding: 22px 22px 26px; display: flex; flex-direction: column; gap: .5rem; flex: 1; }
 .shop-card h3 { font-size: 1.55rem; color: var(--tinta); }
@@ -410,7 +411,7 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
 }
 .marquee-add:hover {
   transform: translateY(-50%) scale(1.2);
-  box-shadow: 0 2px 8px rgba(138,63,43,.45);
+  box-shadow: 0 2px 8px rgba(184,101,59,.35);
 }
 @keyframes marquee-scroll {
   0%   { transform: translateX(0); }
@@ -578,7 +579,7 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
 body::before {
   content: "";
   position: fixed; inset: 0;
-  background: radial-gradient(ellipse at 50% 20%, rgba(138,63,43,0.08) 0%, transparent 65%);
+  background: radial-gradient(ellipse at 50% 20%, rgba(184,101,59,0.07) 0%, transparent 65%);
   pointer-events: none;
   z-index: -1;
 }
@@ -696,7 +697,7 @@ body::before {
   background: var(--miel-claro) !important;
   border-color: var(--miel-claro) !important;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(138,63,43,.45);
+  box-shadow: 0 4px 12px rgba(184,101,59,.35);
 }
 .btn-add-cart.added {
   background: #2d5a27 !important;
@@ -723,7 +724,7 @@ body::before {
   border-radius: 2px;
   transition: box-shadow .2s;
 }
-.cart-item:hover { box-shadow: 0 4px 16px rgba(0,0,0,.25); }
+.cart-item:hover { box-shadow: 0 4px 16px rgba(41,33,26,.18); }
 
 .cart-item-img img {
   width: 80px;
@@ -819,7 +820,7 @@ body::before {
 .cart-summary {
   margin-top: 24px;
   background: var(--oscuro);
-  color: var(--tinta);
+  color: var(--crema-texto);
   padding: 28px 32px;
   border-radius: 2px;
 }
@@ -971,7 +972,7 @@ body::before {
 }
 .shop-card:hover {
   transform: translateY(-6px) rotateX(2deg) rotateY(-1deg);
-  box-shadow: 0 24px 48px rgba(0,0,0,.4);
+  box-shadow: 0 24px 48px rgba(41,33,26,.32);
 }
 
 /* ---------- Shine effect en botones light ---------- */
@@ -1174,7 +1175,7 @@ body::after {
 .form-group select:focus,
 .form-group textarea:focus {
   border-color: var(--miel);
-  box-shadow: 0 0 0 3px rgba(158,95,63,.2);
+  box-shadow: 0 0 0 3px rgba(184,101,59,.15);
 }
 
 /* ---------- Image zoom en catálogo ---------- */
@@ -1273,7 +1274,7 @@ body::after {
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
-  color: var(--tinta);
+  color: var(--crema-texto);
 }
 .prod-hero::after {
   content: "";
@@ -1380,7 +1381,7 @@ body::after {
 .prod-img-wrap::after {
   content: '';
   position: absolute; inset: 0; z-index: 2;
-  background: radial-gradient(ellipse at 50% 40%, rgba(211,171,102,.1) 0%, transparent 50%);
+  background: radial-gradient(ellipse at 50% 40%, rgba(212,149,106,.1) 0%, transparent 50%);
   opacity: 0;
   transition: opacity .5s ease;
   pointer-events: none;
@@ -1442,7 +1443,7 @@ body::after {
 }
 .prod-price-box:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 28px rgba(0,0,0,.25), 0 0 0 1px rgba(179,133,58,.15);
+  box-shadow: 0 8px 28px rgba(0,0,0,.25), 0 0 0 1px rgba(184,101,59,.15);
   background: #221c15;
 }
 .prod-price-label {
