@@ -1724,7 +1724,7 @@ body::after {
 }
 .breather::after {
   content: ""; position: absolute; inset: 0;
-  background: rgba(20,16,12,.38);
+  background: rgba(20,16,12,.55);
 }
 .breather p {
   position: relative; z-index: 1;
