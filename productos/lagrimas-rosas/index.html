@@ -101,24 +101,30 @@
           <p>Usada tradicionalmente para armonizar espacios, acompañar meditaciones y rituales, y crear una atmósfera de calma y protección. Cada lágrima es un fragmento de resina pura, sin aditivos ni esencias sintéticas.</p>
         </div>
         <hr class="prod-divider" />
-        <p class="eyebrow" style="margin-bottom:.6rem">Presentación</p>
-        <div class="prod-variants">
-          <span class="prod-variant">50 gr <strong>desde $100 MXN</strong></span>
+        <p class="eyebrow" style="margin-bottom:.6rem">Elige tu tamaño</p>
+        <div class="lagrimas-size-selector" id="sizeSelector">
+          <label class="lagrimas-size-card selected" data-size="5" data-price="80" data-variant="variant_01KXKRE44N29GEDKYY710XRMNV">
+            <input type="radio" name="size" value="5" hidden checked>
+            <span class="size-gr">5 gr</span>
+            <span class="size-price">$80 MXN</span>
+          </label>
+          <label class="lagrimas-size-card" data-size="10" data-price="150" data-variant="variant_01KXKRE44NQF286VPSSXFRV3NP">
+            <input type="radio" name="size" value="10" hidden>
+            <span class="size-gr">10 gr</span>
+            <span class="size-price">$150 MXN</span>
+          </label>
         </div>
-        <div class="prod-price-box">
-          <div class="prod-price-label">Precio</div>
-          <div class="prod-price" >desde $100 MXN</div>
-          <div class="prod-price-present">50 gr</div>
-        </div>
-        <div class="add-to-cart-wrapper">
-          <div class="qty-stepper">
-            <button type="button" aria-label="Restar cantidad" onclick="decrementQty()">−</button>
-            <input type="number" id="productQty" value="1" min="1" aria-label="Cantidad"/>
-            <button type="button" aria-label="Sumar cantidad" onclick="incrementQty()">+</button>
+
+        <div id="addToCartSection" style="margin-top:1rem">
+          <div class="prod-price-box" id="dynamicPriceBox">
+            <div class="prod-price-label">Total</div>
+            <div class="prod-price" id="dynamicPrice">$80 MXN</div>
+            <div class="prod-price-present" id="dynamicSize">5 gr</div>
           </div>
-          <button class="btn btn-add-cart prod-add-btn" data-product-id="lagrimas-rosas" onclick="addCurrentProduct()">🛒 Agregar al carrito</button>
+          <button class="btn btn-add-cart prod-add-btn" id="btnAddLagrimas" onclick="addLagrimasToCart()">🛒 Agregar al carrito</button>
         </div>
-        <p class="prod-meta-note">Resina pura de rosas. Sin aditivos. Rendimiento: ~20 saumerios por frasco.</p>
+
+        <p class="prod-meta-note">Resina pura de rosas. Sin aditivos. Rendimiento: ~20-40 saumerios según tamaño.</p>
       </div>
     </div>
   </div>
@@ -237,18 +243,48 @@
 <script src="../../assets/js/main.js"></script>
 <script src="../../assets/js/catalog.js?v=8"></script>
 <script src="../../assets/js/cart-fixed.js"></script>
+<style>
+  .lagrimas-size-selector { display:flex; gap:10px }
+  .lagrimas-size-card {
+    flex:1; display:flex; flex-direction:column; align-items:center; gap:2px;
+    padding:14px 10px; background:rgba(255,255,255,.03);
+    border:1.5px solid rgba(239,230,214,.12); border-radius:10px;
+    cursor:pointer; transition:all .2s; text-align:center
+  }
+  .lagrimas-size-card:hover { border-color:rgba(239,230,214,.3); background:rgba(255,255,255,.06) }
+  .lagrimas-size-card.selected { border-color:var(--miel); background:rgba(212,175,55,.08) }
+  .size-gr { font-weight:600; font-size:.95rem; color:var(--tinta) }
+  .size-price { font-size:1.2rem; font-weight:700; color:var(--miel) }
+</style>
 <script>
-function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
-function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
-function addCurrentProduct(){
+let selectedSize = { grams: 5, price: 80, variantId: 'variant_01KXKRE44N29GEDKYY710XRMNV' };
+
+document.querySelectorAll('.lagrimas-size-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.lagrimas-size-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    card.querySelector('input').checked = true;
+    
+    selectedSize = {
+      grams: parseInt(card.dataset.size),
+      price: parseInt(card.dataset.price),
+      variantId: card.dataset.variant
+    };
+    
+    document.getElementById('dynamicPrice').textContent = '$' + selectedSize.price + ' MXN';
+    document.getElementById('dynamicSize').textContent = selectedSize.grams + ' gr';
+  });
+});
+
+function addLagrimasToCart() {
   addToCart({
-    id:'lagrimas-rosas',
-    variantId:'variant_01KXKRE42HG3QYR1F7G7323N6P',
-    name:'Lágrimas de Rosas',
-    price:100,
-    priceLabel:'desde $100 MXN',
-    image:'../../assets/images/lagrimas-rosas.webp',
-    quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)
+    id: 'lagrimas-rosas-' + selectedSize.grams,
+    variantId: selectedSize.variantId,
+    name: 'Lágrimas de Rosas ' + selectedSize.grams + ' gr',
+    price: selectedSize.price,
+    priceLabel: '$' + selectedSize.price + ' MXN',
+    image: '../../assets/images/lagrimas-rosas.webp',
+    quantity: 1
   });
 }
 </script>
@@ -273,7 +309,7 @@ function addCurrentProduct(){
   },
   "offers": {
     "@type": "Offer",
-    "price": "100",
+    "price": "80",
     "priceCurrency": "MXN",
     "availability": "https://schema.org/InStock",
     "url": "https://casatapputi.com.mx/productos/lagrimas-rosas/",
