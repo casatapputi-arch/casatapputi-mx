@@ -101,14 +101,21 @@
           <p>La base de cera de abeja y aceites vegetales permite una liberación sostenida de los compuestos activos sobre la zona afectada.</p>
         </div>
         <hr class="prod-divider" />
-        <p class="eyebrow" style="margin-bottom:.6rem">Presentaciones</p>
-        <div class="prod-variants">
-          <span class="prod-variant">30 gr / 50 gr <strong>desde $100 MXN</strong></span>
+        <p class="eyebrow" style="margin-bottom:.6rem">Elige tu presentación</p>
+        <div class="pomada-size-selector">
+          <div class="pomada-size-card selected" data-size="30" data-variant="variant_01KXKRE50RWBX2YCF663WQGWKG" data-price="100" onclick="selectPomadaCannabisSize(this)">
+            <span class="pomada-size-amount">30 gr</span>
+            <span class="pomada-size-price">$100 MXN</span>
+          </div>
+          <div class="pomada-size-card" data-size="50" data-variant="variant_01KXKRE50RW0WWAWJZFGWT4MKJ" data-price="150" onclick="selectPomadaCannabisSize(this)">
+            <span class="pomada-size-amount">50 gr</span>
+            <span class="pomada-size-price">$150 MXN</span>
+          </div>
         </div>
         <div class="prod-price-box">
           <div class="prod-price-label">Precio</div>
-          <div class="prod-price" >desde $100 MXN</div>
-          <div class="prod-price-present">30 gr / 50 gr</div>
+          <div class="prod-price" id="pomadaPriceDisplay">$100 MXN</div>
+          <div class="prod-price-present" id="pomadaSizeDisplay">30 gr</div>
         </div>
         <div class="add-to-cart-wrapper">
           <div class="qty-stepper">
@@ -116,7 +123,7 @@
             <input type="number" id="productQty" value="1" min="1" aria-label="Cantidad"/>
             <button type="button" aria-label="Sumar cantidad" onclick="incrementQty()">+</button>
           </div>
-          <button class="btn btn-add-cart prod-add-btn" data-product-id="pomada-cannabis" onclick="addCurrentProduct()">🛒 Agregar al carrito</button>
+          <button class="btn btn-add-cart prod-add-btn" onclick="addPomadaCannabisToCart()">🛒 Agregar al carrito</button>
         </div>
         <p class="prod-meta-note">Uso tópico. No ingerir. Cannabis de cultivo orgánico.</p>
       </div>
@@ -237,20 +244,77 @@
 <script src="../../assets/js/main.js"></script>
 <script src="../../assets/js/catalog.js?v=8"></script>
 <script src="../../assets/js/cart-fixed.js"></script>
+<style>
+.pomada-size-selector {
+  display: flex; gap: 12px; margin: 1rem 0 1.5rem;
+  flex-wrap: wrap;
+}
+.pomada-size-card {
+  flex: 1; min-width: 120px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(239,230,214,.15);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all .25s ease;
+  user-select: none;
+}
+.pomada-size-card:hover {
+  background: rgba(255,255,255,.08);
+  border-color: rgba(239,230,214,.3);
+  transform: translateY(-2px);
+}
+.pomada-size-card.selected {
+  background: rgba(169,121,69,.15);
+  border-color: var(--gold);
+  box-shadow: 0 0 15px rgba(169,121,69,.15);
+}
+.pomada-size-amount {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  color: var(--cream);
+  margin-bottom: 4px;
+}
+.pomada-size-price {
+  display: block;
+  font-size: .85rem;
+  color: var(--gold);
+  font-weight: 500;
+}
+</style>
 <script>
 function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
 function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
-function addCurrentProduct(){
+let _pomadaCannabisSelected = null;
+
+function selectPomadaCannabisSize(el) {
+  document.querySelectorAll('.pomada-size-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  _pomadaCannabisSelected = el;
+  document.getElementById('pomadaPriceDisplay').textContent = '$' + el.dataset.price + ' MXN';
+  document.getElementById('pomadaSizeDisplay').textContent = el.dataset.size + ' gr';
+}
+
+function addPomadaCannabisToCart() {
+  const el = _pomadaCannabisSelected || document.querySelector('.pomada-size-card.selected');
+  if (!el) return;
   addToCart({
-    id:'pomada-cannabis',
-    variantId:'variant_01KXKRE50MP0WH4HM59A4YAN3D',
-    name:'Pomada Cannabis',
-    price:100,
-    priceLabel:'desde $100 MXN',
-    image:'../../assets/images/pomada-cannabis.webp',
-    quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)
+    id: 'pomada-cannabis-' + el.dataset.size,
+    variantId: el.dataset.variant,
+    name: 'Pomada Cannabis ' + el.dataset.size + ' gr',
+    price: parseInt(el.dataset.price),
+    priceLabel: '$' + el.dataset.price + ' MXN',
+    image: '../../assets/images/pomada-cannabis.webp',
+    quantity: Math.max(1, parseInt(document.getElementById("productQty").value) || 1)
   });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const first = document.querySelector('.pomada-size-card');
+  if (first) selectPomadaCannabisSize(first);
+});
 </script>
 
 <a href="https://wa.me/525563707034?text=Hola%20Casa%20Tapputi" class="wa-float" target="_blank" rel="noopener" aria-label="Chatea por WhatsApp">
