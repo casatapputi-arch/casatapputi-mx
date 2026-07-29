@@ -1202,6 +1202,11 @@ body::after {
 .shop-card:hover .shoe-img-wrap .shoe-main:not(:only-child) {
   opacity: 0.5;
 }
+/* Evitar zoom en imágenes de zapato (el swap ya es el efecto) */
+.shop-card:hover .shoe-img-wrap img {
+  transform: none;
+  filter: none;
+}
 
 /* ---------- Image zoom en catálogo ---------- */
 .shop-card img {
