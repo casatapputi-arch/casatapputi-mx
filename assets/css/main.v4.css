@@ -1178,6 +1178,31 @@ body::after {
   box-shadow: 0 0 0 3px rgba(184,101,59,.15);
 }
 
+/* ---------- Shoe hover swap (talabartería) ---------- */
+.shoe-img-wrap {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1/1;
+}
+.shoe-img-wrap img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.shoe-img-wrap .shoe-hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.shop-card:hover .shoe-img-wrap .shoe-hover {
+  opacity: 1;
+}
+.shop-card:hover .shoe-img-wrap .shoe-main:not(:only-child) {
+  opacity: 0.5;
+}
+
 /* ---------- Image zoom en catálogo ---------- */
 .shop-card img {
   transition: transform .5s ease, filter .5s ease;
