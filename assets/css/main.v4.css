@@ -276,10 +276,11 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
 .specimen-card img {
   aspect-ratio: 1/1; object-fit: cover;
   width: 100%; display: block;
-  transition: transform .4s ease;
+  transition: transform .4s ease, filter .4s ease;
 }
 .specimen-card:hover img {
-  transform: scale(1.03);
+  transform: scale(1.06);
+  filter: brightness(1.12);
 }
 .specimen-tags {
   display: flex; flex-wrap: wrap; gap: 8px;
@@ -368,8 +369,8 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
   transition: transform .5s ease, filter .5s ease;
 }
 .marquee-card:hover img {
-  transform: scale(1.08);
-  filter: brightness(1.5) contrast(1.1);
+  transform: scale(1.06);
+  filter: brightness(1.12);
 }
 .marquee-card span {
   display: block;
@@ -1181,8 +1182,8 @@ body::after {
   transition: transform .5s ease, filter .5s ease;
 }
 .shop-card:hover img {
-  transform: scale(1.12);
-  filter: brightness(1.6) contrast(1.15) saturate(1.1);
+  transform: scale(1.06);
+  filter: brightness(1.12);
 }
 
 /* ---------- Hero entrance animation ---------- */
@@ -1390,7 +1391,8 @@ body::after {
   opacity: 1;
 }
 .prod-img-wrap:hover img {
-  transform: scale(1.03);
+  transform: scale(1.06);
+  filter: brightness(1.12);
 }
 .prod-img-wrap img {
   width: 100%;
@@ -1398,6 +1400,7 @@ body::after {
   object-fit: cover;
   display: block;
   background: var(--crema-3);
+  transition: transform .4s ease, filter .4s ease;
 }
 .prod-info {
   padding-top: 1rem;
