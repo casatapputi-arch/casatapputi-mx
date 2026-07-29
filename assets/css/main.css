@@ -574,7 +574,7 @@ body::before {
 /* ---------- LQIP Blur-Up (solo <img> tags, NO background-image heroes) ---------- */
 .prod-hero-img, .prod-img-wrap img, .marquee-card img {
   filter: blur(12px);
-  transition: filter 0.5s ease;
+  transition: filter 0.5s ease, transform 0.5s ease;
 }
 .prod-hero-img.loaded, .prod-img-wrap img.loaded, .marquee-card img.loaded {
   filter: blur(0);
