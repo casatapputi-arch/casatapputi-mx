@@ -1238,32 +1238,6 @@ body::after {
 }
 
 
-/* ── Dual-image hover swap: de-fondo → fondo-blanco ── */
-.shoe-ambient {
-  position: relative;
-  z-index: 1;
-  transition: opacity .5s ease;
-}
-.shoe-detail {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  opacity: 0;
-  transition: opacity .5s ease;
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  filter: brightness(1.15) contrast(1.05);
-}
-.shop-card:hover .shoe-detail,
-.card:hover .shoe-detail {
-  opacity: 1;
-}
-.shop-card:hover .shoe-ambient,
-.card:hover .shoe-ambient {
-  opacity: 0;
-}
-
 
 
 /* ── Sección Manifiesto Ecológico ── */
@@ -1391,9 +1365,7 @@ body::after {
 /* ── Accesibilidad ── */
 @media (prefers-reduced-motion: reduce) {
   .card,
-  .card .media img,
-  .shoe-ambient,
-  .shoe-detail {
+  .card .media img {
     transition: none;
   }
   .card:hover {
