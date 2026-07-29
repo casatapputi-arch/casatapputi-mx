@@ -265,8 +265,8 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
   transition: transform .4s ease, filter .4s ease;
 }
 .specimen-card:hover img {
-  transform: scale(1.06);
-  filter: brightness(1.2) contrast(1.1);
+  transform: scale(1.08);
+  filter: brightness(1.6) contrast(1.15) saturate(1.15);
 }
 .specimen-tags {
   display: flex; flex-wrap: wrap; gap: 8px;
@@ -355,8 +355,8 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
   transition: transform .5s ease, filter .5s ease;
 }
 .marquee-card:hover img {
-  transform: scale(1.06);
-  filter: brightness(1.08);
+  transform: scale(1.08);
+  filter: brightness(1.5) contrast(1.1);
 }
 .marquee-card span {
   display: block;
@@ -1168,8 +1168,8 @@ body::after {
   transition: transform .5s ease, filter .5s ease;
 }
 .shop-card:hover img {
-  transform: scale(1.1);
-  filter: brightness(1.2) contrast(1.08);
+  transform: scale(1.12);
+  filter: brightness(1.6) contrast(1.15) saturate(1.1);
 }
 
 /* ---------- Hero entrance animation ---------- */
@@ -1354,6 +1354,15 @@ body::after {
   background: var(--crema-2);
   overflow: hidden;
   border: 1px solid var(--linea);
+  transition: border-color .35s ease, box-shadow .35s ease;
+}
+.prod-img-wrap:hover {
+  border-color: var(--miel);
+  box-shadow: 0 0 0 3px rgba(179,133,58,.15), 0 0 24px rgba(179,133,58,.1);
+}
+.prod-img-wrap:hover img {
+  transform: scale(1.07);
+  filter: brightness(1.6) contrast(1.1);
 }
 .prod-img-wrap img {
   width: 100%;
@@ -1398,6 +1407,12 @@ body::after {
   padding: 22px 26px;
   margin: 1.8rem 0;
   border-left: 3px solid var(--miel);
+  transition: box-shadow .35s ease, transform .35s ease, background .35s ease;
+}
+.prod-price-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,.25), 0 0 0 1px rgba(179,133,58,.15);
+  background: #221c15;
 }
 .prod-price-label {
   font-family: var(--sans);
@@ -1518,6 +1533,11 @@ body::after {
   text-align: left;
   border-top: 2px solid var(--miel);
   padding-top: 18px;
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.prod-howto:hover {
+  transform: translateY(-4px);
+  border-top-color: var(--miel-claro);
 }
 .prod-howto-num {
   font-family: var(--serif);
@@ -1552,6 +1572,11 @@ body::after {
 .prod-benefit {
   padding: 1.4rem 0 0;
   border-top: 1px solid var(--linea);
+  transition: transform .3s ease, border-color .3s ease;
+}
+.prod-benefit:hover {
+  transform: translateY(-3px);
+  border-color: var(--miel);
 }
 .prod-section-dark .prod-benefit { border-color: var(--linea-clara); }
 .prod-benefit .prod-benefit-icon {
