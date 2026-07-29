@@ -221,7 +221,7 @@ footer { background: var(--oscuro); color: var(--crema-texto); padding-block: 64
   border: 1px solid var(--linea);
   padding: 24px 22px 20px;
   display: flex; flex-direction: column;
-  transition: box-shadow .35s, transform .35s;
+  transition: box-shadow .35s, transform .35s, background .35s, border-color .35s;
   position: relative;
 }
 .specimen-card:hover {
