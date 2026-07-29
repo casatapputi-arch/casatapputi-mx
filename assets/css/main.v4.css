@@ -1196,63 +1196,66 @@ body::after {
 .shoe-card {
   position: relative;
   overflow: hidden;
-  transition: transform 0.45s cubic-bezier(.25,.1,.25,1),
-              box-shadow 0.45s cubic-bezier(.25,.1,.25,1);
+  border-radius: 18px;
+  cursor: pointer;
+  transform: translateY(0);
+  transition: transform .5s cubic-bezier(.22,1,.36,1),
+              box-shadow .5s cubic-bezier(.22,1,.36,1);
+  box-shadow: 0 8px 20px -14px rgba(44,24,16,.45);
 }
 
-/* Elevación */
+/* ELEVACIÓN */
 .shoe-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 24px 56px rgba(41,33,26,.28);
+  transform: translateY(-14px);
+  box-shadow: 0 30px 45px -20px rgba(44,24,16,.55);
 }
 
-/* Brillo que barre de izquierda a derecha */
-.shoe-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -150%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255,255,255,0.06) 30%,
-    rgba(255,255,255,0.18) 50%,
-    rgba(255,255,255,0.06) 70%,
-    transparent 100%
-  );
-  transform: skewX(-20deg);
-  transition: left 0.7s ease;
-  pointer-events: none;
-  z-index: 3;
+/* ── Wrapper de imagen ── */
+.shoe-card .shoe-img-wrap {
+  border-radius: 12px;
 }
-.shoe-card:hover::after {
-  left: 150%;
-}
-
-/* Zoom sutil en la imagen */
-.shoe-card:hover .shoe-img-wrap img {
-  transform: scale(1.08);
+.shoe-card .shoe-img-wrap img {
+  width: 100%; display: block;
+  transform: scale(1.02);
+  transition: transform .6s cubic-bezier(.22,1,.36,1);
   filter: none;
 }
-
-/* Suavizar transición de imagen */
-.shoe-card .shoe-img-wrap img {
-  transition: transform 0.5s ease;
+.shoe-card:hover .shoe-img-wrap img {
+  transform: scale(1.08);
 }
 
-/* ── Accesibilidad: respetar prefers-reduced-motion ── */
+/* ── BRILLO que recorre la imagen ── */
+.shoe-card .shoe-img-wrap::after {
+  content: "";
+  position: absolute; top: -60%; left: -75%;
+  width: 55%; height: 220%;
+  background: linear-gradient(100deg, transparent,
+    rgba(255,255,255,.15) 40%, rgba(255,255,255,.65) 50%,
+    rgba(255,255,255,.15) 60%, transparent);
+  transform: rotate(8deg);
+  opacity: 0;
+  pointer-events: none;
+}
+.shoe-card:hover .shoe-img-wrap::after {
+  animation: brillo .95s cubic-bezier(.3,.7,.4,1) forwards;
+}
+@keyframes brillo {
+  0%   { left: -75%; opacity: 0; }
+  12%  { opacity: 1; }
+  100% { left: 135%; opacity: 0; }
+}
+
+/* ── Accesibilidad ── */
 @media (prefers-reduced-motion: reduce) {
   .shoe-card,
-  .shoe-card::after,
   .shoe-card .shoe-img-wrap img {
-    transition: none !important;
-    animation: none !important;
+    transition: none;
   }
   .shoe-card:hover {
     transform: none;
-    box-shadow: 0 4px 16px rgba(41,33,26,.18);
+  }
+  .shoe-card:hover .shoe-img-wrap::after {
+    animation: none;
   }
 }
 
