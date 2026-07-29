@@ -1237,6 +1237,159 @@ body::after {
   100% { left: 135%; opacity: 0; }
 }
 
+
+/* ── Dual-image hover swap: de-fondo → fondo-blanco ── */
+.shoe-ambient {
+  position: relative;
+  z-index: 1;
+  transition: opacity .5s ease;
+}
+.shoe-detail {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity .5s ease;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.shop-card:hover .shoe-detail,
+.card:hover .shoe-detail {
+  opacity: 1;
+}
+.shop-card:hover .shoe-ambient,
+.card:hover .shoe-ambient {
+  opacity: 0;
+}
+
+/* ── Brillo en zapato (solo sobre la imagen detalle) ── */
+.shoe-detail {
+  filter: brightness(1.15) contrast(1.05);
+}
+
+/* ── Sección Manifiesto Ecológico ── */
+.eco-manifesto {
+  background: var(--oscuro);
+  color: var(--crema-texto);
+  padding: clamp(48px, 8vw, 80px) var(--pad);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.eco-manifesto::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--miel), var(--miel-claro), var(--miel), transparent);
+}
+.eco-manifesto .eco-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+.eco-manifesto h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 400;
+  color: var(--crema-texto);
+  margin-bottom: 1rem;
+  letter-spacing: .03em;
+}
+.eco-manifesto .eco-lead {
+  font-size: clamp(1rem, 2vw, 1.22rem);
+  line-height: 1.8;
+  max-width: 780px;
+  margin: 0 auto 2rem;
+  color: rgba(239,229,216,.85);
+  font-weight: 300;
+}
+.eco-manifesto .eco-lead strong {
+  color: var(--miel-claro);
+  font-weight: 500;
+}
+.eco-manifesto .eco-pillars {
+  display: flex;
+  gap: clamp(20px, 3vw, 48px);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2rem 0 1.5rem;
+}
+.eco-manifesto .eco-pillar {
+  flex: 1;
+  min-width: 180px;
+  max-width: 240px;
+  text-align: center;
+}
+.eco-manifesto .eco-pillar-icon {
+  font-size: 2.2rem;
+  display: block;
+  margin-bottom: .5rem;
+}
+.eco-manifesto .eco-pillar h4 {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--miel-claro);
+  margin-bottom: .4rem;
+}
+.eco-manifesto .eco-pillar p {
+  font-size: .88rem;
+  color: rgba(239,229,216,.7);
+  line-height: 1.55;
+}
+
+/* ── Botón Calzado de Temporada ── */
+.btn-season {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 40px;
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-weight: 500;
+  letter-spacing: .06em;
+  color: var(--oscuro);
+  background: linear-gradient(135deg, var(--miel-claro), var(--miel));
+  border: none;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: transform .3s ease, box-shadow .3s ease, filter .3s ease;
+  box-shadow: 0 6px 24px rgba(184,101,59,.35);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.btn-season::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent);
+  transform: skewX(-20deg);
+  transition: left .6s ease;
+}
+.btn-season:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(184,101,59,.5);
+  filter: brightness(1.08);
+}
+.btn-season:hover::after {
+  left: 150%;
+}
+
+@media (max-width: 768px) {
+  .eco-manifesto .eco-pillars {
+    flex-direction: column;
+    align-items: center;
+  }
+  .eco-manifesto .eco-pillar {
+    max-width: 100%;
+  }
+}
+
 /* ── Accesibilidad ── */
 @media (prefers-reduced-motion: reduce) {
   .card,
