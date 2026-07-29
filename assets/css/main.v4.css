@@ -1180,20 +1180,26 @@ body::after {
 
 /* ---------- Shoe hover swap (talabartería) ---------- */
 /* ── Contenedor de imagen de zapato ── */
-.shoe-img-wrap {
+.card .media {
   position: relative;
   overflow: hidden;
   aspect-ratio: 1/1;
+  border-radius: 12px;
 }
-.shoe-img-wrap img {
+.card .media img {
   width: 100%;
   aspect-ratio: 1/1;
   object-fit: cover;
   display: block;
+  transform: scale(1.02);
+  transition: transform .6s cubic-bezier(.22,1,.36,1);
+  filter: none;
+}
+.card:hover .media img {
+  transform: scale(1.08);
 }
 
-/* ── Shoe Card: elevate + shine sweep + zoom ── */
-.shoe-card {
+.card {
   position: relative;
   overflow: hidden;
   border-radius: 18px;
@@ -1205,27 +1211,13 @@ body::after {
 }
 
 /* ELEVACIÓN */
-.shoe-card:hover {
+.card:hover {
   transform: translateY(-14px);
   box-shadow: 0 30px 45px -20px rgba(44,24,16,.55);
 }
 
-/* ── Wrapper de imagen ── */
-.shoe-card .shoe-img-wrap {
-  border-radius: 12px;
-}
-.shoe-card .shoe-img-wrap img {
-  width: 100%; display: block;
-  transform: scale(1.02);
-  transition: transform .6s cubic-bezier(.22,1,.36,1);
-  filter: none;
-}
-.shoe-card:hover .shoe-img-wrap img {
-  transform: scale(1.08);
-}
-
 /* ── BRILLO que recorre la imagen ── */
-.shoe-card .shoe-img-wrap::after {
+.card .media::after {
   content: "";
   position: absolute; top: -60%; left: -75%;
   width: 55%; height: 220%;
@@ -1236,7 +1228,7 @@ body::after {
   opacity: 0;
   pointer-events: none;
 }
-.shoe-card:hover .shoe-img-wrap::after {
+.card:hover .media::after {
   animation: brillo .95s cubic-bezier(.3,.7,.4,1) forwards;
 }
 @keyframes brillo {
@@ -1247,14 +1239,14 @@ body::after {
 
 /* ── Accesibilidad ── */
 @media (prefers-reduced-motion: reduce) {
-  .shoe-card,
-  .shoe-card .shoe-img-wrap img {
+  .card,
+  .card .media img {
     transition: none;
   }
-  .shoe-card:hover {
+  .card:hover {
     transform: none;
   }
-  .shoe-card:hover .shoe-img-wrap::after {
+  .card:hover .media::after {
     animation: none;
   }
 }
