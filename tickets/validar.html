@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>Validar Ticket — Casa Tapputi</title>
-  <meta name="description" content="Escáner QR para validar comprobantes de Casa Tapputi. Apunta la cámara y listo." />
+  <meta name="description" content="Escáner QR para validar boletos de Casa Tapputi. Escanea o ingresa el código de 4 dígitos." />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="stylesheet" href="../assets/css/main.v4.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,12 +15,19 @@
   <script async src="https://plausible.io/js/pa-KVB5ye4NhSFIsTbFNkW0V.js"></script>
   <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
   <style>
-    .scanner-container { max-width: 480px; margin: 0 auto; position: relative; }
+    :root { --miel:#d4af37; --tinta:#efe6d6; --tinta-suave:rgba(239,230,214,.6); --bg:#1a1814; }
+    body, section:not(.section-dark) { background: var(--bg); color: var(--tinta); }
+
+    .scanner-page { max-width: 500px; margin: 0 auto; }
+
+    /* ── Visor cuadrado ── */
     .viewfinder {
-      position: relative; width: 100%; aspect-ratio: 1;
-      border-radius: 16px; overflow: hidden;
+      position: relative; width: 100%; max-width: 360px; margin: 0 auto;
+      aspect-ratio: 1 / 1; border-radius: 16px; overflow: hidden;
       background: #000; border: 2px solid rgba(239,230,214,.15);
+      display: none;
     }
+    .viewfinder.active { display: block; }
     .viewfinder video {
       width: 100%; height: 100%; object-fit: cover; display: block;
     }
@@ -30,63 +37,62 @@
       display: flex; align-items: center; justify-content: center;
     }
     .scan-frame {
-      width: 65%; aspect-ratio: 1;
+      width: 70%; aspect-ratio: 1 / 1;
       border: 2px solid rgba(212,175,55,.6);
       border-radius: 12px; box-shadow: 0 0 0 9999px rgba(0,0,0,.45);
-      animation: pulse-frame 2s ease-in-out infinite;
-    }
-    @keyframes pulse-frame {
-      0%,100% { border-color: rgba(212,175,55,.4); }
-      50% { border-color: rgba(212,175,55,.9); }
     }
 
+    /* ── Botón Escanear ── */
+    .btn-scan {
+      display: block; width: 100%; max-width: 360px; margin: 20px auto;
+      padding: 18px; background: var(--miel); color: #1a1a1a;
+      border: none; border-radius: 12px; font-size: 1.15rem; font-weight: 700;
+      cursor: pointer; font-family: inherit; transition: background .2s, transform .1s;
+      letter-spacing: .02em;
+    }
+    .btn-scan:hover { background: #c9a52e; }
+    .btn-scan:active { transform: scale(.97); }
+    .btn-scan:disabled { background: #555; color: #999; cursor: not-allowed; }
+    .btn-scan.stop { background: #e53935; color: #fff; }
+
+    /* ── Código 4 dígitos ── */
+    .code-section {
+      max-width: 360px; margin: 24px auto; padding: 20px;
+      background: rgba(255,255,255,.03); border: 1px solid rgba(239,230,214,.1);
+      border-radius: 12px; text-align: center;
+    }
+    .code-section h3 { font-size: .9rem; color: var(--tinta-suave); margin-bottom: 12px; }
+    .code-input {
+      width: 160px; padding: 14px; text-align: center;
+      background: rgba(0,0,0,.4); border: 2px solid rgba(239,230,214,.2);
+      border-radius: 10px; color: var(--miel); font-family: 'Courier New', monospace;
+      font-size: 2rem; font-weight: 700; letter-spacing: .3em;
+    }
+    .code-input:focus { outline: none; border-color: var(--miel); }
+    .code-input::placeholder { color: rgba(239,230,214,.2); font-size: 1rem; letter-spacing: 0; }
+
+    /* ── Resultado ── */
     .result-card {
-      text-align: center; padding: 24px; margin: 16px 0;
+      text-align: center; padding: 24px; margin: 16px auto; max-width: 400px;
       border-radius: 12px; animation: fadeIn .3s ease;
     }
     @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
-    .result-ok {
-      background: rgba(165,214,167,.08); border: 1px solid rgba(165,214,167,.2);
-    }
+    .result-ok { background: rgba(165,214,167,.08); border: 1px solid rgba(165,214,167,.2); }
     .result-ok .icon { font-size: 3rem; }
     .result-ok .title { color: #a5d6a7; font-size: 1.3rem; font-weight: 600; margin: 8px 0; }
-    .result-ok .detail { color: var(--tinta-suave); font-size: .9rem; }
-    .result-ok .detail strong { color: var(--tinta); }
+    .result-ok .name { font-size: 1.1rem; color: var(--tinta); font-weight: 500; }
+    .result-ok .detail { color: var(--tinta-suave); font-size: .85rem; margin-top: 4px; }
 
-    .result-warn {
-      background: rgba(255,183,77,.08); border: 1px solid rgba(255,183,77,.2);
-    }
+    .result-warn { background: rgba(255,183,77,.08); border: 1px solid rgba(255,183,77,.2); }
     .result-warn .icon { font-size: 3rem; }
     .result-warn .title { color: #ffb74d; font-size: 1.3rem; font-weight: 600; margin: 8px 0; }
 
-    .result-err {
-      background: rgba(229,57,53,.08); border: 1px solid rgba(229,57,53,.2);
-    }
+    .result-err { background: rgba(229,57,53,.08); border: 1px solid rgba(229,57,53,.2); }
     .result-err .icon { font-size: 3rem; }
     .result-err .title { color: #ef9a9a; font-size: 1.3rem; font-weight: 600; margin: 8px 0; }
 
-    .result-scanning { color: var(--tinta-suave); padding: 20px; text-align: center; }
-
-    .btn-small {
-      display: inline-block; padding: 10px 24px; border-radius: 6px;
-      font-size: .9rem; font-weight: 600; cursor: pointer; font-family: inherit;
-      border: 1px solid rgba(239,230,214,.2); background: rgba(255,255,255,.06);
-      color: var(--tinta); transition: all .2s; margin: 4px;
-    }
-    .btn-small:hover { background: rgba(255,255,255,.12); }
-
-    .manual-section { margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(239,230,214,.1); display: none; }
-    .manual-section.open { display: block; }
-    .manual-section h3 { font-size: .9rem; color: var(--tinta-suave); margin-bottom: 12px; cursor: pointer; }
-    .token-input {
-      width: 100%; max-width: 380px; padding: 10px 14px;
-      background: rgba(0,0,0,.3); border: 1px solid rgba(239,230,214,.2);
-      border-radius: 6px; color: var(--tinta); font-family: 'Courier New', monospace;
-      font-size: .9rem; text-align: center; margin-bottom: 10px;
-    }
-    .token-input:focus { outline: none; border-color: var(--miel); }
-
-    .last-scans { margin-top: 28px; text-align: left; max-width: 480px; margin-inline: auto; }
+    /* ── Historial ── */
+    .last-scans { margin: 28px auto; text-align: left; max-width: 400px; }
     .last-scans h3 { font-size: .85rem; color: var(--tinta-suave); margin-bottom: 10px; }
     .scan-item {
       display: flex; justify-content: space-between; align-items: center;
@@ -95,8 +101,13 @@
     }
     .scan-item.ok { background: rgba(165,214,167,.04); }
     .scan-item.used { background: rgba(255,183,77,.04); }
-    .scan-item .name { font-weight: 500; }
+    .scan-item .status { font-weight: 500; }
     .scan-item .time { color: var(--tinta-suave); font-size: .75rem; }
+
+    @media (max-width: 480px) {
+      .viewfinder { max-width: 100%; border-radius: 0; }
+      .btn-scan { border-radius: 8px; }
+    }
   </style>
 </head>
 <body>
@@ -130,27 +141,30 @@
 </div>
 <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
 
-<section style="text-align:center; padding-block:40px">
-  <div class="container">
-    <h1 style="font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:.3rem">📷 Escáner QR</h1>
-    <p style="color:var(--tinta-suave); margin-bottom:24px">Apunta la cámara al código QR del asistente</p>
+<section style="text-align:center; padding-block:30px">
+  <div class="container scanner-page">
+    <h1 style="font-size:clamp(1.6rem,4vw,2.2rem); margin-bottom:.2rem">📷 Validar Entrada</h1>
+    <p style="color:var(--tinta-suave); margin-bottom:20px; font-size:.9rem">Escanea el QR o ingresa el código de 4 dígitos</p>
 
-    <div class="scanner-container">
-      <!-- Visor de cámara -->
-      <div class="viewfinder" id="viewfinder">
-        <video id="video" autoplay playsinline muted></video>
-        <canvas id="canvas"></canvas>
-        <div class="scan-overlay" id="scanOverlay">
-          <div class="scan-frame"></div>
-        </div>
-      </div>
+    <!-- Visor cuadrado -->
+    <div class="viewfinder" id="viewfinder">
+      <video id="video" autoplay playsinline muted></video>
+      <canvas id="canvas"></canvas>
+      <div class="scan-overlay"><div class="scan-frame"></div></div>
+    </div>
 
-      <!-- Mensaje de cámara no disponible -->
-      <div id="camError" style="display:none; padding:40px 20px; color:var(--tinta-suave)">
-        <div style="font-size:3rem; margin-bottom:12px">📷❌</div>
-        <p>Cámara no disponible. Asegúrate de dar permisos y usar HTTPS.</p>
-        <button class="btn-small" onclick="startCamera()" style="margin-top:12px">Reintentar</button>
-      </div>
+    <!-- Error cámara -->
+    <div id="camError" style="display:none; padding:20px; color:var(--tinta-suave); font-size:.9rem">
+      <p>Cámara no disponible. Usa el código de 4 dígitos.</p>
+    </div>
+
+    <!-- Botón Escanear -->
+    <button class="btn-scan" id="btnScan" onclick="toggleScanner()">📷 Escanear QR</button>
+
+    <!-- Código 4 dígitos (siempre visible) -->
+    <div class="code-section">
+      <h3>🔢 O ingresa el código de 4 dígitos</h3>
+      <input type="text" class="code-input" id="codeInput" placeholder="0000" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" />
     </div>
 
     <!-- Resultado -->
@@ -160,16 +174,6 @@
     <div class="last-scans" id="lastScans" style="display:none">
       <h3>🕐 Últimos escaneos</h3>
       <div id="scanList"></div>
-    </div>
-
-    <!-- Manual (escondido por default) -->
-    <div class="manual-section" id="manualSection">
-      <h3 onclick="document.getElementById('manualInput').classList.toggle('open')">🔍 O ingresa el token manualmente ▾</h3>
-      <div id="manualInput" style="display:none">
-        <input type="text" class="token-input" id="manualToken" placeholder="Pega el token aquí" maxlength="64" />
-        <br />
-        <button class="btn-small" onclick="verificarManual()">Verificar</button>
-      </div>
     </div>
   </div>
 </section>
@@ -188,13 +192,37 @@
 <script src="../assets/js/main.js"></script>
 <script>
 var TICKETS_API = 'https://tickets.casatapputi.com.mx';
-var scanning = true;
+var scanning = false;
 var lastToken = '';
 var scanHistory = [];
 var stream = null;
 var lastScanTs = 0;
 
-// ── Cámara ────────────────────────────────────────────────
+// ── Botón Escanear ──────────────────────────────────────────
+function toggleScanner() {
+  var btn = document.getElementById('btnScan');
+  var vf = document.getElementById('viewfinder');
+  if (scanning) {
+    stopScanner();
+    btn.textContent = '📷 Escanear QR';
+    btn.classList.remove('stop');
+    vf.classList.remove('active');
+    scanning = false;
+  } else {
+    btn.textContent = '⏹ Detener cámara';
+    btn.classList.add('stop');
+    startCamera();
+  }
+}
+
+function stopScanner() {
+  if (stream) {
+    stream.getTracks().forEach(function(t) { t.stop(); });
+    stream = null;
+  }
+}
+
+// ── Cámara ──────────────────────────────────────────────────
 function startCamera() {
   var video = document.getElementById('video');
   var canvas = document.getElementById('canvas');
@@ -204,7 +232,6 @@ function startCamera() {
 
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
     camError.style.display = 'block';
-    viewfinder.style.display = 'none';
     return;
   }
 
@@ -217,22 +244,22 @@ function startCamera() {
     video.setAttribute('playsinline', '');
     video.play();
     camError.style.display = 'none';
-    viewfinder.style.display = 'block';
-    document.getElementById('manualSection').classList.add('open');
-    requestAnimationFrame(scanLoop);
+    viewfinder.classList.add('active');
+    scanning = true;
+    scanLoop();
   })
   .catch(function() {
     camError.style.display = 'block';
-    viewfinder.style.display = 'none';
-    document.getElementById('manualSection').classList.add('open');
+    document.getElementById('btnScan').textContent = '📷 Escanear QR';
+    document.getElementById('btnScan').classList.remove('stop');
   });
 }
 
 function scanLoop(now) {
-  if (!scanning) { requestAnimationFrame(scanLoop); return; }
+  if (!scanning) return;
   if (typeof jsQR === 'undefined') { requestAnimationFrame(scanLoop); return; }
-  if (now - lastScanTs < 250) { requestAnimationFrame(scanLoop); return; }
-  lastScanTs = now;
+  if (now && now - lastScanTs < 250) { requestAnimationFrame(scanLoop); return; }
+  if (now) lastScanTs = now;
 
   var video = document.getElementById('video');
   var canvas = document.getElementById('canvas');
@@ -258,31 +285,28 @@ function scanLoop(now) {
 }
 
 function extractToken(data) {
-  // El QR contiene una URL como: https://casatapputi.com.mx/tickets/validar.html?token=ABC123...
   var urlMatch = data.match(/[?&]token=([a-f0-9]{20,64})/i);
   if (urlMatch) return urlMatch[1];
-  // También aceptar token directo (32 chars hex)
   if (/^[a-f0-9]{20,64}$/i.test(data.trim())) return data.trim();
   return null;
 }
 
-// ── Escaneo exitoso → marcar como usado inmediatamente ─────
+// ── Escaneo exitoso → marcar como usado ─────────────────────
 function onQRScanned(token) {
+  // Detener escaneo momentáneamente
+  var wasScanning = scanning;
   scanning = false;
-  var result = document.getElementById('result');
-  result.innerHTML = '<div class="result-scanning">⏳ Procesando comprobante...</div>';
 
-  // Auto-usar: POST /tickets/use/:token
+  var result = document.getElementById('result');
+  result.innerHTML = '<div style="text-align:center;color:var(--tinta-suave);padding:16px">⏳ Validando...</div>';
+
   fetch(TICKETS_API + '/tickets/use/' + encodeURIComponent(token), { method: 'POST' })
     .then(function(r) { return r.json(); })
     .then(function(data) {
       if (data.valido && data.usado) {
-        // Éxito: acceso concedido
-        var scanEntry = { token: token, ok: true, time: new Date().toISOString() };
-        scanHistory.unshift(scanEntry);
+        scanHistory.unshift({ ok: true, time: new Date().toISOString() });
         renderHistory();
 
-        // Intentar obtener nombre del ticket
         fetch(TICKETS_API + '/tickets/verify/' + encodeURIComponent(token))
           .then(function(r) { return r.json(); })
           .then(function(d) {
@@ -291,42 +315,76 @@ function onQRScanned(token) {
               '<div class="result-card result-ok">' +
                 '<div class="icon">✅</div>' +
                 '<div class="title">¡Acceso concedido!</div>' +
-                (name.trim() ? '<div class="detail"><strong>' + esc(name.trim()) + '</strong></div>' : '') +
-                '<div class="detail" style="margin-top:6px; font-size:.8rem">' + new Date().toLocaleTimeString('es-MX') + '</div>' +
+                (name.trim() ? '<div class="name">' + esc(name.trim()) + '</div>' : '') +
+                '<div class="detail">' + new Date().toLocaleTimeString('es-MX') + '</div>' +
               '</div>';
           })
           .catch(function() {
-            result.innerHTML =
-              '<div class="result-card result-ok"><div class="icon">✅</div><div class="title">¡Acceso concedido!</div></div>';
+            result.innerHTML = '<div class="result-card result-ok"><div class="icon">✅</div><div class="title">¡Acceso concedido!</div></div>';
           });
       } else if (data.error) {
-        // Token inválido o ya usado
         var isUsed = data.error.indexOf('ya fue usado') !== -1;
-        scanHistory.unshift({ token: token, ok: false, used: isUsed, time: new Date().toISOString() });
+        scanHistory.unshift({ ok: false, used: isUsed, time: new Date().toISOString() });
         renderHistory();
-
         result.innerHTML =
           '<div class="result-card ' + (isUsed ? 'result-warn' : 'result-err') + '">' +
             '<div class="icon">' + (isUsed ? '⚠️' : '❌') + '</div>' +
-            '<div class="title">' + (isUsed ? 'Comprobante ya canjeado' : 'Comprobante inválido') + '</div>' +
-            '<div class="detail">' + esc(data.error) + '</div>' +
+            '<div class="title">' + (isUsed ? 'Ticket ya canjeado' : 'Ticket inválido') + '</div>' +
           '</div>';
       }
-
-      // Reanudar escaneo tras 3 segundos
-      setTimeout(function() {
-        lastToken = '';
-        scanning = true;
-        scanLoop();
-      }, 3000);
     })
     .catch(function() {
       result.innerHTML = '<div class="result-card result-err"><div class="icon">📡</div><div class="title">Error de conexión</div></div>';
-      setTimeout(function() { lastToken = ''; scanning = true; scanLoop(); }, 3000);
+    })
+    .finally(function() {
+      // Reanudar escaneo tras 3s si estaba escaneando
+      setTimeout(function() {
+        lastToken = '';
+        if (wasScanning) scanning = true;
+        if (wasScanning) scanLoop();
+      }, 3000);
     });
 }
 
-// ── Historial rápido ──────────────────────────────────────
+// ── Verificar por código de 4 dígitos ──────────────────────
+function verifyByCode(code) {
+  var result = document.getElementById('result');
+  result.innerHTML = '<div style="text-align:center;color:var(--tinta-suave);padding:16px">⏳ Validando código...</div>';
+
+  fetch(TICKETS_API + '/tickets/verify-code/' + code, { method: 'POST' })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.valido && data.usado) {
+        var name = (data.name || '') + ' ' + (data.last_name || '');
+        scanHistory.unshift({ ok: true, time: new Date().toISOString() });
+        renderHistory();
+        result.innerHTML =
+          '<div class="result-card result-ok">' +
+            '<div class="icon">✅</div>' +
+            '<div class="title">¡Acceso concedido!</div>' +
+            (name.trim() ? '<div class="name">' + esc(name.trim()) + '</div>' : '') +
+            '<div class="detail">Código: ' + code + ' · ' + new Date().toLocaleTimeString('es-MX') + '</div>' +
+          '</div>';
+      } else if (data.error) {
+        var isUsed = data.error.indexOf('ya fue usado') !== -1;
+        scanHistory.unshift({ ok: false, used: isUsed, time: new Date().toISOString() });
+        renderHistory();
+        result.innerHTML =
+          '<div class="result-card ' + (isUsed ? 'result-warn' : 'result-err') + '">' +
+            '<div class="icon">' + (isUsed ? '⚠️' : '❌') + '</div>' +
+            '<div class="title">' + (isUsed ? 'Ticket ya canjeado' : 'Código no encontrado') + '</div>' +
+          '</div>';
+      }
+    })
+    .catch(function() {
+      result.innerHTML = '<div class="result-card result-err"><div class="icon">📡</div><div class="title">Error de conexión</div></div>';
+    });
+
+  // Limpiar input
+  document.getElementById('codeInput').value = '';
+}
+
+// ── Historial ───────────────────────────────────────────────
 function renderHistory() {
   var container = document.getElementById('lastScans');
   var list = document.getElementById('scanList');
@@ -336,25 +394,25 @@ function renderHistory() {
   for (var i = 0; i < Math.min(scanHistory.length, 8); i++) {
     var s = scanHistory[i];
     html += '<div class="scan-item ' + (s.ok ? 'ok' : 'used') + '">' +
-      '<span class="name">' + (s.ok ? '✅ Acceso' : (s.used ? '⚠️ Ya usado' : '❌ Inválido')) + '</span>' +
+      '<span class="status">' + (s.ok ? '✅ Acceso' : (s.used ? '⚠️ Ya usado' : '❌ Inválido')) + '</span>' +
       '<span class="time">' + new Date(s.time).toLocaleTimeString('es-MX') + '</span>' +
     '</div>';
   }
   list.innerHTML = html;
 }
 
-// ── Manual ────────────────────────────────────────────────
-function verificarManual() {
-  var token = document.getElementById('manualToken').value.trim();
-  if (!token || !/^[a-f0-9]{20,64}$/i.test(token)) {
-    document.getElementById('result').innerHTML = '<div class="result-card result-err"><div class="title">Token inválido</div></div>';
-    return;
-  }
-  onQRScanned(token);
-}
-
-// ── URL token ─────────────────────────────────────────────
+// ── Input de código: auto-submit al teclear 4 dígitos ──────
 (function() {
+  var input = document.getElementById('codeInput');
+  input.addEventListener('input', function() {
+    // Solo aceptar números
+    this.value = this.value.replace(/[^0-9]/g, '');
+    if (this.value.length === 4) {
+      verifyByCode(this.value);
+    }
+  });
+
+  // URL token directo (si viene de un QR con ?token=...)
   var params = new URLSearchParams(window.location.search);
   var token = params.get('token');
   if (token && /^[a-f0-9]{20,64}$/i.test(token)) {
@@ -362,10 +420,7 @@ function verificarManual() {
   }
 })();
 
-function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-// Arrancar cámara
-startCamera();
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;'); }
 </script>
 </body>
 </html>

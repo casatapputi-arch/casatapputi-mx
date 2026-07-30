@@ -379,7 +379,7 @@ function generarQRs(attendees, orderPrefix) {
     .then(function(r){ return r.json(); })
     .then(function(data){
       if (data.token) {
-        tickets.push({ token:data.token, name:a.name + ' ' + a.last_name });
+        tickets.push({ token:data.token, name:a.name + ' ' + a.last_name, short_code:data.short_code || '' });
       } else {
         errores = true;
       }
@@ -412,7 +412,7 @@ function mostrarQRs(tickets) {
         '<div class="qr-img" id="qrcode_' + i + '"></div>' +
         '<div class="qr-info">' +
           '<div class="name">' + t.name + '</div>' +
-          '<div style="font-size:.8rem;color:var(--tinta-suave)">Boleto #' + (i+1) + '</div>' +
+          '<div style="font-size:.8rem;color:var(--tinta-suave)">Boleto #' + (i+1) + (t.short_code ? ' · Código: <strong style="color:var(--miel);font-size:1.1rem">' + t.short_code + '</strong>' : '') + '</div>' +
           '<div class="token" style="margin-top:6px">' + t.token + '</div>' +
         '</div>' +
       '</div>';

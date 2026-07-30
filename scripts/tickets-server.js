@@ -130,11 +130,26 @@ const server = http.createServer(async (req, res) => {
       name: t.name || '',
       last_name: t.last_name || '',
       whatsapp: t.whatsapp || '',
+      short_code: t.short_code || '',
       usado: t.usado,
       creado_en: t.creado_en,
       usado_en: t.usado_en || null,
     }));
     return json(res, 200, safe);
+  }
+
+  // POST /tickets/verify-code/:code — validar por código de 4 dígitos
+  const codeMatch = pathname.match(/^\/tickets\/verify-code\/(\d{4})$/);
+  if (req.method === 'POST' && codeMatch) {
+    const shortCode = codeMatch[1];
+    const db = loadDB();
+    const ticket = db.find(t => t.short_code === shortCode);
+    if (!ticket) return json(res, 404, { error: 'Código no encontrado' });
+    if (ticket.usado) return json(res, 409, { error: 'Este ticket ya fue usado', usado_en: ticket.usado_en });
+    ticket.usado = true;
+    ticket.usado_en = new Date().toISOString();
+    saveDB(db);
+    return json(res, 200, { valido: true, usado: true, usado_en: ticket.usado_en, name: ticket.name || '', last_name: ticket.last_name || '' });
   }
 
   // GET /tickets/stats
@@ -153,6 +168,8 @@ const server = http.createServer(async (req, res) => {
     }
     const rawToken = crypto.randomBytes(TOKEN_BYTES).toString('hex');
     const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
+    // Short code: 4 dígitos para ingreso manual si el QR no escanea
+    const shortCode = String(Math.floor(1000 + Math.random() * 9000));
     const db = loadDB();
     db.push({
       id: db.length + 1,
@@ -163,11 +180,12 @@ const server = http.createServer(async (req, res) => {
       whatsapp: body.whatsapp || '',
       token_hash: tokenHash,
       raw_token: rawToken,
+      short_code: shortCode,
       usado: false,
       creado_en: new Date().toISOString(),
     });
     saveDB(db);
-    return json(res, 200, { ticket_id: db.length, token: rawToken });
+    return json(res, 200, { ticket_id: db.length, token: rawToken, short_code: shortCode });
   }
 
   // GET /tickets/verify/:token
@@ -186,6 +204,7 @@ const server = http.createServer(async (req, res) => {
       usado_en: ticket.usado_en || null,
       name: ticket.name || '',
       last_name: ticket.last_name || '',
+      short_code: ticket.short_code || '',
     });
   }
 
