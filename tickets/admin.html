@@ -306,9 +306,9 @@ function downloadCSV() {
       csvEscape(t.whatsapp),
       t.short_code || '',
       csvEscape(t.order_id),
-      fmtDate(t.creado_en),
+      csvEscape(fmtDate(t.creado_en)),
       t.usado ? 'Usado' : 'Válido',
-      t.usado_en ? fmtDate(t.usado_en) : ''
+      t.usado_en ? csvEscape(fmtDate(t.usado_en)) : ''
     ].join(','));
   });
   var bom = '\uFEFF';
