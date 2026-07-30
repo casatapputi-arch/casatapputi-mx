@@ -69,7 +69,7 @@
       font-size: 2rem; font-weight: 700; letter-spacing: .3em;
     }
     .code-input:focus { outline: none; border-color: var(--miel); }
-    .code-input::placeholder { color: rgba(239,230,214,.2); font-size: 1rem; letter-spacing: 0; }
+    .code-input::placeholder { color: rgba(239,230,214,.4); font-size: 1rem; letter-spacing: 0; }
 
     /* ── Resultado ── */
     .result-card {
@@ -108,6 +108,8 @@
       .viewfinder { max-width: 100%; border-radius: 0; }
       .btn-scan { border-radius: 8px; }
     }
+    .mobile-menu { background: var(--bg); }
+    .mobile-menu a { color: var(--tinta); border-color: rgba(239,230,214,.15); }
   </style>
 </head>
 <body>
@@ -164,7 +166,7 @@
     <!-- Código 4 dígitos (siempre visible) -->
     <div class="code-section">
       <h3>🔢 O ingresa el código de 4 dígitos</h3>
-      <input type="text" class="code-input" id="codeInput" placeholder="0000" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" />
+      <input type="text" class="code-input" id="codeInput" placeholder="0000" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" />
     </div>
 
     <!-- Resultado -->
@@ -197,6 +199,7 @@ var lastToken = '';
 var scanHistory = [];
 var stream = null;
 var lastScanTs = 0;
+var codeLoading = false;
 
 // ── Botón Escanear ──────────────────────────────────────────
 function toggleScanner() {
@@ -348,6 +351,8 @@ function onQRScanned(token) {
 
 // ── Verificar por código de 4 dígitos ──────────────────────
 function verifyByCode(code) {
+  if (codeLoading) return;
+  codeLoading = true;
   var result = document.getElementById('result');
   result.innerHTML = '<div style="text-align:center;color:var(--tinta-suave);padding:16px">⏳ Validando código...</div>';
 
@@ -378,10 +383,11 @@ function verifyByCode(code) {
     })
     .catch(function() {
       result.innerHTML = '<div class="result-card result-err"><div class="icon">📡</div><div class="title">Error de conexión</div></div>';
+    })
+    .finally(function() {
+      codeLoading = false;
+      document.getElementById('codeInput').value = '';
     });
-
-  // Limpiar input
-  document.getElementById('codeInput').value = '';
 }
 
 // ── Historial ───────────────────────────────────────────────
