@@ -155,7 +155,7 @@
 <script src="../assets/js/main.js"></script>
 <script>
 var TICKETS_API = 'https://tickets.casatapputi.com.mx';
-var PASSWORD_HASH = '7f9e1b9c3e3a7b4e5c6d7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8';
+var PASSWORD_HASH = '3ffe797c4d692ca00105235dd0bd933a26cc99f1db52a59df1f835deed01eb42';
 var allTickets = [];
 var sortCol = 'id';
 var sortDir = 'desc';
@@ -251,7 +251,8 @@ function renderTable() {
           '<td>' + t.id + '</td>' +
           '<td>' + esc(t.name) + '</td>' +
           '<td>' + esc(t.last_name) + '</td>' +
-          '<td><a href=\"https://wa.me/52' + (t.whatsapp || '').replace(/[^0-9]/g,'') + '\" target=\"_blank\" style=\"color:var(--tinta-suave)\">' + esc(t.whatsapp) + '</a></td>' +
+          'var waNum = (t.whatsapp || '').replace(/[^0-9]/g,''); if (waNum.startsWith('52')) waNum = waNum.slice(2);
+      html += '<td><a href=\"https://wa.me/52' + waNum + '\" target=\"_blank\" style=\"color:var(--tinta-suave)\">' + esc(t.whatsapp) + '</a></td>' +
           '<td style=\"font-size:.78rem;color:var(--tinta-suave)\">' + esc(t.order_id) + '</td>' +
           '<td style=\"font-size:.78rem\">' + fmtDate(t.creado_en) + '</td>' +
           '<td>' + (t.usado ? '<span class=\"badge badge-used\">Usado</span>' : '<span class=\"badge badge-ok\">Válido</span>') + '</td>' +
