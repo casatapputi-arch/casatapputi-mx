@@ -42,7 +42,6 @@
     .tier .tier-icon { font-size:2.2rem; margin-bottom:8px; }
     .tier h3 { font-size:1.2rem; margin:0 0 4px; }
     .tier .price { font-size:2rem; font-weight:700; color:var(--miel); margin:10px 0; }
-    .tier .price.zero { color:#a5d6a7; }
     .tier .desc { font-size:.82rem; color:var(--tinta-suave); margin:0 0 12px; }
     .tier .qty-tag {
       display:inline-block; background:rgba(255,255,255,.08); padding:3px 12px;
@@ -53,8 +52,6 @@
       background:var(--miel); color:#1a1a1a; font-size:.7rem; font-weight:700;
       padding:2px 12px; border-radius:10px; letter-spacing:.04em;
     }
-    .tier.dr { border-color:rgba(165,214,167,.25); }
-    .tier.dr.selected { border-color:#a5d6a7; background:rgba(165,214,167,.06); }
 
     .form-section { max-width:620px; margin:0 auto; display:none; }
     .form-section.active { display:block; }
@@ -80,10 +77,6 @@
     }
     .btn-primary:hover { background:#c9a52e; }
     .btn-primary:disabled { background:#555; color:#999; cursor:not-allowed; }
-    .btn-dr {
-      background:#a5d6a7; color:#1a1a1a;
-    }
-    .btn-dr:hover { background:#81c784; }
 
     .qr-results { max-width:700px; margin:28px auto; display:none; }
     .qr-results.active { display:block; }
@@ -203,13 +196,6 @@
         <div class="desc">5 boletos · 5 QRs individuales</div>
         <div class="qty-tag">5 personas</div>
       </div>
-      <div class="tier dr" data-tier="dr" data-qty="1" data-price="0" onclick="selectTier(this)">
-        <div class="tier-icon">🥼</div>
-        <h3>Boleto DR</h3>
-        <div class="price zero">Gratuito</div>
-        <div class="desc">1 boleto · 1 QR</div>
-        <div class="qty-tag">Cortesía</div>
-      </div>
     </div>
 
     <!-- FORMULARIO DINÁMICO -->
@@ -281,15 +267,7 @@ function buildForm() {
   }
   fields.innerHTML = html;
 
-  if (selectedTier.tier === 'dr') {
-    title.textContent = 'Datos del asistente — Boleto DR';
-    btn.textContent = 'Obtener boleto gratuito 🥼';
-    btn.className = 'btn-primary btn-dr';
-  } else {
     title.textContent = 'Datos de los asistentes';
-    btn.textContent = 'Pagar $' + selectedTier.price + ' MXN · MercadoPago 💳';
-    btn.className = 'btn-primary';
-  }
 }
 
 function procesarCompra() {
@@ -318,11 +296,7 @@ function procesarCompra() {
   var btn = document.getElementById('btnComprar');
   btn.disabled = true;
 
-  if (selectedTier.tier === 'dr') {
-    generarQRs(attendees, 'florecer5-dr');
-  } else {
-    crearPreferenciaMP(attendees);
-  }
+  crearPreferenciaMP(attendees);
 }
 
 function crearPreferenciaMP(attendees) {
