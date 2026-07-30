@@ -84,7 +84,7 @@ nav {
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
 .nav-logo { display: flex; align-items: center; gap: 12px; }
-.nav-logo img { height: 44px; width: auto; flex-shrink: 0; }
+.nav-logo img { height: 44px; width: auto; flex-shrink: 0; filter: brightness(0) invert(1); }
 .nav-logo .wordmark {
   font-family: var(--serif);
   font-size: 1.3rem; letter-spacing: 0.08em;
