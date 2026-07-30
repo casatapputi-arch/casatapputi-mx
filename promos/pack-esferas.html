@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pack 5 Esferas — Casa Tapputi</title>
+  <link rel="stylesheet" href="../assets/css/main.v4.css" />
 <style>
   @media print { body { margin: 0; padding: 0; } @page { size: letter; margin: 0; } }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -77,6 +78,35 @@
 </script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+<div class="topbar">Llevando la salud natural a tu hogar</div>
+<nav>
+  <div class="nav-inner">
+    <a href="../" class="nav-logo"><img src="../assets/images/casa-tapputi-logo.webp" alt="Casa Tapputi" loading="lazy" /><span class="wordmark">CASA TAPPUTI</span></a>
+    <ul class="nav-links">
+      <li><a href="../productos/">Productos</a></li>
+      <li><a href="/productos/talabarteria/">Zapatos</a></li>
+      <li><a href="../experiencias/">Experiencias</a></li>
+      <li><a href="../eventos/">Eventos</a></li>
+      <li><a href="../talleres/">Talleres</a></li>
+      <li><a href="../servicios/">Servicios</a></li>
+      <li><a href="../nosotros/">Nosotros</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<main id="main-content">
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../productos/" onclick="toggleMenu()">Productos</a>
+  <a href="/productos/talabarteria/" onclick="toggleMenu()">Zapatos</a>
+  <a href="../experiencias/" onclick="toggleMenu()">Experiencias</a>
+  <a href="../eventos/" onclick="toggleMenu()">Eventos</a>
+  <a href="../talleres/" onclick="toggleMenu()">Talleres</a>
+  <a href="../servicios/" onclick="toggleMenu()">Servicios</a>
+  <a href="../nosotros/" onclick="toggleMenu()">Nosotros</a>
+</div>
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
 <div class="poster">
   <div class="badge">LANZAMIENTO</div>
   <div class="tag">Casa Tapputi — Colección Herbolaria</div>
@@ -140,5 +170,6 @@
   ]
 }
 </script>
+<script src="../assets/js/main.js"></script>
 </body>
 </html>
