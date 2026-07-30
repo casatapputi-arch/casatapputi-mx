@@ -102,6 +102,14 @@
     }
     .event-total strong { font-size:1.2rem; }
     .empty { text-align:center; padding:40px; color:var(--tinta-suave); }
+
+    .discount-section-admin { margin-top:40px; }
+    .discount-section-admin h3 { font-size:1.2rem; color:var(--miel); margin:0 0 4px; text-align:center; }
+    .discount-section-admin .subtitle { text-align:center; color:var(--tinta-suave); font-size:.82rem; margin:0 0 20px; }
+    .discount-table-wrap { overflow-x:auto; border-radius:10px; border:1px solid rgba(239,230,214,.08); margin-top:16px; }
+    .badge-pct { background:rgba(129,212,250,.12); color:#81d4fa; }
+    .badge-fixed { background:rgba(255,183,77,.12); color:#ffb74d; }
+    .badge-free { background:rgba(165,214,167,.12); color:#a5d6a7; }
   </style>
 </head>
 <body>
@@ -168,6 +176,29 @@
             <tr><td colspan="8" class="empty">Cargando...</td></tr>
           </tbody>
         </table>
+      </div>
+
+      <!-- CÓDIGOS DE DESCUENTO -->
+      <div class="discount-section-admin" id="discountSection">
+        <h3>🏷️ Códigos de Descuento</h3>
+        <p class="subtitle">Códigos para Florecer 5ª Edición</p>
+        <div class="stats-bar" id="discountStatsBar"></div>
+        <div class="discount-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Tipo</th>
+                <th>Valor</th>
+                <th>Estado</th>
+                <th>Usado</th>
+              </tr>
+            </thead>
+            <tbody id="discountTableBody">
+              <tr><td colspan="5" class="empty">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -238,6 +269,79 @@ function loadData() {
     .catch(function() {
       document.getElementById('tableBody').innerHTML = '<tr><td colspan="8" class="empty">❌ Error de conexión</td></tr>';
     });
+
+  loadDiscounts();
+}
+
+// ── Discount Codes ─────────────────────────────────────
+function loadDiscounts() {
+  fetch(TICKETS_API + '/tickets/discounts', {
+    headers: { 'X-Admin-Key': ADMIN_API_KEY }
+  })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      renderDiscountStats(data);
+      renderDiscountTable(data.codigos);
+    })
+    .catch(function() {
+      document.getElementById('discountStatsBar').innerHTML = '<div class="stat-pill"><div class="num">0</div><div class="lbl">Total</div></div><div class="stat-pill"><div class="num">0</div><div class="lbl">Disponibles</div></div><div class="stat-pill"><div class="num">0</div><div class="lbl">Usados</div></div><div class="stat-pill"><div class="num">0%</div><div class="lbl">Tasa de uso</div></div>';
+      document.getElementById('discountTableBody').innerHTML = '<tr><td colspan="5" class="empty">❌ Error al cargar descuentos</td></tr>';
+    });
+}
+
+function renderDiscountStats(data) {
+  document.getElementById('discountStatsBar').innerHTML =
+    '<div class="stat-pill"><div class="num">' + data.total + '</div><div class="lbl">Total</div></div>' +
+    '<div class="stat-pill"><div class="num">' + data.disponibles + '</div><div class="lbl">Disponibles</div></div>' +
+    '<div class="stat-pill"><div class="num">' + data.usados + '</div><div class="lbl">Usados</div></div>' +
+    '<div class="stat-pill"><div class="num">' + (data.total > 0 ? Math.round(data.usados/data.total*100) : 0) + '%</div><div class="lbl">Tasa de uso</div></div>';
+}
+
+function renderDiscountTable(codigos) {
+  // Agrupar por tipo
+  var tipos = { 'percent': [], 'fixed': [] };
+  codigos.forEach(function(c) {
+    var t = c.value === 100 ? 'free' : c.type;
+    if (!tipos[t]) tipos[t] = [];
+    tipos[t].push(c);
+  });
+
+  // Orden: percent primero (10, 20), fixed (50, 100), free (100%)
+  var orden = [];
+  ['percent', 'fixed', 'free'].forEach(function(t) {
+    if (tipos[t]) orden = orden.concat(tipos[t]);
+  });
+
+  var html = '';
+  if (orden.length === 0) {
+    html = '<tr><td colspan="5" class="empty">Sin códigos</td></tr>';
+  } else {
+    orden.forEach(function(c) {
+      var tipoLabel, badgeClass;
+      if (c.value === 100) {
+        tipoLabel = '🎫 Cortesía';
+        badgeClass = 'badge-free';
+      } else if (c.type === 'percent') {
+        tipoLabel = '📊 Porcentaje';
+        badgeClass = 'badge-pct';
+      } else {
+        tipoLabel = '💵 Fijo';
+        badgeClass = 'badge-fixed';
+      }
+
+      var valor = c.type === 'percent' ? c.value + '%' : '$' + c.value;
+
+      html +=
+        '<tr>' +
+          '<td style="font-family:monospace;font-size:.82rem">' + esc(c.code) + '</td>' +
+          '<td><span class="badge ' + badgeClass + '">' + tipoLabel + '</span></td>' +
+          '<td>' + valor + '</td>' +
+          '<td>' + (c.used ? '<span class="badge badge-used">Usado</span>' : '<span class="badge badge-ok">Disponible</span>') + '</td>' +
+          '<td style="font-size:.78rem">' + (c.usado_en ? fmtDate(c.usado_en) : '—') + '</td>' +
+        '</tr>';
+    });
+  }
+  document.getElementById('discountTableBody').innerHTML = html;
 }
 
 function renderStats() {
