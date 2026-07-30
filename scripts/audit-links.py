@@ -20,6 +20,9 @@ def extract_internal_links(html_path: Path):
     for h in hrefs:
         # Ignorar anchors puros
         if h.startswith("#"): continue
+        # Quitar query string (?...) y fragment (#...) — no afectan al archivo en disco
+        h = h.split("?")[0].split("#")[0]
+        if not h: continue  # href vacío después de limpiar (ej: "?filter=all")
         # Rutas absolutas (empiezan con /): resolver desde BASE, no del filesystem
         if h.startswith("/"):
             resolved = (BASE / h.lstrip("/")).resolve()
