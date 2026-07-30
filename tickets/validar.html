@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Validar Ticket — Casa Tapputi</title>
+  <meta name="description" content="Validador de comprobantes digitales para eventos de Casa Tapputi." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="../assets/css/main.v4.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../assets/images/casa-tapputi-logo.webp">
+  <script async src="https://plausible.io/js/pa-KVB5ye4NhSFIsTbFNkW0V.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+  <style>
+    .validate-container { max-width: 520px; margin: 0 auto; text-align: center; }
+    .validate-card {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(239,230,214,.12);
+      border-radius: 12px; padding: 32px 24px; margin: 20px 0;
+    }
+    .validate-icon { font-size: 4rem; margin-bottom: 12px; }
+    .validate-title { font-size: 1.4rem; color: var(--tinta); margin: 0 0 8px; }
+    .validate-detail { font-size: .9rem; color: var(--tinta-suave); margin: 4px 0; }
+    .validate-detail strong { color: var(--tinta); }
+
+    .status-valid { color: #a5d6a7; }
+    .status-used { color: #ffb74d; }
+    .status-invalid { color: #ef9a9a; }
+
+    .btn-validate {
+      display: inline-block; padding: 14px 32px; border: none; border-radius: 6px;
+      font-size: 1.05rem; font-weight: 600; cursor: pointer; font-family: inherit;
+      transition: all .2s; margin: 6px;
+    }
+    .btn-mark-used { background: #a5d6a7; color: #1a1a1a; }
+    .btn-mark-used:hover { background: #81c784; }
+    .btn-mark-used:disabled { background: #555; color: #999; cursor: not-allowed; }
+    .btn-reset { background: rgba(255,255,255,.1); color: var(--tinta); border: 1px solid rgba(255,255,255,.2); }
+
+    .token-input {
+      width: 100%; max-width: 380px; padding: 12px 16px;
+      background: rgba(0,0,0,.3); border: 1px solid rgba(239,230,214,.2);
+      border-radius: 6px; color: var(--tinta); font-family: 'Courier New', monospace;
+      font-size: .95rem; text-align: center; margin-bottom: 12px;
+    }
+    .token-input:focus { outline: none; border-color: var(--miel); }
+
+    .result-loading { color: var(--tinta-suave); padding: 20px; }
+    .result-error { color: #ef9a9a; background: rgba(229,57,53,.08); padding: 16px; border-radius: 8px; margin: 12px 0; font-size: .9rem; }
+    .result-success { color: #a5d6a7; background: rgba(165,214,167,.08); padding: 16px; border-radius: 8px; margin: 12px 0; }
+    .result-warning { color: #ffb74d; background: rgba(255,183,77,.08); padding: 16px; border-radius: 8px; margin: 12px 0; }
+
+    .manual-section { margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(239,230,214,.1); }
+    .manual-section h3 { font-size: .95rem; color: var(--tinta-suave); margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+<div class="topbar">🎟️ Validador de Comprobantes — Casa Tapputi</div>
+<nav>
+  <div class="nav-inner">
+    <a href="../" class="nav-logo"><img src="../assets/images/casa-tapputi-logo.webp" alt="Casa Tapputi" /><span class="wordmark">CASA TAPPUTI</span></a>
+  </div>
+</nav>
+<main id="main-content">
+<section style="text-align:center; padding-block:60px">
+  <div class="container">
+    <h1 style="font-size:clamp(2rem,5vw,3rem); margin-bottom:.5rem">🎟️ Validar Comprobante</h1>
+    <p style="color:var(--tinta-suave); margin-bottom:2rem">Escanea el código QR del cliente o ingresa el token manualmente</p>
+
+    <div class="validate-container">
+      <!-- Resultado de la validación (por URL ?token=) -->
+      <div id="validateResult"></div>
+
+      <!-- Entrada manual de token -->
+      <div class="manual-section">
+        <h3>🔍 Verificación manual</h3>
+        <input type="text" class="token-input" id="manualToken" placeholder="Pega el token aquí (32 caracteres hex)" maxlength="64" />
+        <br />
+        <button class="btn-validate btn-reset" onclick="verificarManual()">Verificar token</button>
+      </div>
+    </div>
+
+    <p style="margin-top:28px; font-size:.8rem; color:rgba(239,230,214,.4)">
+      Token válido = un solo acceso. Si ya fue usado, se mostrará como "Ya canjeado".
+    </p>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="container">
+    <div class="footer-bottom" style="border-top:0;margin-top:0;justify-content:center">
+      <span>© 2026 Casa Tapputi — Todos los derechos reservados.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+var TICKETS_API = 'https://tickets.casatapputi.com.mx';
+
+// ── Leer token de URL (escaneo QR) ──────────────────────────
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var token = params.get('token');
+  if (token && /^[a-f0-9]{20,64}$/i.test(token)) {
+    verificarToken(token);
+  }
+})();
+
+// ── Verificar token ─────────────────────────────────────────
+function verificarToken(token) {
+  var container = document.getElementById('validateResult');
+  container.innerHTML = '<div class="result-loading">🔍 Verificando comprobante...</div>';
+
+  fetch(TICKETS_API + '/tickets/verify/' + encodeURIComponent(token))
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.error) {
+        container.innerHTML =
+          '<div class="validate-card">' +
+            '<div class="validate-icon">❌</div>' +
+            '<div class="validate-title status-invalid">Comprobante no encontrado</div>' +
+            '<p class="validate-detail">' + data.error + '</p>' +
+            '<p class="validate-detail" style="margin-top:8px">Verifica que el código QR sea de Casa Tapputi.</p>' +
+          '</div>';
+        return;
+      }
+
+      if (data.usado) {
+        // Ya fue usado
+        container.innerHTML =
+          '<div class="validate-card">' +
+            '<div class="validate-icon">⚠️</div>' +
+            '<div class="validate-title status-used">Comprobante ya canjeado</div>' +
+            '<p class="validate-detail"><strong>Orden:</strong> ' + escapeHtml(data.order_id) + '</p>' +
+            '<p class="validate-detail"><strong>Creado:</strong> ' + formatDate(data.creado_en) + '</p>' +
+            '<div class="result-warning" style="margin-top:16px">⚠️ Este comprobante ya fue utilizado. No puede ingresar de nuevo.</div>' +
+          '</div>';
+      } else {
+        // Válido y sin usar
+        container.innerHTML =
+          '<div class="validate-card">' +
+            '<div class="validate-icon">✅</div>' +
+            '<div class="validate-title status-valid">Comprobante válido</div>' +
+            '<p class="validate-detail"><strong>Orden:</strong> ' + escapeHtml(data.order_id) + '</p>' +
+            '<p class="validate-detail"><strong>Creado:</strong> ' + formatDate(data.creado_en) + '</p>' +
+            '<div class="result-success" style="margin-top:16px">🎉 Este comprobante es auténtico y no ha sido usado.</div>' +
+            '<button class="btn-validate btn-mark-used" id="btnMarcarUsado" onclick="marcarUsado(\'' + token + '\')">✅ Marcar como usado (dar acceso)</button>' +
+          '</div>';
+      }
+    })
+    .catch(function() {
+      container.innerHTML = '<div class="result-error">Error de conexión. Verifica que tengas internet e inténtalo de nuevo.</div>';
+    });
+}
+
+// ── Marcar ticket como usado ────────────────────────────────
+function marcarUsado(token) {
+  var btn = document.getElementById('btnMarcarUsado');
+  btn.disabled = true;
+  btn.textContent = '⏳ Procesando...';
+
+  fetch(TICKETS_API + '/tickets/use/' + encodeURIComponent(token), { method: 'POST' })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.error) {
+        btn.textContent = '❌ ' + data.error;
+        btn.className = 'btn-validate btn-reset';
+        return;
+      }
+      // Recargar estado
+      verificarToken(token);
+    })
+    .catch(function() {
+      btn.disabled = false;
+      btn.textContent = '⚠️ Error de red — reintentar';
+    });
+}
+
+// ── Verificación manual ─────────────────────────────────────
+function verificarManual() {
+  var token = document.getElementById('manualToken').value.trim();
+  if (!token) return;
+  if (!/^[a-f0-9]{20,64}$/i.test(token)) {
+    document.getElementById('validateResult').innerHTML =
+      '<div class="result-error">El token debe tener entre 20 y 64 caracteres hexadecimales.</div>';
+    return;
+  }
+  // Actualizar URL sin recargar
+  var newUrl = window.location.pathname + '?token=' + token;
+  window.history.replaceState({}, '', newUrl);
+  verificarToken(token);
+}
+
+// ── Helpers ──────────────────────────────────────────────────
+function escapeHtml(str) {
+  var div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
+
+function formatDate(iso) {
+  if (!iso) return '—';
+  var d = new Date(iso);
+  return d.toLocaleString('es-MX', { dateStyle: 'medium', timeStyle: 'short' });
+}
+</script>
+</body>
+</html>
