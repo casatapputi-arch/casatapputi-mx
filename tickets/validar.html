@@ -192,6 +192,7 @@ var scanning = true;
 var lastToken = '';
 var scanHistory = [];
 var stream = null;
+var lastScanTs = 0;
 
 // ── Cámara ────────────────────────────────────────────────
 function startCamera() {
@@ -227,8 +228,11 @@ function startCamera() {
   });
 }
 
-function scanLoop() {
-  if (!scanning) return;
+function scanLoop(now) {
+  if (!scanning) { requestAnimationFrame(scanLoop); return; }
+  if (typeof jsQR === 'undefined') { requestAnimationFrame(scanLoop); return; }
+  if (now - lastScanTs < 250) { requestAnimationFrame(scanLoop); return; }
+  lastScanTs = now;
 
   var video = document.getElementById('video');
   var canvas = document.getElementById('canvas');
