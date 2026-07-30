@@ -343,6 +343,8 @@ function showDiscountResult(msg, type) {
   el.innerHTML = msg;
   el.className = 'discount-result show ' + (type === 'success' ? 'success' : 'error');
 }
+
+function selectTier(el) {
   document.querySelectorAll('.tier').forEach(function(t){ t.classList.remove('selected'); });
   el.classList.add('selected');
   selectedTier = { tier:el.dataset.tier, qty:parseInt(el.dataset.qty), price:parseInt(el.dataset.price) };
