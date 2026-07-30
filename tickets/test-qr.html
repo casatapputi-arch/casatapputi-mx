@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR de Prueba — Escáner</title>
+  <style>
+    body { font-family: sans-serif; background: #1a1814; color: #efe6d6; text-align: center; padding: 40px 20px; }
+    h2 { color: #d4af37; margin-bottom: 8px; }
+    p { color: rgba(239,230,214,.6); font-size: .9rem; margin-bottom: 24px; }
+    #qrcode { display: inline-block; background: #fff; padding: 20px; border-radius: 12px; }
+    .token { font-family: monospace; font-size: .75rem; color: rgba(239,230,214,.4); margin-top: 16px; word-break: break-all; }
+    .steps { text-align: left; max-width: 400px; margin: 24px auto; font-size: .85rem; color: rgba(239,230,214,.7); line-height: 1.8; }
+    .steps span { color: #d4af37; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>🔍 QR de Prueba</h2>
+  <p>Escanea este código con tu celular</p>
+  <div id="qrcode"></div>
+  <div class="token">Token: 3b361b0b4c88d16a63539672f051f063</div>
+
+  <div class="steps">
+    <p><span>1.</span> Abre <b>casatapputi.com.mx/tickets/validar.html</b> en tu celular</p>
+    <p><span>2.</span> Permite acceso a la cámara</p>
+    <p><span>3.</span> Apunta la cámara a este QR</p>
+    <p><span>4.</span> Debe mostrar: ✅ ¡Acceso concedido!</p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    new QRCode(document.getElementById('qrcode'), {
+      text: 'https://casatapputi.com.mx/tickets/validar.html?token=3b361b0b4c88d16a63539672f051f063',
+      width: 280, height: 280,
+      colorDark: '#000000', colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  </script>
+</body>
+</html>
