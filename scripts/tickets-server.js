@@ -237,4 +237,7 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, () => {
   console.log(`Tickets API running on port ${PORT}`);
+  if (!MP_ACCESS_TOKEN) console.error('FATAL: MP_ACCESS_TOKEN no configurado — MercadoPago no funcionara');
+  if (!ADMIN_API_KEY) console.error('FATAL: ADMIN_API_KEY no configurado — /tickets/all rechazara todo');
+  if (MP_ACCESS_TOKEN && ADMIN_API_KEY) console.log('MP_ACCESS_TOKEN + ADMIN_API_KEY configurados');
 });
