@@ -22,6 +22,7 @@
   <meta name="twitter:title" content="¡Gracias por tu compra! — Casa Tapputi">
   <meta name="twitter:description" content="Gracias por tu compra en Casa Tapputi. Tu pedido está siendo procesado.">
   <meta name="twitter:image" content="https://casatapputi.com.mx/assets/images/casa-tapputi-logo.webp">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script async src="https://plausible.io/js/pa-KVB5ye4NhSFIsTbFNkW0V.js"></script>
 <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
 <style>
@@ -60,7 +61,9 @@
     display: inline-block;
     background: #fff; padding: 12px; border-radius: 8px;
     margin-bottom: 16px;
+    line-height: 0;
   }
+  .qr-container canvas,
   .qr-container img { display: block; width: 200px; height: 200px; }
   .token-code {
     font-family: 'Courier New', monospace;
@@ -192,16 +195,33 @@ function generarTicketQR(orderId, email) {
 
     var token = data.token;
     var validateUrl = 'https://casatapputi.com.mx/tickets/validar.html?token=' + token;
-    var qrSrc = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(validateUrl);
 
     container.innerHTML =
       '<div class="ticket-card">' +
         '<h3>🎟️ Comprobante Digital</h3>' +
         '<p class="subtitle">Presenta este código QR en la entrada del evento</p>' +
-        '<div class="qr-container"><img src="' + qrSrc + '" alt="QR Ticket" width="200" height="200" /></div>' +
+        '<div class="qr-container" id="qrCanvas"></div>' +
         '<div style="margin-bottom:8px"><span class="token-code">' + token + '</span></div>' +
         '<p class="ticket-note">📱 También puedes mostrar este código. Válido para un solo acceso.</p>' +
       '</div>';
+
+    // Generar QR client-side (sin enviar el token a terceros)
+    try {
+      new QRCode(document.getElementById('qrCanvas'), {
+        text: validateUrl,
+        width: 200,
+        height: 200,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    } catch(e) {
+      // Fallback: imagen desde API externa solo si falla qrcodejs
+      var qrCanvas = document.getElementById('qrCanvas');
+      if (qrCanvas) {
+        qrCanvas.innerHTML = '<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(validateUrl) + '" alt="QR" width="200" height="200" />';
+      }
+    }
   })
   .catch(function() {
     container.innerHTML = '<div class="ticket-error">Error de conexión al generar el comprobante. Intenta recargar la página o guarda tu recibo de MercadoPago.</div>';
@@ -224,15 +244,16 @@ function generarTicketQR(orderId, email) {
     badge.innerHTML = '<span class="status-badge status-approved">PAGO APROBADO</span>';
     mostrarFormularioPostPago();
 
-    // 🎟️ Generar ticket QR con el payment_id como order_id
-    if (orderId) {
-      var email = '';
-      var custStr = sessionStorage.getItem('casatapputi_customer');
-      if (custStr) {
-        try { email = JSON.parse(custStr).email || ''; } catch(e) {}
-      }
-      generarTicketQR(orderId, email);
+    // 🎟️ Generar ticket QR. Usa el payment_id si viene de MP, o un ID único si no.
+    if (!orderId) {
+      orderId = 'manual-' + Date.now();
     }
+    var email = '';
+    var custStr = sessionStorage.getItem('casatapputi_customer');
+    if (custStr) {
+      try { email = JSON.parse(custStr).email || ''; } catch(e) {}
+    }
+    generarTicketQR(orderId, email);
 
   } else if (status === 'pending' || status === 'in_process') {
     title.textContent = '⏳ Pago en proceso';

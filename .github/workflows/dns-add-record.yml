@@ -54,3 +54,15 @@ jobs:
           sleep 5
           RESOLVED=$(dig +short tickets.casatapputi.com.mx A 2>/dev/null || echo "dig not available")
           echo "🔍 DNS lookup: ${RESOLVED}"
+
+      - name: Purge Cloudflare Cache para el nuevo subdominio
+        env:
+          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          echo "🧹 Purgando caché para asegurar propagación inmediata..."
+          PURGE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}/purge_cache" \
+            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            -H "Content-Type: application/json" \
+            -d '{"hosts":["tickets.casatapputi.com.mx"]}')
+          echo "$PURGE" | jq -r 'if .success then "✅ Caché purgado" else "⚠️ " + (.errors[0].message // "sin respuesta") end'
