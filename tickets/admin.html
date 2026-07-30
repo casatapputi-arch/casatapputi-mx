@@ -307,6 +307,8 @@ function renderEventStats() {
 
   allTickets.forEach(function(t) {
     var oid = t.order_id || '';
+    // Solo tickets de Florecer 5
+    if (oid.indexOf('florecer5') !== 0) return;
     // DR tickets: order_id contiene '-dr-' — cada uno es individual
     if (oid.indexOf('-dr-') !== -1) {
       drCount++;
