@@ -121,6 +121,22 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+  // GET /tickets/all — admin endpoint (sin tokens sensibles)
+  if (req.method === 'GET' && pathname === '/tickets/all') {
+    const db = loadDB();
+    const safe = db.map(t => ({
+      id: t.id,
+      order_id: t.order_id,
+      name: t.name || '',
+      last_name: t.last_name || '',
+      whatsapp: t.whatsapp || '',
+      usado: t.usado,
+      creado_en: t.creado_en,
+      usado_en: t.usado_en || null,
+    }));
+    return json(res, 200, safe);
+  }
+
   // GET /tickets/stats
   if (req.method === 'GET' && pathname === '/tickets/stats') {
     const db = loadDB();

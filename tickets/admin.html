@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Tickets — Casa Tapputi</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="../assets/css/main.v4.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../assets/images/casa-tapputi-logo.webp">
+  <script async src="https://plausible.io/js/pa-KVB5ye4NhSFIsTbFNkW0V.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+  <style>
+    .admin-container { max-width:1200px; margin:0 auto; }
+    .login-card {
+      max-width:400px; margin:60px auto; text-align:center;
+      background:rgba(255,255,255,.04); border:1px solid rgba(239,230,214,.12);
+      border-radius:12px; padding:40px 32px;
+    }
+    .login-card h2 { margin:0 0 8px; font-size:1.4rem; }
+    .login-card p { color:var(--tinta-suave); font-size:.9rem; margin:0 0 24px; }
+    .login-card input {
+      width:100%; padding:12px 16px; background:rgba(0,0,0,.3);
+      border:1px solid rgba(239,230,214,.2); border-radius:6px;
+      color:var(--tinta); font-family:inherit; font-size:1rem; text-align:center;
+      margin-bottom:16px;
+    }
+    .login-card input:focus { outline:none; border-color:var(--miel); }
+    .login-card button {
+      width:100%; padding:14px; background:var(--miel); color:#1a1a1a;
+      border:none; border-radius:6px; font-size:1rem; font-weight:600;
+      cursor:pointer; font-family:inherit; transition:background .2s;
+    }
+    .login-card button:hover { background:#c9a52e; }
+    .login-error { color:#ef9a9a; font-size:.85rem; margin-top:12px; display:none; }
+
+    .stats-bar {
+      display:flex; gap:16px; flex-wrap:wrap; justify-content:center; margin-bottom:28px;
+    }
+    .stat-pill {
+      background:rgba(255,255,255,.04); border:1px solid rgba(239,230,214,.1);
+      border-radius:10px; padding:16px 24px; text-align:center; min-width:110px;
+    }
+    .stat-pill .num { font-size:2rem; font-weight:700; color:var(--miel); }
+    .stat-pill .lbl { font-size:.75rem; color:var(--tinta-suave); text-transform:uppercase; letter-spacing:.05em; }
+
+    .filters { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:20px; align-items:center; justify-content:center; }
+    .filters input, .filters select {
+      padding:8px 14px; background:rgba(0,0,0,.3); border:1px solid rgba(239,230,214,.2);
+      border-radius:6px; color:var(--tinta); font-family:inherit; font-size:.88rem;
+    }
+    .filters input:focus, .filters select:focus { outline:none; border-color:var(--miel); }
+    .filters input { min-width:220px; }
+
+    .table-wrap { overflow-x:auto; border-radius:10px; border:1px solid rgba(239,230,214,.08); }
+    table { width:100%; border-collapse:collapse; font-size:.85rem; }
+    th {
+      background:rgba(212,175,55,.08); padding:12px 14px; text-align:left;
+      font-weight:600; color:var(--miel); font-size:.75rem; text-transform:uppercase;
+      letter-spacing:.04em; white-space:nowrap; cursor:pointer;
+    }
+    th:hover { background:rgba(212,175,55,.15); }
+    td { padding:10px 14px; border-bottom:1px solid rgba(239,230,214,.05); color:var(--tinta); }
+    tr:hover td { background:rgba(255,255,255,.02); }
+    .badge {
+      display:inline-block; padding:3px 12px; border-radius:20px;
+      font-size:.72rem; font-weight:600;
+    }
+    .badge-ok { background:rgba(165,214,167,.12); color:#a5d6a7; }
+    .badge-used { background:rgba(255,183,77,.12); color:#ffb74d; }
+    .btn-logout {
+      display:inline-block; padding:8px 20px; background:rgba(229,57,53,.15);
+      color:#ef9a9a; border:1px solid rgba(229,57,53,.2); border-radius:6px;
+      font-size:.82rem; cursor:pointer; font-family:inherit; margin-bottom:20px;
+      transition:all .2s;
+    }
+    .btn-logout:hover { background:rgba(229,57,53,.25); }
+    .empty { text-align:center; padding:40px; color:var(--tinta-suave); }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+<div class="topbar">🔐 Administración de Tickets — Casa Tapputi</div>
+<nav>
+  <div class="nav-inner">
+    <a href="../" class="nav-logo"><img src="../assets/images/casa-tapputi-logo.webp" alt="Casa Tapputi" loading="lazy" /><span class="wordmark">CASA TAPPUTI</span></a>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<main id="main-content">
+<section style="padding-block:50px; min-height:70vh">
+  <div class="container admin-container">
+
+    <!-- LOGIN SCREEN -->
+    <div id="loginScreen" class="login-card">
+      <div style="font-size:3rem; margin-bottom:12px">🔐</div>
+      <h2>Acceso Restringido</h2>
+      <p>Panel de administración de boletos</p>
+      <input type="password" id="passwordInput" placeholder="Contraseña" onkeydown="if(event.key==='Enter')login()" />
+      <button onclick="login()">Ingresar</button>
+      <div class="login-error" id="loginError">Contraseña incorrecta</div>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div id="adminPanel" style="display:none">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:24px">
+        <h2 style="margin:0; font-size:1.6rem">🎟️ Historial de Boletos</h2>
+        <button class="btn-logout" onclick="logout()">🚪 Cerrar sesión</button>
+      </div>
+
+      <div class="stats-bar" id="statsBar"></div>
+
+      <div class="filters">
+        <input type="text" id="searchInput" placeholder="🔍 Buscar por nombre, apellido o teléfono..." oninput="renderTable()" />
+        <select id="filterUsed" onchange="renderTable()">
+          <option value="all">Todos</option>
+          <option value="false">Pendientes</option>
+          <option value="true">Usados</option>
+        </select>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th onclick="sortTable('id')">ID ↕</th>
+              <th onclick="sortTable('name')">Nombre ↕</th>
+              <th onclick="sortTable('last_name')">Apellido ↕</th>
+              <th onclick="sortTable('whatsapp')">WhatsApp ↕</th>
+              <th onclick="sortTable('order_id')">Evento ↕</th>
+              <th onclick="sortTable('creado_en')">Creado ↕</th>
+              <th onclick="sortTable('usado')">Estado ↕</th>
+              <th onclick="sortTable('usado_en')">Usado ↕</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <tr><td colspan="8" class="empty">Cargando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+</main>
+<footer>
+  <div class="container">
+    <div class="footer-bottom" style="border-top:0;margin-top:0;justify-content:center">
+      <span>© 2026 Casa Tapputi — Admin</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+<script>
+var TICKETS_API = 'https://tickets.casatapputi.com.mx';
+var PASSWORD_HASH = '7f9e1b9c3e3a7b4e5c6d7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8';
+var allTickets = [];
+var sortCol = 'id';
+var sortDir = 'desc';
+
+// ── Login ──────────────────────────────────────────────
+async function sha256(str) {
+  var buf = new TextEncoder().encode(str);
+  var hash = await crypto.subtle.digest('SHA-256', buf);
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function login() {
+  var pw = document.getElementById('passwordInput').value;
+  var hash = await sha256(pw);
+  if (hash === PASSWORD_HASH) {
+    sessionStorage.setItem('admin_auth', '1');
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    loadData();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem('admin_auth');
+  location.reload();
+}
+
+// Auto-login si ya autenticado
+if (sessionStorage.getItem('admin_auth') === '1') {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminPanel').style.display = 'block';
+  loadData();
+}
+
+// ── Data ───────────────────────────────────────────────
+function loadData() {
+  fetch(TICKETS_API + '/tickets/all')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      allTickets = data;
+      renderStats();
+      renderTable();
+    })
+    .catch(function() {
+      document.getElementById('tableBody').innerHTML = '<tr><td colspan="8" class="empty">❌ Error de conexión</td></tr>';
+    });
+}
+
+function renderStats() {
+  var total = allTickets.length;
+  var usados = allTickets.filter(function(t) { return t.usado; }).length;
+  var pendientes = total - usados;
+  document.getElementById('statsBar').innerHTML =
+    '<div class="stat-pill"><div class="num">' + total + '</div><div class="lbl">Total</div></div>' +
+    '<div class="stat-pill"><div class="num">' + pendientes + '</div><div class="lbl">Pendientes</div></div>' +
+    '<div class="stat-pill"><div class="num">' + usados + '</div><div class="lbl">Usados</div></div>' +
+    '<div class="stat-pill"><div class="num">' + (total > 0 ? Math.round(usados/total*100) : 0) + '%</div><div class="lbl">Tasa de uso</div></div>';
+}
+
+function renderTable() {
+  var search = (document.getElementById('searchInput').value || '').toLowerCase();
+  var filterUsed = document.getElementById('filterUsed').value;
+
+  var filtered = allTickets.filter(function(t) {
+    if (filterUsed === 'true' && !t.usado) return false;
+    if (filterUsed === 'false' && t.usado) return false;
+    if (search) {
+      var txt = (t.name + ' ' + t.last_name + ' ' + t.whatsapp + ' ' + t.order_id).toLowerCase();
+      if (txt.indexOf(search) === -1) return false;
+    }
+    return true;
+  });
+
+  // Sort
+  filtered.sort(function(a, b) {
+    var va = a[sortCol] || '';
+    var vb = b[sortCol] || '';
+    if (typeof va === 'boolean') { va = va ? 1 : 0; vb = vb ? 1 : 0; }
+    if (va < vb) return sortDir === 'asc' ? -1 : 1;
+    if (va > vb) return sortDir === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  var html = '';
+  if (filtered.length === 0) {
+    html = '<tr><td colspan="8" class="empty">Sin resultados</td></tr>';
+  } else {
+    filtered.forEach(function(t) {
+      html +=
+        '<tr>' +
+          '<td>' + t.id + '</td>' +
+          '<td>' + esc(t.name) + '</td>' +
+          '<td>' + esc(t.last_name) + '</td>' +
+          '<td><a href=\"https://wa.me/52' + (t.whatsapp || '').replace(/[^0-9]/g,'') + '\" target=\"_blank\" style=\"color:var(--tinta-suave)\">' + esc(t.whatsapp) + '</a></td>' +
+          '<td style=\"font-size:.78rem;color:var(--tinta-suave)\">' + esc(t.order_id) + '</td>' +
+          '<td style=\"font-size:.78rem\">' + fmtDate(t.creado_en) + '</td>' +
+          '<td>' + (t.usado ? '<span class=\"badge badge-used\">Usado</span>' : '<span class=\"badge badge-ok\">Válido</span>') + '</td>' +
+          '<td style=\"font-size:.78rem\">' + (t.usado_en ? fmtDate(t.usado_en) : '—') + '</td>' +
+        '</tr>';
+    });
+  }
+  document.getElementById('tableBody').innerHTML = html;
+}
+
+function sortTable(col) {
+  if (sortCol === col) { sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
+  else { sortCol = col; sortDir = 'asc'; }
+  renderTable();
+}
+
+function esc(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function fmtDate(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleString('es-MX', { dateStyle:'short', timeStyle:'short' });
+}
+</script>
+</body>
+</html>
