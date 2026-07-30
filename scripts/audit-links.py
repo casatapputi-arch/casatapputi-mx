@@ -20,8 +20,11 @@ def extract_internal_links(html_path: Path):
     for h in hrefs:
         # Ignorar anchors puros
         if h.startswith("#"): continue
-        # Resolver ruta relativa
-        resolved = (rel_dir / h).resolve()
+        # Rutas absolutas (empiezan con /): resolver desde BASE, no del filesystem
+        if h.startswith("/"):
+            resolved = (BASE / h.lstrip("/")).resolve()
+        else:
+            resolved = (rel_dir / h).resolve()
         try:
             relative = resolved.relative_to(BASE)
             links.append(str(relative))
@@ -31,7 +34,9 @@ def extract_internal_links(html_path: Path):
 
 def link_exists(link: str) -> bool:
     """Verifica si un link resuelto existe como archivo o directorio con index.html."""
-    path = BASE / link
+    # Normalizar: quitar leading / para que sea relativo a BASE
+    clean = link.lstrip("/")
+    path = BASE / clean
     if path.exists():
         return True
     # Si es directorio, verificar si tiene index.html
