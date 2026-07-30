@@ -12,57 +12,55 @@ jobs:
           CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
-          # IP pública del VPS (Oracle Cloud — mosheg-server)
+          set -e
           VPS_IP="129.213.83.24"
           RECORD_NAME="tickets.casatapputi.com.mx"
 
-          echo "🌐 Creando registro A: ${RECORD_NAME} → ${VPS_IP}"
+          echo "🌐 Creando registro A: ${RECORD_NAME} -> ${VPS_IP}"
+          echo "   Zone ID: ${CLOUDFLARE_ZONE_ID:0:8}... (${#CLOUDFLARE_ZONE_ID} chars)"
 
-          # Primero verificamos si ya existe
-          EXISTING=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}/dns_records?type=A&name=${RECORD_NAME}" \
-            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+          # Verificar si ya existe
+          EXISTING=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/dns_records?type=A&name=$RECORD_NAME" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
             -H "Content-Type: application/json")
+
+          echo "   Existing check: $(echo "$EXISTING" | jq -r '.result | length') records found"
 
           RECORD_ID=$(echo "$EXISTING" | jq -r '.result[0].id // empty')
 
           if [ -n "$RECORD_ID" ]; then
-            echo "⚠️  El registro ya existe (ID: ${RECORD_ID}). Actualizando IP..."
-            RESPONSE=$(curl -s -X PATCH "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}/dns_records/${RECORD_ID}" \
-              -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            echo "   Updating record $RECORD_ID..."
+            RESPONSE=$(curl -s -X PATCH "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/dns_records/$RECORD_ID" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
               -H "Content-Type: application/json" \
-              -d "{\"type\":\"A\",\"name\":\"tickets\",\"content\":\"${VPS_IP}\",\"ttl\":1,\"proxied\":true}")
+              -d "{\"type\":\"A\",\"name\":\"tickets\",\"content\":\"$VPS_IP\",\"ttl\":1,\"proxied\":true}")
           else
-            echo "✨ Creando nuevo registro..."
-            RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}/dns_records" \
-              -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            echo "   Creating new record..."
+            RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/dns_records" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
               -H "Content-Type: application/json" \
-              -d "{\"type\":\"A\",\"name\":\"tickets\",\"content\":\"${VPS_IP}\",\"ttl\":1,\"proxied\":true}")
+              -d "{\"type\":\"A\",\"name\":\"tickets\",\"content\":\"$VPS_IP\",\"ttl\":1,\"proxied\":true}")
           fi
 
           SUCCESS=$(echo "$RESPONSE" | jq -r '.success')
           if [ "$SUCCESS" = "true" ]; then
-            echo "✅ DNS registrado: tickets.casatapputi.com.mx → ${VPS_IP} (proxied)"
+            echo "✅ DNS registrado: $RECORD_NAME -> $VPS_IP (proxied)"
             echo "$RESPONSE" | jq '.result | {name, type, content, proxied}'
           else
             echo "❌ Error: $(echo "$RESPONSE" | jq -r '.errors[0].message // "unknown"')"
+            echo "Full response:"
+            echo "$RESPONSE" | jq .
             exit 1
           fi
-
-          # Verificar propagación (opcional, solo log)
-          echo ""
-          echo "⏳ Esperando 5s para verificar propagación inicial..."
-          sleep 5
-          RESOLVED=$(dig +short tickets.casatapputi.com.mx A 2>/dev/null || echo "dig not available")
-          echo "🔍 DNS lookup: ${RESOLVED}"
 
       - name: Purge Cloudflare Cache para el nuevo subdominio
         env:
           CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
-          echo "🧹 Purgando caché para asegurar propagación inmediata..."
-          PURGE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}/purge_cache" \
-            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+          echo "🧹 Purgando caché..."
+          PURGE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/purge_cache" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
             -H "Content-Type: application/json" \
             -d '{"hosts":["tickets.casatapputi.com.mx"]}')
-          echo "$PURGE" | jq -r 'if .success then "✅ Caché purgado" else "⚠️ " + (.errors[0].message // "sin respuesta") end'
+          echo "$PURGE" | jq -r 'if .success then "✅ Cache purgado" else "⚠️ " + (.errors[0].message // "sin respuesta") end'
