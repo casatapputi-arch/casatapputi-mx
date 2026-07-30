@@ -20,6 +20,7 @@ jobs:
           sleep 60
 
       - name: Purge Cache en Cloudflare API v4
+        continue-on-error: true
         env:
           CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
