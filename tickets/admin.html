@@ -246,17 +246,18 @@ function renderTable() {
     html = '<tr><td colspan="8" class="empty">Sin resultados</td></tr>';
   } else {
     filtered.forEach(function(t) {
+      var waNum = (t.whatsapp || '').replace(/[^0-9]/g,'');
+      if (waNum.startsWith('52')) waNum = waNum.slice(2);
       html +=
         '<tr>' +
           '<td>' + t.id + '</td>' +
           '<td>' + esc(t.name) + '</td>' +
           '<td>' + esc(t.last_name) + '</td>' +
-          'var waNum = (t.whatsapp || '').replace(/[^0-9]/g,''); if (waNum.startsWith('52')) waNum = waNum.slice(2);
-      html += '<td><a href=\"https://wa.me/52' + waNum + '\" target=\"_blank\" style=\"color:var(--tinta-suave)\">' + esc(t.whatsapp) + '</a></td>' +
-          '<td style=\"font-size:.78rem;color:var(--tinta-suave)\">' + esc(t.order_id) + '</td>' +
-          '<td style=\"font-size:.78rem\">' + fmtDate(t.creado_en) + '</td>' +
-          '<td>' + (t.usado ? '<span class=\"badge badge-used\">Usado</span>' : '<span class=\"badge badge-ok\">Válido</span>') + '</td>' +
-          '<td style=\"font-size:.78rem\">' + (t.usado_en ? fmtDate(t.usado_en) : '—') + '</td>' +
+          '<td><a href="https://wa.me/52' + waNum + '" target="_blank" style="color:var(--tinta-suave)">' + esc(t.whatsapp) + '</a></td>' +
+          '<td style="font-size:.78rem;color:var(--tinta-suave)">' + esc(t.order_id) + '</td>' +
+          '<td style="font-size:.78rem">' + fmtDate(t.creado_en) + '</td>' +
+          '<td>' + (t.usado ? '<span class="badge badge-used">Usado</span>' : '<span class="badge badge-ok">Válido</span>') + '</td>' +
+          '<td style="font-size:.78rem">' + (t.usado_en ? fmtDate(t.usado_en) : '—') + '</td>' +
         '</tr>';
     });
   }
