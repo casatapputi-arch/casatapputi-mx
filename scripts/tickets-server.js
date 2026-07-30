@@ -10,7 +10,7 @@ const DB_PATH = path.join(__dirname, 'tickets.json');
 const TOKEN_BYTES = 16;
 
 // MercadoPago — TEST sandbox (cambiar a APP_USR-... para producción)
-const MP_ACCESS_TOKEN = 'TEST-1483647169966812-071518-81581533140d35b4daa1c17d1e4e4280-1465544737';
+const MP_ACCESS_TOKEN = 'APP_USR-110789834506595-072415-cdcb7d781561afac10a0a01125652536-3427066936';
 
 function loadDB() {
   try { return JSON.parse(fs.readFileSync(DB_PATH, 'utf8')); } catch { return []; }
