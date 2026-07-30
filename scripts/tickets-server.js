@@ -7,6 +7,7 @@ const https = require('https');
 
 const PORT = 3001;
 const DB_PATH = path.join(__dirname, 'tickets.json');
+const DISCOUNTS_PATH = path.join(__dirname, 'discounts.json');
 const TOKEN_BYTES = 16;
 
 // MercadoPago — token en variable de entorno (nunca hardcodeado)
@@ -25,6 +26,14 @@ function loadDB() {
 
 function saveDB(db) {
   fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2), 'utf8');
+}
+
+function loadDiscounts() {
+  try { return JSON.parse(fs.readFileSync(DISCOUNTS_PATH, 'utf8')); } catch { return []; }
+}
+
+function saveDiscounts(discounts) {
+  fs.writeFileSync(DISCOUNTS_PATH, JSON.stringify(discounts, null, 2), 'utf8');
 }
 
 function json(res, code, data) {
@@ -167,6 +176,43 @@ const server = http.createServer(async (req, res) => {
     const total = db.length;
     const usados = db.filter(t => t.usado).length;
     return json(res, 200, { total, usados });
+  }
+
+  // POST /tickets/validate-discount
+  if (req.method === 'POST' && pathname === '/tickets/validate-discount') {
+    const body = await parseBody(req);
+    if (!body || !body.code) {
+      return json(res, 400, { error: 'code required' });
+    }
+    const code = body.code.toUpperCase().trim();
+    const discounts = loadDiscounts();
+    const discount = discounts.find(d => d.code === code);
+    if (!discount) return json(res, 404, { error: 'Código no válido' });
+    if (discount.used) return json(res, 409, { error: 'Este código ya fue usado', usado_en: discount.usado_en });
+    // No marcar como usado todavía — se marca al completar la compra
+    return json(res, 200, {
+      valid: true,
+      type: discount.type,
+      value: discount.value,
+      desc: discount.desc
+    });
+  }
+
+  // POST /tickets/apply-discount — marcar código como usado tras compra exitosa
+  if (req.method === 'POST' && pathname === '/tickets/apply-discount') {
+    const body = await parseBody(req);
+    if (!body || !body.code) {
+      return json(res, 400, { error: 'code required' });
+    }
+    const code = body.code.toUpperCase().trim();
+    const discounts = loadDiscounts();
+    const discount = discounts.find(d => d.code === code);
+    if (!discount) return json(res, 404, { error: 'Código no encontrado' });
+    if (discount.used) return json(res, 409, { error: 'Este código ya fue usado', usado_en: discount.usado_en });
+    discount.used = true;
+    discount.usado_en = new Date().toISOString();
+    saveDiscounts(discounts);
+    return json(res, 200, { applied: true, code: discount.code });
   }
 
   // POST /tickets/generate
