@@ -5,7 +5,8 @@ import re, os, sys
 from pathlib import Path
 from collections import Counter
 
-BASE = Path("/home/enrique/casatapputi-mx")
+# Usar GITHUB_WORKSPACE en CI, o el directorio actual como fallback
+BASE = Path(os.environ.get("GITHUB_WORKSPACE", os.getcwd()))
 
 def find_all_html():
     return sorted(f for f in BASE.rglob("*.html") if ".git" not in str(f))
