@@ -3,10 +3,14 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
+const https = require('https');
 
 const PORT = 3001;
 const DB_PATH = path.join(__dirname, 'tickets.json');
 const TOKEN_BYTES = 16;
+
+// MercadoPago — TEST sandbox (cambiar a APP_USR-... para producción)
+const MP_ACCESS_TOKEN = 'TEST-1483647169966812-071518-81581533140d35b4daa1c17d1e4e4280-1465544737';
 
 function loadDB() {
   try { return JSON.parse(fs.readFileSync(DB_PATH, 'utf8')); } catch { return []; }
@@ -36,6 +40,31 @@ function parseBody(req) {
   });
 }
 
+function mpRequest(method, endpoint, body) {
+  return new Promise((resolve, reject) => {
+    const data = body ? JSON.stringify(body) : null;
+    const options = {
+      hostname: 'api.mercadopago.com',
+      path: endpoint,
+      method: method,
+      headers: {
+        'Authorization': 'Bearer ' + MP_ACCESS_TOKEN,
+        'Content-Type': 'application/json',
+      }
+    };
+    const req = https.request(options, (res) => {
+      let raw = '';
+      res.on('data', c => raw += c);
+      res.on('end', () => {
+        try { resolve(JSON.parse(raw)); } catch { resolve(null); }
+      });
+    });
+    req.on('error', reject);
+    if (data) req.write(data);
+    req.end();
+  });
+}
+
 const server = http.createServer(async (req, res) => {
   if (req.method === 'OPTIONS') {
     res.writeHead(204, {
@@ -48,6 +77,49 @@ const server = http.createServer(async (req, res) => {
 
   const parsed = url.parse(req.url, true);
   const pathname = parsed.pathname;
+
+  // POST /tickets/create-preference
+  if (req.method === 'POST' && pathname === '/tickets/create-preference') {
+    const body = await parseBody(req);
+    if (!body || !body.amount || !body.quantity) {
+      return json(res, 400, { error: 'amount and quantity required' });
+    }
+
+    // Construir título descriptivo con los nombres si vienen
+    let title = 'Florecer 5ª Edición — ' + body.quantity + ' boleto(s)';
+    if (body.attendees && body.attendees.length > 0) {
+      const names = body.attendees.map(a => a.name).join(', ');
+      title += ' — ' + names;
+    }
+
+    try {
+      const preference = await mpRequest('POST', '/checkout/preferences', {
+        items: [{
+          title: title,
+          quantity: 1,
+          unit_price: body.amount,
+          currency_id: 'MXN',
+        }],
+        back_urls: {
+          success: 'https://casatapputi.com.mx/eventos/florecer-5/?status=approved',
+          failure: 'https://casatapputi.com.mx/eventos/florecer-5/?status=rejected',
+          pending: 'https://casatapputi.com.mx/eventos/florecer-5/?status=pending',
+        },
+        auto_return: 'approved',
+        external_reference: body.event || 'florecer-5',
+      });
+
+      if (preference && preference.init_point) {
+        return json(res, 200, { checkout_url: preference.init_point, preference_id: preference.id });
+      } else {
+        console.error('MP preference error:', JSON.stringify(preference));
+        return json(res, 500, { error: 'No se pudo crear la preferencia de pago' });
+      }
+    } catch(e) {
+      console.error('MP create-preference error:', e);
+      return json(res, 500, { error: 'Error al conectar con MercadoPago' });
+    }
+  }
 
   // GET /tickets/stats
   if (req.method === 'GET' && pathname === '/tickets/stats') {
@@ -70,6 +142,9 @@ const server = http.createServer(async (req, res) => {
       id: db.length + 1,
       order_id: body.order_id,
       email: body.email || '',
+      name: body.name || '',
+      last_name: body.last_name || '',
+      whatsapp: body.whatsapp || '',
       token_hash: tokenHash,
       raw_token: rawToken,
       usado: false,
@@ -93,6 +168,8 @@ const server = http.createServer(async (req, res) => {
       order_id: ticket.order_id,
       creado_en: ticket.creado_en,
       usado_en: ticket.usado_en || null,
+      name: ticket.name || '',
+      last_name: ticket.last_name || '',
     });
   }
 
