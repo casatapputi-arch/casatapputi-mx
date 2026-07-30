@@ -215,6 +215,27 @@ const server = http.createServer(async (req, res) => {
     return json(res, 200, { applied: true, code: discount.code });
   }
 
+  // GET /tickets/discounts — admin endpoint (requiere X-Admin-Key)
+  if (req.method === 'GET' && pathname === '/tickets/discounts') {
+    if (!requireAdmin(req)) return json(res, 401, { error: 'No autorizado' });
+    const discounts = loadDiscounts();
+    // Agrupar por tipo de descuento para mejor visibilidad
+    const summary = {
+      total: discounts.length,
+      usados: discounts.filter(d => d.used).length,
+      disponibles: discounts.filter(d => !d.used).length,
+      codigos: discounts.map(d => ({
+        code: d.code,
+        type: d.type,
+        value: d.value,
+        desc: d.desc,
+        used: d.used,
+        usado_en: d.usado_en || null
+      }))
+    };
+    return json(res, 200, summary);
+  }
+
   // POST /tickets/generate
   if (req.method === 'POST' && pathname === '/tickets/generate') {
     const body = await parseBody(req);
