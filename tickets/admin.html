@@ -186,6 +186,7 @@
 <script>
 var TICKETS_API = 'https://tickets.casatapputi.com.mx';
 var PASSWORD_HASH = '3ffe797c4d692ca00105235dd0bd933a26cc99f1db52a59df1f835deed01eb42';
+var ADMIN_API_KEY = '66228e435892f27fb144b1f85f536b99';
 var allTickets = [];
 var sortCol = 'id';
 var sortDir = 'desc';
@@ -224,7 +225,9 @@ if (sessionStorage.getItem('admin_auth') === '1') {
 
 // ── Data ───────────────────────────────────────────────
 function loadData() {
-  fetch(TICKETS_API + '/tickets/all')
+  fetch(TICKETS_API + '/tickets/all', {
+    headers: { 'X-Admin-Key': ADMIN_API_KEY }
+  })
     .then(function(r) { return r.json(); })
     .then(function(data) {
       allTickets = data;

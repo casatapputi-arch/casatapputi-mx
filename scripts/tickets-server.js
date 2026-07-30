@@ -9,8 +9,15 @@ const PORT = 3001;
 const DB_PATH = path.join(__dirname, 'tickets.json');
 const TOKEN_BYTES = 16;
 
-// MercadoPago — TEST sandbox (cambiar a APP_USR-... para producción)
-const MP_ACCESS_TOKEN = 'APP_USR-110789834506595-072415-cdcb7d781561afac10a0a01125652536-3427066936';
+// MercadoPago — token en variable de entorno (nunca hardcodeado)
+const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN || '';
+// Admin API key — compartida entre server y admin.html para proteger /tickets/all
+const ADMIN_API_KEY = process.env.ADMIN_API_KEY || '';
+
+function requireAdmin(req) {
+  const key = (req.headers['x-admin-key'] || '').trim();
+  return ADMIN_API_KEY && key === ADMIN_API_KEY;
+}
 
 function loadDB() {
   try { return JSON.parse(fs.readFileSync(DB_PATH, 'utf8')); } catch { return []; }
@@ -25,7 +32,7 @@ function json(res, code, data) {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': 'https://casatapputi.com.mx',
     'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Key',
   });
   res.end(JSON.stringify(data));
 }
@@ -70,7 +77,7 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(204, {
       'Access-Control-Allow-Origin': 'https://casatapputi.com.mx',
       'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Key',
     });
     return res.end();
   }
@@ -121,8 +128,9 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // GET /tickets/all — admin endpoint (sin tokens sensibles)
+  // GET /tickets/all — admin endpoint (requiere X-Admin-Key)
   if (req.method === 'GET' && pathname === '/tickets/all') {
+    if (!requireAdmin(req)) return json(res, 401, { error: 'No autorizado' });
     const db = loadDB();
     const safe = db.map(t => ({
       id: t.id,
@@ -152,8 +160,9 @@ const server = http.createServer(async (req, res) => {
     return json(res, 200, { valido: true, usado: true, usado_en: ticket.usado_en, name: ticket.name || '', last_name: ticket.last_name || '' });
   }
 
-  // GET /tickets/stats
+  // GET /tickets/stats (requiere X-Admin-Key)
   if (req.method === 'GET' && pathname === '/tickets/stats') {
+    if (!requireAdmin(req)) return json(res, 401, { error: 'No autorizado' });
     const db = loadDB();
     const total = db.length;
     const usados = db.filter(t => t.usado).length;
