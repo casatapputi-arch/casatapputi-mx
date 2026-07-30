@@ -83,6 +83,24 @@
       transition:all .2s;
     }
     .btn-csv:hover { background:rgba(76,175,80,.25); }
+    .event-stats { margin-bottom:28px; }
+    .event-stats h3 { font-size:1rem; color:var(--miel); margin:0 0 16px; text-align:center; }
+    .event-cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px; }
+    .event-card {
+      background:rgba(255,255,255,.03); border:1px solid rgba(239,230,214,.1);
+      border-radius:10px; padding:18px; text-align:center;
+    }
+    .event-card .tipo { font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; color:var(--tinta-suave); margin-bottom:4px; }
+    .event-card .boletos { font-size:2rem; font-weight:700; color:var(--miel); }
+    .event-card .compras { font-size:.75rem; color:var(--tinta-suave); margin-top:2px; }
+    .event-card .ingreso { font-size:.85rem; color:#a5d6a7; margin-top:8px; font-weight:600; }
+    .event-card.dr .boletos { color:#a5d6a7; }
+    .event-total {
+      text-align:center; margin-top:16px; padding:12px;
+      background:rgba(165,214,167,.05); border:1px solid rgba(165,214,167,.12);
+      border-radius:8px; font-size:.9rem; color:#a5d6a7;
+    }
+    .event-total strong { font-size:1.2rem; }
     .empty { text-align:center; padding:40px; color:var(--tinta-suave); }
   </style>
 </head>
@@ -120,6 +138,8 @@
       </div>
 
       <div class="stats-bar" id="statsBar"></div>
+
+      <div class="event-stats" id="eventStats"></div>
 
       <div class="filters">
         <input type="text" id="searchInput" placeholder="🔍 Buscar por nombre, apellido o teléfono..." oninput="renderTable()" />
@@ -209,6 +229,7 @@ function loadData() {
     .then(function(data) {
       allTickets = data;
       renderStats();
+      renderEventStats();
       renderTable();
     })
     .catch(function() {
@@ -278,6 +299,68 @@ function sortTable(col) {
   if (sortCol === col) { sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
   else { sortCol = col; sortDir = 'asc'; }
   renderTable();
+}
+
+function renderEventStats() {
+  var groups = {};
+  var drCount = 0;
+
+  allTickets.forEach(function(t) {
+    var oid = t.order_id || '';
+    // DR tickets: order_id contiene '-dr-' — cada uno es individual
+    if (oid.indexOf('-dr-') !== -1) {
+      drCount++;
+      return;
+    }
+    // Paid tickets: agrupar por timestamp (todo antes del último '-{idx}')
+    var lastDash = oid.lastIndexOf('-');
+    if (lastDash > 0) {
+      var key = oid.substring(0, lastDash);
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(t);
+    }
+  });
+
+  var individual = 0, pack3 = 0, pack5 = 0;
+  var comprasIndividual = 0, comprasPack3 = 0, comprasPack5 = 0;
+
+  Object.keys(groups).forEach(function(key) {
+    var size = groups[key].length;
+    if (size === 1)      { individual += size; comprasIndividual++; }
+    else if (size === 3) { pack3 += size; comprasPack3++; }
+    else if (size === 5) { pack5 += size; comprasPack5++; }
+    // Si no coincide con ningún tier conocido, contar como individuales
+    else { individual += size; comprasIndividual++; }
+  });
+
+  var totalRevenue = (comprasIndividual * 200) + (comprasPack3 * 500) + (comprasPack5 * 800);
+  var hayDatos = (drCount + individual + pack3 + pack5) > 0;
+
+  var html = '<h3>📊 Florecer — 5ª Edición</h3><div class="event-cards">';
+
+  if (individual > 0) {
+    html += '<div class="event-card"><div class="tipo">🎫 Individual</div><div class="boletos">' + individual + '</div><div class="compras">' + comprasIndividual + ' compra(s) × $200</div><div class="ingreso">+' + fmtPesos(comprasIndividual * 200) + '</div></div>';
+  }
+  if (pack3 > 0) {
+    html += '<div class="event-card"><div class="tipo">🎫🎫🎫 Pack 3</div><div class="boletos">' + pack3 + '</div><div class="compras">' + comprasPack3 + ' compra(s) × $500</div><div class="ingreso">+' + fmtPesos(comprasPack3 * 500) + '</div></div>';
+  }
+  if (pack5 > 0) {
+    html += '<div class="event-card"><div class="tipo">🎫🎫🎫🎫🎫 Pack 5</div><div class="boletos">' + pack5 + '</div><div class="compras">' + comprasPack5 + ' compra(s) × $800</div><div class="ingreso">+' + fmtPesos(comprasPack5 * 800) + '</div></div>';
+  }
+  if (drCount > 0) {
+    html += '<div class="event-card dr"><div class="tipo">🥼 Boleto DR</div><div class="boletos">' + drCount + '</div><div class="compras">' + drCount + ' persona(s)</div><div class="ingreso">Gratuito</div></div>';
+  }
+  html += '</div>';
+
+  if (hayDatos) {
+    html += '<div class="event-total">💰 Total recaudado: <strong>' + fmtPesos(totalRevenue) + '</strong></div>';
+  }
+
+  document.getElementById('eventStats').innerHTML = html;
+}
+
+function fmtPesos(n) {
+  return '$' + n.toLocaleString('es-MX') + ' MXN';
 }
 
 function esc(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
