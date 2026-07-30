@@ -108,10 +108,29 @@
     .event-details .detail-item .label { font-size:.78rem; color:var(--tinta-suave); }
     .event-details .detail-item .value { font-weight:600; }
 
-    @media (max-width:600px) {
-      .tiers { grid-template-columns:1fr; }
-      .qr-card { flex-direction:column; }
+    .discount-section { max-width:400px; margin:0 auto 28px; display:none; }
+    .discount-section.active { display:block; }
+    .discount-row { display:flex; gap:8px; }
+    .discount-row input {
+      flex:1; padding:10px 14px; background:rgba(0,0,0,.3);
+      border:1px solid rgba(239,230,214,.2); border-radius:6px;
+      color:var(--tinta); font-family:inherit; font-size:.9rem; text-transform:uppercase;
     }
+    .discount-row input:focus { outline:none; border-color:var(--miel); }
+    .discount-row button {
+      padding:10px 18px; background:rgba(165,214,167,.15); color:#a5d6a7;
+      border:1px solid rgba(165,214,167,.2); border-radius:6px;
+      font-size:.85rem; font-weight:600; cursor:pointer; font-family:inherit;
+      transition:all .2s; white-space:nowrap;
+    }
+    .discount-row button:hover { background:rgba(165,214,167,.25); }
+    .discount-row button:disabled { opacity:.5; cursor:not-allowed; }
+    .discount-result { margin-top:12px; padding:10px 14px; border-radius:6px; font-size:.85rem; text-align:center; display:none; }
+    .discount-result.show { display:block; }
+    .discount-result.success { background:rgba(165,214,167,.08); color:#a5d6a7; border:1px solid rgba(165,214,167,.12); }
+    .discount-result.error { background:rgba(229,57,53,.08); color:#ef9a9a; border:1px solid rgba(229,57,53,.12); }
+    .discount-result .old-price { text-decoration:line-through; color:var(--tinta-suave); margin-right:8px; }
+    .discount-result .new-price { font-size:1.1rem; font-weight:700; color:var(--miel); }
   </style>
 </head>
 <body>
@@ -192,6 +211,16 @@
       </div>
     </div>
 
+    <!-- CÓDIGO DE DESCUENTO -->
+    <div class="discount-section" id="discountSection">
+      <p style="text-align:center;color:var(--tinta-suave);font-size:.82rem;margin-bottom:8px">¿Tienes un código de descuento?</p>
+      <div class="discount-row">
+        <input type="text" id="discountInput" placeholder="Ej: FLORECER101" maxlength="20" />
+        <button id="discountBtn" onclick="applyDiscountCode()">Aplicar</button>
+      </div>
+      <div class="discount-result" id="discountResult"></div>
+    </div>
+
     <!-- FORMULARIO DINÁMICO -->
     <div class="form-section" id="formSection">
       <h3 style="text-align:center; color:var(--miel); margin-bottom:20px" id="formTitle">Datos de los asistentes</h3>
@@ -230,11 +259,99 @@ var MP_PUBLIC_KEY = 'APP_USR-5215e212-ea55-41df-ad06-c828ebdfc562';
 var mp = new MercadoPago(MP_PUBLIC_KEY);
 
 var selectedTier = null;
+var appliedDiscount = null;  // { code, type, value }
 
-function selectTier(el) {
+function getPrecioFinal() {
+  var price = selectedTier.price;
+  if (!appliedDiscount) return price;
+  if (appliedDiscount.type === 'percent') {
+    return Math.max(0, price - Math.round(price * appliedDiscount.value / 100));
+  }
+  if (appliedDiscount.type === 'fixed') {
+    return Math.max(0, price - appliedDiscount.value);
+  }
+  return price;
+}
+
+function updatePrecioFinal() {
+  var btn = document.getElementById('btnComprar');
+  var finalPrice = getPrecioFinal();
+  if (appliedDiscount && (appliedDiscount.type !== 'percent' || appliedDiscount.value !== 100)) {
+    btn.textContent = 'Pagar $' + finalPrice + ' MXN · MercadoPago 💳';
+    btn.className = 'btn-primary';
+    btn.style.background = '';
+  } else if (appliedDiscount && appliedDiscount.type === 'percent' && appliedDiscount.value === 100) {
+    btn.textContent = 'Obtener boletos gratis 🎫';
+    btn.className = 'btn-primary';
+    btn.style.background = '#a5d6a7';
+  } else {
+    btn.textContent = 'Pagar $' + finalPrice + ' MXN · MercadoPago 💳';
+    btn.className = 'btn-primary';
+    btn.style.background = '';
+  }
+}
+
+function applyDiscountCode() {
+  var code = document.getElementById('discountInput').value.trim();
+  var result = document.getElementById('discountResult');
+  var btn = document.getElementById('discountBtn');
+
+  if (!code) { showDiscountResult('Ingresa un código', 'error'); return; }
+  if (!selectedTier) { showDiscountResult('Selecciona un tier primero', 'error'); return; }
+
+  btn.disabled = true;
+  btn.textContent = '...';
+  result.className = 'discount-result';
+
+  fetch(TICKETS_API + '/tickets/validate-discount', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ code: code })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    btn.disabled = false;
+    btn.textContent = 'Aplicar';
+
+    if (data.error) {
+      showDiscountResult(data.error, 'error');
+      appliedDiscount = null;
+      return;
+    }
+
+    appliedDiscount = { code: code, type: data.type, value: data.value };
+    var finalPrice = getPrecioFinal();
+    var oldPrice = selectedTier.price;
+    var descText = data.desc;
+
+    if (finalPrice === 0) {
+      showDiscountResult('<span class="old-price">$' + oldPrice + '</span> <span class="new-price">¡GRATIS!</span> — ' + descText, 'success');
+    } else {
+      showDiscountResult('<span class="old-price">$' + oldPrice + '</span> <span class="new-price">$' + finalPrice + ' MXN</span> — ' + descText, 'success');
+    }
+    updatePrecioFinal();
+  })
+  .catch(function(){
+    btn.disabled = false;
+    btn.textContent = 'Aplicar';
+    showDiscountResult('Error de conexión', 'error');
+  });
+}
+
+function showDiscountResult(msg, type) {
+  var el = document.getElementById('discountResult');
+  el.innerHTML = msg;
+  el.className = 'discount-result show ' + (type === 'success' ? 'success' : 'error');
+}
   document.querySelectorAll('.tier').forEach(function(t){ t.classList.remove('selected'); });
   el.classList.add('selected');
   selectedTier = { tier:el.dataset.tier, qty:parseInt(el.dataset.qty), price:parseInt(el.dataset.price) };
+  // Resetear descuento al cambiar de tier
+  appliedDiscount = null;
+  document.getElementById('discountInput').value = '';
+  document.getElementById('discountResult').className = 'discount-result';
+  document.getElementById('discountBtn').disabled = false;
+  document.getElementById('discountBtn').textContent = 'Aplicar';
   buildForm();
 }
 
@@ -261,9 +378,10 @@ function buildForm() {
   }
   fields.innerHTML = html;
 
+    // Mostrar sección de descuento
+    document.getElementById('discountSection').classList.add('active');
+    updatePrecioFinal();
     title.textContent = 'Datos de los asistentes';
-    btn.textContent = 'Pagar $' + selectedTier.price + ' MXN · MercadoPago 💳';
-    btn.className = 'btn-primary';
 }
 
 function procesarCompra() {
@@ -292,7 +410,19 @@ function procesarCompra() {
   var btn = document.getElementById('btnComprar');
   btn.disabled = true;
 
-  crearPreferenciaMP(attendees);
+  var finalPrice = getPrecioFinal();
+  // Si el precio final es 0 (100% descuento), generar QRs directo sin MP
+  if (finalPrice === 0 && appliedDiscount && appliedDiscount.type === 'percent' && appliedDiscount.value === 100) {
+    generarQRs(attendees, 'florecer5-dr');
+    // Marcar código como usado
+    fetch(TICKETS_API + '/tickets/apply-discount', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ code: appliedDiscount.code })
+    }).catch(function(){});
+  } else {
+    crearPreferenciaMP(attendees);
+  }
 }
 
 function crearPreferenciaMP(attendees) {
@@ -300,7 +430,8 @@ function crearPreferenciaMP(attendees) {
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({
-      amount: selectedTier.price,
+      amount: getPrecioFinal(),
+      discount_code: appliedDiscount ? appliedDiscount.code : null,
       quantity: selectedTier.qty,
       event:'florecer-5',
       attendees:attendees
@@ -313,9 +444,9 @@ function crearPreferenciaMP(attendees) {
       return;
     }
 
-    // Guardar attendees en sessionStorage para recuperarlos al volver
-    sessionStorage.setItem('florecer5_attendees', JSON.stringify(attendees));
+    // Guardar attendees en sessionStorage para recuperarlos al volver      sessionStorage.setItem('florecer5_attendees', JSON.stringify(attendees));
     sessionStorage.setItem('florecer5_qty', selectedTier.qty);
+    if (appliedDiscount) sessionStorage.setItem('florecer5_discount', JSON.stringify(appliedDiscount));
 
     // Redirigir a MercadoPago Checkout
     window.location.href = data.checkout_url;
@@ -431,14 +562,25 @@ function showError(msg) {
       document.getElementById('btnComprar').style.display = 'none';
       document.getElementById('personFields').innerHTML = '<p style="text-align:center;color:var(--tinta-suave)">Pago confirmado por MercadoPago ✅</p>';
       generarQRs(attendees, 'florecer5-' + Date.now());
+      // Marcar código de descuento como usado si existe
+      var discount = JSON.parse(sessionStorage.getItem('florecer5_discount') || 'null');
+      if (discount && discount.code) {
+        fetch(TICKETS_API + '/tickets/apply-discount', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({ code: discount.code })
+        });
+      }
       sessionStorage.removeItem('florecer5_attendees');
       sessionStorage.removeItem('florecer5_qty');
+      sessionStorage.removeItem('florecer5_discount');
     }
   } else if (status === 'rejected' || status === 'failure') {
     document.getElementById('formMsg').className = 'msg msg-error active';
     document.getElementById('formMsg').textContent = '❌ El pago fue rechazado. Intenta de nuevo.';
     sessionStorage.removeItem('florecer5_attendees');
     sessionStorage.removeItem('florecer5_qty');
+    sessionStorage.removeItem('florecer5_discount');
   }
 })();
 </script>
