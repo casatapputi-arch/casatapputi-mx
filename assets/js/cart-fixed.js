@@ -273,12 +273,12 @@ async function updateQuantity(productId, qty) {
 }
 
 function getTotal() {
-  const subtotal = getLocalCart().reduce((sum, i) => sum + ((parseInt(i.price) || 0) * i.quantity), 0);
+  const subtotal = getLocalCart().reduce((sum, i) => sum + (cleanPrice(i.price) * i.quantity), 0);
   return applyDiscount(subtotal);
 }
 
 function getSubtotal() {
-  return getLocalCart().reduce((sum, i) => sum + ((parseInt(i.price) || 0) * i.quantity), 0);
+  return getLocalCart().reduce((sum, i) => sum + (cleanPrice(i.price) * i.quantity), 0);
 }
 
 function getDiscountAmount() {
@@ -345,9 +345,14 @@ function sanitizeImagePath(path) {
   return path.replace(/images\/images\//g, 'images/');
 }
 
+// ── Helper: convierte precio con/sin comas a número entero ──
+function cleanPrice(p) {
+  return parseInt(String(p || 0).replace(/,/g, '')) || 0;
+}
+
 function formatPrice(p) {
   if (!p || p === 0) return 'A consultar';
-  return '$' + parseInt(p).toLocaleString('es-MX') + ' MXN';
+  return '$' + cleanPrice(p).toLocaleString('es-MX') + ' MXN';
 }
 
 // ── WhatsApp checkout ────────────────────────────────────
@@ -378,7 +383,7 @@ function generateWhatsAppMessage() {
   msg += '📅 ' + fecha + ' · ' + hora + '\n\n';
   msg += '*Productos solicitados:*\n';
   local.forEach(item => {
-    const price = parseInt(item.price) || 0;
+    const price = cleanPrice(item.price);
     const subtotal = price > 0 ? price * item.quantity : 0;
     msg += '• ' + item.name;
     if (item.variantId) msg += ' (var:' + item.variantId.slice(-6) + ')';
@@ -411,7 +416,7 @@ function getProductData(el) {
     id: card.dataset.productId,
     variantId: card.dataset.variantId || '',
     name: card.dataset.productName,
-    price: parseInt(card.dataset.productPrice) || 0,
+    price: cleanPrice(card.dataset.productPrice),
     priceLabel: card.dataset.productPriceLabel || '',
     image: card.dataset.productImage || '',
     quantity: 1
@@ -497,7 +502,7 @@ async function renderCartPage() {
 
   let itemsHTML = '';
   items.forEach(item => {
-    const price = parseInt(item.price) || 0;
+    const price = cleanPrice(item.price);
     const subtotal = price > 0 ? price * item.quantity : 0;
     itemsHTML += `
       <div class="cart-item">
