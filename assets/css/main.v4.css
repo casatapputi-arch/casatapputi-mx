@@ -1933,7 +1933,7 @@ body::after {
   font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 500;
   max-width: 760px; line-height: 1.25;
   color: #fff;
-  text-shadow: 0 2px 12px rgba(0,0,0,.35);
+  text-shadow: 0 1px 8px rgba(0,0,0,.45);
 }
 
 /* ── Quote block: tipografía masiva con whitespace generoso ── */
