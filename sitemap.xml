@@ -53,4 +53,19 @@
   <url><loc>https://casatapputi.com.mx/eventos/</loc><lastmod>2026-07-30</lastmod><changefreq>weekly</changefreq></url>
   <url><loc>https://casatapputi.com.mx/promos/pack-esferas.html</loc><lastmod>2026-07-30</lastmod><changefreq>monthly</changefreq></url>
 
+  <!-- Talleres con tickets QR -->
+  <url><loc>https://casatapputi.com.mx/talleres/jabones-herbales/</loc><lastmod>2026-07-30</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://casatapputi.com.mx/talleres/pomadas-herbales/</loc><lastmod>2026-07-30</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://casatapputi.com.mx/talleres/perfume-solido/</loc><lastmod>2026-07-30</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://casatapputi.com.mx/talleres/cuidado-capilar/</loc><lastmod>2026-07-30</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://casatapputi.com.mx/talleres/gel-facial/</loc><lastmod>2026-07-30</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://casatapputi.com.mx/talleres/balsamo-reparador/</loc><lastmod>2026-07-30</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://casatapputi.com.mx/talleres/plantas-ansiedad/</loc><lastmod>2026-07-30</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://casatapputi.com.mx/talleres/kit-medicinal/</loc><lastmod>2026-07-30</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://casatapputi.com.mx/talleres/plantas-poder/</loc><lastmod>2026-07-30</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://casatapputi.com.mx/talleres/masaje-descontracturante/</loc><lastmod>2026-07-30</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://casatapputi.com.mx/talleres/salud-digestiva/</loc><lastmod>2026-07-30</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://casatapputi.com.mx/talleres/masaje-deportivo/</loc><lastmod>2026-07-30</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://casatapputi.com.mx/talleres/masaje-relajante/</loc><lastmod>2026-07-30</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
 </urlset>
