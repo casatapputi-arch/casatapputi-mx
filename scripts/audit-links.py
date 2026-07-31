@@ -10,10 +10,12 @@ from collections import Counter
 BASE = Path(os.environ.get("GITHUB_WORKSPACE", "/home/enrique/casatapputi-mx"))
 
 def find_all_html():
-    """Solo páginas reales: excluye .git y template.html (scaffolds con rutas relativas correctas para su instanciación en subdirectorio)."""
+    """Solo páginas reales: excluye .git, template.html (scaffolds) y google*.html (archivos de verificación de Google Search Console)."""
     return sorted(
         f for f in BASE.rglob("*.html")
-        if ".git" not in str(f) and f.name != "template.html"
+        if ".git" not in str(f)
+        and f.name != "template.html"
+        and not f.name.startswith("google")
     )
 
 def strip_scripts(content: str) -> str:
