@@ -113,6 +113,11 @@
             <div class="prod-price" id="dynamicPrice">$80 MXN</div>
             <div class="prod-price-present" id="dynamicSize">5 gr</div>
           </div>
+          <div class="qty-stepper">
+            <button onclick="decrementQty()" aria-label="Restar">−</button>
+            <input type="number" id="productQty" value="1" min="1" max="999" onchange="if(window._productTotalRefresh)window._productTotalRefresh()" aria-label="Cantidad">
+            <button onclick="incrementQty()" aria-label="Sumar">+</button>
+          </div>
           <button class="btn btn-add-cart prod-add-btn" id="btnAddLagrimas" onclick="addLagrimasToCart()">🛒 Agregar al carrito</button>
         </div>
 
@@ -256,6 +261,9 @@
 <script>
 let selectedSize = { grams: 5, price: 80, variantId: 'variant_01KXKRE44N29GEDKYY710XRMNV' };
 
+function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
+function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
+
 document.querySelectorAll('.lagrimas-size-card').forEach(card => {
   card.addEventListener('click', () => {
     document.querySelectorAll('.lagrimas-size-card').forEach(c => c.classList.remove('selected'));
@@ -270,6 +278,7 @@ document.querySelectorAll('.lagrimas-size-card').forEach(card => {
     
     document.getElementById('dynamicPrice').textContent = '$' + selectedSize.price + ' MXN';
     document.getElementById('dynamicSize').textContent = selectedSize.grams + ' gr';
+    if(window._productTotalRefresh)window._productTotalRefresh();
   });
 });
 
@@ -281,7 +290,7 @@ function addLagrimasToCart() {
     price: selectedSize.price,
     priceLabel: '$' + selectedSize.price + ' MXN',
     image: '../../assets/images/lagrimas-rosas.webp',
-    quantity: 1
+    quantity: Math.max(1, parseInt(document.getElementById('productQty').value) || 1)
   });
 }
 </script>
