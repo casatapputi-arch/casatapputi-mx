@@ -255,6 +255,7 @@ async function updateQuantity(productId, qty) {
         const data = await medusaFetch(`/store/carts/${cart.id}`);
         medusaCart = data.cart;
         await syncLocalFromMedusa();
+        refreshCartUI();
       }
     }
   } catch (e) {
