@@ -189,7 +189,7 @@ function iniciarWhatsAppRecoger() {
   // Calcular total con descuento
   let total = 0;
   const items = local.map(item => {
-    const price = item.price || 0;
+    const price = typeof cleanPrice === 'function' ? cleanPrice(item.price) : (parseInt(String(item.price || 0).replace(/,/g, '')) || 0);
     total += price * (item.quantity || 1);
     return `- ${item.title || 'Producto'} x${item.quantity || 1}: $${price} MXN`;
   });
@@ -284,7 +284,7 @@ function renderBotonMercadoPago() {
   } else {
     // Botón de WhatsApp con descuento
     let total = 0;
-    local.forEach(item => { total += (item.price || 0) * (item.quantity || 1); });
+    local.forEach(item => { total += (typeof cleanPrice === 'function' ? cleanPrice(item.price) : (parseInt(String(item.price || 0).replace(/,/g, '')) || 0)) * (item.quantity || 1); });
     const descuento = Math.round(total * PICKUP_DISCOUNT);
     const totalConDesc = total - descuento;
 
