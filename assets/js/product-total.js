@@ -2,14 +2,19 @@
    Casa Tapputi — Total dinámico en páginas de producto
    Muestra precio × cantidad al cambiar el selector de cantidad.
    ============================================================ */
-(function() {
+(function init() {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+    return;
+  }
+
   const qtyInput = document.getElementById('productQty');
   const priceEl = document.querySelector('.prod-price');
   if (!qtyInput || !priceEl) return;
 
   // Extraer precio numérico del texto (ej: "$200 MXN" o "desde $400 MXN" → 200, 400)
   const priceText = priceEl.textContent.trim();
-  const priceMatch = priceText.match(/\$?([\d,]+)/);
+  const priceMatch = priceText.match(/\$([\d,]+)/);
   if (!priceMatch) return;
   const unitPrice = parseInt(priceMatch[1].replace(/,/g, ''));
 
@@ -33,14 +38,17 @@
     }
   }
 
-  // Eventos del input
+  // Eventos del input (cuando el usuario escribe directamente)
   qtyInput.addEventListener('input', updateTotal);
   qtyInput.addEventListener('change', updateTotal);
 
-  // Interceptar clicks en botones +/- (las funciones inline usan setTimeout 0)
+  // Interceptar clicks en botones +/- (las funciones inline modifican .value,
+  // lo cual no dispara eventos input/change, así que usamos rAF doble)
   document.addEventListener('click', function(e) {
     if (e.target.closest('.qty-stepper button')) {
-      setTimeout(updateTotal, 60);
+      requestAnimationFrame(function() {
+        requestAnimationFrame(updateTotal);
+      });
     }
   });
 
