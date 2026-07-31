@@ -1932,6 +1932,7 @@ body::after {
   font-family: var(--serif); font-style: italic;
   font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 300;
   max-width: 760px; line-height: 1.25;
+  color: #fff;
 }
 
 /* ── Quote block: tipografía masiva con whitespace generoso ── */
