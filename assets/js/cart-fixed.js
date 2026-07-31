@@ -14,6 +14,14 @@ const REGION_ID   = 'reg_01KXKKX4D00R5GCSX91T9YE2Q9';
 
 let medusaCart = null;   // cache del último fetch del cart de Medusa
 
+// ── Cupón de descuento ───────────────────────────────────
+const COUPONS = {
+  'BIENVENIDA': { type: 'percent', value: 10, label: '10% de descuento' },
+  'HERBOLARIA': { type: 'percent', value: 15, label: '15% de descuento' },
+  'TAPPUTI': { type: 'percent', value: 20, label: '20% de descuento' }
+};
+let appliedCoupon = null; // { code, type, value, label }
+
 // ── Helpers ──────────────────────────────────────────────
 async function medusaFetch(path, opts = {}) {
   const res = await fetch(`${MEDUSA_URL}${path}`, {
@@ -264,7 +272,54 @@ async function updateQuantity(productId, qty) {
 }
 
 function getTotal() {
+  const subtotal = getLocalCart().reduce((sum, i) => sum + ((parseInt(i.price) || 0) * i.quantity), 0);
+  return applyDiscount(subtotal);
+}
+
+function getSubtotal() {
   return getLocalCart().reduce((sum, i) => sum + ((parseInt(i.price) || 0) * i.quantity), 0);
+}
+
+function getDiscountAmount() {
+  if (!appliedCoupon) return 0;
+  const subtotal = getSubtotal();
+  if (appliedCoupon.type === 'percent') {
+    return Math.round(subtotal * appliedCoupon.value / 100);
+  }
+  return appliedCoupon.value;
+}
+
+function applyDiscount(subtotal) {
+  if (!appliedCoupon) return subtotal;
+  const discount = getDiscountAmount();
+  return Math.max(0, subtotal - discount);
+}
+
+function applyCouponCode(code) {
+  const upper = code.trim().toUpperCase();
+  const coupon = COUPONS[upper];
+  if (!coupon) return { success: false, msg: 'Cupón no válido' };
+  if (appliedCoupon && appliedCoupon.code === upper) return { success: false, msg: 'Este cupón ya está aplicado' };
+  appliedCoupon = { code: upper, ...coupon };
+  refreshCartUI();
+  return { success: true, msg: '¡Cupón aplicado! ' + coupon.label };
+}
+
+function clearCoupon() {
+  appliedCoupon = null;
+  refreshCartUI();
+}
+
+function applyCouponFromInput() {
+  const input = document.getElementById('couponInput');
+  if (!input) return;
+  const result = applyCouponCode(input.value);
+  const msgEl = document.getElementById('couponMsg');
+  if (msgEl) {
+    msgEl.textContent = result.msg;
+    msgEl.className = 'cart-coupon-msg ' + (result.success ? 'success' : 'error');
+  }
+  if (result.success) input.value = '';
 }
 
 function clearCart() {
@@ -330,8 +385,16 @@ function generateWhatsAppMessage() {
       ? ' — $' + subtotal.toLocaleString('es-MX') + ' MXN\n'
       : ' — *Precio a consultar*\n';
   });
+  const subtotal = getSubtotal();
   const total = getTotal();
-  if (total > 0) msg += '\n💰 *Total: $' + total.toLocaleString('es-MX') + ' MXN*';
+  const discount = getDiscountAmount();
+  if (subtotal > 0) {
+    if (discount > 0) {
+      msg += '\n💵 Subtotal: $' + subtotal.toLocaleString('es-MX') + ' MXN';
+      msg += '\n🎫 Cupón ' + appliedCoupon.code + ' (' + appliedCoupon.label + '): − $' + discount.toLocaleString('es-MX') + ' MXN';
+    }
+    msg += '\n💰 *Total: $' + total.toLocaleString('es-MX') + ' MXN*';
+  }
   msg += '\n\n📦 Solicito información de envío y pago.\n📍 Huerto Roma Verde, CDMX\n\n🧾 Ref: ' + ref;
 
   trackWAEvent('checkout_cart', 'cart_' + ref);
@@ -460,14 +523,27 @@ async function renderCartPage() {
       </div>`;
   });
 
+  const subtotal = getSubtotal();
   const total = getTotal();
+  const discount = getDiscountAmount();
   container.innerHTML = `
     <div class="cart-list">${itemsHTML}</div>
+    <div class="cart-coupon">
+      <input type="text" id="couponInput" placeholder="¿Tienes un cupón?" aria-label="Código de cupón" maxlength="30"
+             onkeydown="if(event.key==='Enter')document.getElementById('btnApplyCoupon').click()">
+      <button class="btn-coupon" id="btnApplyCoupon" onclick="applyCouponFromInput()">Aplicar</button>
+    </div>
+    <div class="cart-coupon-msg" id="couponMsg"></div>
     <div class="cart-summary">
       <div class="cart-summary-row">
         <span>Subtotal</span>
-        <span>${total > 0 ? '$' + total.toLocaleString('es-MX') + ' MXN' : 'A consultar'}</span>
+        <span>${subtotal > 0 ? '$' + subtotal.toLocaleString('es-MX') + ' MXN' : 'A consultar'}</span>
       </div>
+      ${discount > 0 ? `
+      <div class="cart-summary-row cart-discount-row">
+        <span>Descuento${appliedCoupon ? ' (' + appliedCoupon.label + ')' : ''}</span>
+        <span>− $${discount.toLocaleString('es-MX')} MXN</span>
+      </div>` : ''}
       <div class="cart-summary-row cart-total">
         <span>Total</span>
         <span>${total > 0 ? '$' + total.toLocaleString('es-MX') + ' MXN' : 'A consultar'}</span>
@@ -477,6 +553,7 @@ async function renderCartPage() {
         Comprar por WhatsApp
       </a>
       <div id="mp-button-container" style="margin-top:12px"></div>
+      ${appliedCoupon ? `<button onclick="clearCoupon()" style="background:none;border:0;color:var(--tinta-suave);cursor:pointer;font-size:.78rem;margin-top:8px;text-decoration:underline">Quitar cupón</button>` : ''}
       <button onclick="clearCart()" class="btn-clear-cart">Vaciar carrito</button>
     </div>`;
 
