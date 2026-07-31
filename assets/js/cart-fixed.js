@@ -296,7 +296,7 @@ function applyDiscount(subtotal) {
   return Math.max(0, subtotal - discount);
 }
 
-function applyCouponCode(code) {
+async function applyCouponCode(code) {
   const upper = code.trim().toUpperCase();
   const coupon = COUPONS[upper];
   if (!coupon) return { success: false, msg: 'Cupón no válido' };
