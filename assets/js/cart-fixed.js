@@ -301,7 +301,7 @@ function applyCouponCode(code) {
   if (!coupon) return { success: false, msg: 'Cupón no válido' };
   if (appliedCoupon && appliedCoupon.code === upper) return { success: false, msg: 'Este cupón ya está aplicado' };
   appliedCoupon = { code: upper, ...coupon };
-  refreshCartUI();
+  await refreshCartUI();
   return { success: true, msg: '¡Cupón aplicado! ' + coupon.label };
 }
 
@@ -310,10 +310,10 @@ function clearCoupon() {
   refreshCartUI();
 }
 
-function applyCouponFromInput() {
+async function applyCouponFromInput() {
   const input = document.getElementById('couponInput');
   if (!input) return;
-  const result = applyCouponCode(input.value);
+  const result = await applyCouponCode(input.value);
   const msgEl = document.getElementById('couponMsg');
   if (msgEl) {
     msgEl.textContent = result.msg;
@@ -323,6 +323,7 @@ function applyCouponFromInput() {
 }
 
 function clearCart() {
+  appliedCoupon = null;
   localStorage.removeItem(CART_KEY);
   localStorage.removeItem(CART_ID_KEY);
   medusaCart = null;
@@ -385,15 +386,15 @@ function generateWhatsAppMessage() {
       ? ' — $' + subtotal.toLocaleString('es-MX') + ' MXN\n'
       : ' — *Precio a consultar*\n';
   });
-  const subtotal = getSubtotal();
-  const total = getTotal();
-  const discount = getDiscountAmount();
-  if (subtotal > 0) {
-    if (discount > 0) {
-      msg += '\n💵 Subtotal: $' + subtotal.toLocaleString('es-MX') + ' MXN';
-      msg += '\n🎫 Cupón ' + appliedCoupon.code + ' (' + appliedCoupon.label + '): − $' + discount.toLocaleString('es-MX') + ' MXN';
+  const subtotalWA = getSubtotal();
+  const totalWA = getTotal();
+  const discountWA = getDiscountAmount();
+  if (subtotalWA > 0) {
+    if (discountWA > 0) {
+      msg += '\n💵 Subtotal: $' + subtotalWA.toLocaleString('es-MX') + ' MXN';
+      msg += '\n🎫 Cupón ' + appliedCoupon.code + ' (' + appliedCoupon.label + '): − $' + discountWA.toLocaleString('es-MX') + ' MXN';
     }
-    msg += '\n💰 *Total: $' + total.toLocaleString('es-MX') + ' MXN*';
+    msg += '\n💰 *Total: $' + totalWA.toLocaleString('es-MX') + ' MXN*';
   }
   msg += '\n\n📦 Solicito información de envío y pago.\n📍 Huerto Roma Verde, CDMX\n\n🧾 Ref: ' + ref;
 
