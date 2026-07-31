@@ -68,7 +68,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.12; let
   font-weight: 500;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--miel-claro);
+  color: var(--tinta-suave);
   margin-bottom: 1rem;
 }
 
@@ -1607,7 +1607,7 @@ body::after {
 .prod-info {
   padding-top: 1rem;
 }
-.prod-info .eyebrow { color: var(--miel); }
+.prod-info .eyebrow { color: var(--tinta-suave); }
 .prod-info h1 {
   font-family: var(--serif);
   font-size: clamp(2.1rem, 4vw, 3.2rem);
