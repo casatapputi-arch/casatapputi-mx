@@ -275,6 +275,7 @@ function updateProductPrice(){
   const price=parseInt(pres.dataset.price);
   document.getElementById('displayPrice').textContent='$'+price.toLocaleString('es-MX')+' MXN';
   document.querySelector('.prod-price-present').textContent=pres.value;
+  if(window._productTotalRefresh)window._productTotalRefresh();
 }
 updateProductPrice();
 function addCurrentProduct(){

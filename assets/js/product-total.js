@@ -55,5 +55,9 @@
     }
   });
 
+  // Exponer al scope global para que paginas con variantes
+  // (updateProductPrice) puedan forzar recálculo inmediato
+  window._productTotalRefresh = updateTotal;
+
   updateTotal();
 })();
