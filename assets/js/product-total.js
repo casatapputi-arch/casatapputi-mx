@@ -12,12 +12,6 @@
   const priceEl = document.querySelector('.prod-price');
   if (!qtyInput || !priceEl) return;
 
-  // Extraer precio numérico del texto (ej: "$200 MXN" o "desde $400 MXN" → 200, 400)
-  const priceText = priceEl.textContent.trim();
-  const priceMatch = priceText.match(/\$([\d,]+)/);
-  if (!priceMatch) return;
-  const unitPrice = parseInt(priceMatch[1].replace(/,/g, ''));
-
   // Crear elemento para mostrar el total
   const totalEl = document.createElement('div');
   totalEl.id = 'prodTotal';
@@ -26,8 +20,17 @@
     'margin-top:.5rem;font-weight:500;transition:opacity .25s;min-height:1.6rem';
   priceEl.parentNode.insertBefore(totalEl, priceEl.nextSibling);
 
+  function getUnitPrice() {
+    // Re-leer el precio del DOM cada vez (soporta variantes que cambian dinámicamente)
+    const priceText = priceEl.textContent.trim();
+    const priceMatch = priceText.match(/\$([\d,]+)/);
+    return priceMatch ? parseInt(priceMatch[1].replace(/,/g, '')) : 0;
+  }
+
   function updateTotal() {
     const qty = parseInt(qtyInput.value) || 1;
+    const unitPrice = getUnitPrice();
+    if (!unitPrice) return;
     const total = unitPrice * qty;
     if (qty > 1) {
       totalEl.textContent = 'Total: $' + total.toLocaleString('es-MX') + ' MXN';
