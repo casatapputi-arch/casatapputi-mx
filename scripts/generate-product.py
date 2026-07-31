@@ -13,6 +13,13 @@ El script:
   4. Soporta productos con variante única o múltiples variantes (radio buttons)
 
 Para Erandi: solo necesitas editar el archivo JSON y correr este script. Cero HTML.
+
+ADVERTENCIA (2026-07-30):
+  Este script SOBREESCRIBE productos/<slug>/index.html por completo. NO contiene las
+  customizaciones manuales de algunas fichas (p. ej. el selector de tiers de
+  jabones, el botón WhatsApp de talabarteria, los radios de esencia-miel).
+  Antes de regenerar: verifica con `git status productos/` y, si hay fichas con
+  customizaciones, aplicalas a mano DESPUES de regenerar (o respalda con git).
 """
 
 import json
@@ -34,7 +41,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title} — Casa Tapputi</title>
   <meta name="description" content="{meta_description}" />
-  <link rel="stylesheet" href="../../assets/css/main.css" />
+  <link rel="stylesheet" href="../../assets/css/main.v4.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -75,12 +82,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     </a>
     <ul class="nav-links">
       <li><a href="../../productos/">Productos</a></li>
-      <li><a href="../../experiencias/">Experiencias</a></li>
-      <li><a href="../../servicios/">Servicios</a></li>
-      <li><a href="../../talleres/">Talleres &amp; Cursos</a></li>
-      <li><a href="../../nosotros/">Nosotros</a></li>
-          <li><a href="../../sitemap.html">Mapa del sitio</a></li>
-    </ul>
+      <li><a href="/productos/talabarteria/">Zapatos</a></li>
+      <li><a href="../../eventos/">Eventos</a></li>
+      <li><a href="../../talleres/">Talleres</a></li>
+      </ul>
     <a href="../../tienda/carrito.html" class="cart-icon" aria-label="Carrito de compras">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
       <span class="cart-count" style="display:none" aria-live="polite" aria-label="0 productos en el carrito">0</span>
@@ -97,10 +102,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <a href="../../productos/" onclick="toggleMenu()">Productos</a>
-  <a href="../../experiencias/" onclick="toggleMenu()">Experiencias</a>
-  <a href="../../servicios/" onclick="toggleMenu()">Servicios</a>
-  <a href="../../talleres/" onclick="toggleMenu()">Talleres &amp; Cursos</a>
-  <a href="../../nosotros/" onclick="toggleMenu()">Nosotros</a>
+  <a href="/productos/talabarteria/" onclick="toggleMenu()">Zapatos</a>
+  <a href="../../eventos/" onclick="toggleMenu()">Eventos</a>
+  <a href="../../talleres/" onclick="toggleMenu()">Talleres</a>
 </div>
 
 <header class="prod-hero" style="background-image:url('../../assets/images/{hero_image}')">
@@ -123,10 +127,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <p class="eyebrow">{eyebrow}</p>
         <h1>{h1}</h1>
         <p class="prod-subtitle">{subtitle_short}</p>
-        <div class="prod-desc">
-{description}
-        </div>
-        <hr class="prod-divider" />
 {variant_section}
         <div class="prod-price-box">
           <div class="prod-price-label">Precio</div>
@@ -142,6 +142,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
           <button class="btn btn-add-cart prod-add-btn" data-product-id="{slug}" onclick="addCurrentProduct()">🛒 Agregar al carrito</button>
         </div>
         <p class="prod-meta-note">{meta_note}</p>
+        <hr class="prod-divider" />
+        <div class="prod-desc">
+{description}
+        </div>
       </div>
     </div>
   </div>
