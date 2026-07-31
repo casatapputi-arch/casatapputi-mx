@@ -103,7 +103,7 @@
       products.forEach(p => {
         html += `<a href="${p.url}" class="search-result" style="display:flex;align-items:center;gap:12px;padding:10px 16px;text-decoration:none;color:var(--tinta);transition:background .15s">
           <div style="width:40px;height:40px;border-radius:4px;background:rgba(255,255,255,.05);flex-shrink:0;overflow:hidden">
-            ${p.thumbnail ? `<img src="${p.thumbnail}" alt="" style="width:100%;height:100%;object-fit:cover" loading="lazy">` : '<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:1.2rem">🌿</span>'}
+            ${p.thumbnail ? `<img src="${p.thumbnail}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover" loading="lazy">` : '<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:1.2rem">🌿</span>'}
           </div>
           <div style="min-width:0">
             <div style="font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.title}</div>

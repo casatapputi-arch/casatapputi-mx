@@ -275,7 +275,7 @@ function generarTicketQR(orderId, email) {
       // Fallback: imagen desde API externa solo si falla qrcodejs
       var qrCanvas = document.getElementById('qrCanvas');
       if (qrCanvas) {
-        qrCanvas.innerHTML = '<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(validateUrl) + '" alt="QR" width="200" height="200" />';
+        qrCanvas.innerHTML = '<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(validateUrl) + '" alt="Código QR de validación de tu pago" width="200" height="200" />';
       }
     }
   })
