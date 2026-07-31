@@ -1866,14 +1866,14 @@ body::after {
   margin-bottom: .6rem;
   color: var(--tinta);
 }
-.prod-section-dark .prod-howto h3 { color: var(--crema-texto); }
+.prod-section-dark .prod-howto h3 { color: #fff; }
 .prod-howto p {
   font-family: var(--sans);
   font-size: 1.02rem;
   line-height: 1.65;
   color: var(--tinta-suave);
 }
-.prod-section-dark .prod-howto p { color: rgba(239,230,214,.82); }
+.prod-section-dark .prod-howto p { color: rgba(255,255,255,.9); }
 
 /* Beneficios */
 .prod-benefits {
