@@ -1638,7 +1638,10 @@ body::after {
   background: var(--crema);
   padding-block: clamp(60px, 9vw, 110px);
 }
-.prod-section-dark { background: var(--oscuro); color: var(--crema-texto); }
+.prod-section-dark { background: var(--crema-2); color: var(--tinta); }
+.prod-section-dark .eyebrow { color: var(--tinta-suave); }
+.prod-section-dark .section-title { color: var(--tinta); }
+.prod-section-dark .section-title .section-nav-link { color: var(--tinta); }
 .prod-layout {
   display: grid;
   grid-template-columns: 1fr 1.05fr;
@@ -1866,14 +1869,14 @@ body::after {
   margin-bottom: .6rem;
   color: var(--tinta);
 }
-.prod-section-dark .prod-howto h3 { color: #fff; }
+.prod-section-dark .prod-howto h3 { color: var(--tinta); }
 .prod-howto p {
   font-family: var(--sans);
   font-size: 1.02rem;
   line-height: 1.65;
   color: var(--tinta-suave);
 }
-.prod-section-dark .prod-howto p { color: rgba(255,255,255,.9); }
+.prod-section-dark .prod-howto p { color: var(--tinta-suave); }
 
 /* Beneficios */
 .prod-benefits {
