@@ -98,6 +98,38 @@
       cursor:pointer; font-family:inherit; transition:background .2s;
     }
     .btn-wa:hover { background:#1da851; }
+    .btn-wa-all {
+      display:block; max-width:400px; margin:20px auto 0; padding:14px 20px;
+      background:#25D366; color:#fff; border:none; border-radius:8px;
+      font-size:.9rem; font-weight:600; text-decoration:none; text-align:center;
+      cursor:pointer; font-family:inherit; transition:background .2s;
+    }
+    .btn-wa-all:hover { background:#1da851; }
+    .wa-all-section { text-align:center; margin-top:20px; display:none; }
+    .wa-all-section.show { display:block; }
+    .wa-all-section input {
+      padding:10px 14px; background:rgba(0,0,0,.3); border:1px solid rgba(239,230,214,.2);
+      border-radius:6px; color:var(--tinta); font-family:inherit; font-size:.9rem;
+      max-width:200px; margin-right:8px;
+    }
+    .wa-all-section input:focus { outline:none; border-color:var(--miel); }
+
+    .tier-custom { text-align:center; }
+    .tier-custom .qty-input-row {
+      display:flex; align-items:center; justify-content:center; gap:6px; margin:10px 0;
+    }
+    .tier-custom .qty-input-row button {
+      width:36px; height:36px; border-radius:50%; border:1px solid rgba(239,230,214,.3);
+      background:rgba(255,255,255,.06); color:var(--tinta); font-size:1.2rem;
+      cursor:pointer; font-family:inherit; transition:all .2s; line-height:1;
+    }
+    .tier-custom .qty-input-row button:hover { background:rgba(212,175,55,.2); border-color:var(--miel); }
+    .tier-custom .qty-input-row input {
+      width:60px; padding:8px; text-align:center; background:rgba(0,0,0,.3);
+      border:1px solid rgba(239,230,214,.2); border-radius:6px;
+      color:var(--tinta); font-family:inherit; font-size:1.1rem; font-weight:600;
+    }
+    .tier-custom .qty-input-row input:focus { outline:none; border-color:var(--miel); }
 
     .msg { max-width:500px; margin:16px auto; padding:14px 18px; border-radius:8px; font-size:.9rem; text-align:center; display:none; }
     .msg.active { display:block; }
@@ -216,6 +248,17 @@
         <div class="desc">5 boletos · 5 QRs individuales</div>
         <div class="qty-tag">5 personas</div>
       </div>
+      <div class="tier tier-custom" id="tierCustom" onclick="selectCustomTier()">
+        <div class="tier-icon">🎫✨</div>
+        <h3>Personalizado</h3>
+        <div class="price" id="customPrice">$200</div>
+        <div class="desc">Tú eliges cuántos boletos</div>
+        <div class="qty-input-row" onclick="event.stopPropagation()">
+          <button onclick="changeCustomQty(-1)" aria-label="Menos">−</button>
+          <input type="number" id="customQty" value="1" min="1" max="20" onchange="onCustomQtyChange()" />
+          <button onclick="changeCustomQty(1)" aria-label="Más">+</button>
+        </div>
+      </div>
     </div>
 
     <!-- CÓDIGO DE DESCUENTO -->
@@ -241,6 +284,11 @@
       <h3 style="text-align:center; margin-bottom:16px">🎉 ¡Tus boletos están listos!</h3>
       <p style="text-align:center; color:var(--tinta-suave); margin-bottom:20px">Cada QR es único. Preséntalos en la entrada. Se validan una sola vez.</p>
       <div id="qrCards"></div>
+      <div class="wa-all-section" id="waAllSection">
+        <p style="color:var(--tinta-suave);font-size:.85rem;margin-bottom:10px">📱 ¿Quieres recibir <strong>todos</strong> los boletos en un solo mensaje?</p>
+        <input type="tel" id="waAllInput" placeholder="55-1234-5678" />
+        <a href="#" class="btn-wa-all" id="btnWaAll" target="_blank" rel="noopener">📱 Enviar todos por WhatsApp</a>
+      </div>
     </div>
   </div>
 </section>
@@ -362,6 +410,61 @@ function selectTier(el) {
   document.getElementById('discountBtn').disabled = false;
   document.getElementById('discountBtn').textContent = 'Aplicar';
   buildForm();
+}
+
+// ── Tier personalizado ─────────────────────────────────
+function calcCustomPrice(qty) {
+  if (qty === 3) return 500;
+  if (qty === 5) return 800;
+  return qty * 200;
+}
+
+function selectCustomTier() {
+  var qty = parseInt(document.getElementById('customQty').value) || 1;
+  if (qty < 1) qty = 1;
+  if (qty > 20) qty = 20;
+  document.getElementById('customQty').value = qty;
+
+  var price = calcCustomPrice(qty);
+  document.querySelectorAll('.tier').forEach(function(t){ t.classList.remove('selected'); });
+  document.getElementById('tierCustom').classList.add('selected');
+  selectedTier = { tier:'custom', qty:qty, price:price };
+  // Resetear descuento al cambiar de tier
+  appliedDiscount = null;
+  document.getElementById('discountInput').value = '';
+  document.getElementById('discountResult').className = 'discount-result';
+  document.getElementById('discountBtn').disabled = false;
+  document.getElementById('discountBtn').textContent = 'Aplicar';
+  buildForm();
+}
+
+function changeCustomQty(delta) {
+  var input = document.getElementById('customQty');
+  var qty = (parseInt(input.value) || 1) + delta;
+  if (qty < 1) qty = 1;
+  if (qty > 20) qty = 20;
+  input.value = qty;
+  onCustomQtyChange();
+}
+
+function onCustomQtyChange() {
+  var qty = parseInt(document.getElementById('customQty').value) || 1;
+  if (qty < 1) qty = 1;
+  if (qty > 20) qty = 20;
+  document.getElementById('customQty').value = qty;
+  var price = calcCustomPrice(qty);
+  var priceEl = document.getElementById('customPrice');
+  if (qty === 3) {
+    priceEl.textContent = '$500 (ahorras $100)';
+  } else if (qty === 5) {
+    priceEl.textContent = '$800 (ahorras $200)';
+  } else {
+    priceEl.textContent = '$' + price;
+  }
+  // Si ya está seleccionado, actualizar inmediatamente
+  if (document.getElementById('tierCustom').classList.contains('selected')) {
+    selectCustomTier();
+  }
 }
 
 function buildForm() {
@@ -547,6 +650,17 @@ function mostrarQRs(tickets) {
   document.getElementById('btnComprar').style.display = 'none';
   document.getElementById('formSection').classList.remove('active');
 
+  // ── Botón "Enviar TODOS por WhatsApp" ──
+  if (tickets.length > 1) {
+    var waAllSection = document.getElementById('waAllSection');
+    waAllSection.classList.add('show');
+    var firstWa = (tickets[0].whatsapp || '').replace(/[^0-9]/g, '');
+    if (firstWa.startsWith('52')) firstWa = firstWa.slice(2);
+    document.getElementById('waAllInput').value = firstWa || '';
+    updateWaAllLink(tickets);
+    document.getElementById('waAllInput').oninput = function() { updateWaAllLink(tickets); };
+  }
+
   // Generar QRs client-side
   setTimeout(function(){
     tickets.forEach(function(t, i){
@@ -568,6 +682,23 @@ function showError(msg) {
   m.className = 'msg msg-error active';
   m.textContent = '❌ ' + msg;
   document.getElementById('btnComprar').disabled = false;
+}
+
+function updateWaAllLink(tickets) {
+  var waNum = document.getElementById('waAllInput').value.replace(/[^0-9]/g, '');
+  if (waNum.startsWith('52')) waNum = waNum.slice(2);
+  var lines = ['🎫 *Florecer — 5ª Edición*', '📅 22 septiembre 2026 · Huerto Roma Verde', ''];
+  tickets.forEach(function(t, i) {
+    lines.push('👤 ' + t.name + (t.short_code ? ' · Código: ' + t.short_code : ''));
+    lines.push('🔗 https://casatapputi.com.mx/tickets/validar.html?token=' + t.token);
+    if (i < tickets.length - 1) lines.push('');
+  });
+  lines.push('');
+  lines.push('Presenta cada QR en la entrada. ¡Te esperamos! 🌿');
+  var btn = document.getElementById('btnWaAll');
+  btn.href = waNum ? 'https://wa.me/52' + waNum + '?text=' + encodeURIComponent(lines.join('\n')) : '#';
+  btn.style.opacity = waNum ? '1' : '.4';
+  btn.style.pointerEvents = waNum ? 'auto' : 'none';
 }
 
 // ── Detectar retorno de MercadoPago ──
