@@ -292,6 +292,7 @@ function selectPomadaCannabisSize(el) {
   _pomadaCannabisSelected = el;
   document.getElementById('pomadaPriceDisplay').textContent = '$' + el.dataset.price + ' MXN';
   document.getElementById('pomadaSizeDisplay').textContent = el.dataset.size + ' gr';
+  if(window._productTotalRefresh)window._productTotalRefresh();
 }
 
 function addPomadaCannabisToCart() {

@@ -290,6 +290,7 @@ function selectOleoSize(el) {
   _oleoSelectedSize = el;
   document.getElementById('oleoPriceDisplay').textContent = '$' + el.dataset.price + ' MXN';
   document.getElementById('oleoSizeDisplay').textContent = el.dataset.size + ' ml';
+  if(window._productTotalRefresh)window._productTotalRefresh();
 }
 
 function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
