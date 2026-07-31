@@ -91,6 +91,13 @@
     .qr-card .qr-info strong { color:var(--tinta); }
     .qr-card .qr-info .name { font-size:1rem; color:var(--miel); }
     .qr-card .qr-info .token { font-family:'Courier New',monospace; font-size:.7rem; color:var(--tinta-suave); word-break:break-all; }
+    .btn-wa {
+      display:inline-block; margin-top:12px; padding:10px 20px;
+      background:#25D366; color:#fff; border:none; border-radius:6px;
+      font-size:.85rem; font-weight:600; text-decoration:none;
+      cursor:pointer; font-family:inherit; transition:background .2s;
+    }
+    .btn-wa:hover { background:#1da851; }
 
     .msg { max-width:500px; margin:16px auto; padding:14px 18px; border-radius:8px; font-size:.9rem; text-align:center; display:none; }
     .msg.active { display:block; }
@@ -484,7 +491,7 @@ function generarQRs(attendees, orderPrefix) {
     .then(function(r){ return r.json(); })
     .then(function(data){
       if (data.token) {
-        tickets.push({ token:data.token, name:a.name + ' ' + a.last_name, short_code:data.short_code || '' });
+        tickets.push({ token:data.token, name:a.name + ' ' + a.last_name, short_code:data.short_code || '', whatsapp:a.whatsapp || '' });
       } else {
         errores = true;
       }
@@ -512,6 +519,18 @@ function mostrarQRs(tickets) {
   var html = '';
   tickets.forEach(function(t, i){
     var validateUrl = 'https://casatapputi.com.mx/tickets/validar.html?token=' + t.token;
+    var waNum = (t.whatsapp || '').replace(/[^0-9]/g, '');
+    // Quitar prefijo 52 si ya lo tiene el usuario, wa.me espera 52{10_digitos}
+    if (waNum.startsWith('52')) waNum = waNum.slice(2);
+    var waMsg = encodeURIComponent(
+      '🎫 *Florecer — 5ª Edición*\n' +
+      '📅 22 de septiembre 2026 · Huerto Roma Verde\n\n' +
+      '👤 ' + t.name + '\n' +
+      (t.short_code ? '🔢 Código: ' + t.short_code + '\n' : '') +
+      '🔗 ' + validateUrl + '\n\n' +
+      'Presenta este QR en la entrada. ¡Te esperamos! 🌿'
+    );
+    var waLink = waNum ? 'https://wa.me/52' + waNum + '?text=' + waMsg : '#';
     html +=
       '<div class="qr-card">' +
         '<div class="qr-img" id="qrcode_' + i + '"></div>' +
@@ -519,6 +538,7 @@ function mostrarQRs(tickets) {
           '<div class="name">' + t.name + '</div>' +
           '<div style="font-size:.8rem;color:var(--tinta-suave)">Boleto #' + (i+1) + (t.short_code ? ' · Código: <strong style="color:var(--miel);font-size:1.1rem">' + t.short_code + '</strong>' : '') + '</div>' +
           '<div class="token" style="margin-top:6px">' + t.token + '</div>' +
+          (waNum ? '<a href="' + waLink + '" target="_blank" class="btn-wa" rel="noopener">📱 Enviar por WhatsApp</a>' : '') +
         '</div>' +
       '</div>';
   });
