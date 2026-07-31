@@ -3,19 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Florecer 5ª Edición — Aniversario Casa Tapputi</title>
-  <meta name="description" content="Florecer 5ª Edición · Aniversario Casa Tapputi. 22 de septiembre 2026 en Huerto Roma Verde, CDMX. Boletos desde $200." />
+  <!-- ════════════════════════════════════════════════════
+  PLANTILLA GENÉRICA DE EVENTO CON TICKETS QR
+  Copia este archivo, renómbralo y edita la sección CONFIG.
+  Todo lo demás (QR, MercadoPago, WhatsApp, descuentos) ya funciona.
+  ════════════════════════════════════════════════════════ -->
+  <title>EVENTO — Casa Tapputi</title>
+  <meta name="description" content="DESCRIPCIÓN DEL EVENTO" />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="stylesheet" href="../../assets/css/main.v4.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="../../assets/images/casa-tapputi-logo.webp">
-  <link rel="canonical" href="https://casatapputi.com.mx/eventos/florecer-5/">
-  <meta property="og:title" content="Florecer 5ª Edición — Aniversario Casa Tapputi">
-  <meta property="og:description" content="22 de septiembre 2026 · Huerto Roma Verde. Boletos desde $200.">
+  <link rel="canonical" href="https://casatapputi.com.mx/eventos/MI-EVENTO/">
+  <meta property="og:title" content="EVENTO — Casa Tapputi">
+  <meta property="og:description" content="DESCRIPCIÓN DEL EVENTO">
   <meta property="og:image" content="https://casatapputi.com.mx/assets/images/casa-tapputi-logo.webp">
-  <meta property="og:url" content="https://casatapputi.com.mx/eventos/florecer-5/">
+  <meta property="og:url" content="https://casatapputi.com.mx/eventos/MI-EVENTO/">
   <meta property="og:type" content="website">
   <script src="https://sdk.mercadopago.com/js/v2"></script>
   <script async src="https://plausible.io/js/pa-KVB5ye4NhSFIsTbFNkW0V.js"></script>
@@ -198,14 +203,17 @@
 </div>
 <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
 
-  <nav class="prod-breadcrumb" aria-label="Breadcrumb"><a href="../../">Inicio</a> <span class="breadcrumb-sep">›</span> <a href="../">Eventos</a> <span class="breadcrumb-sep">›</span> <span aria-current="page">Florecer — 5ª Edición</span></nav>
+  <nav class="prod-breadcrumb" aria-label="Breadcrumb"><a href="../../">Inicio</a> <span class="breadcrumb-sep">›</span> <a href="../">Eventos</a> <span class="breadcrumb-sep">›</span> <span aria-current="page">NOMBRE DEL EVENTO</span></nav>
 
+<!-- ═══════════════════════════════════════════════
+  CONFIG: Edita esta sección para cada evento nuevo
+  ═══════════════════════════════════════════════ -->
 <!-- HERO DEL EVENTO -->
 <section class="evento-hero">
   <div class="container">
-    <div class="fecha-badge">🌟 22 de septiembre 2026</div>
-    <h1>Florecer — 5ª Edición</h1>
-    <p class="subtitulo">Aniversario Casa Tapputi. Una noche de herbolaria viva, música, aromas y comunidad en el corazón del Huerto Roma Verde.</p>
+    <div class="fecha-badge">🌟 FECHA DEL EVENTO</div>
+    <h1>NOMBRE DEL EVENTO</h1>
+    <p class="subtitulo">DESCRIPCIÓN CORTA. 2-3 líneas sobre de qué trata el evento.</p>
   </div>
 </section>
 
@@ -213,10 +221,10 @@
 <section style="padding-bottom:30px">
   <div class="container event-details">
     <div class="detail-row">
-      <div class="detail-item"><div class="icon">📅</div><div class="value">22 Sept 2026</div><div class="label">Fecha</div></div>
-      <div class="detail-item"><div class="icon">🕕</div><div class="value">6:00 PM</div><div class="label">Hora</div></div>
-      <div class="detail-item"><div class="icon">📍</div><div class="value">Huerto Roma Verde</div><div class="label">Jalapa 234, CDMX</div></div>
-      <div class="detail-item"><div class="icon">🌿</div><div class="value">5 años</div><div class="label">Celebrando</div></div>
+      <div class="detail-item"><div class="icon">📅</div><div class="value">FECHA</div><div class="label">Fecha</div></div>
+      <div class="detail-item"><div class="icon">🕕</div><div class="value">HORA</div><div class="label">Hora</div></div>
+      <div class="detail-item"><div class="icon">📍</div><div class="value">LUGAR</div><div class="label">DIRECCIÓN</div></div>
+      <div class="detail-item"><div class="icon">🎫</div><div class="value">BOLETOS</div><div class="label">Precios desde</div></div>
     </div>
   </div>
 </section>
@@ -226,29 +234,35 @@
   <div class="container">
     <h2 class="section-title">Elige tus boletos</h2>
     <div class="tiers" id="tierSelector">
-      <div class="tier" data-tier="1" data-qty="1" data-price="200" onclick="selectTier(this)">
+      <!-- ═══ CONFIG: TIERS — define precios y cantidades ═══
+        Cada tier: data-tier="CANTIDAD" data-qty="CANTIDAD" data-price="PRECIO"
+        El precio en calcCustomPrice() DEBE coincidir (línea ~450)
+        Puedes agregar o quitar tiers libremente.
+      ═══════════════════════════════════════════════════ -->
+      <div class="tier" data-tier="1" data-qty="1" data-price="PRECIO" onclick="selectTier(this)">
         <div class="tier-icon">🎫</div>
         <h3>Individual</h3>
-        <div class="price">$200</div>
+        <div class="price">$XXX</div>
         <div class="desc">1 boleto · 1 QR</div>
         <div class="qty-tag">1 persona</div>
       </div>
-      <div class="tier" data-tier="3" data-qty="3" data-price="500" onclick="selectTier(this)">
-        <div class="tier-badge">AHORRA $100</div>
+      <div class="tier" data-tier="3" data-qty="3" data-price="PRECIO" onclick="selectTier(this)">
+        <div class="tier-badge">AHORRA $XXX</div>
         <div class="tier-icon">🎫🎫🎫</div>
         <h3>Pack 3</h3>
-        <div class="price">$500</div>
+        <div class="price">$XXX</div>
         <div class="desc">3 boletos · 3 QRs individuales</div>
         <div class="qty-tag">3 personas</div>
       </div>
-      <div class="tier" data-tier="5" data-qty="5" data-price="800" onclick="selectTier(this)">
-        <div class="tier-badge">AHORRA $200</div>
+      <div class="tier" data-tier="5" data-qty="5" data-price="PRECIO" onclick="selectTier(this)">
+        <div class="tier-badge">AHORRA $XXX</div>
         <div class="tier-icon">🎫🎫🎫🎫🎫</div>
         <h3>Pack 5</h3>
-        <div class="price">$800</div>
+        <div class="price">$XXX</div>
         <div class="desc">5 boletos · 5 QRs individuales</div>
         <div class="qty-tag">5 personas</div>
       </div>
+      <!-- Tier personalizado: el usuario elige cantidad. Precios en calcCustomPrice(). -->
       <div class="tier tier-custom" id="tierCustom" onclick="selectCustomTier()">
         <div class="tier-icon">🎫✨</div>
         <h3>Personalizado</h3>
@@ -310,6 +324,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
+// ══════════════════════════════════════════════════════
+// CONFIG JS: Cambia estos valores para cada evento nuevo
+// ══════════════════════════════════════════════════════
+var EVENT_NAME = 'NOMBRE DEL EVENTO';
+var EVENT_DATE = 'FECHA DEL EVENTO';
+var EVENT_LOCATION = 'LUGAR';
+var ORDER_PREFIX = 'mi-evento';   // Prefijo para identificar tickets en el admin
+var PRECIO_INDIVIDUAL = 200;       // Precio por boleto individual
+var PRECIO_PACK_3 = 500;            // Precio del pack de 3
+var PRECIO_PACK_5 = 800;            // Precio del pack de 5
+// ══════════════════════════════════════════════════════
+
 var TICKETS_API = 'https://tickets.casatapputi.com.mx';
 var MP_PUBLIC_KEY = 'APP_USR-5215e212-ea55-41df-ad06-c828ebdfc562';
 var mp = new MercadoPago(MP_PUBLIC_KEY);
@@ -414,10 +440,11 @@ function selectTier(el) {
 }
 
 // ── Tier personalizado ─────────────────────────────────
+// ═══ CONFIG: Precios del tier personalizado ═══
 function calcCustomPrice(qty) {
-  if (qty === 3) return 500;
-  if (qty === 5) return 800;
-  return qty * 200;
+  if (qty === 3) return PRECIO_PACK_3;
+  if (qty === 5) return PRECIO_PACK_5;
+  return qty * PRECIO_INDIVIDUAL;
 }
 
 function selectCustomTier() {
@@ -455,12 +482,12 @@ function onCustomQtyChange() {
   document.getElementById('customQty').value = qty;
   var price = calcCustomPrice(qty);
   var priceEl = document.getElementById('customPrice');
-  if (qty === 3) {
-    priceEl.textContent = '$500 (ahorras $100)';
-  } else if (qty === 5) {
-    priceEl.textContent = '$800 (ahorras $200)';
+  if (qty === 3 && PRECIO_PACK_3 < PRECIO_INDIVIDUAL * 3) {
+    priceEl.textContent = '$' + PRECIO_PACK_3.toLocaleString() + ' (ahorras $' + (PRECIO_INDIVIDUAL * 3 - PRECIO_PACK_3) + ')';
+  } else if (qty === 5 && PRECIO_PACK_5 < PRECIO_INDIVIDUAL * 5) {
+    priceEl.textContent = '$' + PRECIO_PACK_5.toLocaleString() + ' (ahorras $' + (PRECIO_INDIVIDUAL * 5 - PRECIO_PACK_5) + ')';
   } else {
-    priceEl.textContent = '$' + price;
+    priceEl.textContent = '$' + price.toLocaleString();
   }
   // Si ya está seleccionado, actualizar inmediatamente
   if (document.getElementById('tierCustom').classList.contains('selected')) {
@@ -526,7 +553,7 @@ function procesarCompra() {
   var finalPrice = getPrecioFinal();
   // Si el precio final es 0 (100% descuento), generar QRs directo sin MP
   if (finalPrice === 0 && appliedDiscount && appliedDiscount.type === 'percent' && appliedDiscount.value === 100) {
-    generarQRs(attendees, 'florecer5-dr');
+    generarQRs(attendees, ORDER_PREFIX + '-dr');
     // Marcar código como usado
     fetch(TICKETS_API + '/tickets/apply-discount', {
       method:'POST',
@@ -546,7 +573,7 @@ function crearPreferenciaMP(attendees) {
       amount: getPrecioFinal(),
       discount_code: appliedDiscount ? appliedDiscount.code : null,
       quantity: selectedTier.qty,
-      event:'florecer-5',
+      event:ORDER_PREFIX,
       attendees:attendees
     })
   })
@@ -557,9 +584,9 @@ function crearPreferenciaMP(attendees) {
       return;
     }
 
-    // Guardar attendees en sessionStorage para recuperarlos al volver      sessionStorage.setItem('florecer5_attendees', JSON.stringify(attendees));
-    sessionStorage.setItem('florecer5_qty', selectedTier.qty);
-    if (appliedDiscount) sessionStorage.setItem('florecer5_discount', JSON.stringify(appliedDiscount));
+    // Guardar attendees en sessionStorage para recuperarlos al volver      sessionStorage.setItem(ORDER_PREFIX + '_attendees', JSON.stringify(attendees));
+    sessionStorage.setItem(ORDER_PREFIX + '_qty', selectedTier.qty);
+    if (appliedDiscount) sessionStorage.setItem(ORDER_PREFIX + '_discount', JSON.stringify(appliedDiscount));
 
     // Redirigir a MercadoPago Checkout
     window.location.href = data.checkout_url;
@@ -626,8 +653,8 @@ function mostrarQRs(tickets) {
     // Quitar prefijo 52 si ya lo tiene el usuario, wa.me espera 52{10_digitos}
     if (waNum.startsWith('52')) waNum = waNum.slice(2);
     var waMsg = encodeURIComponent(
-      '🎫 *Florecer — 5ª Edición*\n' +
-      '📅 22 de septiembre 2026 · Huerto Roma Verde\n\n' +
+      '🎫 *' + EVENT_NAME + '*\n' +
+      '📅 ' + EVENT_DATE + ' · ' + EVENT_LOCATION + '\n\n' +
       '👤 ' + t.name + '\n' +
       (t.short_code ? '🔢 Código: ' + t.short_code + '\n\n' : '\n') +
       'Presenta este código en la entrada. ¡Te esperamos! 🌿'
@@ -686,7 +713,7 @@ function showError(msg) {
 function updateWaAllLink(tickets) {
   var waNum = document.getElementById('waAllInput').value.replace(/[^0-9]/g, '');
   if (waNum.startsWith('52')) waNum = waNum.slice(2);
-  var lines = ['🎫 *Florecer — 5ª Edición*', '📅 22 septiembre 2026 · Huerto Roma Verde', ''];
+  var lines = ['🎫 *' + EVENT_NAME + '*', '📅 ' + EVENT_DATE + ' · ' + EVENT_LOCATION, ''];
   tickets.forEach(function(t, i) {
     lines.push('👤 ' + t.name + (t.short_code ? ' · Código: ' + t.short_code : ''));
     if (i < tickets.length - 1) lines.push('');
@@ -704,17 +731,17 @@ function updateWaAllLink(tickets) {
   var params = new URLSearchParams(window.location.search);
   var status = params.get('status') || params.get('collection_status');
   if (status === 'approved') {
-    var attendees = JSON.parse(sessionStorage.getItem('florecer5_attendees') || 'null');
-    var qty = parseInt(sessionStorage.getItem('florecer5_qty') || '0');
+    var attendees = JSON.parse(sessionStorage.getItem(ORDER_PREFIX + '_attendees') || 'null');
+    var qty = parseInt(sessionStorage.getItem(ORDER_PREFIX + '_qty') || '0');
     if (attendees && attendees.length === qty) {
       document.getElementById('formMsg').className = 'msg msg-loading active';
       document.getElementById('formMsg').textContent = '✅ Pago aprobado. Generando boletos...';
       document.getElementById('formSection').classList.add('active');
       document.getElementById('btnComprar').style.display = 'none';
       document.getElementById('personFields').innerHTML = '<p style="text-align:center;color:var(--tinta-suave)">Pago confirmado por MercadoPago ✅</p>';
-      generarQRs(attendees, 'florecer5-' + Date.now());
+      generarQRs(attendees, ORDER_PREFIX + '-' + Date.now());
       // Marcar código de descuento como usado si existe
-      var discount = JSON.parse(sessionStorage.getItem('florecer5_discount') || 'null');
+      var discount = JSON.parse(sessionStorage.getItem(ORDER_PREFIX + '_discount') || 'null');
       if (discount && discount.code) {
         fetch(TICKETS_API + '/tickets/apply-discount', {
           method:'POST',
@@ -722,16 +749,16 @@ function updateWaAllLink(tickets) {
           body:JSON.stringify({ code: discount.code })
         });
       }
-      sessionStorage.removeItem('florecer5_attendees');
-      sessionStorage.removeItem('florecer5_qty');
-      sessionStorage.removeItem('florecer5_discount');
+      sessionStorage.removeItem(ORDER_PREFIX + '_attendees');
+      sessionStorage.removeItem(ORDER_PREFIX + '_qty');
+      sessionStorage.removeItem(ORDER_PREFIX + '_discount');
     }
   } else if (status === 'rejected' || status === 'failure') {
     document.getElementById('formMsg').className = 'msg msg-error active';
     document.getElementById('formMsg').textContent = '❌ El pago fue rechazado. Intenta de nuevo.';
-    sessionStorage.removeItem('florecer5_attendees');
-    sessionStorage.removeItem('florecer5_qty');
-    sessionStorage.removeItem('florecer5_discount');
+    sessionStorage.removeItem(ORDER_PREFIX + '_attendees');
+    sessionStorage.removeItem(ORDER_PREFIX + '_qty');
+    sessionStorage.removeItem(ORDER_PREFIX + '_discount');
   }
 })();
 </script>
