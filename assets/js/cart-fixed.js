@@ -157,12 +157,8 @@ let _addToCartLock = Promise.resolve();
 // ── Public API (misma interfaz que antes) ────────────────
 async function addToCart(product) {
   if (!product || !product.id) return;
-  if (!product.variantId) {
-    console.warn('addToCart: falta variantId, no se sincroniza con Medusa');
-    return;
-  }
 
-  // 1. Optimistic UI: actualizar localStorage al instante (fuera del lock)
+  // 1. Optimistic UI: actualizar localStorage al instante
   const local = getLocalCart();
   const exists = local.find(i => i.id === product.id);
   if (exists) {
@@ -170,7 +166,7 @@ async function addToCart(product) {
   } else {
     local.push({
       id: product.id,
-      variantId: product.variantId,
+      variantId: product.variantId || '',
       name: product.name,
       price: product.price || 0,
       priceLabel: product.priceLabel || '',
@@ -182,7 +178,13 @@ async function addToCart(product) {
   renderCartCount();
   showAddedFeedback(product.id);
 
-  // 2. Serializar sync con Medusa para evitar race condition
+  // 2. Si no tiene variantId, solo carrito local (ej: talabartería sin Medusa)
+  if (!product.variantId) {
+    console.log('addToCart: producto local (sin variantId) — ' + product.name);
+    return;
+  }
+
+  // 3. Serializar sync con Medusa para evitar race condition
   const prevLock = _addToCartLock;
   let releaseLock;
   _addToCartLock = new Promise(resolve => { releaseLock = resolve; });
@@ -197,7 +199,6 @@ async function addToCart(product) {
         quantity: product.quantity || 1
       })
     });
-    // Refrescar localStorage desde Medusa (source of truth)
     await syncLocalFromMedusa();
   } catch (e) {
     console.warn('Sincronizacion con Medusa fallo, usando carrito local:', e.message);

@@ -95,7 +95,13 @@
           <div class="prod-price-present">Cada par se fabrica sobre pedido</div>
         </div>
         <div class="add-to-cart-wrapper">
-          <a href="https://wa.me/525563707034?text=Hola%20Casa%20Tapputi%2C%20me%20interesa%20el%20Mocas%C3%ADn%20Lagarto%20Azul" class="btn btn-add-cart prod-add-btn" target="_blank" rel="noopener" style="text-decoration:none">💬 Preguntar por WhatsApp</a>
+          <div class="qty-stepper">
+            <button type="button" aria-label="Restar cantidad" onclick="decrementQty()">−</button>
+            <input type="number" id="productQty" value="1" min="1" aria-label="Cantidad"/>
+            <button type="button" aria-label="Sumar cantidad" onclick="incrementQty()">+</button>
+          </div>
+          <button class="btn btn-add-cart prod-add-btn" data-product-id="mocasin-lagarto-azul" onclick="addCurrentProduct()">🛒 Agregar al carrito</button>
+          <a href="https://wa.me/525563707034?text=Hola%20Casa%20Tapputi%2C%20me%20interesa%20el%20Mocas%C3%ADn%20Lagarto%20Azul" class="btn-wa-message" target="_blank" rel="noopener" style="margin-top:10px;display:inline-flex;align-items:center;gap:6px;font-size:.85rem;color:var(--tinta-suave);text-decoration:none">💬 Consultar por WhatsApp</a>
         </div>
         <p class="prod-meta-note">Hecho a mano en CDMX. Pieles de curtidurías locales. Cada par es único.</p>
       </div>
@@ -195,6 +201,21 @@
     { "@type": "ListItem", "position": 3, "name": "Talabartería", "item": "https://casatapputi.com.mx/productos/talabarteria/" },
     { "@type": "ListItem", "position": 4, "name": "Mocasín Lagarto Azul", "item": "https://casatapputi.com.mx/productos/talabarteria/mocasin-lagarto-azul/" }
   ]
+}
+</script>
+<script>
+function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
+function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
+function addCurrentProduct(){
+  addToCart({
+    id:'mocasin-lagarto-azul',
+    variantId:'',
+    name:'Mocasín Lagarto Azul',
+    price:3700,
+    priceLabel:'$3,700 MXN',
+    image:'../../../assets/images/talabarteria/zapato-7.webp',
+    quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)
+  });
 }
 </script>
 </body>
