@@ -232,7 +232,7 @@
 // ── API de Tickets ───────────────────────────────────────────
 var TICKETS_API = 'https://tickets.casatapputi.com.mx';
 
-function generarTicketQR(orderId, email) {
+function generarTicketQR(orderId, customerName) {
   var container = document.getElementById('ticketQR');
   container.style.display = 'block';
   container.innerHTML = '<div class="ticket-loading">🎟️ Generando tu comprobante digital...</div>';
@@ -240,7 +240,7 @@ function generarTicketQR(orderId, email) {
   fetch(TICKETS_API + '/tickets/generate', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ order_id: orderId, email: email || '' })
+    body: JSON.stringify({ order_id: orderId, name: customerName || '' })
   })
   .then(function(r) { return r.json(); })
   .then(function(data) {
@@ -304,12 +304,12 @@ function generarTicketQR(orderId, email) {
     if (!orderId) {
       orderId = 'manual-' + Date.now();
     }
-    var email = '';
+    var customerName = '';
     var custStr = sessionStorage.getItem('casatapputi_customer');
     if (custStr) {
-      try { email = JSON.parse(custStr).email || ''; } catch(e) {}
+      try { customerName = JSON.parse(custStr).name || ''; } catch(e) {}
     }
-    generarTicketQR(orderId, email);
+    generarTicketQR(orderId, customerName);
 
   } else if (status === 'pending' || status === 'in_process') {
     title.textContent = '⏳ Pago en proceso';
