@@ -1938,7 +1938,7 @@ body::after {
 
 /* ── Quote block: tipografía masiva con whitespace generoso ── */
 .quote-block {
-  padding: clamp(100px, 14vw, 180px) var(--pad);
+  padding: clamp(60px, 10vw, 100px) var(--pad) clamp(20px, 3vw, 40px);
   background: var(--crema-2); text-align: center;
 }
 .quote-block blockquote {
@@ -2043,7 +2043,7 @@ body::after {
 @media (max-width: 768px) {
   .breather { min-height: 38vh; }
   .breather p { font-size: clamp(1.3rem, 5vw, 1.6rem); }
-  .quote-block { padding: clamp(64px, 12vw, 100px) var(--pad); }
+  .quote-block { padding: clamp(48px, 10vw, 72px) var(--pad) clamp(16px, 3vw, 28px); }
   .quote-block blockquote { font-size: clamp(1.4rem, 5vw, 1.8rem); }
   .arch-transition { margin-top: -28px; border-radius: 24px 24px 0 0; }
   .wide-img { aspect-ratio: 4/3; }
