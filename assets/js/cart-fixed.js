@@ -77,16 +77,25 @@ function medusaItemsToLocal(items, existingLocal) {
   return items.map(li => {
     const handle = li.variant?.product?.handle || '';
     const id = handle || li.variant_id;
-    // PRIORIZAR imagen local (source of truth) sobre la de Medusa
-    // Medusa puede tener thumbnails corruptos o desactualizados
+    // PRIORIZAR datos locales (source of truth) sobre Medusa
     let image = '';
     let name = li.title;
+    let price = li.unit_price || 0;
+    let priceLabel = formatPrice(li.unit_price);
     if (existingLocal) {
       const prev = existingLocal.find(i => i.id === id || i.variantId === li.variant_id);
-      if (prev && prev.image) image = prev.image;
-      // Preservar nombre local si tiene info de variedades (ej: "Paquete 6 (2 Menta, 2 Miel...)")
-      if (prev && prev.name && prev.name !== li.title && prev.name.length > li.title.length) {
-        name = prev.name;
+      if (prev) {
+        // Preservar imagen local (Medusa puede tener thumbnails corruptos)
+        if (prev.image) image = prev.image;
+        // Preservar nombre local si tiene info de variedades
+        if (prev.name && prev.name !== li.title && prev.name.length > li.title.length) {
+          name = prev.name;
+        }
+        // Preservar precio local si Medusa devuelve 0 (evita que el subtotal desaparezca)
+        if (!price && prev.price) {
+          price = prev.price;
+          priceLabel = prev.priceLabel || formatPrice(prev.price);
+        }
       }
     }
     // Solo usar thumbnail de Medusa si no hay imagen local
@@ -95,8 +104,8 @@ function medusaItemsToLocal(items, existingLocal) {
       id: id,
       variantId: li.variant_id,
       name: name,
-      price: li.unit_price || 0,
-      priceLabel: formatPrice(li.unit_price),
+      price: price,
+      priceLabel: priceLabel,
     image: sanitizeImagePath(image),
     quantity: li.quantity
   };
@@ -110,10 +119,22 @@ async function syncLocalFromMedusa() {
     if (cart && cart.items) {
       const existing = getLocalCart();
       const medusaItems = medusaItemsToLocal(cart.items, existing);
-      // Preservar items locales que NO estan en Medusa (fallo de POST o en cola)
-      const medusaIds = new Set(medusaItems.map(i => i.id));
-      const localOnly = existing.filter(i => !medusaIds.has(i.id));
-      const merged = [...medusaItems, ...localOnly];
+      const medusaMap = new Map(medusaItems.map(i => [i.id, i]));
+      // Preservar orden local (evita que items se cambien de lugar)
+      // Items existentes mantienen su posicion; nuevos items de Medusa se agregan al final
+      const merged = [];
+      for (const item of existing) {
+        if (medusaMap.has(item.id)) {
+          merged.push(medusaMap.get(item.id));
+          medusaMap.delete(item.id);
+        } else {
+          merged.push(item);
+        }
+      }
+      // Agregar items de Medusa que no estaban localmente
+      for (const item of medusaMap.values()) {
+        merged.push(item);
+      }
       saveLocalCart(merged);
       return merged;
     }
