@@ -18,7 +18,8 @@ let medusaCart = null;   // cache del último fetch del cart de Medusa
 const COUPONS = {
   'BIENVENIDA': { type: 'percent', value: 10, label: '10% de descuento' },
   'HERBOLARIA': { type: 'percent', value: 15, label: '15% de descuento' },
-  'TAPPUTI': { type: 'percent', value: 20, label: '20% de descuento' }
+  'TAPPUTI': { type: 'percent', value: 20, label: '20% de descuento' },
+  'ENVIOGRATIS': { type: 'fixed', value: 50, label: '$50 MXN de descuento' }
 };
 let appliedCoupon = null; // { code, type, value, label }
 
