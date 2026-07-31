@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- ════════════════════════════════════════════════════
+  PLANTILLA GENÉRICA DE EVENTO CON TICKETS QR
+  Copia este archivo, renómbralo y edita la sección CONFIG.
+  Todo lo demás (QR, MercadoPago, WhatsApp, descuentos) ya funciona.
+  ════════════════════════════════════════════════════════ -->
+  <title>Salud Digestiva Herbal — Casa Tapputi</title>
+  <meta name="description" content="Salud Digestiva Herbal. Plantas medicinales que apoyan el sistema digestivo, ayudando a mejorar la digestión, reducir la inflamación y favorecer" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="../../assets/css/main.v4.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../../assets/images/casa-tapputi-logo.webp">
+  <link rel="canonical" href="https://casatapputi.com.mx/talleres/salud-digestiva/">
+  <meta property="og:title" content="Salud Digestiva Herbal — Casa Tapputi">
+  <meta property="og:description" content="Salud Digestiva Herbal. Plantas medicinales que apoyan el sistema digestivo, ayudando a mejorar la digestión, reducir la inflamación y favorecer">
+  <meta property="og:image" content="https://casatapputi.com.mx/assets/images/casa-tapputi-logo.webp">
+  <meta property="og:url" content="https://casatapputi.com.mx/talleres/salud-digestiva/">
+  <meta property="og:type" content="website">
+  <script src="https://sdk.mercadopago.com/js/v2"></script>
+  <script async src="https://plausible.io/js/pa-KVB5ye4NhSFIsTbFNkW0V.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+  <style>
+    :root { --miel:#d4af37; --tinta:#efe6d6; --tinta-suave:rgba(239,230,214,.6); --bg:#1a1814; }
+    body, section:not(.section-dark) { background: var(--bg); color: var(--tinta); }
+    .evento-hero { text-align:center; padding:70px 0 50px; }
+    .evento-hero .fecha-badge {
+      display:inline-block; background:rgba(212,175,55,.15); color:var(--miel);
+      padding:6px 20px; border-radius:30px; font-weight:600; font-size:.9rem;
+      letter-spacing:.04em; margin-bottom:16px;
+    }
+    .evento-hero h1 { font-size:clamp(2.2rem,5vw,3.6rem); margin:0 0 12px; }
+    .evento-hero .subtitulo { font-size:1.15rem; color:var(--tinta-suave); max-width:560px; margin:0 auto 24px; }
+
+    .section-title { font-size:1.6rem; text-align:center; margin:0 0 28px; }
+    .tiers { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:20px; max-width:1000px; margin:0 auto 40px; }
+    .tier {
+      background:rgba(255,255,255,.03); border:2px solid rgba(239,230,214,.1); border-radius:14px;
+      padding:28px 20px; text-align:center; cursor:pointer; transition:all .25s; position:relative;
+    }
+    .tier:hover { border-color:rgba(212,175,55,.3); background:rgba(255,255,255,.05); }
+    .tier.selected { border-color:var(--miel); background:rgba(212,175,55,.08); }
+    .tier .tier-icon { font-size:2.2rem; margin-bottom:8px; }
+    .tier h3 { font-size:1.2rem; margin:0 0 4px; }
+    .tier .price { font-size:2rem; font-weight:700; color:var(--miel); margin:10px 0; }
+    .tier .desc { font-size:.82rem; color:var(--tinta-suave); margin:0 0 12px; }
+    .tier .qty-tag {
+      display:inline-block; background:rgba(255,255,255,.08); padding:3px 12px;
+      border-radius:15px; font-size:.78rem; color:var(--tinta-suave);
+    }
+    .tier .tier-badge {
+      position:absolute; top:-10px; right:14px;
+      background:var(--miel); color:#1a1a1a; font-size:.7rem; font-weight:700;
+      padding:2px 12px; border-radius:10px; letter-spacing:.04em;
+    }
+
+    .form-section { max-width:620px; margin:0 auto; display:none; }
+    .form-section.active { display:block; }
+    .person-fields {
+      background:rgba(255,255,255,.03); border:1px solid rgba(239,230,214,.1);
+      border-radius:10px; padding:20px; margin-bottom:16px;
+    }
+    .person-fields h4 { font-size:.95rem; color:var(--miel); margin:0 0 14px; }
+    .field { margin-bottom:12px; }
+    .field label { display:block; font-size:.82rem; color:var(--tinta-suave); margin-bottom:4px; }
+    .field input {
+      width:100%; padding:10px 14px; background:rgba(0,0,0,.3);
+      border:1px solid rgba(239,230,214,.2); border-radius:6px;
+      color:var(--tinta); font-family:inherit; font-size:.95rem;
+    }
+    .field input:focus { outline:none; border-color:var(--miel); }
+
+    .btn-primary {
+      display:block; width:100%; max-width:400px; margin:20px auto;
+      padding:16px; background:var(--miel); color:#1a1a1a;
+      border:none; border-radius:8px; font-size:1.05rem; font-weight:700;
+      cursor:pointer; font-family:inherit; transition:background .2s;
+    }
+    .btn-primary:hover { background:#c9a52e; }
+    .btn-primary:disabled { background:#555; color:#999; cursor:not-allowed; }
+
+    .qr-results { max-width:700px; margin:28px auto; display:none; }
+    .qr-results.active { display:block; }
+    .qr-card {
+      background:rgba(255,255,255,.04); border:1px solid rgba(239,230,214,.12);
+      border-radius:12px; padding:24px; text-align:center; margin-bottom:16px;
+      display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:center;
+    }
+    .qr-card .qr-img { background:#fff; padding:8px; border-radius:6px; line-height:0; }
+    .qr-card .qr-img canvas, .qr-card .qr-img img { display:block; width:150px; height:150px; }
+    .qr-card .qr-info { text-align:left; min-width:200px; }
+    .qr-card .qr-info strong { color:var(--tinta); }
+    .qr-card .qr-info .name { font-size:1rem; color:var(--miel); }
+    .qr-card .qr-info .token { font-family:'Courier New',monospace; font-size:.7rem; color:var(--tinta-suave); word-break:break-all; }
+    .btn-wa {
+      display:inline-block; margin-top:12px; padding:10px 20px;
+      background:#25D366; color:#fff; border:none; border-radius:6px;
+      font-size:.85rem; font-weight:600; text-decoration:none;
+      cursor:pointer; font-family:inherit; transition:background .2s;
+    }
+    .btn-wa:hover { background:#1da851; }
+    .btn-wa-all {
+      display:block; max-width:400px; margin:20px auto 0; padding:14px 20px;
+      background:#25D366; color:#fff; border:none; border-radius:8px;
+      font-size:.9rem; font-weight:600; text-decoration:none; text-align:center;
+      cursor:pointer; font-family:inherit; transition:background .2s;
+    }
+    .btn-wa-all:hover { background:#1da851; }
+    .wa-all-section { text-align:center; margin-top:20px; display:none; }
+    .wa-all-section.show { display:block; }
+    .wa-all-section input {
+      padding:10px 14px; background:rgba(0,0,0,.3); border:1px solid rgba(239,230,214,.2);
+      border-radius:6px; color:var(--tinta); font-family:inherit; font-size:.9rem;
+      max-width:200px; margin-right:8px;
+    }
+    .wa-all-section input:focus { outline:none; border-color:var(--miel); }
+
+    .tier-custom { text-align:center; }
+    .tier-custom .qty-input-row {
+      display:flex; align-items:center; justify-content:center; gap:6px; margin:10px 0;
+    }
+    .tier-custom .qty-input-row button {
+      width:36px; height:36px; border-radius:50%; border:1px solid rgba(239,230,214,.3);
+      background:rgba(255,255,255,.06); color:var(--tinta); font-size:1.2rem;
+      cursor:pointer; font-family:inherit; transition:all .2s; line-height:1;
+    }
+    .tier-custom .qty-input-row button:hover { background:rgba(212,175,55,.2); border-color:var(--miel); }
+    .tier-custom .qty-input-row input {
+      width:60px; padding:8px; text-align:center; background:rgba(0,0,0,.3);
+      border:1px solid rgba(239,230,214,.2); border-radius:6px;
+      color:var(--tinta); font-family:inherit; font-size:1.1rem; font-weight:600;
+    }
+    .tier-custom .qty-input-row input:focus { outline:none; border-color:var(--miel); }
+
+    .msg { max-width:500px; margin:16px auto; padding:14px 18px; border-radius:8px; font-size:.9rem; text-align:center; display:none; }
+    .msg.active { display:block; }
+    .msg-error { background:rgba(229,57,53,.1); color:#ef9a9a; border:1px solid rgba(229,57,53,.2); }
+    .msg-success { background:rgba(165,214,167,.08); color:#a5d6a7; border:1px solid rgba(165,214,167,.2); }
+    .msg-loading { color:var(--tinta-suave); background:rgba(255,255,255,.03); }
+
+    .event-details { max-width:700px; margin:0 auto 40px; text-align:center; }
+    .event-details .detail-row { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-top:16px; }
+    .event-details .detail-item {
+      background:rgba(255,255,255,.03); border:1px solid rgba(239,230,214,.1);
+      border-radius:10px; padding:16px 20px; min-width:140px;
+    }
+    .event-details .detail-item .icon { font-size:1.6rem; }
+    .event-details .detail-item .label { font-size:.78rem; color:var(--tinta-suave); }
+    .event-details .detail-item .value { font-weight:600; }
+
+    .discount-section { max-width:400px; margin:0 auto 28px; display:none; }
+    .discount-section.active { display:block; }
+    .discount-row { display:flex; gap:8px; }
+    .discount-row input {
+      flex:1; padding:10px 14px; background:rgba(0,0,0,.3);
+      border:1px solid rgba(239,230,214,.2); border-radius:6px;
+      color:var(--tinta); font-family:inherit; font-size:.9rem; text-transform:uppercase;
+    }
+    .discount-row input:focus { outline:none; border-color:var(--miel); }
+    .discount-row button {
+      padding:10px 18px; background:rgba(165,214,167,.15); color:#a5d6a7;
+      border:1px solid rgba(165,214,167,.2); border-radius:6px;
+      font-size:.85rem; font-weight:600; cursor:pointer; font-family:inherit;
+      transition:all .2s; white-space:nowrap;
+    }
+    .discount-row button:hover { background:rgba(165,214,167,.25); }
+    .discount-row button:disabled { opacity:.5; cursor:not-allowed; }
+    .discount-result { margin-top:12px; padding:10px 14px; border-radius:6px; font-size:.85rem; text-align:center; display:none; }
+    .discount-result.show { display:block; }
+    .discount-result.success { background:rgba(165,214,167,.08); color:#a5d6a7; border:1px solid rgba(165,214,167,.12); }
+    .discount-result.error { background:rgba(229,57,53,.08); color:#ef9a9a; border:1px solid rgba(229,57,53,.12); }
+    .discount-result .old-price { text-decoration:line-through; color:var(--tinta-suave); margin-right:8px; }
+    .discount-result .new-price { font-size:1.1rem; font-weight:700; color:var(--miel); }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+<div class="topbar">Llevando la salud natural a tu hogar</div>
+<nav>
+  <div class="nav-inner">
+    <a href="../../" class="nav-logo"><img src="../../assets/images/casa-tapputi-logo.webp" alt="Casa Tapputi" loading="lazy" /><span class="wordmark">CASA TAPPUTI</span></a>
+    <ul class="nav-links">
+      <li><a href="../../productos/">Productos</a></li>
+      <li><a href="/productos/talabarteria/">Zapatos</a></li>
+      <li><a href="../../eventos/">Eventos</a></li>
+      <li><a href="../../talleres/">Talleres</a></li>
+    </ul>
+    <a href="../../tienda/carrito.html" class="cart-icon" aria-label="Carrito"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span class="cart-count" style="display:none">0</span></a>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<main id="main-content">
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../../productos/" onclick="toggleMenu()">Productos</a>
+  <a href="/productos/talabarteria/" onclick="toggleMenu()">Zapatos</a>
+  <a href="../../eventos/" onclick="toggleMenu()">Eventos</a>
+  <a href="../../talleres/" onclick="toggleMenu()">Talleres</a>
+</div>
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+  <nav class="prod-breadcrumb" aria-label="Breadcrumb"><a href="../../">Inicio</a> <span class="breadcrumb-sep">›</span> <a href="../">Talleres</a> <span class="breadcrumb-sep">›</span> <span aria-current="page">Salud Digestiva Herbal</span></nav>
+
+<!-- ═══════════════════════════════════════════════
+  CONFIG: Edita esta sección para cada evento nuevo
+  ═══════════════════════════════════════════════ -->
+<!-- HERO DEL EVENTO -->
+<section class="evento-hero">
+  <div class="container">
+    <div class="fecha-badge">🌟 21 de noviembre 2026</div>
+    <h1>Salud Digestiva Herbal</h1>
+    <p class="subtitulo">Plantas medicinales que apoyan el sistema digestivo, ayudando a mejorar la digestión, reducir la inflamación y favorecer el bienestar gastrointestinal.</p>
+  </div>
+</section>
+
+<!-- DETALLES -->
+<section style="padding-bottom:30px">
+  <div class="container event-details">
+    <div class="detail-row">
+      <div class="detail-item"><div class="icon">📅</div><div class="value">FECHA</div><div class="label">Fecha</div></div>
+      <div class="detail-item"><div class="icon">🕕</div><div class="value">11:30 AM – 2:30 PM</div><div class="label">Hora</div></div>
+      <div class="detail-item"><div class="icon">📍</div><div class="value">Huerto Roma Verde</div><div class="label">Jalapa 234, CDMX</div></div>
+      <div class="detail-item"><div class="icon">🎫</div><div class="value">$500</div><div class="label">Por persona</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SELECTOR DE $500 -->
+<section style="padding-bottom:40px">
+  <div class="container">
+    <h2 class="section-title">Elige tus boletos</h2>
+    <div class="tiers" id="tierSelector">
+      <!-- ═══ CONFIG: TIERS — define precios y cantidades ═══
+        Cada tier: data-tier="CANTIDAD" data-qty="CANTIDAD" data-price="PRECIO"
+        El precio en calcCustomPrice() DEBE coincidir (línea ~450)
+        Puedes agregar o quitar tiers libremente.
+      ═══════════════════════════════════════════════════ -->
+      <div class="tier" data-tier="1" data-qty="1" data-price="500" onclick="selectTier(this)">
+        <div class="tier-icon">🎫</div>
+        <h3>Individual</h3>
+        <div class="price">$500</div>
+        <div class="desc">1 boleto · 1 QR</div>
+        <div class="qty-tag">1 persona</div>
+      </div>
+      <div class="tier" data-tier="3" data-qty="3" data-price="1500" onclick="selectTier(this)">
+        <div class="tier-icon">🎫🎫🎫</div>
+        <h3>Pack 3</h3>
+        <div class="price">$1,500</div>
+        <div class="desc">3 boletos · 3 QRs individuales</div>
+        <div class="qty-tag">3 personas</div>
+      </div>
+      <div class="tier" data-tier="5" data-qty="5" data-price="1500" onclick="selectTier(this)">
+        <div class="tier-icon">🎫🎫🎫🎫🎫</div>
+        <h3>Pack 5</h3>
+        <div class="price">$2,500</div>
+        <div class="desc">5 boletos · 5 QRs individuales</div>
+        <div class="qty-tag">5 personas</div>
+      </div>
+      <!-- Tier personalizado: el usuario elige cantidad. Precios en calcCustomPrice(). -->
+      <div class="tier tier-custom" id="tierCustom" onclick="selectCustomTier()">
+        <div class="tier-icon">🎫✨</div>
+        <h3>Personalizado</h3>
+        <div class="price" id="customPrice">$500</div>
+        <div class="desc">Tú eliges cuántos boletos</div>
+        <div class="qty-input-row" onclick="event.stopPropagation()">
+          <button onclick="changeCustomQty(-1)" aria-label="Menos">−</button>
+          <input type="number" id="customQty" value="1" min="1" max="20" onchange="onCustomQtyChange()" />
+          <button onclick="changeCustomQty(1)" aria-label="Más">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CÓDIGO DE DESCUENTO -->
+    <div class="discount-section" id="discountSection">
+      <p style="text-align:center;color:var(--tinta-suave);font-size:.82rem;margin-bottom:8px">¿Tienes un código de descuento?</p>
+      <div class="discount-row">
+        <input type="text" id="discountInput" placeholder="Ej: FLORECER101" maxlength="20" />
+        <button id="discountBtn" onclick="applyDiscountCode()">Aplicar</button>
+      </div>
+      <div class="discount-result" id="discountResult"></div>
+    </div>
+
+    <!-- FORMULARIO DINÁMICO -->
+    <div class="form-section" id="formSection">
+      <h3 style="text-align:center; color:var(--miel); margin-bottom:20px" id="formTitle">Datos de los asistentes</h3>
+      <div id="personFields"></div>
+      <div class="msg" id="formMsg"></div>
+      <button class="btn-primary" id="btnComprar" onclick="procesarCompra()">Obtener boletos 🎫</button>
+    </div>
+
+    <!-- RESULTADOS QR -->
+    <div class="qr-results" id="qrResults">
+      <h3 style="text-align:center; margin-bottom:16px">🎉 ¡Tus boletos están listos!</h3>
+      <p style="text-align:center; color:var(--tinta-suave); margin-bottom:20px">Cada QR es único. Preséntalos en la entrada. Se validan una sola vez.</p>
+      <div id="qrCards"></div>
+      <div class="wa-all-section" id="waAllSection">
+        <p style="color:var(--tinta-suave);font-size:.85rem;margin-bottom:10px">📱 ¿Quieres recibir <strong>todos</strong> los boletos en un solo mensaje?</p>
+        <input type="tel" id="waAllInput" placeholder="55-1234-5678" />
+        <a href="#" class="btn-wa-all" id="btnWaAll" target="_blank" rel="noopener">📱 Enviar todos por WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand"><span class="wordmark">CASA TAPPUTI</span><p>Taller de herbolaria</p></div>
+      <div class="footer-col"><h4>Explorar</h4><ul><li><a href="../../productos/">Productos</a></li><li><a href="/productos/talabarteria/">Zapatos</a></li><li><a href="../../eventos/">Eventos</a></li><li><a href="../../talleres/">Talleres</a></li></ul></div>
+      <div class="footer-col"><h4>Contacto</h4><ul><li><a href="tel:+525563707034">55-6370-7034</a></li><li>Jalapa 234, Roma Sur, CDMX</li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Casa Tapputi</span></div>
+  </div>
+</footer>
+
+<script src="../../assets/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+// ══════════════════════════════════════════════════════
+// CONFIG JS: Cambia estos valores para cada evento nuevo
+// ══════════════════════════════════════════════════════
+var EVENT_NAME = 'Salud Digestiva Herbal';
+var EVENT_DATE = '21 de noviembre 2026';
+var EVENT_LOCATION = 'Huerto Roma Verde';
+var ORDER_PREFIX = 'taller-curso-digestiva';   // Prefijo para identificar tickets en el admin
+var PRECIO_INDIVIDUAL = 500;       // Precio por boleto individual
+var PRECIO_PACK_3 = 1500;            // Precio del pack de 3
+var PRECIO_PACK_5 = 2500;            // Precio del pack de 5
+// ══════════════════════════════════════════════════════
+
+var TICKETS_API = 'https://tickets.casatapputi.com.mx';
+var MP_PUBLIC_KEY = 'APP_USR-5215e212-ea55-41df-ad06-c828ebdfc562';
+var mp = new MercadoPago(MP_PUBLIC_KEY);
+
+var selectedTier = null;
+var appliedDiscount = null;  // { code, type, value }
+
+function getPrecioFinal() {
+  var price = selectedTier.price;
+  if (!appliedDiscount) return price;
+  if (appliedDiscount.type === 'percent') {
+    return Math.max(0, price - Math.round(price * appliedDiscount.value / 100));
+  }
+  if (appliedDiscount.type === 'fixed') {
+    return Math.max(0, price - appliedDiscount.value);
+  }
+  return price;
+}
+
+function updatePrecioFinal() {
+  var btn = document.getElementById('btnComprar');
+  var finalPrice = getPrecioFinal();
+  if (appliedDiscount && (appliedDiscount.type !== 'percent' || appliedDiscount.value !== 100)) {
+    btn.textContent = 'Pagar $' + finalPrice + ' MXN · MercadoPago 💳';
+    btn.className = 'btn-primary';
+    btn.style.background = '';
+  } else if (appliedDiscount && appliedDiscount.type === 'percent' && appliedDiscount.value === 100) {
+    btn.textContent = 'Obtener boletos gratis 🎫';
+    btn.className = 'btn-primary';
+    btn.style.background = '#a5d6a7';
+  } else {
+    btn.textContent = 'Pagar $' + finalPrice + ' MXN · MercadoPago 💳';
+    btn.className = 'btn-primary';
+    btn.style.background = '';
+  }
+}
+
+function applyDiscountCode() {
+  var code = document.getElementById('discountInput').value.trim();
+  var result = document.getElementById('discountResult');
+  var btn = document.getElementById('discountBtn');
+
+  if (!code) { showDiscountResult('Ingresa un código', 'error'); return; }
+  if (!selectedTier) { showDiscountResult('Selecciona un tier primero', 'error'); return; }
+
+  btn.disabled = true;
+  btn.textContent = '...';
+  result.className = 'discount-result';
+
+  fetch(TICKETS_API + '/tickets/validate-discount', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ code: code })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    btn.disabled = false;
+    btn.textContent = 'Aplicar';
+
+    if (data.error) {
+      showDiscountResult(data.error, 'error');
+      appliedDiscount = null;
+      return;
+    }
+
+    appliedDiscount = { code: code, type: data.type, value: data.value };
+    var finalPrice = getPrecioFinal();
+    var oldPrice = selectedTier.price;
+    var descText = data.desc;
+
+    if (finalPrice === 0) {
+      showDiscountResult('<span class="old-price">$' + oldPrice + '</span> <span class="new-price">¡GRATIS!</span> — ' + descText, 'success');
+    } else {
+      showDiscountResult('<span class="old-price">$' + oldPrice + '</span> <span class="new-price">$' + finalPrice + ' MXN</span> — ' + descText, 'success');
+    }
+    updatePrecioFinal();
+  })
+  .catch(function(){
+    btn.disabled = false;
+    btn.textContent = 'Aplicar';
+    showDiscountResult('Error de conexión', 'error');
+  });
+}
+
+function showDiscountResult(msg, type) {
+  var el = document.getElementById('discountResult');
+  el.innerHTML = msg;
+  el.className = 'discount-result show ' + (type === 'success' ? 'success' : 'error');
+}
+
+function selectTier(el) {
+  document.querySelectorAll('.tier').forEach(function(t){ t.classList.remove('selected'); });
+  el.classList.add('selected');
+  selectedTier = { tier:el.dataset.tier, qty:parseInt(el.dataset.qty), price:parseInt(el.dataset.price) };
+  // Resetear descuento al cambiar de tier
+  appliedDiscount = null;
+  document.getElementById('discountInput').value = '';
+  document.getElementById('discountResult').className = 'discount-result';
+  document.getElementById('discountBtn').disabled = false;
+  document.getElementById('discountBtn').textContent = 'Aplicar';
+  buildForm();
+}
+
+// ── Tier personalizado ─────────────────────────────────
+// ═══ CONFIG: Precios del tier personalizado ═══
+function calcCustomPrice(qty) {
+  if (qty === 3) return PRECIO_PACK_3;
+  if (qty === 5) return PRECIO_PACK_5;
+  return qty * PRECIO_INDIVIDUAL;
+}
+
+function selectCustomTier() {
+  var qty = parseInt(document.getElementById('customQty').value) || 1;
+  if (qty < 1) qty = 1;
+  if (qty > 20) qty = 20;
+  document.getElementById('customQty').value = qty;
+
+  var price = calcCustomPrice(qty);
+  document.querySelectorAll('.tier').forEach(function(t){ t.classList.remove('selected'); });
+  document.getElementById('tierCustom').classList.add('selected');
+  selectedTier = { tier:'custom', qty:qty, price:price };
+  // Resetear descuento al cambiar de tier
+  appliedDiscount = null;
+  document.getElementById('discountInput').value = '';
+  document.getElementById('discountResult').className = 'discount-result';
+  document.getElementById('discountBtn').disabled = false;
+  document.getElementById('discountBtn').textContent = 'Aplicar';
+  buildForm();
+}
+
+function changeCustomQty(delta) {
+  var input = document.getElementById('customQty');
+  var qty = (parseInt(input.value) || 1) + delta;
+  if (qty < 1) qty = 1;
+  if (qty > 20) qty = 20;
+  input.value = qty;
+  onCustomQtyChange();
+}
+
+function onCustomQtyChange() {
+  var qty = parseInt(document.getElementById('customQty').value) || 1;
+  if (qty < 1) qty = 1;
+  if (qty > 20) qty = 20;
+  document.getElementById('customQty').value = qty;
+  var price = calcCustomPrice(qty);
+  var priceEl = document.getElementById('customPrice');
+  if (qty === 3 && PRECIO_PACK_3 < PRECIO_INDIVIDUAL * 3) {
+    priceEl.textContent = '$' + PRECIO_PACK_3.toLocaleString() + ' (ahorras $' + (PRECIO_INDIVIDUAL * 3 - PRECIO_PACK_3) + ')';
+  } else if (qty === 5 && PRECIO_PACK_5 < PRECIO_INDIVIDUAL * 5) {
+    priceEl.textContent = '$' + PRECIO_PACK_5.toLocaleString() + ' (ahorras $' + (PRECIO_INDIVIDUAL * 5 - PRECIO_PACK_5) + ')';
+  } else {
+    priceEl.textContent = '$' + price.toLocaleString();
+  }
+  // Si ya está seleccionado, actualizar inmediatamente
+  if (document.getElementById('tierCustom').classList.contains('selected')) {
+    selectCustomTier();
+  }
+}
+
+function buildForm() {
+  var section = document.getElementById('formSection');
+  var fields = document.getElementById('personFields');
+  var btn = document.getElementById('btnComprar');
+  var title = document.getElementById('formTitle');
+  document.getElementById('qrResults').classList.remove('active');
+  document.getElementById('formMsg').classList.remove('active');
+
+  if (!selectedTier) { section.classList.remove('active'); return; }
+  section.classList.add('active');
+
+  var html = '';
+  for (var i = 1; i <= selectedTier.qty; i++) {
+    html +=
+      '<div class="person-fields">' +
+        '<h4>👤 Asistente ' + i + '</h4>' +
+        '<div class="field"><label>Nombre</label><input type="text" id="name_' + i + '" placeholder="Nombre" required /></div>' +
+        '<div class="field"><label>Apellido</label><input type="text" id="last_' + i + '" placeholder="Apellido" required /></div>' +
+        '<div class="field"><label>WhatsApp</label><input type="tel" id="wa_' + i + '" placeholder="55-1234-5678" required /></div>' +
+      '</div>';
+  }
+  fields.innerHTML = html;
+
+    // Mostrar sección de descuento
+    document.getElementById('discountSection').classList.add('active');
+    updatePrecioFinal();
+    title.textContent = 'Datos de los asistentes';
+}
+
+function procesarCompra() {
+  if (!selectedTier) return;
+
+  var attendees = [];
+  var valid = true;
+  for (var i = 1; i <= selectedTier.qty; i++) {
+    var name = document.getElementById('name_' + i).value.trim();
+    var last = document.getElementById('last_' + i).value.trim();
+    var wa = document.getElementById('wa_' + i).value.trim();
+    if (!name || !last || !wa) { valid = false; break; }
+    attendees.push({ name:name, last_name:last, whatsapp:wa });
+  }
+
+  var msg = document.getElementById('formMsg');
+  if (!valid) {
+    msg.className = 'msg msg-error active';
+    msg.textContent = '⚠️ Completa todos los campos de cada asistente.';
+    return;
+  }
+
+  msg.className = 'msg msg-loading active';
+  msg.textContent = '⏳ Procesando...';
+
+  var btn = document.getElementById('btnComprar');
+  btn.disabled = true;
+
+  var finalPrice = getPrecioFinal();
+  // Si el precio final es 0 (100% descuento), generar QRs directo sin MP
+  if (finalPrice === 0 && appliedDiscount && appliedDiscount.type === 'percent' && appliedDiscount.value === 100) {
+    generarQRs(attendees, ORDER_PREFIX + '-dr');
+    // Marcar código como usado
+    fetch(TICKETS_API + '/tickets/apply-discount', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ code: appliedDiscount.code })
+    }).catch(function(){});
+  } else {
+    crearPreferenciaMP(attendees);
+  }
+}
+
+function crearPreferenciaMP(attendees) {
+  fetch(TICKETS_API + '/tickets/create-preference', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      amount: getPrecioFinal(),
+      discount_code: appliedDiscount ? appliedDiscount.code : null,
+      quantity: selectedTier.qty,
+      event:ORDER_PREFIX,
+      attendees:attendees
+    })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if (data.error) {
+      showError(data.error);
+      return;
+    }
+
+    // Guardar attendees en sessionStorage para recuperarlos al volver      sessionStorage.setItem(ORDER_PREFIX + '_attendees', JSON.stringify(attendees));
+    sessionStorage.setItem(ORDER_PREFIX + '_qty', selectedTier.qty);
+    if (appliedDiscount) sessionStorage.setItem(ORDER_PREFIX + '_discount', JSON.stringify(appliedDiscount));
+
+    // Redirigir a MercadoPago Checkout
+    window.location.href = data.checkout_url;
+  })
+  .catch(function(){
+    showError('Error de conexión. Intenta de nuevo.');
+  });
+}
+
+function generarQRs(attendees, orderPrefix) {
+  var pendientes = attendees.length;
+  var tickets = [];
+  var errores = false;
+
+  function generarSiguiente(idx) {
+    if (idx >= attendees.length) {
+      if (!errores) mostrarQRs(tickets);
+      return;
+    }
+
+    var a = attendees[idx];
+    fetch(TICKETS_API + '/tickets/generate', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        order_id: orderPrefix + '-' + (idx+1),
+        email:'',
+        name:a.name,
+        last_name:a.last_name,
+        whatsapp:a.whatsapp
+      })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if (data.token) {
+        tickets.push({ token:data.token, name:a.name + ' ' + a.last_name, short_code:data.short_code || '', whatsapp:a.whatsapp || '' });
+      } else {
+        errores = true;
+      }
+      pendientes--;
+      if (pendientes === 0 && !errores) mostrarQRs(tickets);
+      if (errores && pendientes === 0) showError('No se pudieron generar todos los boletos.');
+      generarSiguiente(idx+1);
+    })
+    .catch(function(){
+      errores = true;
+      pendientes--;
+      if (pendientes === 0) showError('Error de conexión al generar boletos.');
+      generarSiguiente(idx+1);
+    });
+  }
+
+  generarSiguiente(0);
+}
+
+function mostrarQRs(tickets) {
+  var msg = document.getElementById('formMsg');
+  msg.classList.remove('active');
+
+  var container = document.getElementById('qrCards');
+  var html = '';
+  tickets.forEach(function(t, i){
+    var waNum = (t.whatsapp || '').replace(/[^0-9]/g, '');
+    // Quitar prefijo 52 si ya lo tiene el usuario, wa.me espera 52{10_digitos}
+    if (waNum.startsWith('52')) waNum = waNum.slice(2);
+    var waMsg = encodeURIComponent(
+      '🎫 *' + EVENT_NAME + '*\n' +
+      '📅 ' + EVENT_DATE + ' · ' + EVENT_LOCATION + '\n\n' +
+      '👤 ' + t.name + '\n' +
+      (t.short_code ? '🔢 Código: ' + t.short_code + '\n\n' : '\n') +
+      'Presenta este código en la entrada. ¡Te esperamos! 🌿'
+    );
+    var waLink = waNum ? 'https://wa.me/52' + waNum + '?text=' + waMsg : '#';
+    html +=
+      '<div class="qr-card">' +
+        '<div class="qr-img" id="qrcode_' + i + '"></div>' +
+        '<div class="qr-info">' +
+          '<div class="name">' + t.name + '</div>' +
+          '<div style="font-size:.8rem;color:var(--tinta-suave)">Boleto #' + (i+1) + (t.short_code ? ' · Código: <strong style="color:var(--miel);font-size:1.1rem">' + t.short_code + '</strong>' : '') + '</div>' +
+          '<div class="token" style="margin-top:6px">' + t.token + '</div>' +
+          (waNum ? '<a href="' + waLink + '" target="_blank" class="btn-wa" rel="noopener">📱 Enviar por WhatsApp</a>' : '') +
+        '</div>' +
+      '</div>';
+  });
+  container.innerHTML = html;
+  document.getElementById('qrResults').classList.add('active');
+  document.getElementById('btnComprar').style.display = 'none';
+  document.getElementById('formSection').classList.remove('active');
+
+  // ── Botón "Enviar TODOS por WhatsApp" ──
+  if (tickets.length > 1) {
+    var waAllSection = document.getElementById('waAllSection');
+    waAllSection.classList.add('show');
+    var firstWa = (tickets[0].whatsapp || '').replace(/[^0-9]/g, '');
+    if (firstWa.startsWith('52')) firstWa = firstWa.slice(2);
+    document.getElementById('waAllInput').value = firstWa || '';
+    updateWaAllLink(tickets);
+    document.getElementById('waAllInput').oninput = function() { updateWaAllLink(tickets); };
+  }
+
+  // Generar QRs client-side
+  setTimeout(function(){
+    tickets.forEach(function(t, i){
+      var el = document.getElementById('qrcode_' + i);
+      if (el) {
+        new QRCode(el, {
+          text:'https://casatapputi.com.mx/tickets/validar.html?token=' + t.token,
+          width:150, height:150,
+          colorDark:'#000000', colorLight:'#ffffff',
+          correctLevel:QRCode.CorrectLevel.M
+        });
+      }
+    });
+  }, 200);
+}
+
+function showError(msg) {
+  var m = document.getElementById('formMsg');
+  m.className = 'msg msg-error active';
+  m.textContent = '❌ ' + msg;
+  document.getElementById('btnComprar').disabled = false;
+}
+
+function updateWaAllLink(tickets) {
+  var waNum = document.getElementById('waAllInput').value.replace(/[^0-9]/g, '');
+  if (waNum.startsWith('52')) waNum = waNum.slice(2);
+  var lines = ['🎫 *' + EVENT_NAME + '*', '📅 ' + EVENT_DATE + ' · ' + EVENT_LOCATION, ''];
+  tickets.forEach(function(t, i) {
+    lines.push('👤 ' + t.name + (t.short_code ? ' · Código: ' + t.short_code : ''));
+    if (i < tickets.length - 1) lines.push('');
+  });
+  lines.push('');
+  lines.push('Presenta cada QR en la entrada. ¡Te esperamos! 🌿');
+  var btn = document.getElementById('btnWaAll');
+  btn.href = waNum ? 'https://wa.me/52' + waNum + '?text=' + encodeURIComponent(lines.join('\n')) : '#';
+  btn.style.opacity = waNum ? '1' : '.4';
+  btn.style.pointerEvents = waNum ? 'auto' : 'none';
+}
+
+// ── Detectar retorno de MercadoPago ──
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var status = params.get('status') || params.get('collection_status');
+  if (status === 'approved') {
+    var attendees = JSON.parse(sessionStorage.getItem(ORDER_PREFIX + '_attendees') || 'null');
+    var qty = parseInt(sessionStorage.getItem(ORDER_PREFIX + '_qty') || '0');
+    if (attendees && attendees.length === qty) {
+      document.getElementById('formMsg').className = 'msg msg-loading active';
+      document.getElementById('formMsg').textContent = '✅ Pago aprobado. Generando boletos...';
+      document.getElementById('formSection').classList.add('active');
+      document.getElementById('btnComprar').style.display = 'none';
+      document.getElementById('personFields').innerHTML = '<p style="text-align:center;color:var(--tinta-suave)">Pago confirmado por MercadoPago ✅</p>';
+      generarQRs(attendees, ORDER_PREFIX + '-' + Date.now());
+      // Marcar código de descuento como usado si existe
+      var discount = JSON.parse(sessionStorage.getItem(ORDER_PREFIX + '_discount') || 'null');
+      if (discount && discount.code) {
+        fetch(TICKETS_API + '/tickets/apply-discount', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({ code: discount.code })
+        });
+      }
+      sessionStorage.removeItem(ORDER_PREFIX + '_attendees');
+      sessionStorage.removeItem(ORDER_PREFIX + '_qty');
+      sessionStorage.removeItem(ORDER_PREFIX + '_discount');
+    }
+  } else if (status === 'rejected' || status === 'failure') {
+    document.getElementById('formMsg').className = 'msg msg-error active';
+    document.getElementById('formMsg').textContent = '❌ El pago fue rechazado. Intenta de nuevo.';
+    sessionStorage.removeItem(ORDER_PREFIX + '_attendees');
+    sessionStorage.removeItem(ORDER_PREFIX + '_qty');
+    sessionStorage.removeItem(ORDER_PREFIX + '_discount');
+  }
+})();
+</script>
+</body>
+</html>
