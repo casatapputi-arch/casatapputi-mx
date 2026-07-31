@@ -1884,6 +1884,7 @@ body::after {
 .prod-section-dark:has(.prod-howto-grid) .section-title { color: var(--tinta); }
 .prod-section-dark:has(.prod-howto-grid) .prod-howto h3 { color: var(--tinta); }
 .prod-section-dark:has(.prod-howto-grid) .prod-howto p { color: var(--tinta-suave); }
+.prod-section-dark:has(.prod-howto-grid) .prod-howto-num { color: var(--tinta); }
 
 /* Beneficios */
 .prod-benefits {
