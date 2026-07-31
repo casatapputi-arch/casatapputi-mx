@@ -5,15 +5,24 @@ import re, os, sys
 from pathlib import Path
 from collections import Counter
 
-# Usar GITHUB_WORKSPACE en CI, o derivar del script para ejecucion local
-BASE = Path(os.environ.get("GITHUB_WORKSPACE", str(Path(__file__).resolve().parent.parent)))
+# Usar GITHUB_WORKSPACE en CI, o el sitio por defecto para ejecución local
+# (no derivar de __file__: la copia del vault se ejecuta desde /home/enrique/vault/scripts/)
+BASE = Path(os.environ.get("GITHUB_WORKSPACE", "/home/enrique/casatapputi-mx"))
 
 def find_all_html():
-    return sorted(f for f in BASE.rglob("*.html") if ".git" not in str(f))
+    """Solo páginas reales: excluye .git y template.html (scaffolds con rutas relativas correctas para su instanciación en subdirectorio)."""
+    return sorted(
+        f for f in BASE.rglob("*.html")
+        if ".git" not in str(f) and f.name != "template.html"
+    )
+
+def strip_scripts(content: str) -> str:
+    """Elimina bloques <script>...</script> para no detectar hrefs de concatenaciones JS (ej: ' + waLink + ')."""
+    return re.sub(r"<script[^>]*>.*?</script>", "", content, flags=re.DOTALL | re.IGNORECASE)
 
 def extract_internal_links(html_path: Path):
     """Extrae hrefs internos (sin http://, mailto:, tel:, o #puros)."""
-    content = html_path.read_text(encoding="utf-8")
+    content = strip_scripts(html_path.read_text(encoding="utf-8"))
     hrefs = re.findall(r'href="((?!https?://|mailto:|tel:)[^"]*)"', content)
     links = []
     rel_dir = html_path.parent
@@ -110,7 +119,6 @@ def main():
     
     pages_with_bc = 0
     pages_without_bc = []
-    bc_issues = []
     
     for f in html_files:
         bc = extract_breadcrumbs(f)
