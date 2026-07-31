@@ -268,7 +268,7 @@ async function renderMarquee(containerSelector) {
 
   // LQIP Blur-Up: main.js ya corrió su querySelectorAll('.marquee-card img')
   // en DOMContentLoaded, antes de que este fetch async insertara estas imágenes.
-  // Sin esto, .loaded nunca se agrega y el blur(12px) de main.css se queda para siempre.
+  // Sin esto, .loaded nunca se agrega y el blur(12px) de main.v4.css se queda para siempre.
   inner.querySelectorAll('.marquee-card img').forEach(img => {
     if (img.complete) {
       img.classList.add('loaded');
