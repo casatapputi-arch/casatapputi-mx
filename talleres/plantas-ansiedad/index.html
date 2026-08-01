@@ -23,6 +23,7 @@
   <meta property="og:type" content="website">
   <script src="https://sdk.mercadopago.com/js/v2"></script>
   <script async src="https://plausible.io/js/pa-KVB5ye4NhSFIsTbFNkW0V.js"></script>
+  <script src="../../assets/js/tickets-client.js"></script>
   <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
   <style>
     :root { --miel:#d4af37; --tinta:#efe6d6; --tinta-suave:rgba(239,230,214,.6); --bg:#1a1814; }
@@ -564,7 +565,8 @@ function procesarCompra() {
 }
 
 function crearPreferenciaMP(attendees) {
-  fetch(TICKETS_API + '/tickets/create-preference', {
+  var fetchFn = window.TicketsClient ? window.TicketsClient.fetchWithTimeout.bind(window.TicketsClient) : fetch;
+  fetchFn(TICKETS_API + '/tickets/create-preference', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({
@@ -589,8 +591,9 @@ function crearPreferenciaMP(attendees) {
     // Redirigir a MercadoPago Checkout
     window.location.href = data.checkout_url;
   })
-  .catch(function(){
-    showError('Error de conexión. Intenta de nuevo.');
+  .catch(function(err){
+    console.warn('Error/Timeout en API de tickets:', err);
+    showError('No pudimos conectar con el servidor de pago. Puedes continuar tu reservación directamente por WhatsApp.', attendees);
   });
 }
 
@@ -641,6 +644,9 @@ function generarQRs(attendees, orderPrefix) {
 }
 
 function mostrarQRs(tickets) {
+  if (window.TicketsClient && window.TicketsClient.saveTicketsLocal) {
+    window.TicketsClient.saveTicketsLocal(ORDER_PREFIX, tickets);
+  }
   var msg = document.getElementById('formMsg');
   msg.classList.remove('active');
 
@@ -701,10 +707,18 @@ function mostrarQRs(tickets) {
   }, 200);
 }
 
-function showError(msg) {
+function showError(msg, attendees) {
   var m = document.getElementById('formMsg');
   m.className = 'msg msg-error active';
-  m.textContent = '❌ ' + msg;
+  var html = '<div>❌ ' + msg + '</div>';
+  if (attendees && attendees.length) {
+    var waMsg = encodeURIComponent(
+      'Hola Casa Tapputi, quiero reservar ' + attendees.length + ' boleto(s) para ' + (typeof EVENT_NAME !== 'undefined' ? EVENT_NAME : 'taller') + '.\n' +
+      'Asistentes:\n' + attendees.map(function(a){ return '- ' + a.name + ' ' + a.last_name + ' (' + a.whatsapp + ')'; }).join('\n')
+    );
+    html += '<div style="margin-top:10px"><a href="https://wa.me/525563707034?text=' + waMsg + '" target="_blank" rel="noopener" class="taller-wa" style="display:inline-block;padding:8px 16px;background:var(--miel);color:#1a1a1a;border-radius:6px;text-decoration:none;font-weight:600">💬 Confirmar reservación por WhatsApp</a></div>';
+  }
+  m.innerHTML = html;
   document.getElementById('btnComprar').disabled = false;
 }
 
@@ -757,6 +771,17 @@ function updateWaAllLink(tickets) {
     sessionStorage.removeItem(ORDER_PREFIX + '_attendees');
     sessionStorage.removeItem(ORDER_PREFIX + '_qty');
     sessionStorage.removeItem(ORDER_PREFIX + '_discount');
+  } else {
+    if (window.TicketsClient && window.TicketsClient.getTicketsLocal) {
+      var localTickets = window.TicketsClient.getTicketsLocal(ORDER_PREFIX);
+      if (localTickets && localTickets.length) {
+        var msg = document.getElementById('formMsg');
+        msg.className = 'msg msg-info active';
+        msg.style.background = 'rgba(212,175,55,.15)';
+        msg.style.color = 'var(--miel)';
+        msg.innerHTML = '🎫 Tienes <strong>' + localTickets.length + ' boleto(s) guardado(s)</strong> para este taller. <button style="background:var(--miel);color:#1a1a1a;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-weight:600;margin-left:8px" onclick="mostrarQRs(window.TicketsClient.getTicketsLocal(ORDER_PREFIX))">Ver boletos QR 🎫</button>';
+      }
+    }
   }
 })();
 </script>
