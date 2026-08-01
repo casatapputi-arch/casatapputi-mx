@@ -544,7 +544,7 @@ function procesarCompra() {
 }
 
 function crearPreferenciaMP(attendees) {
-  var fetchFn = window.TicketsClient ? window.TicketsClient.fetchWithTimeout.bind(window.TicketsClient) : fetch;
+  var fetchFn = window.TicketsClient ? window.TicketsClient.fetchWithTimeout.bind(window.TicketsClient) : fetch.bind(window);
   fetchFn(TICKETS_API + '/tickets/create-preference', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
@@ -563,7 +563,8 @@ function crearPreferenciaMP(attendees) {
       return;
     }
 
-    // Guardar attendees en sessionStorage para recuperarlos al volver      sessionStorage.setItem('florecer5_attendees', JSON.stringify(attendees));
+    // Guardar attendees en sessionStorage para recuperarlos al volver
+    sessionStorage.setItem('florecer5_attendees', JSON.stringify(attendees));
     sessionStorage.setItem('florecer5_qty', selectedTier.qty);
     if (appliedDiscount) sessionStorage.setItem('florecer5_discount', JSON.stringify(appliedDiscount));
 

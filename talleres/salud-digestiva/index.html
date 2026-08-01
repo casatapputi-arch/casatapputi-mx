@@ -21,6 +21,7 @@
   <meta property="og:image" content="https://casatapputi.com.mx/assets/images/casa-tapputi-logo.webp">
   <meta property="og:url" content="https://casatapputi.com.mx/talleres/salud-digestiva/">
   <meta property="og:type" content="website">
+  <script src="https://sdk.mercadopago.com/js/v2"></script>
   <script async src="https://plausible.io/js/pa-KVB5ye4NhSFIsTbFNkW0V.js"></script>
   <script src="../../assets/js/tickets-client.js"></script>
   <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
@@ -564,7 +565,7 @@ function procesarCompra() {
 }
 
 function crearPreferenciaMP(attendees) {
-  var fetchFn = window.TicketsClient ? window.TicketsClient.fetchWithTimeout.bind(window.TicketsClient) : fetch;
+  var fetchFn = window.TicketsClient ? window.TicketsClient.fetchWithTimeout.bind(window.TicketsClient) : fetch.bind(window);
   fetchFn(TICKETS_API + '/tickets/create-preference', {
     method:'POST',
     headers:{'Content-Type':'application/json'},

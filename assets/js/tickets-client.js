@@ -3,52 +3,19 @@
    Soporta:
    1. Timeout (8s) y fallback automático a WhatsApp si falla la API.
    2. Persistencia de boletos QR en localStorage (recuperación tras refresco).
-   3. Carga diferida (lazy load) de SDK MercadoPago V2 y QRCode.js.
-   4. Sanitización dinámica de teléfonos WhatsApp (+52).
+
+   NOTA: el SDK de MercadoPago se carga de forma síncrona en cada página
+   a propósito. Aunque la instancia `mp` no se use (el pago es por redirect
+   a checkout_url), cargar el SDK es lo que recolecta el Device ID que
+   MercadoPago usa para antifraude y tasa de aprobación. No diferirlo ni
+   retirarlo sin confirmarlo antes con MercadoPago.
    ============================================================ */
 
 (function(window){
   'use strict';
 
   var TicketsClient = {
-    TICKETS_API: 'https://tickets.casatapputi.com.mx',
-    MP_PUBLIC_KEY: 'APP_USR-5215e212-ea55-41df-ad06-c828ebdfc562',
     TIMEOUT_MS: 8000,
-
-    // Carga de scripts de forma asíncrona (Lazy Loading)
-    loadScript: function(src, callback) {
-      if (document.querySelector('script[src="' + src + '"]')) {
-        if (callback) callback();
-        return;
-      }
-      var s = document.createElement('script');
-      s.src = src;
-      s.async = true;
-      s.onload = function() { if (callback) callback(); };
-      s.onerror = function() { console.error('Error cargando script:', src); };
-      document.head.appendChild(s);
-    },
-
-    // Asegura SDKs de MP y QRCode
-    ensureSDKs: function(callback) {
-      var self = this;
-      self.loadScript('https://sdk.mercadopago.com/js/v2', function(){
-        self.loadScript('https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js', function(){
-          if (callback) callback();
-        });
-      });
-    },
-
-    // Sanitizar número de WhatsApp a formato de 10 dígitos (o con prefijo 52)
-    cleanWhatsApp: function(val) {
-      var num = (val || '').toString().replace(/\D/g, '');
-      if (num.length === 12 && num.startsWith('52')) {
-        num = num.slice(2);
-      } else if (num.length > 10) {
-        num = num.slice(-10);
-      }
-      return num;
-    },
 
     // Petición con Timeout utilizando AbortController
     fetchWithTimeout: function(url, options, timeoutMs) {
@@ -59,24 +26,42 @@
 
       var timer = controller ? setTimeout(function(){ controller.abort(); }, ms) : null;
 
+      // El timer sigue vivo tras recibir los headers: así el abort también corta
+      // un cuerpo de respuesta colgado (res.json() sin límite). Abortar una
+      // respuesta ya consumida es no-op, de modo que no afecta al caso feliz.
       return fetch(url, opts)
-        .then(function(res){
-          if (timer) clearTimeout(timer);
-          return res;
-        })
         .catch(function(err){
           if (timer) clearTimeout(timer);
           throw err;
         });
     },
 
-    // Guardar boletos en localStorage
+    // Guardar boletos en localStorage.
+    // Acumula por token en vez de sobrescribir: una segunda compra del mismo
+    // taller no borra los boletos de la primera. El timestamp (base del TTL)
+    // solo se refresca si de verdad entraron boletos nuevos — mirarlos no
+    // debe posponer la expiración indefinidamente.
     saveTicketsLocal: function(eventPrefix, tickets) {
       try {
         var key = 'casatapputi_tickets_' + eventPrefix;
+        var prev = null;
+        try { prev = JSON.parse(localStorage.getItem(key) || 'null'); } catch(e) { prev = null; }
+
+        var merged = (prev && prev.tickets && prev.tickets.length) ? prev.tickets.slice() : [];
+        var seen = {};
+        merged.forEach(function(t){ if (t && t.token) seen[t.token] = true; });
+
+        var added = false;
+        (tickets || []).forEach(function(t){
+          if (!t || !t.token || seen[t.token]) return;
+          seen[t.token] = true;
+          merged.push(t);
+          added = true;
+        });
+
         var data = {
-          timestamp: Date.now(),
-          tickets: tickets
+          timestamp: (prev && prev.timestamp && !added) ? prev.timestamp : Date.now(),
+          tickets: merged
         };
         localStorage.setItem(key, JSON.stringify(data));
       } catch(e) {
