@@ -20,17 +20,7 @@ const COUPONS = {
   'HERBOLARIA': { type: 'percent', value: 15, label: '15% de descuento' },
   'TAPPUTI': { type: 'percent', value: 20, label: '20% de descuento' },
   'ENVIOGRATIS': { type: 'fixed', value: 50, label: '$50 MXN de descuento' },
-  'FAMILIA': { type: 'fixed', value: 100, label: '$100 MXN de descuento' },
-  'DRGRATIS1': { type: 'percent', value: 100, label: '100% de descuento' },
-  'DRGRATIS2': { type: 'percent', value: 100, label: '100% de descuento' },
-  'DRGRATIS3': { type: 'percent', value: 100, label: '100% de descuento' },
-  'DRGRATIS4': { type: 'percent', value: 100, label: '100% de descuento' },
-  'DRGRATIS5': { type: 'percent', value: 100, label: '100% de descuento' },
-  'DRGRATIS6': { type: 'percent', value: 100, label: '100% de descuento' },
-  'DRGRATIS7': { type: 'percent', value: 100, label: '100% de descuento' },
-  'DRGRATIS8': { type: 'percent', value: 100, label: '100% de descuento' },
-  'DRGRATIS9': { type: 'percent', value: 100, label: '100% de descuento' },
-  'DRGRATIS10': { type: 'percent', value: 100, label: '100% de descuento' }
+  'FAMILIA': { type: 'fixed', value: 100, label: '$100 MXN de descuento' }
 };
 let appliedCoupon = null; // { code, type, value, label }
 
