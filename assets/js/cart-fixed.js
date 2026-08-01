@@ -20,7 +20,9 @@ const COUPONS = {
   'HERBOLARIA': { type: 'percent', value: 15, label: '15% de descuento' },
   'TAPPUTI': { type: 'percent', value: 20, label: '20% de descuento' },
   'ENVIOGRATIS': { type: 'fixed', value: 50, label: '$50 MXN de descuento' },
-  'FAMILIA': { type: 'fixed', value: 100, label: '$100 MXN de descuento' }
+  'FAMILIA': { type: 'fixed', value: 100, label: '$100 MXN de descuento' },
+  // Cupón temporal para uso interno del Dr. — eliminar al terminar su uso
+  'GRATIS-MES': { type: 'percent', value: 100, label: '100% de descuento' }
 };
 let appliedCoupon = null; // { code, type, value, label }
 
