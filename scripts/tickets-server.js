@@ -255,7 +255,10 @@ const server = http.createServer(async (req, res) => {
       last_name: body.last_name || '',
       whatsapp: body.whatsapp || '',
       token_hash: tokenHash,
-      raw_token: rawToken,
+      // El token crudo NO se persiste: se entrega una sola vez en la respuesta.
+      // Guardarlo junto al hash anulaba el propósito del hash — quien leyera
+      // tickets.json obtenía todos los boletos válidos. Consecuencia asumida:
+      // un token perdido no se puede recuperar, sólo reemitir.
       short_code: shortCode,
       usado: false,
       creado_en: new Date().toISOString(),
