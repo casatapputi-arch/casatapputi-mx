@@ -643,6 +643,12 @@ function generarQRs(attendees, orderPrefix) {
   generarSiguiente(0);
 }
 
+function esc(v) {
+  return String(v == null ? '' : v).replace(/[&<>"']/g, function(c) {
+    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+  });
+}
+
 function mostrarQRs(tickets) {
   if (window.TicketsClient && window.TicketsClient.saveTicketsLocal) {
     window.TicketsClient.saveTicketsLocal(ORDER_PREFIX, tickets);
@@ -667,7 +673,7 @@ function mostrarQRs(tickets) {
       '<div class="qr-card">' +
         '<div class="qr-img" id="qrcode_' + i + '"></div>' +
         '<div class="qr-info">' +
-          '<div class="name">' + t.name + '</div>' +
+          '<div class="name">' + esc(t.name) + '</div>' +
           '<div style="font-size:.8rem;color:var(--tinta-suave)">Boleto #' + (i+1) + (t.short_code ? ' · Código: <strong style="color:var(--miel);font-size:1.1rem">' + t.short_code + '</strong>' : '') + '</div>' +
           '<div class="token" style="margin-top:6px">' + t.token + '</div>' +
           (waNum ? '<a href="' + waLink + '" target="_blank" class="btn-wa" rel="noopener">📱 Enviar por WhatsApp</a>' : '') +

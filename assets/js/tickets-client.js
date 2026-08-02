@@ -17,6 +17,10 @@
   'use strict';
 
   var QRCODE_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+  // Integridad del archivo: si el CDN sirviera algo distinto, el navegador lo
+  // descarta en vez de ejecutarlo. Recalcular si se cambia de versión:
+  //   curl -s <url> | openssl dgst -sha384 -binary | openssl base64 -A
+  var QRCODE_SRI = 'sha384-3zSEDfvllQohrq0PHL1fOXJuC/jSOO34H46t6UQfobFOmxE5BpjjaIJY5F2/bMnU';
 
   var TicketsClient = {
     TIMEOUT_MS: 8000,
@@ -44,7 +48,7 @@
 
     // ── Carga bajo demanda ───────────────────────────────────
 
-    loadScript: function(src, callback) {
+    loadScript: function(src, callback, integrity) {
       var existing = document.querySelector('script[data-src="' + src + '"]');
       if (existing) {
         if (existing.getAttribute('data-loaded') === '1') { if (callback) callback(); }
@@ -54,6 +58,7 @@
       var s = document.createElement('script');
       s.src = src;
       s.async = true;
+      if (integrity) { s.integrity = integrity; s.crossOrigin = 'anonymous'; }
       s.setAttribute('data-src', src);
       s.onload = function(){ s.setAttribute('data-loaded', '1'); if (callback) callback(); };
       s.onerror = function(){ console.error('Error cargando script:', src); if (callback) callback(); };
@@ -64,7 +69,7 @@
     // solo se descarga cuando de verdad hay boletos que renderizar.
     ensureQRCode: function(callback) {
       if (typeof window.QRCode !== 'undefined') { if (callback) callback(); return; }
-      this.loadScript(QRCODE_SRC, callback);
+      this.loadScript(QRCODE_SRC, callback, QRCODE_SRI);
     },
 
     // ── Teléfonos ────────────────────────────────────────────
