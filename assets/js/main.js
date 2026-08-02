@@ -77,13 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
         el.classList.add('reveal');
         el.style.setProperty('--i', [...el.parentElement.children].indexOf(el));
       }
-      // Si ya está visible en pantalla, mostrarlo inmediatamente
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        el.classList.add('visible');
-      } else {
-        revealObserver.observe(el);
-      }
+      // Dejar que IntersectionObserver determine visibilidad sin forzar
+      // un layout síncrono durante el arranque.
+      revealObserver.observe(el);
     });
   };
 
@@ -112,13 +108,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
 
+  // Observar todos los reveals evita el patrón write → getBoundingClientRect
+  // → write que provocaba reflows forzados en la primera carga.
   document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-      el.classList.add('visible');
-    } else {
-      revealObserver.observe(el);
-    }
+    revealObserver.observe(el);
   });
 
   /* ---------- LQIP Blur-Up (solo <img> tags) ---------- */
