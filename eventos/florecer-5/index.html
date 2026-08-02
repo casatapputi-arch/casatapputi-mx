@@ -17,7 +17,7 @@
   <meta property="og:image" content="https://casatapputi.com.mx/assets/images/casa-tapputi-logo.webp">
   <meta property="og:url" content="https://casatapputi.com.mx/eventos/florecer-5/">
   <meta property="og:type" content="website">
-  <script src="https://sdk.mercadopago.com/js/v2"></script>
+  <script async src="https://sdk.mercadopago.com/js/v2"></script>
   <script async src="https://plausible.io/js/pa-KVB5ye4NhSFIsTbFNkW0V.js"></script>
   <script src="../../assets/js/tickets-client.js"></script>
   <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
@@ -311,13 +311,10 @@
   </div>
 </footer>
 
-<script src="../../assets/js/main.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script defer src="../../assets/js/main.js"></script>
 
 <script>
 var TICKETS_API = 'https://tickets.casatapputi.com.mx';
-var MP_PUBLIC_KEY = 'APP_USR-5215e212-ea55-41df-ad06-c828ebdfc562';
-var mp = new MercadoPago(MP_PUBLIC_KEY);
 
 var selectedTier = null;
 var appliedDiscount = null;  // { code, type, value }
@@ -495,6 +492,7 @@ function buildForm() {
       '</div>';
   }
   fields.innerHTML = html;
+  if (window.TicketsClient && window.TicketsClient.attachPhoneSanitizer) window.TicketsClient.attachPhoneSanitizer(fields);
 
     // Mostrar sección de descuento
     document.getElementById('discountSection').classList.add('active');
@@ -633,9 +631,8 @@ function mostrarQRs(tickets) {
   var container = document.getElementById('qrCards');
   var html = '';
   tickets.forEach(function(t, i){
-    var waNum = (t.whatsapp || '').replace(/[^0-9]/g, '');
-    // Quitar prefijo 52 si ya lo tiene el usuario, wa.me espera 52{10_digitos}
-    if (waNum.startsWith('52')) waNum = waNum.slice(2);
+    var waN = window.TicketsClient ? window.TicketsClient.normalizeMX(t.whatsapp) : { ok:false, national:'' };
+    var waNum = waN.ok ? waN.national : '';
     var waMsg = encodeURIComponent(
       '🎫 *Florecer — 5ª Edición*\n' +
       '📅 22 de septiembre 2026 · Huerto Roma Verde\n\n' +
@@ -664,15 +661,15 @@ function mostrarQRs(tickets) {
   if (tickets.length > 1) {
     var waAllSection = document.getElementById('waAllSection');
     waAllSection.classList.add('show');
-    var firstWa = (tickets[0].whatsapp || '').replace(/[^0-9]/g, '');
-    if (firstWa.startsWith('52')) firstWa = firstWa.slice(2);
+    var firstN = window.TicketsClient ? window.TicketsClient.normalizeMX(tickets[0].whatsapp) : { ok:false, national:'' };
+    var firstWa = firstN.ok ? window.TicketsClient.formatMX(firstN.national) : '';
     document.getElementById('waAllInput').value = firstWa || '';
     updateWaAllLink(tickets);
     document.getElementById('waAllInput').oninput = function() { updateWaAllLink(tickets); };
   }
 
-  // Generar QRs client-side
-  setTimeout(function(){
+  // Generar QRs client-side — qrcodejs se descarga aqui, no en cada visita
+  var drawQRs = function(){
     tickets.forEach(function(t, i){
       var el = document.getElementById('qrcode_' + i);
       if (el) {
@@ -684,6 +681,10 @@ function mostrarQRs(tickets) {
         });
       }
     });
+  };
+  setTimeout(function(){
+    if (window.TicketsClient && window.TicketsClient.ensureQRCode) window.TicketsClient.ensureQRCode(drawQRs);
+    else drawQRs();
   }, 200);
 }
 
@@ -703,8 +704,8 @@ function showError(msg, attendees) {
 }
 
 function updateWaAllLink(tickets) {
-  var waNum = document.getElementById('waAllInput').value.replace(/[^0-9]/g, '');
-  if (waNum.startsWith('52')) waNum = waNum.slice(2);
+  var waAllN = window.TicketsClient ? window.TicketsClient.normalizeMX(document.getElementById('waAllInput').value) : { ok:false, national:'' };
+  var waNum = waAllN.ok ? waAllN.national : '';
   var lines = ['🎫 *Florecer — 5ª Edición*', '📅 22 septiembre 2026 · Huerto Roma Verde', ''];
   tickets.forEach(function(t, i) {
     lines.push('👤 ' + t.name + (t.short_code ? ' · Código: ' + t.short_code : ''));
