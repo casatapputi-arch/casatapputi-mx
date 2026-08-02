@@ -56,6 +56,15 @@ function handleSubmit(e) {
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* ---------- Lightweight interaction telemetry ---------- */
+  document.querySelectorAll('[data-track]').forEach((el) => {
+    el.addEventListener('click', () => {
+      if (typeof window.plausible === 'function') {
+        window.plausible('Home CTA', { props: { action: el.dataset.track } });
+      }
+    }, { passive: true });
+  });
+
   /* ---------- Scroll Reveal ---------- */
   // Función expuesta globalmente para que catalog.js pueda revelar elementos dinámicos
   window.initReveal = function(target) {
@@ -125,8 +134,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /* ---------- Parallax Hero ---------- */
-  if (window.innerWidth > 768) {
+  /* ---------- Parallax Hero ----------
+     La home ya tiene movimiento editorial en la imagen; evitar el listener de
+     scroll y las lecturas de geometría reduce trabajo de layout en móviles.
+     Las páginas internas conservan el efecto original. */
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isHome = document.body.classList.contains('home-premium');
+  if (!isHome && window.innerWidth > 768 && !reduceMotion) {
     const parallaxTargets = document.querySelectorAll('.hero, .page-hero, .prod-hero');
     let ticking = false;
 

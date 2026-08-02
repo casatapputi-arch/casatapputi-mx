@@ -163,16 +163,16 @@
   function injectSearchButton() {
     const navSocial = document.querySelector('.nav-social');
     if (!navSocial) return;
-    
-    // No duplicar si ya existe
-    if (document.getElementById('btnSearch')) return;
+
+    const existing = document.getElementById('btnSearch');
+    if (existing) return;
 
     const btn = document.createElement('button');
     btn.id = 'btnSearch';
     btn.className = 'search-btn';
     btn.setAttribute('aria-label', 'Buscar');
     btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
-    btn.onclick = openSearch;
+    btn.addEventListener('click', openSearch);
     navSocial.prepend(btn);
   }
 
@@ -192,6 +192,8 @@
     document.getElementById('searchResults').innerHTML = '';
     document.body.style.overflow = '';
   }
+
+  window.openCasaTapputiSearch = openSearch;
 
   let productsLoaded = false;
   async function loadProducts() {
@@ -216,8 +218,6 @@
 
   // ── Init ──────────────────────────────────────────────────
   function init() {
-    createSearchUI();
-    injectSearchButton();
     createSearchUI();
     injectSearchButton();
 

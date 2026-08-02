@@ -1,0 +1,343 @@
+/* Casa Tapputi · Home premium system
+   Botica ritual mexicana: quiet luxury, skin, matter, origin. */
+body.home-premium {
+  --lux-ink: #18231f;
+  --lux-ink-2: #26332d;
+  --lux-ivory: #f6f1e8;
+  --lux-sand: #e8ded0;
+  --lux-amber: #b47a43;
+  --lux-gold: #c8a978;
+  --lux-line: rgba(24,35,31,.16);
+  background: var(--lux-ivory);
+  color: var(--lux-ink);
+}
+
+body.home-premium .topbar {
+  background: var(--lux-ink);
+  color: rgba(246,241,232,.72);
+  font-size: .64rem;
+  letter-spacing: .24em;
+  padding: 8px 20px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+body.home-premium nav { backdrop-filter: blur(14px); }
+body.home-premium .nav-inner { min-height: 68px; }
+body.home-premium .nav-logo { position: relative; }
+body.home-premium .nav-logo::after {
+  content: 'BOTICA RITUAL';
+  position: absolute;
+  left: 56px;
+  top: calc(100% + 3px);
+  color: rgba(200,169,120,.7);
+  font-size: .45rem;
+  letter-spacing: .2em;
+  white-space: nowrap;
+}
+
+body.home-premium nav {
+  background: rgba(24,35,31,.96);
+  border-bottom: 1px solid rgba(200,169,120,.22);
+}
+
+body.home-premium .nav-links a,
+body.home-premium .nav-social a,
+body.home-premium .cart-icon { color: rgba(246,241,232,.88); }
+body.home-premium .nav-links a:hover,
+body.home-premium .nav-social a:hover,
+body.home-premium .cart-icon:hover { color: var(--lux-gold); }
+body.home-premium .nav-logo .wordmark { letter-spacing: .14em; }
+
+body.home-premium .home-hero {
+  min-height: min(850px, calc(100svh - 82px));
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--lux-ink);
+}
+
+body.home-premium .home-hero::after {
+  background: linear-gradient(90deg, rgba(12,19,16,.78) 0%, rgba(12,19,16,.4) 48%, rgba(12,19,16,.12) 100%),
+              linear-gradient(0deg, rgba(12,19,16,.58), transparent 50%);
+}
+
+.home-hero-image {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  overflow: hidden;
+  background: var(--lux-ink);
+  contain: paint;
+}
+.home-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 65% center;
+  animation: home-hero-breathe 18s ease-in-out infinite alternate;
+}
+.home-hero .container {
+  display: flex;
+  align-items: flex-end;
+  min-height: inherit;
+  padding-block: clamp(96px, 15vh, 170px) clamp(72px, 11vh, 128px);
+  text-align: left;
+}
+.home-hero-copy { max-width: 690px; }
+.home-hero .eyebrow {
+  color: var(--lux-gold);
+  margin-bottom: 1.4rem;
+}
+.home-hero h1 {
+  max-width: 650px;
+  font-size: clamp(3.4rem, 8vw, 7.2rem);
+  letter-spacing: -.015em;
+  line-height: .91;
+  text-wrap: balance;
+}
+.home-hero .hero-lead {
+  max-width: 570px;
+  margin: 2rem 0 2.4rem;
+  color: rgba(246,241,232,.88);
+  font-size: clamp(1.05rem, 1.8vw, 1.28rem);
+  line-height: 1.62;
+}
+.home-hero-actions { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.home-hero .btn-light {
+  background: var(--lux-gold);
+  border-color: var(--lux-gold);
+  color: var(--lux-ink);
+  padding-inline: 28px;
+}
+.home-hero .btn-light:hover { background: var(--lux-ivory); border-color: var(--lux-ivory); }
+.home-hero-secondary {
+  color: rgba(246,241,232,.84);
+  font-size: .72rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(200,169,120,.65);
+  padding-bottom: 7px;
+  transition: color .25s, border-color .25s;
+}
+.home-hero-secondary:hover { color: var(--lux-gold); border-color: var(--lux-gold); }
+.home-hero-meta {
+  position: absolute;
+  right: var(--pad);
+  bottom: clamp(32px, 5vw, 58px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(246,241,232,.62);
+  font-size: .62rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+.home-hero-meta::before { content: ''; width: 1px; height: 48px; background: var(--lux-gold); }
+.home-hero-edition {
+  position: absolute;
+  left: var(--pad);
+  top: clamp(96px, 12vh, 142px);
+  z-index: 2;
+  display: grid;
+  gap: 4px;
+  color: rgba(246,241,232,.68);
+  font-size: .58rem;
+  letter-spacing: .18em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+.home-hero-edition::before {
+  content: '✦';
+  color: var(--lux-gold);
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+.home-hero-edition strong { color: var(--lux-gold); font-weight: 500; }
+
+.home-manifesto {
+  position: relative;
+  padding-block: clamp(92px, 14vw, 180px) clamp(116px, 16vw, 210px);
+  background: var(--lux-ivory);
+  overflow: hidden;
+  isolation: isolate;
+}
+.home-manifesto::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  bottom: -1px;
+  width: min(100%, 980px);
+  height: 96px;
+  transform: translateX(-50%);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: var(--lux-ink);
+  opacity: .08;
+}
+.home-manifesto .container::after {
+  content: '01  /  03';
+  display: block;
+  margin-top: clamp(46px, 7vw, 84px);
+  padding-top: 14px;
+  border-top: 1px solid rgba(180,122,67,.45);
+  color: var(--lux-amber);
+  font-family: var(--sans);
+  font-size: .62rem;
+  letter-spacing: .2em;
+}
+.home-manifesto::before {
+  content: '✦';
+  position: absolute;
+  top: 18%;
+  right: 8%;
+  color: rgba(180,122,67,.22);
+  font-family: var(--serif);
+  font-size: clamp(5rem, 13vw, 12rem);
+  line-height: 1;
+}
+.home-manifesto .container { max-width: 960px; }
+.home-manifesto p { max-width: 900px; font-family: var(--serif); font-size: clamp(2.25rem, 5vw, 5.2rem); line-height: .98; letter-spacing: -.02em; }
+.home-manifesto em { color: var(--lux-amber); font-style: italic; }
+.home-manifesto .manifesto-note { margin-top: 2.2rem; max-width: 470px; color: #5c675f; font-family: var(--sans); font-size: .78rem; letter-spacing: .08em; line-height: 1.7; text-transform: uppercase; }
+
+.home-rituals {
+  position: relative;
+  background: var(--lux-ink);
+  color: var(--lux-ivory);
+  padding-block: clamp(104px, 13vw, 164px);
+  overflow: hidden;
+}
+.home-rituals::before {
+  content: 'RITUAL / 01';
+  position: absolute;
+  top: clamp(28px, 4vw, 52px);
+  right: var(--pad);
+  color: rgba(200,169,120,.55);
+  font-size: .58rem;
+  letter-spacing: .22em;
+}
+.home-rituals::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: min(42vw, 520px);
+  height: 1px;
+  background: linear-gradient(90deg, var(--lux-gold), transparent);
+}
+.home-rituals .eyebrow { color: var(--lux-gold); }
+.home-rituals .section-title { max-width: 650px; color: var(--lux-ivory); }
+.home-rituals-intro { max-width: 580px; color: rgba(246,241,232,.72); }
+.ritual-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(14px, 2vw, 24px);
+  margin-top: clamp(42px, 6vw, 72px);
+}
+.ritual-card {
+  position: relative;
+  min-height: 480px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  color: var(--lux-ivory);
+  background: var(--lux-ink-2);
+  border: 1px solid rgba(200,169,120,.22);
+  box-shadow: 0 18px 45px rgba(5,10,8,.18);
+  transition: transform .45s cubic-bezier(.22,1,.36,1), border-color .35s, box-shadow .45s;
+}
+.ritual-card:nth-child(2) { transform: translateY(34px); }
+.ritual-card:nth-child(3) { transform: translateY(68px); }
+.ritual-card:hover {
+  z-index: 2;
+  transform: translateY(-10px);
+  border-color: rgba(200,169,120,.72);
+  box-shadow: 0 28px 60px rgba(5,10,8,.34);
+}
+.ritual-card:nth-child(2):hover { transform: translateY(24px); }
+.ritual-card:nth-child(3):hover { transform: translateY(58px); }
+.ritual-card::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: 12px;
+  border: 1px solid rgba(246,241,232,.18);
+  pointer-events: none;
+}
+.ritual-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(9,14,12,.92), rgba(9,14,12,.08) 72%); }
+.ritual-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.22,1,.36,1), filter .9s ease; filter: saturate(.82) brightness(.82); }
+.ritual-card:hover img { transform: scale(1.06); filter: saturate(1) brightness(.94); }
+.ritual-card-content { position: relative; z-index: 1; padding: 34px 30px 30px; }
+.ritual-card-content::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  margin-bottom: 18px;
+  background: var(--lux-gold);
+}
+.ritual-card-index { color: var(--lux-gold); font-size: .65rem; letter-spacing: .18em; }
+.ritual-card h3 { margin: .7rem 0 .5rem; color: var(--lux-ivory); font-size: clamp(1.65rem, 2.8vw, 2.35rem); }
+.ritual-card p { max-width: 270px; color: rgba(246,241,232,.72); font-size: .92rem; line-height: 1.55; }
+.ritual-card-link { display: inline-block; margin-top: 1.2rem; color: var(--lux-gold); font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; }
+
+body.home-premium section.home-manifesto { background: var(--lux-ivory); }
+body.home-premium section.home-rituals { background: var(--lux-ink); color: var(--lux-ivory); }
+body.home-premium section#origen { background: var(--lux-sand); }
+body.home-premium #origen .wide-img { aspect-ratio: 16/6.5; filter: saturate(.82) contrast(1.04); }
+body.home-premium .section-title { letter-spacing: -.01em; }
+body.home-premium .home-rituals .eyebrow { color: #d9bd8a; }
+body.home-premium .quote-block .quote-attribution { color: #79502f; }
+body.home-premium .pull-quote-dr cite { color: rgba(246,241,232,.72); }
+body.home-premium .timeline-section { background: var(--lux-ink); }
+body.home-premium .timeline-section .tl-year { color: var(--lux-gold); }
+body.home-premium .section-dark.arch-transition { background: var(--lux-ink-2); }
+body.home-premium .quote-block { background: var(--lux-sand); color: var(--lux-ink); }
+body.home-premium .quote-block blockquote { color: var(--lux-ink); }
+body.home-premium footer { background: #101815; }
+
+.home-collection-label { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 2rem; }
+.home-collection-label .eyebrow { margin-bottom: 0; }
+.home-collection-label a { color: var(--lux-gold); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; }
+
+@keyframes home-hero-breathe { from { transform: scale(1.01); } to { transform: scale(1.055); } }
+
+@media (max-width: 900px) {
+  .home-hero { min-height: min(780px, calc(100svh - 72px)); }
+  .home-hero .container { padding-block: 92px 92px; }
+  .home-hero h1 { font-size: clamp(3.1rem, 12vw, 5.5rem); }
+  .home-hero-meta { display: none; }
+  .home-hero-edition { top: 86px; }
+  .ritual-grid { grid-template-columns: 1fr; }
+  .ritual-card { min-height: 380px; }
+  .ritual-card:nth-child(2), .ritual-card:nth-child(3),
+  .ritual-card:nth-child(2):hover, .ritual-card:nth-child(3):hover { transform: none; }
+}
+@media (max-width: 520px) {
+  body.home-premium::after { display: none; }
+  body.home-premium .topbar { font-size: .56rem; letter-spacing: .16em; }
+  body.home-premium .nav-logo::after { display: none; }
+  .home-hero { min-height: 690px; }
+  .home-hero::after { background: linear-gradient(0deg, rgba(12,19,16,.84), rgba(12,19,16,.16) 82%); }
+  .home-hero-image img { object-position: 58% center; animation: none; will-change: auto; }
+  .home-hero-edition { top: 76px; left: var(--pad); font-size: .5rem; }
+  .home-hero .container { align-items: flex-end; padding-block: 112px 72px; }
+  .home-hero .hero-lead { margin-block: 1.4rem 1.8rem; font-size: 1rem; }
+  .home-hero-actions { align-items: flex-start; flex-direction: column; gap: 16px; }
+  .home-manifesto p { font-size: clamp(2.2rem, 11vw, 3.3rem); }
+  .home-manifesto::before { top: 10%; right: 0; }
+  .home-manifesto::after { height: 58px; }
+  .home-manifesto .container::after { margin-top: 42px; }
+  .home-rituals::before { top: 22px; }
+  .ritual-card-content { padding: 28px 24px 24px; }
+  .home-collection-label { align-items: flex-start; flex-direction: column; gap: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .home-hero-image img, .ritual-card img,
+  .ritual-card, .marquee-inner, .reveal, .reveal-left, .reveal-right,
+  .skeleton, .skeleton-shimmer { animation: none !important; transition: none !important; transform: none !important; }
+}

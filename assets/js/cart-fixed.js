@@ -623,7 +623,7 @@ function loadCheckoutJS() {
 }
 
 // ── Init ──────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', async () => {
+async function initCart() {
   renderCartCount();
   if (window.location.pathname.includes('/tienda/carrito')) {
     await renderCartPage();
@@ -632,7 +632,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (localStorage.getItem(CART_ID_KEY)) {
     fetchMedusaCart().catch(() => {});
   }
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCart, { once: true });
+} else {
+  initCart();
+}
 
 // Cross-tab sync
 window.addEventListener('storage', (e) => {

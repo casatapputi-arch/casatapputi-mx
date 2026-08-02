@@ -251,9 +251,10 @@ async function renderMarquee(containerSelector) {
     const btn = (withButton && hasPrice)
       ? `<button class="marquee-add" onclick="addToCart(getProductData(this));event.preventDefault();event.stopPropagation()" aria-label="Agregar al carrito">+</button>`
       : '';
-    const aria = withButton ? '' : ' aria-hidden="true"';
+    // La segunda vuelta sólo sirve para el loop visual: no debe entrar al árbol de foco.
+    const accessibilityAttrs = withButton ? '' : ' aria-hidden="true" inert tabindex="-1"';
 
-    return `<a href="${productoUrl(p.handle)}" class="marquee-card"${btnAttrs}${aria}><img src="${img}" alt="${p.title}" loading="lazy"><span>${p.title}${btn}</span></a>`;
+    return `<a href="${productoUrl(p.handle)}" class="marquee-card"${btnAttrs}${accessibilityAttrs}><img src="${img}" alt="${p.title}" loading="lazy"><span>${p.title}${btn}</span></a>`;
   }
 
   // Primera vuelta: con data attributes y botones
@@ -280,7 +281,7 @@ async function renderMarquee(containerSelector) {
 }
 
 // ── Detectar y renderizar automáticamente ─────────────────
-document.addEventListener('DOMContentLoaded', async () => {
+async function initCatalog() {
   const path = window.location.pathname;
 
   // Shop grid (productos/index.html o productos/)
@@ -288,8 +289,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     await renderShopGrid('shopGrid');
   }
 
-  // Marquee carrusel (index.html)
-  if (document.querySelector('.marquee-inner')) {
+  // Marquee carrusel de la home: diferir la API hasta acercarse a la sección.
+  // Esto evita descargar/renderizar 50 productos durante el primer viewport móvil.
+  const marquee = document.querySelector('.marquee-inner');
+  const marqueeTrack = document.getElementById('home-catalog');
+  if (marquee && marqueeTrack && 'IntersectionObserver' in window) {
+    const loadMarquee = () => {
+      renderMarquee('.marquee-inner');
+      marqueeObserver.disconnect();
+    };
+    const marqueeObserver = new IntersectionObserver((entries) => {
+      if (entries.some(entry => entry.isIntersecting)) loadMarquee();
+    }, { rootMargin: '500px 0px' });
+    marqueeObserver.observe(marqueeTrack);
+  } else if (marquee) {
     await renderMarquee('.marquee-inner');
   }
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCatalog, { once: true });
+} else {
+  initCatalog();
+}
