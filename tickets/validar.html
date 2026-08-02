@@ -343,15 +343,47 @@ function onQRScanned(token) {
     });
 }
 
+/* ── Clave de staff ─────────────────────────────────────────
+   Validar por código MARCA el boleto como usado, así que es una operación
+   destructiva y no puede quedar abierta a cualquiera: con 4 dígitos, un script
+   recorre las 10 000 combinaciones y quema todos los boletos del evento.
+   La clave se teclea una vez por pestaña y no se incrusta en esta página
+   (es pública). Escanear el QR no la necesita: el token es de 32 hex. */
+function staffKey() {
+  var k = sessionStorage.getItem('staff_key');
+  if (!k) {
+    k = (window.prompt('Clave de staff para validar boletos:') || '').trim();
+    if (k) sessionStorage.setItem('staff_key', k);
+  }
+  return k || '';
+}
+
+function olvidarClave() {
+  sessionStorage.removeItem('staff_key');
+}
+
 // ── Verificar por código de 4 dígitos ──────────────────────
 function verifyByCode(code) {
   if (codeLoading) return;
-  codeLoading = true;
+  var key = staffKey();
   var result = document.getElementById('result');
+  if (!key) {
+    result.innerHTML = '<div class="result-card result-err"><div class="icon">🔐</div><div class="title">Se necesita la clave de staff</div></div>';
+    return;
+  }
+  codeLoading = true;
   result.innerHTML = '<div style="text-align:center;color:var(--tinta-suave);padding:16px">⏳ Validando código...</div>';
 
-  fetch(TICKETS_API + '/tickets/verify-code/' + code, { method: 'POST' })
-    .then(function(r) { return r.json(); })
+  fetch(TICKETS_API + '/tickets/verify-code/' + code, {
+    method: 'POST',
+    headers: { 'X-Admin-Key': key }
+  })
+    .then(function(r) {
+      if (r.status === 401) { olvidarClave(); throw new Error('clave'); }
+      if (r.status === 429) throw new Error('limite');
+      if (r.status === 409 && r.headers.get('X-Motivo') === 'codigo-duplicado') throw new Error('duplicado');
+      return r.json();
+    })
     .then(function(data) {
       if (data.valido && data.usado) {
         var name = (data.name || '') + ' ' + (data.last_name || '');
@@ -375,8 +407,25 @@ function verifyByCode(code) {
           '</div>';
       }
     })
-    .catch(function() {
-      result.innerHTML = '<div class="result-card result-err"><div class="icon">📡</div><div class="title">Error de conexión</div></div>';
+    .catch(function(e) {
+      var m = e && e.message;
+      var icono = '📡', titulo = 'Error de conexión', detalle = '';
+      if (m === 'clave') {
+        icono = '🔐'; titulo = 'Clave rechazada';
+        detalle = 'Vuelve a intentar para capturarla de nuevo.';
+      } else if (m === 'limite') {
+        icono = '⏳'; titulo = 'Demasiados intentos';
+        detalle = 'Espera un momento antes de reintentar.';
+      } else if (m === 'duplicado') {
+        icono = '⚠️'; titulo = 'Código repetido';
+        detalle = 'Hay más de un boleto con ese código: escanea el QR para validar el correcto.';
+      }
+      result.innerHTML =
+        '<div class="result-card result-err">' +
+          '<div class="icon">' + icono + '</div>' +
+          '<div class="title">' + titulo + '</div>' +
+          (detalle ? '<div class="detail">' + detalle + '</div>' : '') +
+        '</div>';
     })
     .finally(function() {
       codeLoading = false;

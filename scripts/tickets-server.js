@@ -12,16 +12,99 @@ const TOKEN_BYTES = 16;
 
 // MercadoPago — token en variable de entorno (nunca hardcodeado)
 const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN || '';
-// Admin API key — compartida entre server y admin.html para proteger /tickets/all
+// Admin API key — la teclea el operador en admin.html / validar.html.
+// NUNCA debe incrustarse en esas páginas: son públicas (GitHub Pages).
 const ADMIN_API_KEY = process.env.ADMIN_API_KEY || '';
 
 function requireAdmin(req) {
   const key = (req.headers['x-admin-key'] || '').trim();
-  return ADMIN_API_KEY && key === ADMIN_API_KEY;
+  if (!ADMIN_API_KEY || !key) return false;
+  // Comparación en tiempo constante: evita distinguir la clave por latencia.
+  const a = Buffer.from(key);
+  const b = Buffer.from(ADMIN_API_KEY);
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
 }
+
+/* ── Límite de intentos ──────────────────────────────────────────────────────
+   El código de boleto es de 4 dígitos y validarlo MARCA el boleto como usado.
+   Sin límite, recorrer las 10 000 combinaciones quema todos los boletos de un
+   evento en minutos. Ventana deslizante por IP con bloqueo progresivo; un
+   acierto limpia el historial de fallos. En memoria: el servidor es un solo
+   proceso, y si se reinicia el peor caso es olvidar bloqueos, no aplicarlos de más. */
+const VENTANA_MS = 10 * 60 * 1000;
+const MAX_FALLOS = 10;
+const CASTIGOS_MS = [60e3, 5 * 60e3, 15 * 60e3, 60 * 60e3];
+const buckets = new Map();
+
+/* El dominio está detrás de Cloudflare y de un proxy local, así que
+   socket.remoteAddress es la IP del proxy, no la del visitante: sin esto todo
+   el tráfico caería en un solo bucket. Se prefiere CF-Connecting-IP, que
+   Cloudflare fija y sobrescribe en cada petición; X-Forwarded-For queda como
+   respaldo y sólo se toma el primer valor.
+
+   OJO: estas cabeceras son falsificables si alguien alcanza el origen sin pasar
+   por Cloudflare. Conviene que el origen sólo acepte tráfico de Cloudflare
+   (firewall o Authenticated Origin Pulls) — anotado como pendiente. */
+function clientIP(req) {
+  const cf = (req.headers['cf-connecting-ip'] || '').trim();
+  if (cf) return cf;
+  const fwd = (req.headers['x-forwarded-for'] || '').split(',')[0].trim();
+  return fwd || (req.socket && req.socket.remoteAddress) || 'desconocida';
+}
+
+function limiteAlcanzado(ip) {
+  const b = buckets.get(ip);
+  if (!b) return 0;
+  const ahora = Date.now();
+  if (b.bloqueadoHasta > ahora) return Math.ceil((b.bloqueadoHasta - ahora) / 1000);
+  return 0;
+}
+
+function registrarFallo(ip) {
+  const ahora = Date.now();
+  const b = buckets.get(ip) || { fallos: [], castigos: 0, bloqueadoHasta: 0 };
+  b.fallos = b.fallos.filter(t => ahora - t < VENTANA_MS);
+  b.fallos.push(ahora);
+  if (b.fallos.length >= MAX_FALLOS) {
+    const castigo = CASTIGOS_MS[Math.min(b.castigos, CASTIGOS_MS.length - 1)];
+    b.bloqueadoHasta = ahora + castigo;
+    b.castigos += 1;
+    b.fallos = [];
+    console.warn(`[rate-limit] ${ip} bloqueada ${castigo / 1000}s (castigo #${b.castigos})`);
+  }
+  buckets.set(ip, b);
+}
+
+function registrarExito(ip) {
+  const b = buckets.get(ip);
+  if (b) { b.fallos = []; buckets.set(ip, b); }
+}
+
+// Purga periódica para que el Map no crezca sin límite.
+setInterval(() => {
+  const ahora = Date.now();
+  for (const [ip, b] of buckets) {
+    const inactiva = (!b.fallos.length || ahora - b.fallos[b.fallos.length - 1] > VENTANA_MS);
+    if (inactiva && b.bloqueadoHasta < ahora) buckets.delete(ip);
+  }
+}, VENTANA_MS).unref();
 
 function loadDB() {
   try { return JSON.parse(fs.readFileSync(DB_PATH, 'utf8')); } catch { return []; }
+}
+
+/* Código de 4 dígitos único entre los boletos VIGENTES (los ya canjeados
+   pueden repetirlo sin causar ambigüedad). Se sortea con crypto, no con
+   Math.random. Si el espacio se saturara, se avisa en vez de fallar en
+   silencio: el canje por código detecta el duplicado y pide el QR. */
+function generarShortCode(db) {
+  const ocupados = new Set(db.filter(t => t && !t.usado).map(t => t.short_code));
+  for (let i = 0; i < 200; i++) {
+    const c = String(1000 + crypto.randomInt(9000));
+    if (!ocupados.has(c)) return c;
+  }
+  console.warn('[short-code] espacio de 4 dígitos saturado; se emite uno repetido');
+  return String(1000 + crypto.randomInt(9000));
 }
 
 function saveDB(db) {
@@ -139,7 +222,21 @@ const server = http.createServer(async (req, res) => {
 
   // GET /tickets/all — admin endpoint (requiere X-Admin-Key)
   if (req.method === 'GET' && pathname === '/tickets/all') {
-    if (!requireAdmin(req)) return json(res, 401, { error: 'No autorizado' });
+    {
+      // El bloqueo pesa sobre quien NO se autentica; una clave válida nunca
+      // queda atrapada por los intentos fallidos de un tercero en la misma IP.
+      const ip = clientIP(req);
+      if (!requireAdmin(req)) {
+        const espera = limiteAlcanzado(ip);
+        if (espera) {
+          res.setHeader('Retry-After', String(espera));
+          return json(res, 429, { error: 'Demasiados intentos. Espera un momento.', retry_after: espera });
+        }
+        registrarFallo(ip);
+        return json(res, 401, { error: 'No autorizado' });
+      }
+      registrarExito(ip);
+    }
     const db = loadDB();
     const safe = db.map(t => ({
       id: t.id,
@@ -155,23 +252,75 @@ const server = http.createServer(async (req, res) => {
     return json(res, 200, safe);
   }
 
-  // POST /tickets/verify-code/:code — validar por código de 4 dígitos
+  // POST /tickets/verify-code/:code — canjear por código de 4 dígitos.
+  // Operación DESTRUCTIVA (marca el boleto usado): exige clave de staff y
+  // está sujeta al límite de intentos.
   const codeMatch = pathname.match(/^\/tickets\/verify-code\/(\d{4})$/);
   if (req.method === 'POST' && codeMatch) {
+    const ip = clientIP(req);
+    // El bloqueo pesa sobre quien NO se autentica. Si se evaluara antes de la
+    // clave, un atacante en la misma IP saliente que el staff (misma red del
+    // recinto) dejaría al staff sin poder validar en plena puerta.
+    if (!requireAdmin(req)) {
+      const espera = limiteAlcanzado(ip);
+      if (espera) {
+        res.setHeader('Retry-After', String(espera));
+        return json(res, 429, { error: 'Demasiados intentos. Espera un momento.', retry_after: espera });
+      }
+      registrarFallo(ip);
+      return json(res, 401, { error: 'No autorizado' });
+    }
+    registrarExito(ip);
+
     const shortCode = codeMatch[1];
     const db = loadDB();
-    const ticket = db.find(t => t.short_code === shortCode);
-    if (!ticket) return json(res, 404, { error: 'Código no encontrado' });
-    if (ticket.usado) return json(res, 409, { error: 'Este ticket ya fue usado', usado_en: ticket.usado_en });
+
+    // Sólo compiten los boletos vigentes: un código reutilizado por uno ya
+    // canjeado no debe estorbar.
+    const candidatos = db.filter(t => t.short_code === shortCode && !t.usado);
+
+    if (candidatos.length === 0) {
+      const yaUsado = db.find(t => t.short_code === shortCode && t.usado);
+      registrarFallo(ip);
+      if (yaUsado) return json(res, 409, { error: 'Este ticket ya fue usado', usado_en: yaUsado.usado_en });
+      return json(res, 404, { error: 'Código no encontrado' });
+    }
+
+    // Códigos históricos generados sin garantía de unicidad: canjear "el
+    // primero que coincida" podría consumir el boleto de otra persona.
+    if (candidatos.length > 1) {
+      res.setHeader('X-Motivo', 'codigo-duplicado');
+      return json(res, 409, {
+        error: 'Hay más de un boleto vigente con ese código. Escanea el QR para validar el correcto.',
+        duplicados: candidatos.length,
+      });
+    }
+
+    const ticket = candidatos[0];
     ticket.usado = true;
     ticket.usado_en = new Date().toISOString();
     saveDB(db);
+    registrarExito(ip);
     return json(res, 200, { valido: true, usado: true, usado_en: ticket.usado_en, name: ticket.name || '', last_name: ticket.last_name || '' });
   }
 
   // GET /tickets/stats (requiere X-Admin-Key)
   if (req.method === 'GET' && pathname === '/tickets/stats') {
-    if (!requireAdmin(req)) return json(res, 401, { error: 'No autorizado' });
+    {
+      // El bloqueo pesa sobre quien NO se autentica; una clave válida nunca
+      // queda atrapada por los intentos fallidos de un tercero en la misma IP.
+      const ip = clientIP(req);
+      if (!requireAdmin(req)) {
+        const espera = limiteAlcanzado(ip);
+        if (espera) {
+          res.setHeader('Retry-After', String(espera));
+          return json(res, 429, { error: 'Demasiados intentos. Espera un momento.', retry_after: espera });
+        }
+        registrarFallo(ip);
+        return json(res, 401, { error: 'No autorizado' });
+      }
+      registrarExito(ip);
+    }
     const db = loadDB();
     const total = db.length;
     const usados = db.filter(t => t.usado).length;
@@ -217,7 +366,21 @@ const server = http.createServer(async (req, res) => {
 
   // GET /tickets/discounts — admin endpoint (requiere X-Admin-Key)
   if (req.method === 'GET' && pathname === '/tickets/discounts') {
-    if (!requireAdmin(req)) return json(res, 401, { error: 'No autorizado' });
+    {
+      // El bloqueo pesa sobre quien NO se autentica; una clave válida nunca
+      // queda atrapada por los intentos fallidos de un tercero en la misma IP.
+      const ip = clientIP(req);
+      if (!requireAdmin(req)) {
+        const espera = limiteAlcanzado(ip);
+        if (espera) {
+          res.setHeader('Retry-After', String(espera));
+          return json(res, 429, { error: 'Demasiados intentos. Espera un momento.', retry_after: espera });
+        }
+        registrarFallo(ip);
+        return json(res, 401, { error: 'No autorizado' });
+      }
+      registrarExito(ip);
+    }
     const discounts = loadDiscounts();
     // Agrupar por tipo de descuento para mejor visibilidad
     const summary = {
@@ -244,9 +407,12 @@ const server = http.createServer(async (req, res) => {
     }
     const rawToken = crypto.randomBytes(TOKEN_BYTES).toString('hex');
     const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
-    // Short code: 4 dígitos para ingreso manual si el QR no escanea
-    const shortCode = String(Math.floor(1000 + Math.random() * 9000));
     const db = loadDB();
+    // Short code: 4 dígitos para ingreso manual si el QR no escanea.
+    // Debe ser único ENTRE LOS VIGENTES: antes se sorteaba sin comprobar nada y,
+    // por la paradoja del cumpleaños, con ~118 boletos ya había 50% de colisión
+    // en 9 000 valores — y el canje consumía "el primero que coincidiera".
+    const shortCode = generarShortCode(db);
     db.push({
       id: db.length + 1,
       order_id: body.order_id,

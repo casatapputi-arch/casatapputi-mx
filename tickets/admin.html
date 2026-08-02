@@ -159,9 +159,9 @@
       <div style="font-size:3rem; margin-bottom:12px">🔐</div>
       <h2>Acceso Restringido</h2>
       <p>Panel de administración de boletos</p>
-      <input type="password" id="passwordInput" placeholder="Contraseña" onkeydown="if(event.key==='Enter')login()" />
+      <input type="password" id="passwordInput" placeholder="Clave de acceso" autocomplete="off" onkeydown="if(event.key==='Enter')login()" />
       <button onclick="login()">Ingresar</button>
-      <div class="login-error" id="loginError">Contraseña incorrecta</div>
+      <div class="login-error" id="loginError">Clave incorrecta</div>
     </div>
 
     <!-- ADMIN PANEL -->
@@ -245,39 +245,48 @@
 <script src="../assets/js/main.js"></script>
 <script>
 var TICKETS_API = 'https://tickets.casatapputi.com.mx';
-var PASSWORD_HASH = '3ffe797c4d692ca00105235dd0bd933a26cc99f1db52a59df1f835deed01eb42';
-var ADMIN_API_KEY = '66228e435892f27fb144b1f85f536b99';
 var allTickets = [];
 var sortCol = 'id';
 var sortDir = 'desc';
 
-// ── Login ──────────────────────────────────────────────
-async function sha256(str) {
-  var buf = new TextEncoder().encode(str);
-  var hash = await crypto.subtle.digest('SHA-256', buf);
-  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+/* ── Acceso ───────────────────────────────────────────────
+   La clave la teclea el operador y vive sólo en sessionStorage (se borra al
+   cerrar la pestaña). NO se incrusta en este archivo: esta página es pública,
+   así que cualquier secreto escrito aquí queda publicado — fue exactamente el
+   fallo que dejó expuestos los datos de los compradores hasta 2026-08-02.
+
+   Quien decide si la clave sirve es el SERVIDOR: se prueba contra un endpoint
+   protegido. Antes se comparaba un hash en el navegador, lo que no protegía
+   nada porque la llave real estaba escrita al lado. */
+function adminKey() {
+  return sessionStorage.getItem('admin_key') || '';
 }
 
-async function login() {
-  var pw = document.getElementById('passwordInput').value;
-  var hash = await sha256(pw);
-  if (hash === PASSWORD_HASH) {
-    sessionStorage.setItem('admin_auth', '1');
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('adminPanel').style.display = 'block';
-    loadData();
-  } else {
-    document.getElementById('loginError').style.display = 'block';
-  }
+function login() {
+  var pw = document.getElementById('passwordInput').value.trim();
+  var err = document.getElementById('loginError');
+  if (!pw) { err.style.display = 'block'; return; }
+
+  err.style.display = 'none';
+  fetch(TICKETS_API + '/tickets/stats', { headers: { 'X-Admin-Key': pw } })
+    .then(function(r) {
+      if (!r.ok) throw new Error('rechazada');
+      sessionStorage.setItem('admin_key', pw);
+      document.getElementById('passwordInput').value = '';
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'block';
+      loadData();
+    })
+    .catch(function() { err.style.display = 'block'; });
 }
 
 function logout() {
-  sessionStorage.removeItem('admin_auth');
+  sessionStorage.removeItem('admin_key');
   location.reload();
 }
 
-// Auto-login si ya autenticado
-if (sessionStorage.getItem('admin_auth') === '1') {
+// Reanudar sesión si la clave sigue en esta pestaña
+if (sessionStorage.getItem('admin_key')) {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('adminPanel').style.display = 'block';
   loadData();
@@ -286,7 +295,7 @@ if (sessionStorage.getItem('admin_auth') === '1') {
 // ── Data ───────────────────────────────────────────────
 function loadData() {
   fetch(TICKETS_API + '/tickets/all', {
-    headers: { 'X-Admin-Key': ADMIN_API_KEY }
+    headers: { 'X-Admin-Key': adminKey() }
   })
     .then(function(r) { return r.json(); })
     .then(function(data) {
@@ -305,7 +314,7 @@ function loadData() {
 // ── Discount Codes ─────────────────────────────────────
 function loadDiscounts() {
   fetch(TICKETS_API + '/tickets/discounts', {
-    headers: { 'X-Admin-Key': ADMIN_API_KEY }
+    headers: { 'X-Admin-Key': adminKey() }
   })
     .then(function(r) { return r.json(); })
     .then(function(data) {
