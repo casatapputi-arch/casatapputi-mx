@@ -345,3 +345,130 @@ body.home-premium footer { background: #101815; }
   .ritual-card, .marquee-inner, .reveal, .reveal-left, .reveal-right,
   .skeleton, .skeleton-shimmer { animation: none !important; transition: none !important; transform: none !important; }
 }
+
+/* Editorial correction: quiet luxury, solid surfaces, readable type. */
+body.home-premium {
+  --lux-ink: #1e2923;
+  --lux-ink-2: #2b3831;
+  --lux-ivory: #f5f1e8;
+  --lux-sand: #e8e0d3;
+  --lux-amber: #7b512d;
+  --lux-gold: #b08a50;
+  --lux-line: #c8beb0;
+  font-weight: 400;
+}
+body.home-premium h1,
+body.home-premium h2,
+body.home-premium h3 { font-weight: 500; }
+body.home-premium p,
+body.home-premium .lead,
+body.home-premium .hero-lead { font-weight: 400; }
+body.home-premium .topbar {
+  background: var(--lux-ink);
+  color: #f5f1e8;
+  font-weight: 500;
+  letter-spacing: .18em;
+}
+body.home-premium nav {
+  background: var(--lux-ink);
+  border-bottom: 1px solid rgba(245,241,232,.22);
+  backdrop-filter: none;
+}
+body.home-premium .nav-links a,
+body.home-premium .nav-social a,
+body.home-premium .cart-icon {
+  color: #f5f1e8;
+  font-weight: 500;
+}
+body.home-premium .nav-links a:hover,
+body.home-premium .nav-social a:hover,
+body.home-premium .cart-icon:hover { color: #d8b879; }
+body.home-premium .nav-logo .wordmark { font-weight: 500; }
+body.home-premium .home-hero::after {
+  background: rgba(14, 23, 18, .58);
+}
+body.home-premium .home-hero-image img {
+  animation: none;
+  object-position: 65% center;
+}
+body.home-premium .home-hero h1 { font-weight: 500; }
+body.home-premium .home-hero .hero-lead {
+  color: #fff;
+  font-weight: 400;
+  text-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+body.home-premium .home-hero .eyebrow,
+body.home-premium .home-hero-edition strong { font-weight: 600; }
+body.home-premium .home-hero .btn-light {
+  background: #c19a5b;
+  border-color: #c19a5b;
+  color: #18231f;
+  font-weight: 600;
+  letter-spacing: .12em;
+}
+body.home-premium .home-hero .btn-light:hover {
+  background: #f5f1e8;
+  border-color: #f5f1e8;
+  color: #1e2923;
+}
+body.home-premium .home-hero-secondary { font-weight: 500; }
+body.home-premium .home-manifesto,
+body.home-premium section#origen,
+body.home-premium .cluster-section { background: var(--lux-ivory); }
+body.home-premium .home-manifesto::before,
+body.home-premium .home-manifesto::after,
+body.home-premium .home-manifesto .container::after,
+body.home-premium .home-rituals::before,
+body.home-premium .home-rituals::after { display: none; }
+body.home-premium .home-manifesto .manifesto-note,
+body.home-premium #origen .lead,
+body.home-premium .cluster-section p { color: #344139; font-weight: 400; }
+body.home-premium .home-rituals { background: var(--lux-ink); }
+body.home-premium .ritual-card {
+  border-color: rgba(245,241,232,.36);
+  box-shadow: none;
+  transition: border-color .25s, transform .25s;
+}
+body.home-premium .ritual-card::after { background: rgba(14,23,18,.62); }
+body.home-premium .ritual-card img {
+  filter: saturate(.72) brightness(.78);
+  transition: filter .25s;
+}
+body.home-premium .ritual-card:hover {
+  transform: translateY(-4px);
+  border-color: #d8b879;
+  box-shadow: none;
+}
+body.home-premium .ritual-card:nth-child(2):hover { transform: translateY(30px); }
+body.home-premium .ritual-card:nth-child(3):hover { transform: translateY(64px); }
+body.home-premium .ritual-card:hover img { transform: none; filter: saturate(.82) brightness(.86); }
+body.home-premium .section-title,
+body.home-premium .home-manifesto p { font-weight: 500; }
+body.home-premium .quote-block { background: var(--lux-sand); }
+body.home-premium .quote-block blockquote { font-weight: 500; }
+
+@media (max-width: 900px) {
+  body.home-premium .mobile-menu {
+    background: var(--lux-ivory);
+    border-left: 1px solid var(--lux-line);
+    box-shadow: -10px 0 30px rgba(14,23,18,.16);
+    backdrop-filter: none;
+  }
+  body.home-premium .mobile-menu a {
+    color: var(--lux-ink);
+    font-weight: 600;
+    border-bottom-color: var(--lux-line);
+    padding-block: 16px;
+  }
+  body.home-premium .menu-overlay {
+    background: rgba(14,23,18,.55);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  body.home-premium .hamburger span { background: #f5f1e8; height: 2px; }
+}
+@media (max-width: 520px) {
+  body.home-premium .home-hero::after { background: rgba(14,23,18,.64); }
+  body.home-premium .home-hero .hero-lead { color: #fff; }
+  body.home-premium .home-hero .btn-light { min-height: 48px; }
+}

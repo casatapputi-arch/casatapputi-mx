@@ -2,9 +2,15 @@ function toggleMenu() {
   const menu = document.getElementById('mobileMenu');
   const overlay = document.getElementById('menuOverlay');
   const hamburger = document.querySelector('.hamburger');
+  if (!menu) return;
   const isOpen = menu.classList.toggle('open');
   if (overlay) overlay.classList.toggle('open', isOpen);
-  if (hamburger) hamburger.classList.toggle('active', isOpen);
+  if (hamburger) {
+    hamburger.classList.toggle('active', isOpen);
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    hamburger.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+  }
+  menu.setAttribute('aria-hidden', String(!isOpen));
   document.body.classList.toggle('menu-open', isOpen);
 }
 
