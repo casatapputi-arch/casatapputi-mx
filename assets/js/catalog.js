@@ -6,7 +6,7 @@
 
 const CATALOG_URL  = 'https://medusa.casatapputi.com.mx';
 const CATALOG_KEY  = 'pk_377afadbf71f64f6027bdb8b13691017648b70f6270ff38e4d9d3961585d2c62';
-const CATALOG_CACHE_KEY = 'ct_catalog';
+const CATALOG_CACHE_KEY = 'ct_catalog_v20260803_v3';
 const CATALOG_CACHE_TTL = 15 * 60 * 1000; // 15 minutos
 
 // ── Metadata por producto (no disponible en Store API) ────
@@ -36,6 +36,21 @@ const PRODUCT_META = {
   'talabarteria':       { cat:'estilo',   price:0,    priceLabel:'Piezas personalizadas', img:'assets/images/talabarteria.webp',     desc:'Piel reciclada transformada en piezas elegantes y funcionales: cinturones, pulseras, carteras, mochilas.',                latin:'Corium arte',                usage:'Accesorios' },
   'muestra-de-regalo':  { cat:'esencias', price:10,   priceLabel:'$10 MXN',           img:'assets/images/esencias-amber.webp',      desc:'Producto simbólico para verificar el flujo de compra del carrito.' }
 };
+
+// ── Búsqueda flexible de metadata por handle o sufijos ──
+function findMetaForHandle(handle) {
+  if (!handle) return {};
+  if (PRODUCT_META[handle]) return PRODUCT_META[handle];
+
+  // Buscar coincidencia parcial (ej: 'perfume-solido-de-cacao' -> 'perfume-solido')
+  const h = handle.toLowerCase();
+  for (const key of Object.keys(PRODUCT_META)) {
+    if (h.includes(key) || key.includes(h)) {
+      return PRODUCT_META[key];
+    }
+  }
+  return {};
+}
 
 // Catálogo cacheado en memoria
 let _catalog = null;
@@ -104,7 +119,7 @@ function getFallbackCatalog() {
 
 // ── Obtener catálogo (Medusa + Stale-While-Revalidate + Fallback) ──
 async function fetchCatalog(force = false) {
-  if (_catalog && !force) return _catalog;
+  if (_catalog && !force && _catalog.length >= 18) return _catalog;
 
   // 1. Intentar responder de inmediato desde localStorage (Cero Latencia / Offline Ready)
   let cachedData = null;
@@ -112,7 +127,7 @@ async function fetchCatalog(force = false) {
     const raw = localStorage.getItem(CATALOG_CACHE_KEY) || sessionStorage.getItem(CATALOG_CACHE_KEY);
     if (raw) {
       const { data, ts } = JSON.parse(raw);
-      if (Array.isArray(data) && data.length > 0) {
+      if (Array.isArray(data) && data.length >= 18) {
         cachedData = data;
         // Si la caché está fresca (< 15 min), usarla de inmediato sin consultar la red
         if (!force && (Date.now() - ts < CATALOG_CACHE_TTL)) {
@@ -137,8 +152,19 @@ async function fetchCatalog(force = false) {
 
   // 2. Fusión: tomar productos de Medusa y completar con cualquier producto local que falte
   const fallbacks = getFallbackCatalog();
-  const medusaHandles = new Set(medusaProducts.map(p => p.handle));
-  const missingFallbacks = fallbacks.filter(f => !medusaHandles.has(f.handle));
+
+  // Función helper para simplificar handle a su raíz (ej. 'perfume-solido-de-cacao' -> 'perfume-solido')
+  function normalizeHandle(h) {
+    if (!h) return '';
+    const clean = h.toLowerCase();
+    for (const key of Object.keys(PRODUCT_META)) {
+      if (clean.includes(key)) return key;
+    }
+    return clean;
+  }
+
+  const existingRoots = new Set(medusaProducts.map(p => normalizeHandle(p.handle)));
+  const missingFallbacks = fallbacks.filter(f => !existingRoots.has(normalizeHandle(f.handle)));
 
   _catalog = [...medusaProducts, ...missingFallbacks];
 
@@ -155,7 +181,7 @@ async function fetchCatalog(force = false) {
 
 // ── Helper: enriquecer producto con metadata local ────────
 function enrichProduct(p) {
-  const meta = PRODUCT_META[p.handle] || {};
+  const meta = findMetaForHandle(p.handle);
   const variants = p.variants || [];
   const single = variants.length === 1;
   const firstVariant = variants[0] || {};
