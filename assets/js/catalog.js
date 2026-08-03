@@ -240,7 +240,7 @@ function renderShopCard(p, assets) {
       <div class="specimen-line"></div>
       <h3><a href="${productoUrl(p.handle)}">${p.title}</a></h3>
       <div class="specimen-img-wrap">
-        <img src="${img}" alt="${p.title}" loading="lazy"
+        <img src="${img}" alt="${p.title}" loading="lazy" decoding="async"
              onerror="this.onerror=null;this.src='${dataImg}'">
       </div>
       <div class="specimen-tags">
@@ -301,7 +301,7 @@ async function renderMarquee(containerSelector) {
   const assets = assetPath();
   const enriched = products.map(enrichProduct);
 
-  function cardHTML(p, isFirstLoop) {
+  function cardHTML(p, isFirstLoop, index) {
     // Preferir imagen local (siempre existe); fallback a thumbnail de Medusa; último recurso: logo
     const localSrc = p.localImg ? assets + p.localImg.replace(/^assets\//, '') : '';
     const img = localSrc || p.thumbnail || (assets + 'images/casa-tapputi-logo.webp');
@@ -317,13 +317,17 @@ async function renderMarquee(containerSelector) {
 
     // En la segunda vuelta omitimos el foco de teclado duplicado pero MANTENEMOS los clics del mouse 100% habilitados sin 'inert'
     const accessibilityAttrs = isFirstLoop ? '' : ' tabindex="-1"';
+    
+    // Las primeras 4 imágenes se cargan con prioridad ultra-alta (fetchpriority high + eager + decoding async)
+    const isPriority = isFirstLoop && index < 4;
+    const loadingAttr = isPriority ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
 
-    return `<a href="${productoUrl(p.handle)}" class="marquee-card"${btnAttrs}${accessibilityAttrs}><img src="${img}" alt="${p.title}" loading="lazy"><span>${p.title}${btn}</span></a>`;
+    return `<a href="${productoUrl(p.handle)}" class="marquee-card"${btnAttrs}${accessibilityAttrs}><img src="${img}" alt="${p.title}" ${loadingAttr} decoding="async" class="loaded"><span>${p.title}${btn}</span></a>`;
   }
 
   // Primera y segunda vuelta: 100% clicables y navegables
-  inner.innerHTML = enriched.map(p => cardHTML(p, true)).join('')
-    + enriched.map(p => cardHTML(p, false)).join('');
+  inner.innerHTML = enriched.map((p, idx) => cardHTML(p, true, idx)).join('')
+    + enriched.map((p, idx) => cardHTML(p, false, idx)).join('');
 
   // Activar scroll reveal en marquee si aplica (aunque marquee no usa reveal)
   if (typeof window.initReveal === 'function') {
