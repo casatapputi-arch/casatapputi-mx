@@ -301,26 +301,27 @@ async function renderMarquee(containerSelector) {
   const assets = assetPath();
   const enriched = products.map(enrichProduct);
 
-  function cardHTML(p, withButton) {
+  function cardHTML(p, isFirstLoop) {
     // Preferir imagen local (siempre existe); fallback a thumbnail de Medusa; último recurso: logo
     const localSrc = p.localImg ? assets + p.localImg.replace(/^assets\//, '') : '';
     const img = localSrc || p.thumbnail || (assets + 'images/casa-tapputi-logo.webp');
     const dataImg = localSrc || img;
     const vid = p.defaultVariantId;
-    const btnAttrs = withButton ? ` data-product-id="${p.id}" data-variant-id="${vid}" data-product-name="${p.title}" data-product-price="${p.price}" data-product-price-label="${p.priceLabel}" data-product-image="${dataImg}"` : '';
+    const btnAttrs = ` data-product-id="${p.id}" data-variant-id="${vid}" data-product-name="${p.title}" data-product-price="${p.price}" data-product-price-label="${p.priceLabel}" data-product-image="${dataImg}"`;
+    
     // No mostrar botón + en productos sin precio
     const hasPrice = p.price && p.price > 0;
-    const btn = (withButton && hasPrice)
+    const btn = hasPrice
       ? `<button class="marquee-add" onclick="addToCart(getProductData(this));event.preventDefault();event.stopPropagation()" aria-label="Agregar al carrito">+</button>`
       : '';
-    // La segunda vuelta sólo sirve para el loop visual: no debe entrar al árbol de foco.
-    const accessibilityAttrs = withButton ? '' : ' aria-hidden="true" inert tabindex="-1"';
+
+    // En la segunda vuelta omitimos el foco de teclado duplicado pero MANTENEMOS los clics del mouse 100% habilitados sin 'inert'
+    const accessibilityAttrs = isFirstLoop ? '' : ' tabindex="-1"';
 
     return `<a href="${productoUrl(p.handle)}" class="marquee-card"${btnAttrs}${accessibilityAttrs}><img src="${img}" alt="${p.title}" loading="lazy"><span>${p.title}${btn}</span></a>`;
   }
 
-  // Primera vuelta: con data attributes y botones
-  // Segunda vuelta: sin botones para loop seamless
+  // Primera y segunda vuelta: 100% clicables y navegables
   inner.innerHTML = enriched.map(p => cardHTML(p, true)).join('')
     + enriched.map(p => cardHTML(p, false)).join('');
 
