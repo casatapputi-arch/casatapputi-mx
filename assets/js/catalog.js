@@ -40,21 +40,31 @@ const PRODUCT_META = {
 // Catálogo cacheado en memoria
 let _catalog = null;
 
-// ── Fetch ─────────────────────────────────────────────────
+// ── Fetch resiliente con AbortController Timeout (3.5s) ───
 async function catalogFetch(path, opts = {}) {
-  const res = await fetch(`${CATALOG_URL}${path}`, {
-    ...opts,
-    headers: {
-      'Content-Type': 'application/json',
-      'x-publishable-api-key': CATALOG_KEY,
-      ...(opts.headers || {})
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 3500);
+
+  try {
+    const res = await fetch(`${CATALOG_URL}${path}`, {
+      ...opts,
+      signal: controller.signal,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-publishable-api-key': CATALOG_KEY,
+        ...(opts.headers || {})
+      }
+    });
+    clearTimeout(timeoutId);
+    if (!res.ok) {
+      const err = await res.text().catch(() => '');
+      throw new Error(`API ${res.status}: ${err}`);
     }
-  });
-  if (!res.ok) {
-    const err = await res.text().catch(() => '');
-    throw new Error(`API ${res.status}: ${err}`);
+    return res.json();
+  } catch (e) {
+    clearTimeout(timeoutId);
+    throw e;
   }
-  return res.json();
 }
 
 // ── Catalogo local de respaldo infalible ─────────────────
@@ -92,41 +102,49 @@ function getFallbackCatalog() {
   }));
 }
 
-// ── Obtener catálogo (Medusa + Fusion Local) ──────────────
+// ── Obtener catálogo (Medusa + Stale-While-Revalidate + Fallback) ──
 async function fetchCatalog(force = false) {
   if (_catalog && !force) return _catalog;
 
-  // Intentar sessionStorage
-  if (!force) {
-    try {
-      const raw = sessionStorage.getItem(CATALOG_CACHE_KEY);
-      if (raw) {
-        const { data, ts } = JSON.parse(raw);
-        if (Date.now() - ts < CATALOG_CACHE_TTL && Array.isArray(data) && data.length > 0) {
-          _catalog = data;
+  // 1. Intentar responder de inmediato desde localStorage (Cero Latencia / Offline Ready)
+  let cachedData = null;
+  try {
+    const raw = localStorage.getItem(CATALOG_CACHE_KEY) || sessionStorage.getItem(CATALOG_CACHE_KEY);
+    if (raw) {
+      const { data, ts } = JSON.parse(raw);
+      if (Array.isArray(data) && data.length > 0) {
+        cachedData = data;
+        // Si la caché está fresca (< 15 min), usarla de inmediato sin consultar la red
+        if (!force && (Date.now() - ts < CATALOG_CACHE_TTL)) {
+          _catalog = cachedData;
           return _catalog;
         }
       }
-    } catch (e) { /* ignorar */ }
-  }
+    }
+  } catch (e) { /* ignorar */ }
 
   let medusaProducts = [];
   try {
-    const data = await catalogFetch('/store/products?limit=50');
+    const data = await catalogFetch('/store/products?limit=100');
     medusaProducts = (data.products || []).filter(p => !p.handle || !p.handle.includes('prueba'));
   } catch (e) {
-    console.warn('Medusa API no disponible, activando catálogo local resiliente:', e.message);
+    console.warn('Medusa API no disponible o timeout (522/Cloudflare). Usando caché previa o local:', e.message);
+    if (cachedData) {
+      _catalog = cachedData;
+      return _catalog;
+    }
   }
 
-  // Fusión: tomar productos de Medusa y completar con cualquier producto local que falte
+  // 2. Fusión: tomar productos de Medusa y completar con cualquier producto local que falte
   const fallbacks = getFallbackCatalog();
   const medusaHandles = new Set(medusaProducts.map(p => p.handle));
   const missingFallbacks = fallbacks.filter(f => !medusaHandles.has(f.handle));
 
   _catalog = [...medusaProducts, ...missingFallbacks];
 
+  // 3. Persistir en localStorage
   try {
-    sessionStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify({
+    localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify({
       data: _catalog,
       ts: Date.now()
     }));
