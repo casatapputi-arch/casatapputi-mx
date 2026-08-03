@@ -82,12 +82,12 @@ body.home-premium .home-hero::after {
 }
 .home-hero .container {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   min-height: inherit;
-  padding-block: clamp(96px, 15vh, 170px) clamp(72px, 11vh, 128px);
+  padding-block: clamp(96px, 15vh, 170px);
   text-align: left;
 }
-.home-hero-copy { max-width: 690px; }
+.home-hero-copy { max-width: 620px; }
 .home-hero .eyebrow {
   color: var(--lux-gold);
   margin-bottom: 1.4rem;
@@ -100,13 +100,13 @@ body.home-premium .home-hero::after {
   text-wrap: balance;
 }
 .home-hero .hero-lead {
-  max-width: 570px;
-  margin: 2rem 0 2.4rem;
+  max-width: 500px;
+  margin: 1.5rem 0 2rem;
   color: rgba(246,241,232,.88);
-  font-size: clamp(1.05rem, 1.8vw, 1.28rem);
-  line-height: 1.62;
+  font-size: clamp(1rem, 1.6vw, 1.16rem);
+  line-height: 1.55;
 }
-.home-hero-actions { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.home-hero-actions { display: flex; align-items: center; gap: 18px; }
 .home-hero .btn-light {
   background: var(--lux-gold);
   border-color: var(--lux-gold);
@@ -310,10 +310,8 @@ body.home-premium footer { background: #101815; }
 
 @media (max-width: 900px) {
   .home-hero { min-height: min(780px, calc(100svh - 72px)); }
-  .home-hero .container { padding-block: 92px 92px; }
+  .home-hero .container { padding-block: 96px; }
   .home-hero h1 { font-size: clamp(3.1rem, 12vw, 5.5rem); }
-  .home-hero-meta { display: none; }
-  .home-hero-edition { top: 86px; }
   .ritual-grid { grid-template-columns: 1fr; }
   .ritual-card { min-height: 380px; }
   .ritual-card:nth-child(2), .ritual-card:nth-child(3),
@@ -326,8 +324,7 @@ body.home-premium footer { background: #101815; }
   .home-hero { min-height: 690px; }
   .home-hero::after { background: linear-gradient(0deg, rgba(12,19,16,.84), rgba(12,19,16,.16) 82%); }
   .home-hero-image img { object-position: 58% center; animation: none; will-change: auto; }
-  .home-hero-edition { top: 76px; left: var(--pad); font-size: .5rem; }
-  .home-hero .container { align-items: flex-end; padding-block: 112px 72px; }
+  .home-hero .container { align-items: center; padding-block: 112px 72px; }
   .home-hero .hero-lead { margin-block: 1.4rem 1.8rem; font-size: 1rem; }
   .home-hero-actions { align-items: flex-start; flex-direction: column; gap: 16px; }
   .home-manifesto p { font-size: clamp(2.2rem, 11vw, 3.3rem); }
