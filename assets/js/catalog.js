@@ -57,7 +57,42 @@ async function catalogFetch(path, opts = {}) {
   return res.json();
 }
 
-// ── Obtener catálogo (con cache) ──────────────────────────
+// ── Catalogo local de respaldo infalible ─────────────────
+function getFallbackCatalog() {
+  const titles = {
+    'esencia-miel':       'Esencia de Miel Silvestre y Melisa',
+    'esencias-naturales': 'Colección de Esencias Naturales',
+    'perfume-solido':     'Perfume Sólido de Cacao y Vainilla',
+    'lagrimas-rosas':     'Lágrimas de Rosas para Saumerio',
+    'oleo-masaje':        'Óleo de Masaje Botánico',
+    'roll-on':            'Roll-On Respiratorio de Menta y Pino',
+    'miel-melipona':      'Miel Melipona Ancestral Curativa',
+    'friega-cannabis':    'Friega de Cannabis y Hormiga Roja',
+    'chilcuague':         'Spray Oral de Raíz de Chilcuague',
+    'jabones':            'Jabones Artesanales Herbales',
+    'agua-rosas':         'Agua de Rosas Tónico Facial',
+    'gel-rosas':          'Gel Facial de Rosas Antioxidante',
+    'gel-cafe':           'Gel Facial Revitalizante de Café',
+    'pomada-calendula':   'Pomada de Caléndula Cicatrizante',
+    'pomada-cannabis':    'Pomada de Cannabis Analgésica',
+    'salsa-matcha':       'Salsa Matcha Artesanal Gourmet',
+    'tisanas':            'Tisanas Medicinales de Huerto Roma',
+    'leche-dorada':       'Leche Dorada con Cúrcuma y Especias',
+    'terrarios':          'Terrarios y Vitrales en Vidrio',
+    'talabarteria':       'Talabartería Ritual en Piel Reciclada'
+  };
+
+  return Object.keys(PRODUCT_META).filter(k => k !== 'muestra-de-regalo').map(handle => ({
+    id: handle,
+    handle: handle,
+    title: titles[handle] || handle.replace(/-/g, ' ').toUpperCase(),
+    description: PRODUCT_META[handle].desc,
+    thumbnail: '',
+    variants: [{ id: handle + '-var1' }]
+  }));
+}
+
+// ── Obtener catálogo (Medusa + Fusion Local) ──────────────
 async function fetchCatalog(force = false) {
   if (_catalog && !force) return _catalog;
 
@@ -67,7 +102,7 @@ async function fetchCatalog(force = false) {
       const raw = sessionStorage.getItem(CATALOG_CACHE_KEY);
       if (raw) {
         const { data, ts } = JSON.parse(raw);
-        if (Date.now() - ts < CATALOG_CACHE_TTL) {
+        if (Date.now() - ts < CATALOG_CACHE_TTL && Array.isArray(data) && data.length > 0) {
           _catalog = data;
           return _catalog;
         }
@@ -75,20 +110,29 @@ async function fetchCatalog(force = false) {
     } catch (e) { /* ignorar */ }
   }
 
+  let medusaProducts = [];
   try {
     const data = await catalogFetch('/store/products?limit=50');
-    _catalog = (data.products || []).filter(p => !p.handle || !p.handle.includes('prueba'));
-    try {
-      sessionStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify({
-        data: _catalog,
-        ts: Date.now()
-      }));
-    } catch (e) { /* ignorar */ }
-    return _catalog;
+    medusaProducts = (data.products || []).filter(p => !p.handle || !p.handle.includes('prueba'));
   } catch (e) {
-    console.warn('No se pudo cargar el catálogo de Medusa:', e.message);
-    return [];
+    console.warn('Medusa API no disponible, activando catálogo local resiliente:', e.message);
   }
+
+  // Fusión: tomar productos de Medusa y completar con cualquier producto local que falte
+  const fallbacks = getFallbackCatalog();
+  const medusaHandles = new Set(medusaProducts.map(p => p.handle));
+  const missingFallbacks = fallbacks.filter(f => !medusaHandles.has(f.handle));
+
+  _catalog = [...medusaProducts, ...missingFallbacks];
+
+  try {
+    sessionStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify({
+      data: _catalog,
+      ts: Date.now()
+    }));
+  } catch (e) { /* ignorar */ }
+
+  return _catalog;
 }
 
 // ── Helper: enriquecer producto con metadata local ────────
