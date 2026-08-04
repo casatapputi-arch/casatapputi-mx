@@ -172,7 +172,14 @@
           <h3><a href="../lagrimas-rosas/">Lágrimas de Rosas</a></h3>
           <p class="shop-desc">Resina sagrada para armonizar el aire.</p>
           <span class="shop-price">desde $100 MXN</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="lagrimas-rosas" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="lagrimas-rosas" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
       <article class="shop-card" data-product-id="jabones" data-product-name="Jabones Herbales" data-product-price="90" data-product-price-label="$90 MXN / pz" data-product-image="../../assets/images/jabones-herbales.webp">
@@ -181,7 +188,14 @@
           <h3><a href="../jabones/">Jabones Herbales</a></h3>
           <p class="shop-desc">Siete variedades con aceite de coco.</p>
           <span class="shop-price">$90 MXN / pz</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="jabones" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="jabones" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
     </div>

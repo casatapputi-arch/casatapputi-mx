@@ -154,7 +154,14 @@
           <h3><a href="../tisanas/">Tisanas Herbales</a></h3>
           <p class="shop-desc">Mezclas naturales del jardín medicinal.</p>
           <span class="shop-price">$1,300 MXN / kg</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="tisanas" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="tisanas" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
       <article class="shop-card" data-product-id="jabones" data-product-name="Jabones Herbales" data-product-price="90" data-product-price-label="$90 MXN / pz" data-product-image="../../assets/images/jabones-herbales.webp">
@@ -163,7 +170,14 @@
           <h3><a href="../jabones/">Jabones Herbales</a></h3>
           <p class="shop-desc">Siete variedades con aceite de coco.</p>
           <span class="shop-price">$90 MXN / pz</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="jabones" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="jabones" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
       <article class="shop-card" data-product-id="leche-dorada" data-product-name="Leche Dorada" data-product-price="0" data-product-price-label="Consultar precio" data-product-image="../../assets/images/leche-dorada.webp">
@@ -181,7 +195,14 @@
           <h3><a href="../agua-rosas/">Agua de Rosas</a></h3>
           <p class="shop-desc">Tónico natural de pétalos frescos.</p>
           <span class="shop-price">$150 MXN</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="agua-rosas" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="agua-rosas" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
     </div>

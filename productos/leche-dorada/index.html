@@ -154,7 +154,14 @@
           <h3><a href="../tisanas/">Tisanas Herbales</a></h3>
           <p class="shop-desc">Mezclas del jardín medicinal de HRV.</p>
           <span class="shop-price">$1,300 MXN / kg</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="tisanas" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="tisanas" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
       <article class="shop-card" data-product-id="miel-melipona" data-product-name="Miel Melipona" data-product-price="350" data-product-price-label="$350 MXN" data-product-image="../../assets/images/miel-melipona.webp">
@@ -163,7 +170,14 @@
           <h3><a href="../miel-melipona/">Miel Melipona</a></h3>
           <p class="shop-desc">Dulzura perfecta para tu leche dorada.</p>
           <span class="shop-price">$350 MXN</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="miel-melipona" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="miel-melipona" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
       <article class="shop-card" data-product-id="salsa-matcha" data-product-name="Salsas Matcha" data-product-price="200" data-product-price-label="$200 MXN / pz" data-product-image="../../assets/images/salsa-matcha.webp">
@@ -172,7 +186,14 @@
           <h3><a href="../salsa-matcha/">Salsas Matcha</a></h3>
           <p class="shop-desc">Sabor intenso con chiles secos.</p>
           <span class="shop-price">$200 MXN / pz</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="salsa-matcha" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="salsa-matcha" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
       <article class="shop-card" data-product-id="chilcuague" data-product-name="Chilcuague" data-product-price="100" data-product-price-label="$100 MXN" data-product-image="../../assets/images/chilcuague.webp">
@@ -181,7 +202,14 @@
           <h3><a href="../chilcuague/">Chilcuague</a></h3>
           <p class="shop-desc">Salud bucal con raíz medicinal.</p>
           <span class="shop-price">$100 MXN</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="chilcuague" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="chilcuague" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
     </div>
