@@ -6,7 +6,7 @@
 
 const CATALOG_URL  = 'https://medusa.casatapputi.com.mx';
 const CATALOG_KEY  = 'pk_377afadbf71f64f6027bdb8b13691017648b70f6270ff38e4d9d3961585d2c62';
-const CATALOG_CACHE_KEY = 'ct_catalog';
+const CATALOG_CACHE_KEY = 'ct_catalog_v20260803_v3';
 const CATALOG_CACHE_TTL = 15 * 60 * 1000; // 15 minutos
 
 // ── Metadata por producto (no disponible en Store API) ────
@@ -37,63 +37,151 @@ const PRODUCT_META = {
   'muestra-de-regalo':  { cat:'esencias', price:10,   priceLabel:'$10 MXN',           img:'assets/images/esencias-amber.webp',      desc:'Producto simbólico para verificar el flujo de compra del carrito.' }
 };
 
+// ── Búsqueda flexible de metadata por handle o sufijos ──
+function findMetaForHandle(handle) {
+  if (!handle) return {};
+  if (PRODUCT_META[handle]) return PRODUCT_META[handle];
+
+  // Buscar coincidencia parcial (ej: 'perfume-solido-de-cacao' -> 'perfume-solido')
+  const h = handle.toLowerCase();
+  for (const key of Object.keys(PRODUCT_META)) {
+    if (h.includes(key) || key.includes(h)) {
+      return PRODUCT_META[key];
+    }
+  }
+  return {};
+}
+
 // Catálogo cacheado en memoria
 let _catalog = null;
 
-// ── Fetch ─────────────────────────────────────────────────
+// ── Fetch resiliente con AbortController Timeout (3.5s) ───
 async function catalogFetch(path, opts = {}) {
-  const res = await fetch(`${CATALOG_URL}${path}`, {
-    ...opts,
-    headers: {
-      'Content-Type': 'application/json',
-      'x-publishable-api-key': CATALOG_KEY,
-      ...(opts.headers || {})
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 3500);
+
+  try {
+    const res = await fetch(`${CATALOG_URL}${path}`, {
+      ...opts,
+      signal: controller.signal,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-publishable-api-key': CATALOG_KEY,
+        ...(opts.headers || {})
+      }
+    });
+    clearTimeout(timeoutId);
+    if (!res.ok) {
+      const err = await res.text().catch(() => '');
+      throw new Error(`API ${res.status}: ${err}`);
     }
-  });
-  if (!res.ok) {
-    const err = await res.text().catch(() => '');
-    throw new Error(`API ${res.status}: ${err}`);
+    return res.json();
+  } catch (e) {
+    clearTimeout(timeoutId);
+    throw e;
   }
-  return res.json();
 }
 
-// ── Obtener catálogo (con cache) ──────────────────────────
-async function fetchCatalog(force = false) {
-  if (_catalog && !force) return _catalog;
+// ── Catalogo local de respaldo infalible ─────────────────
+function getFallbackCatalog() {
+  const titles = {
+    'esencia-miel':       'Esencia de Miel Silvestre y Melisa',
+    'esencias-naturales': 'Colección de Esencias Naturales',
+    'perfume-solido':     'Perfume Sólido de Cacao y Vainilla',
+    'lagrimas-rosas':     'Lágrimas de Rosas para Saumerio',
+    'oleo-masaje':        'Óleo de Masaje Botánico',
+    'roll-on':            'Roll-On Respiratorio de Menta y Pino',
+    'miel-melipona':      'Miel Melipona Ancestral Curativa',
+    'friega-cannabis':    'Friega de Cannabis y Hormiga Roja',
+    'chilcuague':         'Spray Oral de Raíz de Chilcuague',
+    'jabones':            'Jabones Artesanales Herbales',
+    'agua-rosas':         'Agua de Rosas Tónico Facial',
+    'gel-rosas':          'Gel Facial de Rosas Antioxidante',
+    'gel-cafe':           'Gel Facial Revitalizante de Café',
+    'pomada-calendula':   'Pomada de Caléndula Cicatrizante',
+    'pomada-cannabis':    'Pomada de Cannabis Analgésica',
+    'salsa-matcha':       'Salsa Matcha Artesanal Gourmet',
+    'tisanas':            'Tisanas Medicinales de Huerto Roma',
+    'leche-dorada':       'Leche Dorada con Cúrcuma y Especias',
+    'terrarios':          'Terrarios y Vitrales en Vidrio',
+    'talabarteria':       'Talabartería Ritual en Piel Reciclada'
+  };
 
-  // Intentar sessionStorage
-  if (!force) {
-    try {
-      const raw = sessionStorage.getItem(CATALOG_CACHE_KEY);
-      if (raw) {
-        const { data, ts } = JSON.parse(raw);
-        if (Date.now() - ts < CATALOG_CACHE_TTL) {
-          _catalog = data;
+  return Object.keys(PRODUCT_META).filter(k => k !== 'muestra-de-regalo').map(handle => ({
+    id: handle,
+    handle: handle,
+    title: titles[handle] || handle.replace(/-/g, ' ').toUpperCase(),
+    description: PRODUCT_META[handle].desc,
+    thumbnail: '',
+    variants: [{ id: handle + '-var1' }]
+  }));
+}
+
+// ── Obtener catálogo (Medusa + Stale-While-Revalidate + Fallback) ──
+async function fetchCatalog(force = false) {
+  if (_catalog && !force && _catalog.length >= 18) return _catalog;
+
+  // 1. Intentar responder de inmediato desde localStorage (Cero Latencia / Offline Ready)
+  let cachedData = null;
+  try {
+    const raw = localStorage.getItem(CATALOG_CACHE_KEY) || sessionStorage.getItem(CATALOG_CACHE_KEY);
+    if (raw) {
+      const { data, ts } = JSON.parse(raw);
+      if (Array.isArray(data) && data.length >= 18) {
+        cachedData = data;
+        // Si la caché está fresca (< 15 min), usarla de inmediato sin consultar la red
+        if (!force && (Date.now() - ts < CATALOG_CACHE_TTL)) {
+          _catalog = cachedData;
           return _catalog;
         }
       }
-    } catch (e) { /* ignorar */ }
+    }
+  } catch (e) { /* ignorar */ }
+
+  let medusaProducts = [];
+  try {
+    const data = await catalogFetch('/store/products?limit=100');
+    medusaProducts = (data.products || []).filter(p => !p.handle || !p.handle.includes('prueba'));
+  } catch (e) {
+    console.warn('Medusa API no disponible o timeout (522/Cloudflare). Usando caché previa o local:', e.message);
+    if (cachedData) {
+      _catalog = cachedData;
+      return _catalog;
+    }
   }
 
-  try {
-    const data = await catalogFetch('/store/products?limit=50');
-    _catalog = (data.products || []).filter(p => !p.handle || !p.handle.includes('prueba'));
-    try {
-      sessionStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify({
-        data: _catalog,
-        ts: Date.now()
-      }));
-    } catch (e) { /* ignorar */ }
-    return _catalog;
-  } catch (e) {
-    console.warn('No se pudo cargar el catálogo de Medusa:', e.message);
-    return [];
+  // 2. Fusión: tomar productos de Medusa y completar con cualquier producto local que falte
+  const fallbacks = getFallbackCatalog();
+
+  // Función helper para simplificar handle a su raíz (ej. 'perfume-solido-de-cacao' -> 'perfume-solido')
+  function normalizeHandle(h) {
+    if (!h) return '';
+    const clean = h.toLowerCase();
+    for (const key of Object.keys(PRODUCT_META)) {
+      if (clean.includes(key)) return key;
+    }
+    return clean;
   }
+
+  const existingRoots = new Set(medusaProducts.map(p => normalizeHandle(p.handle)));
+  const missingFallbacks = fallbacks.filter(f => !existingRoots.has(normalizeHandle(f.handle)));
+
+  _catalog = [...medusaProducts, ...missingFallbacks];
+
+  // 3. Persistir en localStorage
+  try {
+    localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify({
+      data: _catalog,
+      ts: Date.now()
+    }));
+  } catch (e) { /* ignorar */ }
+
+  return _catalog;
 }
 
 // ── Helper: enriquecer producto con metadata local ────────
 function enrichProduct(p) {
-  const meta = PRODUCT_META[p.handle] || {};
+  const meta = findMetaForHandle(p.handle);
   const variants = p.variants || [];
   const single = variants.length === 1;
   const firstVariant = variants[0] || {};
@@ -160,9 +248,16 @@ function renderShopCard(p, assets) {
     // Productos sin precio fijo → link a página de detalle
     actionHtml = `<a href="${productoUrl(p.handle)}" class="btn btn-add-cart specimen-cta">Ver detalles</a>`;
   } else {
-    actionHtml = `<button class="btn btn-add-cart specimen-cta"
+    actionHtml = `<div class="catalog-cart-row">
+      <div class="qty-stepper qty-stepper-sm">
+        <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+        <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+        <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+      </div>
+      <button class="btn btn-add-cart specimen-cta"
       data-product-id="${p.id}"
-      onclick="addToCart(getProductData(this))">🛒 Agregar al carrito</button>`;
+      onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+    </div>`;
   }
 
   return `
@@ -178,7 +273,7 @@ function renderShopCard(p, assets) {
       <div class="specimen-line"></div>
       <h3><a href="${productoUrl(p.handle)}">${p.title}</a></h3>
       <div class="specimen-img-wrap">
-        <img src="${img}" alt="${p.title}" loading="lazy"
+        <img src="${img}" alt="${p.title}" loading="lazy" decoding="async"
              onerror="this.onerror=null;this.src='${dataImg}'">
       </div>
       <div class="specimen-tags">
@@ -239,28 +334,33 @@ async function renderMarquee(containerSelector) {
   const assets = assetPath();
   const enriched = products.map(enrichProduct);
 
-  function cardHTML(p, withButton) {
+  function cardHTML(p, isFirstLoop, index) {
     // Preferir imagen local (siempre existe); fallback a thumbnail de Medusa; último recurso: logo
     const localSrc = p.localImg ? assets + p.localImg.replace(/^assets\//, '') : '';
     const img = localSrc || p.thumbnail || (assets + 'images/casa-tapputi-logo.webp');
     const dataImg = localSrc || img;
     const vid = p.defaultVariantId;
-    const btnAttrs = withButton ? ` data-product-id="${p.id}" data-variant-id="${vid}" data-product-name="${p.title}" data-product-price="${p.price}" data-product-price-label="${p.priceLabel}" data-product-image="${dataImg}"` : '';
+    const btnAttrs = ` data-product-id="${p.id}" data-variant-id="${vid}" data-product-name="${p.title}" data-product-price="${p.price}" data-product-price-label="${p.priceLabel}" data-product-image="${dataImg}"`;
+    
     // No mostrar botón + en productos sin precio
     const hasPrice = p.price && p.price > 0;
-    const btn = (withButton && hasPrice)
+    const btn = hasPrice
       ? `<button class="marquee-add" onclick="addToCart(getProductData(this));event.preventDefault();event.stopPropagation()" aria-label="Agregar al carrito">+</button>`
       : '';
-    // La segunda vuelta sólo sirve para el loop visual: no debe entrar al árbol de foco.
-    const accessibilityAttrs = withButton ? '' : ' aria-hidden="true" inert tabindex="-1"';
 
-    return `<a href="${productoUrl(p.handle)}" class="marquee-card"${btnAttrs}${accessibilityAttrs}><img src="${img}" alt="${p.title}" loading="lazy"><span>${p.title}${btn}</span></a>`;
+    // En la segunda vuelta omitimos el foco de teclado duplicado pero MANTENEMOS los clics del mouse 100% habilitados sin 'inert'
+    const accessibilityAttrs = isFirstLoop ? '' : ' tabindex="-1"';
+    
+    // Las primeras 4 imágenes se cargan con prioridad ultra-alta (fetchpriority high + eager + decoding async)
+    const isPriority = isFirstLoop && index < 4;
+    const loadingAttr = isPriority ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
+
+    return `<a href="${productoUrl(p.handle)}" class="marquee-card"${btnAttrs}${accessibilityAttrs}><img src="${img}" alt="${p.title}" ${loadingAttr} decoding="async" class="loaded"><span>${p.title}${btn}</span></a>`;
   }
 
-  // Primera vuelta: con data attributes y botones
-  // Segunda vuelta: sin botones para loop seamless
-  inner.innerHTML = enriched.map(p => cardHTML(p, true)).join('')
-    + enriched.map(p => cardHTML(p, false)).join('');
+  // Primera y segunda vuelta: 100% clicables y navegables
+  inner.innerHTML = enriched.map((p, idx) => cardHTML(p, true, idx)).join('')
+    + enriched.map((p, idx) => cardHTML(p, false, idx)).join('');
 
   // Activar scroll reveal en marquee si aplica (aunque marquee no usa reveal)
   if (typeof window.initReveal === 'function') {

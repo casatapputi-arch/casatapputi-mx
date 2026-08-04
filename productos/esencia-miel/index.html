@@ -169,7 +169,14 @@
           <h3><a href="../perfume-solido/">Perfume Sólido</a></h3>
           <p class="shop-desc">Cera de abeja y aceites botánicos.</p>
           <span class="shop-price">desde $80 MXN</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="perfume-solido" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="perfume-solido" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
       <article class="shop-card" data-product-id="lagrimas-rosas" data-product-name="Lágrimas de Rosas" data-product-price="100" data-product-price-label="desde $100 MXN" data-product-image="../../assets/images/lagrimas-rosas.webp">
@@ -178,7 +185,14 @@
           <h3><a href="../lagrimas-rosas/">Lágrimas de Rosas</a></h3>
           <p class="shop-desc">Resina sagrada para saumerios.</p>
           <span class="shop-price">desde $100 MXN</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="lagrimas-rosas" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="lagrimas-rosas" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
       <article class="shop-card" data-product-id="oleo-masaje" data-product-name="Óleo para Masaje" data-product-price="150" data-product-price-label="desde $150 MXN" data-product-image="../../assets/images/oleo-masaje.webp">
@@ -187,7 +201,14 @@
           <h3><a href="../oleo-masaje/">Óleo para Masaje</a></h3>
           <p class="shop-desc">Fusión sensorial que nutre la piel.</p>
           <span class="shop-price">desde $150 MXN</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="oleo-masaje" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="oleo-masaje" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
       <article class="shop-card" data-product-id="perfume-solido" data-product-name="Perfume Sólido" data-product-price="80" data-product-price-label="desde $80 MXN" data-product-image="../../assets/images/perfume-solido.webp">
@@ -196,7 +217,14 @@
           <h3><a href="../perfume-solido/">Perfume Sólido</a></h3>
           <p class="shop-desc">Cera de abeja y aceites botánicos.</p>
           <span class="shop-price">desde $80 MXN</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="perfume-solido" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="perfume-solido" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
     </div>

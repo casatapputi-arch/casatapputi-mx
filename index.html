@@ -7,9 +7,11 @@
   <meta name="description" content="Casa Tapputi: taller de herbolaria en Huerto Roma Verde, CDMX. Pomadas, perfumes sólidos, esencias, jabones artesanales y tisanas medicinales. Talleres presenciales." />
   <link rel="stylesheet" href="assets/css/main.v4.css" />
   <link rel="stylesheet" href="assets/css/home-fonts.css" />
-  <link rel="stylesheet" href="assets/css/home-premium.css" />
+  <link rel="stylesheet" href="assets/css/home-premium.css?v=20260803_v9" />
   <link rel="preload" as="image" href="assets/images/libro-home.webp" media="(min-width: 521px)" fetchpriority="high" />
   <link rel="preload" as="image" href="assets/images/libro-home-mobile.webp" media="(max-width: 520px)" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/images/esencias-amber.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/images/perfume-solido.webp" fetchpriority="high" />
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/cormorant-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/montserrat-latin.woff2" crossorigin>
   <link rel="icon" type="image/png" href="assets/images/casa-tapputi-logo.webp">
@@ -46,14 +48,21 @@
   <div class="nav-inner">
     <a href="./" class="nav-logo">
       <img src="assets/images/casa-tapputi-logo-nav.webp" alt="Casa Tapputi" width="128" height="128" loading="eager" />
-      <span class="wordmark">CASA TAPPUTI</span>
+      <div class="nav-brand-text">
+        <span class="wordmark">CASA TAPPUTI</span>
+        <span class="submark">BOTICA RITUAL</span>
+      </div>
     </a>
     <ul class="nav-links">
       <li><a href="productos/">Productos</a></li>
       <li><a href="/productos/talabarteria/">Talabartería</a></li>
       <li><a href="eventos/">Eventos</a></li>
       <li><a href="talleres/">Talleres</a></li>
-      </ul>
+      <li><a href="mis-boletos.html">Mis Boletos</a></li>
+    </ul>
+    <div class="nav-search-bar" id="openSpotlightBtn" role="button" tabindex="0" aria-label="Abrir buscador Spotlight">
+      <input type="text" class="nav-search-input" placeholder="Buscar en la botica..." readonly tabindex="-1" />
+    </div>
     <a href="tienda/carrito.html" class="cart-icon" aria-label="Carrito de compras">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
         <span class="cart-count" style="display:none" aria-live="polite" aria-label="0 productos en el carrito">0</span>
@@ -78,6 +87,7 @@
   <a href="/productos/talabarteria/" onclick="toggleMenu()">Talabartería</a>
   <a href="eventos/" onclick="toggleMenu()">Eventos</a>
   <a href="talleres/" onclick="toggleMenu()">Talleres</a>
+  <a href="mis-boletos.html" onclick="toggleMenu()">Mis Boletos</a>
 </div>
 <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
 
@@ -86,7 +96,7 @@
   <div class="home-hero-image" aria-hidden="true">
     <picture>
       <source media="(max-width: 520px)" srcset="assets/images/libro-home-mobile.webp" width="640" height="854" />
-      <img src="assets/images/libro-home.webp" alt="" width="1200" height="960" fetchpriority="high" />
+      <img src="assets/images/libro-home.webp" alt="Casa Tapputi Botica" width="1200" height="960" fetchpriority="high" />
     </picture>
   </div>
   <div class="container">
@@ -229,16 +239,32 @@
 </section>
 
 <!-- PARA TU NEGOCIO -->
-<section class="cluster-section">
+<section class="cluster-section biz-section">
   <div class="container">
     <p class="eyebrow" style="text-align:center">Para tu negocio</p>
     <h2 class="section-title" style="text-align:center"><a href="servicios/" class="section-nav-link">Marca privada y eventos <span class="nav-arrow">→</span></a></h2>
-    <p style="text-align:center; max-width:640px; margin:0 auto 2.4rem; color:var(--tinta-suave)">Formulamos productos con tu marca, listos para vender, y llevamos el taller de herbolaria a tus eventos corporativos.</p>
-    <div class="exp-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 780px; margin-inline: auto;">
-      <div class="exp-card"><img src="assets/images/tu-marca.webp" alt="Marca Privada Casa Tapputi" width="1024" height="1364" loading="lazy"><div class="exp-body"><h3>Marca Privada</h3><p>Perfumes, esencias, óleos y pomadas con acabado premium listos para comercializar bajo tu marca, sin producción propia.</p></div></div>
-      <div class="exp-card"><img src="assets/images/barra-aromatica.webp" alt="Eventos Casa Tapputi" width="1024" height="768" loading="lazy"><div class="exp-body"><h3>Eventos y Grupos</h3><p>Barra de Aromas y Performance con Fuego para transformar tu evento corporativo o privado en una experiencia sensorial.</p></div></div>
+    <p class="biz-lead">Formulamos productos con tu marca, listos para vender, y llevamos el taller de herbolaria a tus eventos corporativos.</p>
+    <div class="biz-grid">
+      <a href="servicios/#marca-privada" class="biz-card">
+        <div class="biz-img-wrap">
+          <img src="assets/images/tu-marca.webp" alt="Marca Privada Casa Tapputi" width="1024" height="1364" loading="lazy">
+        </div>
+        <div class="biz-body">
+          <h3>Marca Privada</h3>
+          <p>Perfumes, esencias, óleos y pomadas con acabado premium listos para comercializar bajo tu marca, sin producción propia.</p>
+        </div>
+      </a>
+      <a href="servicios/#eventos" class="biz-card">
+        <div class="biz-img-wrap">
+          <img src="assets/images/barra-aromatica.webp" alt="Eventos Casa Tapputi" width="1024" height="768" loading="lazy">
+        </div>
+        <div class="biz-body">
+          <h3>Eventos y Grupos</h3>
+          <p>Barra de Aromas y Performance con Fuego para transformar tu evento corporativo o privado en una experiencia sensorial.</p>
+        </div>
+      </a>
     </div>
-    <div style="text-align:center; margin-top:2rem;">
+    <div style="text-align:center; margin-top:2.5rem;">
       <a href="servicios/" class="btn btn-dark">Ver servicios para empresas</a>
     </div>
   </div>
@@ -300,9 +326,152 @@
 </footer>
 
 <script src="assets/js/main.js"></script>
-<script src="assets/js/home-search-loader.js" defer></script>
 <script src="assets/js/home-cart-count.js" defer></script>
 <script src="assets/js/home-loader.js"></script>
+
+<!-- Spotlight macOS System Modal -->
+<div class="spotlight-overlay" id="spotlightOverlay" aria-hidden="true">
+  <div class="spotlight-modal" role="dialog" aria-modal="true" aria-label="Búsqueda estilo Spotlight">
+    <div class="spotlight-header">
+      <input type="text" id="spotlightInput" class="spotlight-modal-input" placeholder="Buscar elixires, pomadas, talleres..." autocomplete="off" />
+      <span class="spotlight-esc-badge" id="spotlightClose">ESC ✕</span>
+    </div>
+    <div class="spotlight-results" id="spotlightResults">
+      <div style="padding:24px; color:rgba(246,241,232,0.42); text-align:center; font-family:var(--serif); font-size:1.05rem; font-style:italic;">Escribe para buscar productos o rituales en Casa Tapputi...</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const trigger = document.getElementById('openSpotlightBtn');
+  const overlay = document.getElementById('spotlightOverlay');
+  const input = document.getElementById('spotlightInput');
+  const closeBtn = document.getElementById('spotlightClose');
+  const results = document.getElementById('spotlightResults');
+
+  if (!trigger || !overlay || !input) return;
+
+  function openSpotlight() {
+    overlay.classList.add('open');
+    document.body.classList.add('spotlight-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    setTimeout(() => input.focus(), 50);
+  }
+
+  function closeSpotlight() {
+    overlay.classList.remove('open');
+    document.body.classList.remove('spotlight-open');
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+
+  trigger.addEventListener('click', openSpotlight);
+  trigger.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openSpotlight(); }
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeSpotlight);
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeSpotlight();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) {
+      closeSpotlight();
+    }
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      if (overlay.classList.contains('open')) closeSpotlight(); else openSpotlight();
+    }
+  });
+
+  // ── Algoritmo de Búsqueda Inteligente (Token Match + Normalización Unicode) ──
+  function normalizeStr(str) {
+    return (str || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .trim();
+  }
+
+  const catalog = [
+    { name: 'Esencia de Miel Silvestre y Melisa', category: 'Esencias', desc: 'Elixir botánico nutritivo y regenerador con miel natural', img: 'assets/images/miel-melipona.webp', url: 'productos/' },
+    { name: 'Pomada de Miel, Árnica y Ocote', category: 'Pomadas', desc: 'Bálsamo analgésico y cicatrizante con miel de abejas de monte', img: 'assets/images/pomada-calendula.webp', url: 'productos/' },
+    { name: 'Perfume Sólido de Cacao y Vainilla', category: 'Perfumería', desc: 'Aroma botánico de resinas y extractos artesanales', img: 'assets/images/perfume-solido.webp', url: 'productos/' },
+    { name: 'Jabón Artesanal de Romero y Miel', category: 'Jabones', desc: 'Limpieza e hidratación natural con extracto de romero y miel', img: 'assets/images/jabones-herbales.webp', url: 'productos/' },
+    { name: 'Tisana Medicinal de Naranjo y Flor de Azahar', category: 'Tisanas', desc: 'Mezcla relajante e infusión botánica', img: 'assets/images/agua-rosas.webp', url: 'productos/' },
+    { name: 'Taller de Perfumería Botánica en Huerto Roma', category: 'Talleres', desc: 'Aprende a formular perfumes y esencias naturales presencialmente', img: 'assets/images/curso-perfume-solido.webp', url: 'talleres/' },
+    { name: 'Taller de Herbolaria y Extractos Medicinales', category: 'Talleres', desc: 'Creación de pomadas, tinturas y elixires curativos', img: 'assets/images/curso-elixires.webp', url: 'talleres/' },
+    { name: 'Talabartería Ritual en Cuero Natural', category: 'Colección', desc: 'Faldas y accesorios artesanales cosidos a mano', img: 'assets/images/talabarteria.webp', url: 'productos/talabarteria/' },
+    { name: 'Mis Boletos de Eventos y Experiencias', category: 'Boletos', desc: 'Gestiona o adopta tus accesos a talleres y experiencias', img: 'assets/images/casa-tapputi-logo.webp', url: 'mis-boletos.html' },
+    { name: 'Catálogo General de Productos', category: 'Tienda', desc: 'Explora toda la botica ritual de Casa Tapputi', img: 'assets/images/casa-tapputi-logo.webp', url: 'productos/' }
+  ];
+
+  function executeSearch(query) {
+    const qNorm = normalizeStr(query);
+    if (!qNorm) {
+      results.innerHTML = '<div style="padding:24px; color:rgba(246,241,232,0.42); text-align:center; font-family:var(--serif); font-size:1.05rem; font-style:italic;">Escribe para buscar productos, elixires o talleres en Casa Tapputi...</div>';
+      return;
+    }
+
+    const tokens = qNorm.split(/\s+/).filter(Boolean);
+
+    // Calcular relevancias por token match
+    const matches = catalog.map(item => {
+      const targetText = normalizeStr(`${item.name} ${item.category} ${item.desc}`);
+      let score = 0;
+      
+      // Coincidencia exacta de la frase
+      if (targetText.includes(qNorm)) score += 10;
+
+      // Coincidencia por cada palabra individual
+      tokens.forEach(tok => {
+        if (targetText.includes(tok)) score += 3;
+      });
+
+      return { item, score };
+    })
+    .filter(m => m.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map(m => m.item);
+
+    if (matches.length === 0) {
+      results.innerHTML = `<div style="padding:24px; color:rgba(246,241,232,0.45); text-align:center; font-family:var(--sans); font-size:0.88rem;">No se encontraron resultados para "<strong>${escapeHtml(query)}</strong>". Intenta con <em>miel, esencia, jabón, pomada, taller</em>.</div>`;
+      return;
+    }
+
+    results.innerHTML = matches.map(item => `
+      <a href="${item.url}" class="spotlight-result-item" role="option">
+        <div style="display: flex; align-items: center; gap: 14px; width: 100%;">
+          <img src="${item.img}" alt="${escapeHtml(item.name)}" style="width: 48px; height: 48px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(200,169,120,0.3); flex-shrink: 0;" />
+          <div style="flex-grow: 1; min-width: 0;">
+            <div class="spotlight-result-title" style="font-size: 1.02rem; line-height: 1.25;">${escapeHtml(item.name)}</div>
+            <div style="font-size: 0.76rem; color: rgba(246,241,232,0.55); margin-top: 3px; font-family: var(--sans); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${escapeHtml(item.desc)}</div>
+          </div>
+          <span class="spotlight-result-badge" style="flex-shrink: 0;">${escapeHtml(item.category)}</span>
+        </div>
+      </a>
+    `).join('');
+  }
+
+  function escapeHtml(str) {
+    return (str || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  input.addEventListener('input', (e) => executeSearch(e.target.value));
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const firstLink = results.querySelector('a.spotlight-result-item');
+      if (firstLink) {
+        e.preventDefault();
+        window.location.href = firstLink.href;
+      }
+    }
+  });
+})();
+</script>
 
 <!-- Botón flotante WhatsApp -->
 <a href="https://wa.me/525563707034?text=Hola%20Casa%20Tapputi%2C%20vi%20la%20pagina%20principal" class="wa-float" target="_blank" rel="noopener" aria-label="Chatea por WhatsApp">

@@ -151,7 +151,14 @@
           <h3><a href="../roll-on/">Roll-On Anti Estrés</a></h3>
           <p class="shop-desc">Menta, Pino y Eucalipto.</p>
           <span class="shop-price">$200 MXN</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="roll-on" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="roll-on" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
       <article class="shop-card" data-product-id="oleo-masaje" data-product-name="Óleo para Masaje" data-product-price="150" data-product-price-label="desde $150 MXN" data-product-image="../../assets/images/oleo-masaje.webp">
@@ -160,7 +167,14 @@
           <h3><a href="../oleo-masaje/">Óleo para Masaje</a></h3>
           <p class="shop-desc">Nutre piel y emociones.</p>
           <span class="shop-price">desde $150 MXN</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="oleo-masaje" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="oleo-masaje" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
       <article class="shop-card" data-product-id="esencia-miel" data-product-name="Esencia de Miel" data-product-price="400" data-product-price-label="desde $400 MXN" data-product-image="../../assets/images/esencias-amber.webp">
@@ -178,7 +192,14 @@
           <h3><a href="../roll-on/">Roll-On Anti Estrés</a></h3>
           <p class="shop-desc">Menta, Pino y Eucalipto.</p>
           <span class="shop-price">$200 MXN</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="roll-on" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="roll-on" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
     </div>

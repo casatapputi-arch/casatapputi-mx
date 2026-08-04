@@ -154,7 +154,14 @@
           <h3><a href="../agua-rosas/">Agua de Rosas</a></h3>
           <p class="shop-desc">Tónico de pétalos frescos.</p>
           <span class="shop-price">$150 MXN</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="agua-rosas" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="agua-rosas" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
       <article class="shop-card" data-product-id="gel-cafe" data-product-name="Gel de Café" data-product-price="150" data-product-price-label="$150 MXN" data-product-image="../../assets/images/mascarilla-cafe.webp">
@@ -163,7 +170,14 @@
           <h3><a href="../gel-cafe/">Gel de Café</a></h3>
           <p class="shop-desc">Tratamiento revitalizante.</p>
           <span class="shop-price">$150 MXN</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="gel-cafe" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="gel-cafe" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
       <article class="shop-card" data-product-id="pomada-calendula" data-product-name="Pomada Caléndula" data-product-price="100" data-product-price-label="desde $100 MXN" data-product-image="../../assets/images/pomada-calendula.webp">
@@ -172,7 +186,14 @@
           <h3><a href="../pomada-calendula/">Pomada Caléndula</a></h3>
           <p class="shop-desc">Cicatrizante natural.</p>
           <span class="shop-price">desde $100 MXN</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="pomada-calendula" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="pomada-calendula" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
       <article class="shop-card" data-product-id="agua-rosas" data-product-name="Agua de Rosas" data-product-price="150" data-product-price-label="$150 MXN" data-product-image="../../assets/images/agua-rosas.webp">
@@ -181,7 +202,14 @@
           <h3><a href="../agua-rosas/">Agua de Rosas</a></h3>
           <p class="shop-desc">Tónico de pétalos frescos.</p>
           <span class="shop-price">$150 MXN</span>
-          <button class="btn btn-add-cart shop-cta" data-product-id="agua-rosas" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          <div class="catalog-cart-row">
+            <div class="qty-stepper qty-stepper-sm">
+              <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+              <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+              <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+            </div>
+            <button class="btn btn-add-cart shop-cta" data-product-id="agua-rosas" onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+          </div>
         </div>
       </article>
     </div>

@@ -149,8 +149,7 @@
       <div class="search-panel" id="searchPanel">
         <div class="search-panel-inner">
           <div class="search-input-wrap">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="searchInput" placeholder="Buscar productos, esencias, pomadas..." autocomplete="off">
+            <input type="text" id="searchInput" placeholder="Buscar en la botica..." autocomplete="off">
             <button id="searchClose" aria-label="Cerrar búsqueda">✕</button>
           </div>
           <div class="search-results" id="searchResults"></div>
@@ -159,21 +158,9 @@
     `);
   }
 
-  // ── Inyectar ícono de búsqueda en la nav ────────────────
+  // ── Inyectar ícono de búsqueda en la nav (DESACTIVADO) ────────────────
   function injectSearchButton() {
-    const navSocial = document.querySelector('.nav-social');
-    if (!navSocial) return;
-
-    const existing = document.getElementById('btnSearch');
-    if (existing) return;
-
-    const btn = document.createElement('button');
-    btn.id = 'btnSearch';
-    btn.className = 'search-btn';
-    btn.setAttribute('aria-label', 'Buscar');
-    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
-    btn.addEventListener('click', openSearch);
-    navSocial.prepend(btn);
+    // Desactivado a solicitud del usuario: no se inyecta ningún botón ni ícono de lupa
   }
 
   // ── Abrir/Cerrar búsqueda ────────────────────────────────

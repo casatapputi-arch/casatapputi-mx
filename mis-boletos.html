@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mis Boletos y Comprobantes — Casa Tapputi</title>
+  <meta name="description" content="Consulta, administra y reclama tus comprobantes digitales de talleres en Casa Tapputi." />
+  <link rel="stylesheet" href="assets/css/main.v4.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/images/casa-tapputi-logo.webp">
+  <script async src="https://plausible.io/js/pa-KVB5ye4NhSFIsTbFNkW0V.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+  <style>
+    .auth-container {
+      max-width: 900px; margin: 40px auto; padding: 0 20px;
+    }
+    .auth-card {
+      background: rgba(255,255,255,.03); border: 1px solid rgba(239,230,214,.12);
+      border-radius: 12px; padding: 32px 28px; margin-bottom: 28px;
+    }
+    .auth-header { text-align: center; margin-bottom: 24px; }
+    .auth-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--miel); margin-bottom: 8px; }
+    .auth-header p { font-size: .95rem; color: var(--tinta-suave); }
+    
+    .auth-methods {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;
+    }
+    .auth-box {
+      background: rgba(0,0,0,.2); border: 1px solid rgba(239,230,214,.1);
+      border-radius: 8px; padding: 20px; text-align: center;
+    }
+    .auth-box h3 { font-size: 1.1rem; color: var(--tinta); margin-bottom: 12px; }
+    
+    .form-group { margin-bottom: 14px; text-align: left; }
+    .form-group label { display: block; font-size: .82rem; color: var(--tinta-suave); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .04em; }
+    .form-control {
+      width: 100%; padding: 10px 14px; background: rgba(0,0,0,.3);
+      border: 1px solid rgba(239,230,214,.2); border-radius: 6px;
+      color: var(--tinta); font-size: .95rem; font-family: inherit; box-sizing: border-box;
+    }
+    .form-control:focus { outline: none; border-color: var(--miel); }
+    
+    .btn-auth {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 12px; border-radius: 6px; font-weight: 500; font-size: .95rem;
+      cursor: pointer; border: 1px solid var(--miel); background: rgba(212,175,55,.15);
+      color: var(--tinta); transition: all .2s; font-family: inherit; margin-top: 6px;
+    }
+    .btn-auth:hover { background: rgba(212,175,55,.28); border-color: var(--miel); }
+    .btn-google {
+      background: #ffffff; color: #333333; border: 1px solid #cccccc;
+    }
+    .btn-google:hover { background: #f5f5f5; color: #000000; }
+    
+    .tickets-list { display: grid; gap: 16px; margin-top: 20px; }
+    .ticket-item {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(239,230,214,.12);
+      border-radius: 10px; padding: 20px; display: flex; flex-wrap: wrap;
+      justify-content: space-between; align-items: center; gap: 16px;
+    }
+    .ticket-info h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--miel); margin: 0 0 4px; }
+    .ticket-info p { margin: 2px 0; font-size: .88rem; color: var(--tinta-suave); }
+    .ticket-code { font-family: 'Courier New', monospace; font-weight: 600; color: var(--tinta); }
+    
+    .status-badge {
+      display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: .78rem; font-weight: 600;
+    }
+    .status-valido { background: rgba(165,214,167,.15); color: #a5d6a7; border: 1px solid rgba(165,214,167,.3); }
+    .status-usado { background: rgba(255,183,77,.15); color: #ffb74d; border: 1px solid rgba(255,183,77,.3); }
+    
+    .notice-box {
+      background: rgba(212,175,55,.08); border: 1px solid rgba(212,175,55,.2);
+      border-radius: 8px; padding: 16px; margin-bottom: 20px; font-size: .9rem; color: var(--tinta-suave);
+    }
+
+    @media (max-width: 600px) {
+      .auth-card { padding: 20px 16px; }
+      .ticket-item { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+<div class="topbar">🎟️ Mis Comprobantes Digitales — Casa Tapputi</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="./" class="nav-logo">
+      <img src="assets/images/casa-tapputi-logo.webp" alt="Casa Tapputi" loading="lazy" />
+      <span class="wordmark">CASA TAPPUTI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="productos/">Productos</a></li>
+      <li><a href="/productos/talabarteria/">Talabartería</a></li>
+      <li><a href="eventos/">Eventos</a></li>
+      <li><a href="talleres/">Talleres</a></li>
+      <li><a href="mis-boletos.html" class="active">Mis Boletos</a></li>
+    </ul>
+    <a href="tienda/carrito.html" class="cart-icon" aria-label="Carrito de compras">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span class="cart-count" style="display:none" aria-live="polite" aria-label="0 productos en el carrito">0</span>
+    </a>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<main id="main-content" class="auth-container">
+  <div class="auth-header">
+    <p class="eyebrow">Gestión de Accesos</p>
+    <h2>Mis Boletos y Comprobantes</h2>
+    <p>Consulta tus comprobantes digitales para los talleres de Casa Tapputi o inicia sesión para asociarlos a tu cuenta.</p>
+  </div>
+
+  <div id="noticeMsg" class="notice-box" style="display:none;"></div>
+
+  <!-- SECCIÓN DE INICIO DE SESIÓN -->
+  <div class="auth-card" id="authBox">
+    <h3 style="font-family:'Cormorant Garamond', serif; font-size:1.6rem; color:var(--miel); margin-top:0;">Acceso a tu Cuenta</h3>
+    <p style="font-size:.9rem; color:var(--tinta-suave); margin-bottom:20px;">Puedes consultar tus comprobantes comprados como invitado o asociarlos mediante tu correo institucional/personal.</p>
+    
+    <div class="auth-methods">
+      <!-- Opción 1: Enlace Mágico por Correo -->
+      <div class="auth-box">
+        <h3>Enlace Mágico por Correo</h3>
+        <p style="font-size:.82rem; color:var(--tinta-suave); margin-bottom:12px;">Recibe un enlace directo sin necesidad de recordar contraseña.</p>
+        <form id="magicLinkForm" onsubmit="handleMagicLink(event)">
+          <div class="form-group">
+            <label for="magicEmail">Correo Electrónico</label>
+            <input type="email" id="magicEmail" class="form-control" placeholder="tu@correo.com" required />
+          </div>
+          <button type="submit" class="btn-auth">Enviar Enlace</button>
+        </form>
+      </div>
+
+      <!-- Opción 2: Google SSO -->
+      <div class="auth-box">
+        <h3>Google SSO</h3>
+        <p style="font-size:.82rem; color:var(--tinta-suave); margin-bottom:16px;">Acceso rápido con tu cuenta institucional o personal de Google.</p>
+        <button onclick="handleGoogleLogin()" class="btn-auth btn-google">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3h3.88c2.27-2.09 3.665-5.17 3.665-9.12z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.11-6.72-4.96H1.26v3.09C3.25 21.3 7.31 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.29c-.25-.72-.38-1.49-.38-2.29s.13-1.57.38-2.29V6.62H1.26C.46 8.23 0 10.06 0 12s.46 3.77 1.26 5.38l4.02-3.09z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.25 2.7 1.26 6.62l4.02 3.09c.95-2.85 3.6-4.96 6.72-4.96z"/></svg>
+          Continuar con Google
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LISTA DE BOLETOS CONSULTADOS O ADOPTADOS -->
+  <div class="auth-card">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+      <h3 style="font-family:'Cormorant Garamond', serif; font-size:1.6rem; color:var(--miel); margin:0;">Tus Comprobantes Activos</h3>
+      <button onclick="buscarBoletosLocales()" class="btn-auth" style="width:auto; padding:6px 16px; font-size:.85rem; display:inline-flex; align-items:center; gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6"/><path d="M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg> Actualizar Lista</button>
+    </div>
+
+    <div id="ticketsList" class="tickets-list">
+      <div style="text-align:center; padding:30px; color:var(--tinta-suave);">
+        <p>Buscando comprobantes en este navegador...</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="assets/js/main.js"></script>
+<script src="assets/js/auth-config.js"></script>
+<script src="assets/js/auth-client.js"></script>
+<script src="assets/js/tickets-client.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    initMisBoletos();
+  });
+
+  function initMisBoletos() {
+    var auth = window.CasaTapputiAuth;
+    var notice = document.getElementById('noticeMsg');
+
+    if (!auth || !auth.habilitado()) {
+      notice.style.display = 'block';
+      notice.innerHTML = '<strong>Nota de Integración:</strong> El servicio de inicio de sesión de Supabase Auth está actualmente en modo plantilla (servidor dedicado pendiente de vinculación). Los comprobantes locales en este navegador se muestran abajo.';
+    } else {
+      auth.sesion().then(function(s) {
+        if (s && s.user) {
+          notice.style.display = 'block';
+          notice.className = 'notice-box';
+          notice.innerHTML = 'Sesión activa como: <strong>' + s.user.email + '</strong> · <a href="#" onclick="cerrarSesion(event)" style="color:var(--miel)">Cerrar sesión</a>';
+          auth.adoptarLocales();
+        }
+      });
+    }
+
+    buscarBoletosLocales();
+  }
+
+  function handleMagicLink(e) {
+    e.preventDefault();
+    var email = document.getElementById('magicEmail').value;
+    var auth = window.CasaTapputiAuth;
+    if (!auth || !auth.habilitado()) {
+      alert('La autenticación en nube no está activa en este momento. Los comprobantes locales se consultan abajo.');
+      return;
+    }
+    auth.conEnlaceCorreo(email).then(function(r) {
+      if (r && r.error) {
+        alert('Error: ' + r.error.message);
+      } else {
+        alert('¡Enlace enviado! Revisa tu bandeja de entrada en ' + email);
+      }
+    });
+  }
+
+  function handleGoogleLogin() {
+    var auth = window.CasaTapputiAuth;
+    if (!auth || !auth.habilitado()) {
+      alert('El acceso con Google requiere la activación previa del proyecto Supabase dedicado en la consola OCI/Supabase.');
+      return;
+    }
+    auth.conGoogle();
+  }
+
+  function cerrarSesion(e) {
+    e.preventDefault();
+    if (window.CasaTapputiAuth) {
+      window.CasaTapputiAuth.salir().then(function() {
+        location.reload();
+      });
+    }
+  }
+
+  function buscarBoletosLocales() {
+    var container = document.getElementById('ticketsList');
+    var boletos = [];
+
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (!k || k.indexOf('casatapputi_tickets_') !== 0) continue;
+        var item = JSON.parse(localStorage.getItem(k) || 'null');
+        if (item && item.tickets) {
+          item.tickets.forEach(function(t) {
+            boletos.push({
+              evento: item.taller_nombre || t.evento || 'Taller Casa Tapputi',
+              shortCode: t.short_code || t.code || 'CT-TICKET',
+              nombre: (t.nombre || '') + ' ' + (t.apellido || ''),
+              fecha: item.fecha_compra || 'Reciente',
+              usado: !!t.usado,
+              token: t.token
+            });
+          });
+        }
+      }
+    } catch(e) { console.error('Error leyendo localStorage:', e); }
+
+    if (boletos.length === 0) {
+      container.innerHTML = `
+        <div style="text-align:center; padding:32px 20px; color:var(--tinta-suave); background:rgba(0,0,0,.15); border-radius:8px;">
+          <p style="font-size:1.05rem; margin-bottom:6px;">No se encontraron comprobantes almacenados en este navegador.</p>
+          <p style="font-size:.85rem;">Si compraste un boleto recientemente en otro dispositivo, inicia sesión o consulta el enlace en tu correo.</p>
+        </div>
+      `;
+      return;
+    }
+
+    var html = '';
+    boletos.forEach(function(b) {
+      var badgeClass = b.usado ? 'status-usado' : 'status-valido';
+      var statusText = b.usado ? 'Usado' : 'Válido';
+      html += `
+        <div class="ticket-item">
+          <div class="ticket-info">
+            <h4>${escapeHtml(b.evento)}</h4>
+            <p>Titular: <strong>${escapeHtml(b.nombre || 'Asistente')}</strong></p>
+            <p>Código: <span class="ticket-code">${escapeHtml(b.shortCode)}</span></p>
+          </div>
+          <div>
+            <span class="status-badge ${badgeClass}">${statusText}</span>
+          </div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+  }
+
+  function escapeHtml(str) {
+    return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+</script>
+</body>
+</html>
