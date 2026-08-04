@@ -189,6 +189,7 @@ async function addToCart(product) {
   saveLocalCart(local);
   renderCartCount();
   showAddedFeedback(product.id);
+  openCartDrawer();
 
   // 2. Si no tiene variantId, solo carrito local (ej: talabartería sin Medusa)
   if (!product.variantId) {
@@ -350,6 +351,155 @@ function checkoutWhatsApp(e) {
   window.open(waUrl, '_blank', 'noopener');
   clearCart();
   setTimeout(() => { window.location.href = 'gracias-wa.html'; }, 500);
+}
+
+// ── Cart Drawer ──────────────────────────────────────────
+function resolveAssetPath() {
+  const path = window.location.pathname;
+  if (path.includes('/productos/') && !path.endsWith('/productos/')) return '../../assets/';
+  if (path.includes('/productos')) return '../assets/';
+  if (path.includes('/tienda/')) return '../assets/';
+  if (path.includes('/talleres/')) return '../assets/';
+  if (path.includes('/eventos/')) return '../assets/';
+  if (path.includes('/nosotros/')) return '../assets/';
+  if (path.includes('/servicios/')) return '../assets/';
+  if (path.includes('/experiencias/')) return '../assets/';
+  return 'assets/';
+}
+
+function resolveCartPagePath() {
+  const path = window.location.pathname;
+  if (path === '/' || path === '/index.html') return 'tienda/carrito.html';
+  if (path.includes('/productos/') && !path.endsWith('/productos/')) return '../../tienda/carrito.html';
+  if (path.includes('/productos')) return '../tienda/carrito.html';
+  return '../tienda/carrito.html';
+}
+
+function injectCartDrawerHTML() {
+  if (document.getElementById('cartDrawer')) return;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'cart-drawer-overlay';
+  overlay.id = 'cartDrawerOverlay';
+  overlay.setAttribute('aria-hidden', 'true');
+  overlay.addEventListener('click', closeCartDrawer);
+
+  const drawer = document.createElement('div');
+  drawer.className = 'cart-drawer';
+  drawer.id = 'cartDrawer';
+  drawer.setAttribute('role', 'dialog');
+  drawer.setAttribute('aria-modal', 'true');
+  drawer.setAttribute('aria-label', 'Carrito de compras');
+  drawer.innerHTML =
+    '<div class="cart-drawer-header">' +
+    '<h2 class="cart-drawer-title">Tu Canasta <span class="cart-drawer-count" id="cartDrawerCount"></span></h2>' +
+    '<button class="cart-drawer-close" onclick="closeCartDrawer()" aria-label="Cerrar carrito">×</button>' +
+    '</div>' +
+    '<div class="cart-drawer-body" id="cartDrawerBody"></div>' +
+    '<div class="cart-drawer-footer" id="cartDrawerFooter"></div>';
+
+  document.body.appendChild(overlay);
+  document.body.appendChild(drawer);
+}
+
+function openCartDrawer() {
+  let drawer = document.getElementById('cartDrawer');
+  if (!drawer) { injectCartDrawerHTML(); drawer = document.getElementById('cartDrawer'); }
+  if (!drawer) return;
+  renderCartDrawer();
+  drawer.classList.add('open');
+  document.getElementById('cartDrawerOverlay').classList.add('open');
+  document.body.classList.add('cart-drawer-open');
+}
+
+function closeCartDrawer() {
+  const drawer = document.getElementById('cartDrawer');
+  const overlay = document.getElementById('cartDrawerOverlay');
+  if (!drawer) return;
+  drawer.classList.remove('open');
+  if (overlay) overlay.classList.remove('open');
+  document.body.classList.remove('cart-drawer-open');
+}
+
+function checkoutWhatsAppFromDrawer(e) {
+  e.preventDefault();
+  const waUrl = generateWhatsAppMessage();
+  if (waUrl) {
+    window.open(waUrl, '_blank', 'noopener');
+    closeCartDrawer();
+  }
+}
+
+function renderCartDrawer() {
+  const drawer = document.getElementById('cartDrawer');
+  if (!drawer || !drawer.classList.contains('open')) return;
+
+  const body = document.getElementById('cartDrawerBody');
+  const footer = document.getElementById('cartDrawerFooter');
+  const countEl = document.getElementById('cartDrawerCount');
+  if (!body || !footer) return;
+
+  const items = getLocalCart();
+  const totalItems = items.reduce(function(s, i) { return s + i.quantity; }, 0);
+  if (countEl) countEl.textContent = totalItems > 0 ? '(' + totalItems + ')' : '';
+
+  if (!items.length) {
+    body.innerHTML =
+      '<div class="cart-drawer-empty">' +
+      '<div class="cart-drawer-empty-icon">🌿</div>' +
+      '<p>Tu canasta está vacía</p>' +
+      '<button class="btn-continue-shopping" onclick="closeCartDrawer()">Descubrir productos</button>' +
+      '</div>';
+    footer.innerHTML = '';
+    return;
+  }
+
+  const assets = resolveAssetPath();
+  let itemsHTML = '';
+  items.forEach(function(item) {
+    const price = cleanPrice(item.price);
+    const imgSrc = item.image || (assets + 'images/casa-tapputi-logo.webp');
+    itemsHTML +=
+      '<div class="cart-drawer-item">' +
+      '<div class="cart-drawer-item-img">' +
+      '<img src="' + imgSrc + '" alt="' + item.name + '" loading="lazy"' +
+      ' onerror="this.src=\'' + assets + 'images/casa-tapputi-logo.webp\'">' +
+      '</div>' +
+      '<div class="cart-drawer-item-info">' +
+      '<p class="cart-drawer-item-name">' + item.name + '</p>' +
+      '<p class="cart-drawer-item-price">' + (item.priceLabel || formatPrice(price)) + '</p>' +
+      '</div>' +
+      '<button class="cart-drawer-item-remove" onclick="removeFromCart(\'' + item.id + '\');renderCartDrawer();" aria-label="Eliminar ' + item.name + '">×</button>' +
+      '</div>';
+  });
+  body.innerHTML = '<div class="cart-drawer-list">' + itemsHTML + '</div>';
+
+  const subtotal = getSubtotal();
+  const total = getTotal();
+  const discount = getDiscountAmount();
+  const cartPageUrl = resolveCartPagePath();
+
+  footer.innerHTML =
+    '<div class="cart-drawer-summary">' +
+    '<div class="cart-drawer-summary-row">' +
+    '<span>Subtotal</span>' +
+    '<span>' + (subtotal > 0 ? '$' + subtotal.toLocaleString('es-MX') + ' MXN' : 'A consultar') + '</span>' +
+    '</div>' +
+    (discount > 0 ?
+    '<div class="cart-drawer-summary-row cart-discount-row">' +
+    '<span>Descuento</span>' +
+    '<span>− $' + discount.toLocaleString('es-MX') + ' MXN</span>' +
+    '</div>' : '') +
+    '<div class="cart-drawer-summary-row cart-drawer-total">' +
+    '<span>Total</span>' +
+    '<span>' + (total > 0 ? '$' + total.toLocaleString('es-MX') + ' MXN' : 'A consultar') + '</span>' +
+    '</div>' +
+    '</div>' +
+    '<a href="' + generateWhatsAppMessage() + '" class="btn-wa-checkout" target="_blank" rel="noopener" onclick="checkoutWhatsAppFromDrawer(event)">' +
+    '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>' +
+    'Comprar por WhatsApp' +
+    '</a>' +
+    '<a href="' + cartPageUrl + '" class="cart-drawer-full-link" onclick="closeCartDrawer()">Ver carrito completo →</a>';
 }
 
 // ── Sanitizar ruta de imagen (previene images/images/ por bugs upstream) ──
@@ -595,6 +745,7 @@ async function refreshCartUI() {
   if (window.location.pathname.includes('/tienda/carrito')) {
     await renderCartPage();
   }
+  renderCartDrawer();
 }
 
 // ── Dynamic load de checkout.js (bypassea caché del HTML) ─
@@ -624,14 +775,33 @@ function loadCheckoutJS() {
 
 // ── Init ──────────────────────────────────────────────────
 async function initCart() {
+  injectCartDrawerHTML();
   renderCartCount();
   if (window.location.pathname.includes('/tienda/carrito')) {
     await renderCartPage();
   }
   // Precargar cart de Medusa en background
   if (localStorage.getItem(CART_ID_KEY)) {
-    fetchMedusaCart().catch(() => {});
+    fetchMedusaCart().catch(function() {});
   }
+
+  // Interceptar clicks en el ícono del carrito para abrir el drawer
+  document.querySelectorAll('.cart-icon').forEach(function(icon) {
+    icon.addEventListener('click', function(e) {
+      e.preventDefault();
+      openCartDrawer();
+    });
+  });
+
+  // Cerrar drawer con tecla ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const drawer = document.getElementById('cartDrawer');
+      if (drawer && drawer.classList.contains('open')) {
+        closeCartDrawer();
+      }
+    }
+  });
 }
 
 if (document.readyState === 'loading') {
