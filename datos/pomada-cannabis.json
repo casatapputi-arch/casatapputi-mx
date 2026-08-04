@@ -1,20 +1,20 @@
 {
   "slug": "pomada-cannabis",
-  "title": "Pomada Cannabis",
-  "meta_description": "Sinergia de cannabis, veneno de hormiga roja y plantas medicinales. Para dolores musculares y articulares.",
+  "title": "Pomada Herbal Intensiva",
+  "meta_description": "Sinergia de plantas medicinales de alta potencia. Para masaje en zonas musculares y articulares.",
   "og_image": "https://casatapputi.com.mx/assets/images/pomada-cannabis.webp",
   "hero_image": "pomada-cannabis.webp",
   "product_image": "pomada-cannabis.webp",
-  "breadcrumb_name": "Pomada Cannabis",
+  "breadcrumb_name": "Pomada Herbal Intensiva",
   "prod_eyebrow": "Cuidado Facial",
-  "prod_title": "Pomada Cannabis",
-  "prod_subtitle": "Sinergia de cannabis y plantas — alivio muscular localizado",
+  "prod_title": "Pomada Herbal Intensiva",
+  "prod_subtitle": "Sinergia herbal de alta potencia — alivio muscular localizado",
   "eyebrow": "Colección Facial",
-  "h1": "Pomada Cannabis",
+  "h1": "Pomada Herbal Intensiva",
   "subtitle_short": "Sinergia herbal para dolores musculares y articulares",
   "description": [
-    "Sinergia de cannabis, veneno de hormiga roja y plantas medicinales en formato pomada. Para dolores musculares, articulares y reumáticos. Aplicación local sin efectos psicoactivos.",
-    "La base de cera de abeja y aceites vegetales permite una liberación sostenida de los compuestos activos sobre la zona afectada."
+    "Sinergia de plantas medicinales seleccionadas en formato pomada, para masaje en zonas musculares y articulares. Aplicación local.",
+    "La base de cera de abeja y aceites vegetales permite una liberación sostenida de los compuestos activos sobre la zona tratada."
   ],
   "variant_type": "single",
   "variants": [
@@ -28,7 +28,7 @@
   ],
   "price_display": "desde $100 MXN",
   "price_present": "30 gr / 50 gr",
-  "meta_note": "Uso tópico. No ingerir. Cannabis de cultivo orgánico.",
+  "meta_note": "Uso tópico. No ingerir.",
   "howto": {
     "eyebrow": "Aplicación local",
     "title": "Tres formas de uso",
@@ -53,8 +53,8 @@
     "items": [
       {
         "icon": "🌿",
-        "title": "Cannabis + hierbas",
-        "description": "La sinergia de cannabinoides con plantas medicinales crea un efecto analgésico más completo."
+        "title": "Sinergia herbal",
+        "description": "La combinación de plantas medicinales seleccionadas crea un efecto de alivio más completo."
       },
       {
         "icon": "🐝",
@@ -63,8 +63,8 @@
       },
       {
         "icon": "⚡",
-        "title": "Sin efectos psicoactivos",
-        "description": "Uso tópico local. Los cannabinoides actúan sobre receptores locales sin llegar al torrente sanguíneo."
+        "title": "Uso tópico local",
+        "description": "Fórmula de aplicación local, pensada para actuar directamente sobre la zona tratada."
       }
     ]
   },
@@ -118,9 +118,9 @@
     "title": "¿Tienes dudas sobre este producto?",
     "subtitle": "Escríbenos por WhatsApp y te asesoramos personalmente."
   },
-  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20la%20Pomada%20Cannabis",
-  "schema_name": "Pomada Cannabis",
-  "schema_description": "Sinergia de cannabis, veneno de hormiga roja y plantas medicinales. Para dolores musculares y articulares.",
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20la%20Pomada%20Herbal%20Intensiva",
+  "schema_name": "Pomada Herbal Intensiva",
+  "schema_description": "Sinergia de plantas medicinales de alta potencia. Para masaje en zonas musculares y articulares.",
   "schema_image": "pomada-cannabis.webp",
   "schema_price": 100
 }

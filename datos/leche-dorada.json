@@ -1,7 +1,7 @@
 {
   "slug": "leche-dorada",
   "title": "Leche Dorada",
-  "meta_description": "Mezcla ancestral de cúrcuma, pimienta negra, clavo y especias. Potente antiinflamatoria y reconfortante. Bebida tradicional.",
+  "meta_description": "Mezcla ancestral de cúrcuma, pimienta negra, clavo y especias. Bebida tradicional reconfortante.",
   "hero_image": "leche-dorada.webp",
   "product_image": "leche-dorada.webp",
   "breadcrumb_name": "Leche Dorada",
@@ -12,8 +12,8 @@
   "h1": "Leche Dorada",
   "subtitle_short": "El oro líquido de las raíces mexicanas",
   "description": [
-    "Mezcla ancestral de cúrcuma, pimienta negra, clavo y especias seleccionadas. Una reflexión prehispánica que combina tradición y bienestar en cada taza. La pimienta negra potencia la absorción de la cúrcuma hasta 2000%.",
-    "Potente antiinflamatoria y reconfortante. Se disuelve en leche caliente o vegetal para una bebida nutritiva que calma el cuerpo y el ánimo desde el primer sorbo. Ideal como ritual nocturno."
+    "Mezcla ancestral de cúrcuma, pimienta negra, clavo y especias seleccionadas. Una receta prehispánica que combina tradición y bienestar en cada taza.",
+    "Reconfortante y de sabor cálido. Se disuelve en leche caliente o vegetal para una bebida que acompaña el cuerpo y el ánimo desde el primer sorbo. Ideal como ritual nocturno."
   ],
   "variant_type": "single",
   "variants": [
@@ -52,8 +52,8 @@
     "items": [
       {
         "icon": "🔥",
-        "title": "Antiinflamatoria potente",
-        "description": "La cúrcuma con pimienta negra es una de las combinaciones antiinflamatorias naturales más estudiadas y efectivas."
+        "title": "Combinación tradicional",
+        "description": "La cúrcuma con pimienta negra es una combinación tradicional usada en distintas culturas desde hace siglos."
       },
       {
         "icon": "☕",
@@ -119,7 +119,7 @@
   },
   "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20la%20Leche%20Dorada",
   "schema_name": "Leche Dorada",
-  "schema_description": "Mezcla ancestral de cúrcuma, pimienta negra y especias. Bebida antiinflamatoria tradicional.",
+  "schema_description": "Mezcla ancestral de cúrcuma, pimienta negra y especias. Bebida tradicional reconfortante.",
   "schema_image": "leche-dorada.webp",
   "schema_price": 0,
   "og_image": "https://casatapputi.com.mx/assets/images/leche-dorada.webp"

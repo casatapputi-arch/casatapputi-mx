@@ -1,20 +1,20 @@
 {
   "slug": "chilcuague",
   "title": "Chilcuague",
-  "meta_description": "Spray oral de raíz medicinal. Acción antibacteriana y antiinflamatoria sobre encías, mucosas y tejidos orales.",
+  "meta_description": "Spray oral de raíz de chilcuague, usada tradicionalmente para el bienestar bucal.",
   "og_image": "https://casatapputi.com.mx/assets/images/chilcuague.webp",
   "hero_image": "chilcuague.webp",
   "product_image": "chilcuague.webp",
   "breadcrumb_name": "Chilcuague",
   "prod_eyebrow": "Cuidado Corporal",
   "prod_title": "Chilcuague",
-  "prod_subtitle": "Raíz medicinal mexicana en spray — salud bucal natural",
+  "prod_subtitle": "Raíz mexicana tradicional en spray — bienestar bucal natural",
   "eyebrow": "Colección Corporal",
   "h1": "Chilcuague",
-  "subtitle_short": "Spray oral de raíz medicinal para salud bucal",
+  "subtitle_short": "Spray oral de raíz tradicional mexicana",
   "description": [
-    "Spray oral elaborado con extracto puro de raíz de chilcuague, una planta medicinal mexicana usada tradicionalmente para la salud bucal. Acción antibacteriana y antiinflamatoria sobre encías, mucosas y tejidos orales.",
-    "Alivia el dolor de muelas, reduce la inflamación de encías y combate bacterias causantes del mal aliento. Un botiquín dental natural en tu bolsillo. 30 ml."
+    "Spray oral elaborado con extracto puro de raíz de chilcuague, una planta mexicana usada tradicionalmente para el bienestar bucal.",
+    "Se usa tradicionalmente para acompañar el cuidado bucal cotidiano y refrescar el aliento. Formato de bolsillo, 30 ml."
   ],
   "variant_type": "single",
   "variants": [
@@ -34,16 +34,16 @@
     "title": "Tres formas de uso",
     "items": [
       {
-        "title": "Para encías",
-        "description": "Aplica 2-3 sprays directamente sobre la encía inflamada. Masajea suavemente con la lengua. Usar 2-3 veces al día."
+        "title": "Uso directo",
+        "description": "Aplica 2-3 sprays sobre la zona deseada. Masajea suavemente con la lengua."
       },
       {
-        "title": "Para dolor de muelas",
-        "description": "Aplica directamente sobre la muela afectada. El efecto anestésico natural del chilcuague se siente en segundos."
+        "title": "Aplicación local",
+        "description": "Aplica directamente sobre la zona. Es una raíz de uso tradicional en la herbolaria mexicana."
       },
       {
         "title": "Como enjuague",
-        "description": "5 sprays en un poco de agua para enjuague bucal diario. Combate bacterias y refresca el aliento."
+        "description": "5 sprays en un poco de agua para enjuague bucal diario. Refresca el aliento."
       }
     ]
   },
@@ -53,8 +53,8 @@
     "items": [
       {
         "icon": "🦷",
-        "title": "Antibacteriano natural",
-        "description": "El extracto de chilcuague combate las bacterias que causan caries, gingivitis y mal aliento."
+        "title": "Uso tradicional bucal",
+        "description": "El extracto de chilcuague se usa tradicionalmente como parte del cuidado bucal cotidiano."
       },
       {
         "icon": "🌱",
@@ -63,8 +63,8 @@
       },
       {
         "icon": "⚡",
-        "title": "Alivio inmediato",
-        "description": "El efecto anestésico natural del chilcuague se percibe desde la primera aplicación. Sin químicos sintéticos."
+        "title": "Ingrediente natural",
+        "description": "Extracto puro de raíz de chilcuague. Sin químicos sintéticos."
       }
     ]
   },
@@ -84,7 +84,7 @@
       },
       {
         "id": "friega-cannabis",
-        "name": "Friega Cannabis",
+        "name": "Friega Herbal Intensiva",
         "slug": "friega-cannabis",
         "desc": "Analgésico herbal profundo.",
         "price": 90,
@@ -120,7 +120,7 @@
   },
   "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20el%20Chilcuague",
   "schema_name": "Chilcuague",
-  "schema_description": "Spray oral de raíz medicinal. Acción antibacteriana y antiinflamatoria sobre encías, mucosas y tejidos orales.",
+  "schema_description": "Spray oral de raíz de chilcuague, usada tradicionalmente para el bienestar bucal.",
   "schema_image": "chilcuague.webp",
   "schema_price": 100
 }

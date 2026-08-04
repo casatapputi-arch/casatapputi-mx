@@ -1,20 +1,20 @@
 {
   "slug": "friega-cannabis",
-  "title": "Friega Cannabis",
-  "meta_description": "Sinergia de cannabis, veneno de hormiga roja y plantas medicinales. Analgésico profundo y antiinflamatorio.",
+  "title": "Friega Herbal Intensiva",
+  "meta_description": "Sinergia de plantas medicinales de alta potencia. Para masaje en zonas musculares y articulares.",
   "og_image": "https://casatapputi.com.mx/assets/images/friega-cannabis.webp",
   "hero_image": "friega-cannabis.webp",
   "product_image": "friega-cannabis.webp",
-  "breadcrumb_name": "Friega Cannabis",
+  "breadcrumb_name": "Friega Herbal Intensiva",
   "prod_eyebrow": "Cuidado Corporal",
-  "prod_title": "Friega Cannabis",
-  "prod_subtitle": "Sinergia de cannabis y plantas medicinales — analgésico profundo",
+  "prod_title": "Friega Herbal Intensiva",
+  "prod_subtitle": "Sinergia herbal de alta potencia — alivio profundo",
   "eyebrow": "Colección Corporal",
-  "h1": "Friega Cannabis",
+  "h1": "Friega Herbal Intensiva",
   "subtitle_short": "Analgésico herbal profundo para dolores musculares y articulares",
   "description": [
-    "Sinergia de cannabis, veneno de hormiga roja y plantas medicinales seleccionadas. Una fórmula líquida de alta potencia para aplicación local en zonas de dolor muscular, articular o reumático.",
-    "La combinación de cannabinoides con compuestos antiinflamatorios naturales crea un efecto analgésico profundo. Aplicación en friega sobre la zona afectada. Alivio que se siente en minutos."
+    "Sinergia de plantas medicinales seleccionadas. Una fórmula líquida de alta potencia para aplicación local en zonas musculares y articulares.",
+    "La combinación de compuestos naturales crea una sensación de alivio profundo. Aplicación en friega sobre la zona deseada."
   ],
   "variant_type": "single",
   "variants": [
@@ -53,13 +53,13 @@
     "items": [
       {
         "icon": "🌿",
-        "title": "Cannabis analgésico",
-        "description": "Los cannabinoides interactúan con receptores locales del dolor, proporcionando alivio sin efectos psicoactivos."
+        "title": "Sinergia herbal",
+        "description": "Las plantas seleccionadas actúan localmente, proporcionando una sensación de alivio."
       },
       {
         "icon": "🔥",
-        "title": "Antiinflamatorio",
-        "description": "La combinación de hierbas reduce la inflamación local y mejora la movilidad articular."
+        "title": "Fórmula natural",
+        "description": "La combinación de hierbas está pensada para acompañar el bienestar de músculos y articulaciones."
       },
       {
         "icon": "⚡",
@@ -118,9 +118,9 @@
     "title": "¿Tienes dudas sobre este producto?",
     "subtitle": "Escríbenos por WhatsApp y te asesoramos personalmente."
   },
-  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20la%20Friega%20Cannabis",
-  "schema_name": "Friega Cannabis",
-  "schema_description": "Sinergia de cannabis, veneno de hormiga roja y plantas medicinales. Analgésico profundo y antiinflamatorio.",
+  "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20la%20Friega%20Herbal%20Intensiva",
+  "schema_name": "Friega Herbal Intensiva",
+  "schema_description": "Sinergia de plantas medicinales de alta potencia. Para masaje en zonas musculares y articulares.",
   "schema_image": "friega-cannabis.webp",
   "schema_price": 90
 }

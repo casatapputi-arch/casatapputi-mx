@@ -74,7 +74,7 @@
     "products": [
       {
         "id": "friega-cannabis",
-        "name": "Friega Cannabis",
+        "name": "Friega Herbal Intensiva",
         "slug": "friega-cannabis",
         "desc": "Analgésico herbal profundo.",
         "price": 90,
@@ -104,7 +104,7 @@
       },
       {
         "id": "friega-cannabis",
-        "name": "Friega Cannabis",
+        "name": "Friega Herbal Intensiva",
         "slug": "friega-cannabis",
         "desc": "Analgésico herbal profundo.",
         "price": 90,

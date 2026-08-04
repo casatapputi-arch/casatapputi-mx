@@ -1,20 +1,20 @@
 {
   "slug": "pomada-calendula",
   "title": "Pomada de Caléndula",
-  "meta_description": "Cera de abeja y lípido vegetal. Antiinflamatoria y cicatrizante para heridas menores, quemaduras leves e irritaciones.",
+  "meta_description": "Cera de abeja y lípido vegetal con extracto de caléndula. Tradicionalmente usada para el cuidado de la piel irritada y zonas resecas.",
   "og_image": "https://casatapputi.com.mx/assets/images/pomada-calendula.webp",
   "hero_image": "pomada-calendula.webp",
   "product_image": "pomada-calendula.webp",
   "breadcrumb_name": "Pomada de Caléndula",
   "prod_eyebrow": "Cuidado Facial",
   "prod_title": "Pomada de Caléndula",
-  "prod_subtitle": "El botiquín natural de tu casa — cicatriza, calma y protege",
+  "prod_subtitle": "El básico natural de tu casa — calma y protege la piel",
   "eyebrow": "Colección Facial",
   "h1": "Pomada de Caléndula",
-  "subtitle_short": "Cicatrizante y antiinflamatoria con cera de abeja y caléndula",
+  "subtitle_short": "Cuidado natural de la piel con cera de abeja y caléndula",
   "description": [
-    "Cera de abeja y lípido vegetal con extracto de caléndula. Antiinflamatoria y cicatrizante para heridas menores, quemaduras leves, irritaciones y zonas resecas.",
-    "Hidratación profunda y efecto antiarrugas preventivo. Una pomada multitarea que merece un lugar en tu botiquín natural."
+    "Cera de abeja y lípido vegetal con extracto de caléndula, tradicionalmente asociada al cuidado de la piel irritada y las zonas resecas.",
+    "Hidratación profunda para uso diario. Una pomada multitarea que merece un lugar en tu rutina de cuidado natural."
   ],
   "variant_type": "single",
   "variants": [
@@ -34,12 +34,12 @@
     "title": "Tres formas de uso",
     "items": [
       {
-        "title": "En heridas menores",
-        "description": "Aplica una capa fina sobre raspones, cortaditas o picaduras. Acelera la regeneración y previene infecciones."
+        "title": "Piel irritada",
+        "description": "Aplica una capa fina sobre la zona irritada o reseca."
       },
       {
-        "title": "En quemaduras leves",
-        "description": "Tras la exposición solar o en zonas irritadas. Calma la rojez y devuelve el confort a la piel."
+        "title": "Después del sol",
+        "description": "Tras la exposición solar o en zonas sensibles. Calma la sensación de la piel."
       },
       {
         "title": "Como hidratante",
@@ -53,18 +53,18 @@
     "items": [
       {
         "icon": "🩹",
-        "title": "Cicatrizante natural",
-        "description": "Estimula la regeneración celular y reduce el tiempo de curación de heridas y quemaduras leves."
+        "title": "Cuidado natural",
+        "description": "Tradicionalmente usada para acompañar el cuidado de la piel sensible."
       },
       {
         "icon": "🧴",
-        "title": "Antiinflamatoria",
-        "description": "Calma la rojez, hinchazón e irritación en piel sensible, zonas reactivas o quemadas por el sol."
+        "title": "Calmante",
+        "description": "Ayuda a calmar la sensación de piel sensible o expuesta al sol."
       },
       {
         "icon": "✨",
-        "title": "Antiarrugas natural",
-        "description": "Hidrata capas profundas y previene líneas de expresión por deshidratación. Uso preventivo diario."
+        "title": "Hidratación profunda",
+        "description": "Hidrata capas profundas de la piel. Uso diario recomendado."
       }
     ]
   },
@@ -120,7 +120,7 @@
   },
   "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20la%20Pomada%20de%20Cal%C3%A9ndula",
   "schema_name": "Pomada de Caléndula",
-  "schema_description": "Cera de abeja y lípido vegetal. Antiinflamatoria y cicatrizante para heridas menores, quemaduras leves e irritaciones.",
+  "schema_description": "Cera de abeja y lípido vegetal con extracto de caléndula. Tradicionalmente usada para el cuidado de la piel irritada y zonas resecas.",
   "schema_image": "pomada-calendula.webp",
   "schema_price": 100
 }

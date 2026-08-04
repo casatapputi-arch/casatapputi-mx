@@ -1,19 +1,19 @@
 {
   "slug": "miel-melipona",
   "title": "Miel Melipona",
-  "meta_description": "Miel pura de abeja melipona, la abeja sagrada maya. Propiedades medicinales superiores: uso ocular, cutáneo y de consumo.",
+  "meta_description": "Miel pura de abeja melipona, la abeja sagrada maya. Tradición de meliponicultura yucateca, para uso cutáneo y de consumo.",
   "hero_image": "miel-melipona.webp",
   "product_image": "miel-melipona.webp",
   "breadcrumb_name": "Miel Melipona",
   "prod_eyebrow": "Cuidado Corporal",
   "prod_title": "Miel Melipona",
-  "prod_subtitle": "Tesoro ancestral de abejas sin aguijón — tres curas en un solo frasco",
+  "prod_subtitle": "Tesoro ancestral de abejas sin aguijón, meliponicultura maya",
   "eyebrow": "Colección Corporal",
   "h1": "Miel Melipona",
   "subtitle_short": "El oro sagrado de las abejas mayas",
   "description": [
-    "Recolectada por abejas sin aguijón (Melipona beecheii), esta miel es considerada un tesoro sagrado ancestral. Tiene propiedades curativas que la miel convencional no alcanza: mayor concentración de compuestos antimicrobianos y un perfil enzimático único.",
-    "Tres usos en un solo frasco: aplicación ocular para aliviar irritación, uso cutáneo como cicatrizante e hidratante, y consumo directo para reforzar el sistema inmune."
+    "Recolectada por abejas sin aguijón (Melipona beecheii), esta miel es considerada un tesoro sagrado ancestral, reconocida tradicionalmente por cualidades distintas a las de la miel convencional: mayor concentración de compuestos y un perfil enzimático único.",
+    "Dos usos en un solo frasco: uso cutáneo como hidratante natural, y consumo directo como parte de la tradición mesoamericana."
   ],
   "variant_type": "single",
   "variants": [
@@ -26,23 +26,19 @@
     }
   ],
   "price_display": "$350 MXN",
-  "price_present": "15 ml — uso ocular, cutáneo y de consumo",
+  "price_present": "15 ml — uso cutáneo y de consumo",
   "meta_note": "Recolectada por meliponicultura tradicional en Yucatán.",
   "howto": {
     "eyebrow": "Tres aplicaciones",
     "title": "Cómo usarla",
     "items": [
       {
-        "title": "Aplicación ocular",
-        "description": "Una pequeña cantidad diluida en agua estéril alivia irritaciones y refresca la vista cansada. Solo melipona tiene esta propiedad."
-      },
-      {
         "title": "Aplicación cutánea",
-        "description": "Aplica sobre heridas menores, cicatrices o zonas resecas. Su acción cicatrizante es superior a la miel convencional gracias a sus enzimas únicas."
+        "description": "Aplica sobre zonas resecas de la piel como hidratante natural."
       },
       {
         "title": "Consumo directo",
-        "description": "Una cucharadita diaria refuerza tu sistema inmune y te conecta con la tradición mesoamericana. Su sabor es más cítrico y menos dulce."
+        "description": "Una cucharadita diaria te conecta con la tradición mesoamericana. Su sabor es más cítrico y menos dulce."
       }
     ]
   },
@@ -52,13 +48,13 @@
     "items": [
       {
         "icon": "🩹",
-        "title": "Cicatrizante natural",
-        "description": "Su composición enzimática favorece la regeneración celular. Ideal para heridas menores y quemaduras leves."
+        "title": "Hidratación natural",
+        "description": "Su composición enzimática la distingue de la miel convencional. Ideal como hidratante de zonas resecas de la piel."
       },
       {
         "icon": "🛡️",
-        "title": "Refuerzo inmune",
-        "description": "Consumida en pequeñas cantidades, fortalece las defensas del cuerpo gracias a sus propiedades antimicrobianas concentradas."
+        "title": "Compuestos naturales",
+        "description": "Mayor concentración de compuestos que distinguen a esta miel, reconocida en la tradición mesoamericana."
       },
       {
         "icon": "🏺",
@@ -119,7 +115,7 @@
   },
   "wa_text": "Hola%20Casa%20Tapputi%2C%20me%20interesa%20la%20Miel%20Melipona",
   "schema_name": "Miel Melipona",
-  "schema_description": "Miel pura de abeja melipona, la abeja sagrada maya. Propiedades medicinales superiores.",
+  "schema_description": "Miel pura de abeja melipona, la abeja sagrada maya. Tradición de meliponicultura yucateca.",
   "schema_image": "miel-melipona.webp",
   "schema_price": 350,
   "og_image": "https://casatapputi.com.mx/assets/images/miel-melipona.webp"
