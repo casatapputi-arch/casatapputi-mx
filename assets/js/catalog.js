@@ -248,9 +248,16 @@ function renderShopCard(p, assets) {
     // Productos sin precio fijo → link a página de detalle
     actionHtml = `<a href="${productoUrl(p.handle)}" class="btn btn-add-cart specimen-cta">Ver detalles</a>`;
   } else {
-    actionHtml = `<button class="btn btn-add-cart specimen-cta"
+    actionHtml = `<div class="catalog-cart-row">
+      <div class="qty-stepper qty-stepper-sm">
+        <button type="button" aria-label="Restar" onclick="stepperChange(this,-1)">−</button>
+        <input type="number" class="catalog-qty" value="1" min="1" aria-label="Cantidad" readonly>
+        <button type="button" aria-label="Sumar" onclick="stepperChange(this,1)">+</button>
+      </div>
+      <button class="btn btn-add-cart specimen-cta"
       data-product-id="${p.id}"
-      onclick="addToCart(getProductData(this))">🛒 Agregar al carrito</button>`;
+      onclick="addToCart(getProductData(this))">🛒 Agregar</button>
+    </div>`;
   }
 
   return `

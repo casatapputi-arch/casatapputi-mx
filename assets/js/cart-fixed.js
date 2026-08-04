@@ -571,10 +571,22 @@ function generateWhatsAppMessage() {
   return 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
 }
 
+// ── Quantity stepper helper (usado por catalog.js) ──────
+function stepperChange(btn, delta) {
+  const stepper = btn.closest('.qty-stepper');
+  if (!stepper) return;
+  const input = stepper.querySelector('input[type="number"]');
+  if (!input) return;
+  input.value = Math.max(1, (parseInt(input.value) || 1) + delta);
+}
+
 // ── Product data from DOM ─────────────────────────────────
 function getProductData(el) {
   const card = el.closest('.shop-card') || el.closest('.specimen-card') || el.closest('.marquee-card');
   if (!card) return null;
+  const qtyInput = card.querySelector('.catalog-qty');
+  const qty = qtyInput ? Math.max(1, parseInt(qtyInput.value) || 1) : 1;
+  if (qtyInput) qtyInput.value = 1;
   return {
     id: card.dataset.productId,
     variantId: card.dataset.variantId || '',
@@ -582,7 +594,7 @@ function getProductData(el) {
     price: cleanPrice(card.dataset.productPrice),
     priceLabel: card.dataset.productPriceLabel || '',
     image: card.dataset.productImage || '',
-    quantity: 1
+    quantity: qty
   };
 }
 
