@@ -530,7 +530,7 @@ function procesarCompra() {
   var finalPrice = getPrecioFinal();
   // Si el precio final es 0 (100% descuento), generar QRs directo sin MP
   if (finalPrice === 0 && appliedDiscount && appliedDiscount.type === 'percent' && appliedDiscount.value === 100) {
-    generarQRs(attendees, 'florecer5-dr');
+    generarQRs(attendees, 'florecer5-dr', { discount_code: appliedDiscount.code });
     // Marcar código como usado
     fetch(TICKETS_API + '/tickets/apply-discount', {
       method:'POST',
@@ -576,7 +576,7 @@ function crearPreferenciaMP(attendees) {
   });
 }
 
-function generarQRs(attendees, orderPrefix) {
+function generarQRs(attendees, orderPrefix, authData) {
   var pendientes = attendees.length;
   var tickets = [];
   var errores = false;
@@ -591,13 +591,13 @@ function generarQRs(attendees, orderPrefix) {
     fetch(TICKETS_API + '/tickets/generate', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
+      body:JSON.stringify(Object.assign({
         order_id: orderPrefix + '-' + (idx+1),
         email:'',
         name:a.name,
         last_name:a.last_name,
         whatsapp:a.whatsapp
-      })
+      }, authData || {}))
     })
     .then(function(r){ return r.json(); })
     .then(function(data){
@@ -739,7 +739,8 @@ function updateWaAllLink(tickets) {
       document.getElementById('formSection').classList.add('active');
       document.getElementById('btnComprar').style.display = 'none';
       document.getElementById('personFields').innerHTML = '<p style="text-align:center;color:var(--tinta-suave)">Pago confirmado por MercadoPago ✅</p>';
-      generarQRs(attendees, 'florecer5-' + Date.now());
+      var payment_id = params.get('payment_id');
+      generarQRs(attendees, 'florecer5-' + Date.now(), { payment_id: payment_id });
       // Marcar código de descuento como usado si existe
       var discount = JSON.parse(sessionStorage.getItem('florecer5_discount') || 'null');
       if (discount && discount.code) {
@@ -762,5 +763,6 @@ function updateWaAllLink(tickets) {
   }
 })();
 </script>
+<script src="../../assets/js/search.js" defer></script>
 </body>
 </html>

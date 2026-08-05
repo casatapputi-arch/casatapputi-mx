@@ -158,9 +158,35 @@
     `);
   }
 
-  // ── Inyectar ícono de búsqueda en la nav (DESACTIVADO) ────────────────
+  // ── Inyectar/Conectar botón de búsqueda en la nav ──────
   function injectSearchButton() {
-    // Desactivado a solicitud del usuario: no se inyecta ningún botón ni ícono de lupa
+    // Intentar conectar el nav-search-bar existente (index.html y páginas que lo tengan)
+    const existing = document.getElementById('openSpotlightBtn');
+    if (existing) {
+      existing.addEventListener('click', openSearch);
+      existing.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openSearch(); }
+      });
+      return;
+    }
+
+    // Para páginas sin nav-search-bar, inyectar ícono de lupa en la nav
+    const nav = document.querySelector('.nav-inner');
+    if (!nav) return;
+
+    const cartIcon = nav.querySelector('.cart-icon');
+    const btn = document.createElement('button');
+    btn.className = 'search-btn';
+    btn.setAttribute('aria-label', 'Buscar en la botica');
+    btn.setAttribute('title', 'Buscar (Cmd+K)');
+    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+    btn.addEventListener('click', openSearch);
+
+    if (cartIcon) {
+      cartIcon.parentNode.insertBefore(btn, cartIcon);
+    } else {
+      nav.appendChild(btn);
+    }
   }
 
   // ── Abrir/Cerrar búsqueda ────────────────────────────────

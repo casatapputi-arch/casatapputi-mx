@@ -596,7 +596,7 @@ function crearPreferenciaMP(attendees) {
   });
 }
 
-function generarQRs(attendees, orderPrefix) {
+function generarQRs(attendees, orderPrefix, authData) {
   var pendientes = attendees.length;
   var tickets = [];
   var errores = false;
@@ -611,13 +611,13 @@ function generarQRs(attendees, orderPrefix) {
     fetch(TICKETS_API + '/tickets/generate', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
+      body:JSON.stringify(Object.assign({
         order_id: orderPrefix + '-' + (idx+1),
         email:'',
         name:a.name,
         last_name:a.last_name,
         whatsapp:a.whatsapp
-      })
+      }, authData || {}))
     })
     .then(function(r){ return r.json(); })
     .then(function(data){
@@ -774,5 +774,6 @@ function updateWaAllLink(tickets) {
   }
 })();
 </script>
+<script src="../../assets/js/search.js" defer></script>
 </body>
 </html>
