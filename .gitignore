@@ -40,3 +40,6 @@ logs/
 # OS temp
 .cache/
 .tmp/
+*.bak
+*.min.css
+*.min.js
