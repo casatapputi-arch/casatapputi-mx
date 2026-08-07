@@ -165,18 +165,18 @@ function mpRequest(method, endpoint, body) {
 }
 
 /* ── Autorización para emitir boletos ────────────────────────────────────────
-   Emitir un boleto vale dinero, así que `generate` exige una de dos vías y
+   Emitir un boleto vale dinero, así que `generate` exige una de tres vías y
    ninguna la puede fabricar el visitante:
 
-   A) El operador, con `X-Admin-Key` — cortesías y emisión manual.
+   A) El operador, con `X-Admin-Key` — emisión manual.
    B) Un cliente que ya pagó, comprobando el pago CONTRA MercadoPago.
+   C) Un cupón de cortesía del 100%, comprobado CONTRA discounts.json.
 
    Lo que NO sirve como prueba de pago es el `status=approved` de la URL de
    retorno: lo teclea cualquiera. Antes bastaba con eso, y ni siquiera hacía
    falta — `generate` no pedía nada en absoluto.
 
-   Sin `MP_ACCESS_TOKEN` la vía B queda CERRADA, no abierta: mientras
-   MercadoPago siga congelado, sólo el operador emite. */
+   Si faltara `MP_ACCESS_TOKEN`, la vía B queda CERRADA (503), no abierta. */
 function cupoDelPago(pago) {
   // Cuántos boletos ampara este pago. Sale del pago real, no del navegador:
   // así un `payment_id` legítimo no puede emitir boletos ilimitados.
@@ -185,12 +185,34 @@ function cupoDelPago(pago) {
   return total > 0 ? total : 1;
 }
 
+// Tope de boletos que puede emitir un mismo cupón de cortesía. Existe porque el
+// cupón no dice a cuántas personas ampara: sin tope, un código de 100% filtrado
+// emitiría boletos sin fin. 10 cubre de sobra el pack más grande (5).
+const MAX_BOLETOS_POR_CORTESIA = 10;
+
 async function autorizarEmision(req, body, db) {
-  if (requireAdmin(req)) return { ok: true, via: 'admin', paymentId: '' };
+  if (requireAdmin(req)) return { ok: true, via: 'admin', paymentId: '', discountCode: '' };
+
+  // Vía C: cortesía. El cupón de 100% se valida CONTRA discounts.json en el
+  // servidor — ya no basta con que el navegador diga que lo aplicó. Los códigos
+  // dejaron de ser públicos el 2026-08-07 (rotados y fuera del repo).
+  const discountCode = String((body && body.discount_code) || '').toUpperCase().trim();
+  if (discountCode) {
+    const cupon = loadDiscounts().find(d => d.code === discountCode);
+    if (!cupon) return { ok: false, code: 404, error: 'Código no válido' };
+    if (!(cupon.type === 'percent' && cupon.value === 100)) {
+      return { ok: false, code: 402, error: 'Ese código no cubre el total; completa el pago' };
+    }
+    const emitidosCortesia = db.filter(t => t.discount_code === discountCode).length;
+    if (emitidosCortesia >= MAX_BOLETOS_POR_CORTESIA) {
+      return { ok: false, code: 409, error: 'Este código de cortesía agotó sus boletos' };
+    }
+    return { ok: true, via: 'cortesia', paymentId: '', discountCode };
+  }
 
   const paymentId = String((body && body.payment_id) || '').trim();
   if (!paymentId) {
-    return { ok: false, code: 401, error: 'Se requiere payment_id de MercadoPago o clave de administrador' };
+    return { ok: false, code: 401, error: 'Se requiere payment_id de MercadoPago, código de cortesía o clave de administrador' };
   }
   if (!MP_ACCESS_TOKEN) {
     return { ok: false, code: 503, error: 'Verificacion de pagos no disponible; solicita tu boleto a Casa Tapputi' };
@@ -210,7 +232,7 @@ async function autorizarEmision(req, body, db) {
   if (emitidos >= cupoDelPago(pago)) {
     return { ok: false, code: 409, error: 'Este pago ya tiene todos sus boletos emitidos' };
   }
-  return { ok: true, via: 'mercadopago', paymentId };
+  return { ok: true, via: 'mercadopago', paymentId, discountCode: '' };
 }
 
 const server = http.createServer(async (req, res) => {
@@ -240,6 +262,19 @@ const server = http.createServer(async (req, res) => {
       title += ' — ' + names;
     }
 
+    /* A dónde vuelve el comprador tras pagar. Antes estaba fijo en la página de
+       florecer-5, así que quien pagaba un taller aterrizaba en el evento
+       equivocado y sus boletos nunca se emitían (los datos del taller quedaban
+       en el sessionStorage de OTRA página).
+       Sólo se acepta una URL del propio sitio: si no, esto sería un redirect
+       abierto y MercadoPago mandaría a los compradores a donde pidiera quien
+       llamara al endpoint. */
+    const BASE_SITIO = 'https://casatapputi.com.mx/';
+    const pedida = String(body.return_url || '');
+    const destino = pedida.startsWith(BASE_SITIO)
+      ? pedida.split('?')[0]
+      : BASE_SITIO + 'eventos/florecer-5/';
+
     try {
       const preference = await mpRequest('POST', '/checkout/preferences', {
         items: [{
@@ -249,9 +284,9 @@ const server = http.createServer(async (req, res) => {
           currency_id: 'MXN',
         }],
         back_urls: {
-          success: 'https://casatapputi.com.mx/eventos/florecer-5/?status=approved',
-          failure: 'https://casatapputi.com.mx/eventos/florecer-5/?status=rejected',
-          pending: 'https://casatapputi.com.mx/eventos/florecer-5/?status=pending',
+          success: destino + '?status=approved',
+          failure: destino + '?status=rejected',
+          pending: destino + '?status=pending',
         },
         auto_return: 'approved',
         external_reference: body.event || 'florecer-5',
@@ -472,6 +507,7 @@ const server = http.createServer(async (req, res) => {
       // Pago que ampara el boleto (vacío si lo emitió el operador). Es lo que
       // permite contar cuántos boletos lleva emitidos un mismo pago.
       payment_id: auth.paymentId,
+      discount_code: auth.discountCode,
       emitido_por: auth.via,
       email: body.email || '',
       name: body.name || '',

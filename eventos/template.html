@@ -555,7 +555,7 @@ function procesarCompra() {
   var finalPrice = getPrecioFinal();
   // Si el precio final es 0 (100% descuento), generar QRs directo sin MP
   if (finalPrice === 0 && appliedDiscount && appliedDiscount.type === 'percent' && appliedDiscount.value === 100) {
-    generarQRs(attendees, ORDER_PREFIX + '-dr');
+    generarQRs(attendees, ORDER_PREFIX + '-dr', { discount_code: appliedDiscount.code });
     // Marcar código como usado
     fetch(TICKETS_API + '/tickets/apply-discount', {
       method:'POST',
@@ -573,6 +573,8 @@ function crearPreferenciaMP(attendees) {
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({
       amount: getPrecioFinal(),
+      // Para volver a ESTA página tras pagar (el servidor sólo acepta URLs del sitio).
+      return_url: window.location.origin + window.location.pathname,
       discount_code: appliedDiscount ? appliedDiscount.code : null,
       quantity: selectedTier.qty,
       event:ORDER_PREFIX,
@@ -754,7 +756,7 @@ function updateWaAllLink(tickets) {
       document.getElementById('formSection').classList.add('active');
       document.getElementById('btnComprar').style.display = 'none';
       document.getElementById('personFields').innerHTML = '<p style="text-align:center;color:var(--tinta-suave)">Pago confirmado por MercadoPago ✅</p>';
-      generarQRs(attendees, ORDER_PREFIX + '-' + Date.now());
+      generarQRs(attendees, ORDER_PREFIX + '-' + Date.now(), { payment_id: params.get('payment_id') || params.get('collection_id') || '' });
       // Marcar código de descuento como usado si existe
       var discount = JSON.parse(sessionStorage.getItem(ORDER_PREFIX + '_discount') || 'null');
       if (discount && discount.code) {

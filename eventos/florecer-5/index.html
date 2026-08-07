@@ -552,6 +552,8 @@ function crearPreferenciaMP(attendees) {
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({
       amount: getPrecioFinal(),
+      // Para volver a ESTA página tras pagar (el servidor sólo acepta URLs del sitio).
+      return_url: window.location.origin + window.location.pathname,
       discount_code: appliedDiscount ? appliedDiscount.code : null,
       quantity: selectedTier.qty,
       event:'florecer-5',
