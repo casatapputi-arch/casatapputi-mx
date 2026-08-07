@@ -43,3 +43,7 @@ logs/
 *.bak
 *.min.css
 *.min.js
+
+# Cupones reales: viven SOLO en el VPS (/opt/casatapputi-tickets/discounts.json).
+# El repo es publico: versionarlos los expone en el historial de git.
+scripts/discounts.json

@@ -1,0 +1,26 @@
+[
+  {
+    "code": "PREFIJO-XXXXXX",
+    "type": "percent",
+    "value": 10,
+    "desc": "10% de descuento",
+    "used": false,
+    "usado_en": null
+  },
+  {
+    "code": "PREFIJO-XXXXXX",
+    "type": "fixed",
+    "value": 50,
+    "desc": "$50 MXN de descuento",
+    "used": false,
+    "usado_en": null
+  },
+  {
+    "code": "PREFIJO-XXXXXX",
+    "type": "percent",
+    "value": 100,
+    "desc": "Boleto de cortesia (100% descuento)",
+    "used": false,
+    "usado_en": null
+  }
+]
