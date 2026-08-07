@@ -1,0 +1,16 @@
+# GitHub Pages (Jekyll) — configuracion del sitio publicado.
+#
+# `scripts/` contiene herramientas de build y datos de servidor que NO son
+# parte del sitio estatico. En particular `scripts/discounts.json` es la base
+# de cupones que consume el microservicio de tickets: servirlo publicamente
+# expone los codigos (incluidos los de cortesia al 100%) a cualquiera que
+# abra la URL. Se excluye del build.
+#
+# OJO: `tickets/` NO se excluye — son paginas del sitio (validar.html,
+# admin.html) enlazadas desde tienda/gracias.html.
+exclude:
+  - scripts/
+  - .env.example
+  - Dockerfile
+  - docker-compose.yml
+  - README.md

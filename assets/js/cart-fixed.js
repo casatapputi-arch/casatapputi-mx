@@ -20,18 +20,10 @@ const COUPONS = {
   'HERBOLARIA': { type: 'percent', value: 15, label: '15% de descuento' },
   'TAPPUTI': { type: 'percent', value: 20, label: '20% de descuento' },
   'ENVIOGRATIS': { type: 'fixed', value: 50, label: '$50 MXN de descuento' },
-  'FAMILIA': { type: 'fixed', value: 100, label: '$100 MXN de descuento' },
-  // Cortesías internas: aplican al total del carrito (100%).
-  'DRGRATIS1': { type: 'percent', value: 100, label: '100% de descuento — cortesía interna' },
-  'DRGRATIS2': { type: 'percent', value: 100, label: '100% de descuento — cortesía interna' },
-  'DRGRATIS3': { type: 'percent', value: 100, label: '100% de descuento — cortesía interna' },
-  'DRGRATIS4': { type: 'percent', value: 100, label: '100% de descuento — cortesía interna' },
-  'DRGRATIS5': { type: 'percent', value: 100, label: '100% de descuento — cortesía interna' },
-  'DRGRATIS6': { type: 'percent', value: 100, label: '100% de descuento — cortesía interna' },
-  'DRGRATIS7': { type: 'percent', value: 100, label: '100% de descuento — cortesía interna' },
-  'DRGRATIS8': { type: 'percent', value: 100, label: '100% de descuento — cortesía interna' },
-  'DRGRATIS9': { type: 'percent', value: 100, label: '100% de descuento — cortesía interna' },
-  'DRGRATIS10': { type: 'percent', value: 100, label: '100% de descuento — cortesía interna' }
+  'FAMILIA': { type: 'fixed', value: 100, label: '$100 MXN de descuento' }
+  // NO agregar cupones de cortesía (100%) aquí: este archivo se sirve al
+  // navegador y cualquiera puede leerlo desde DevTools. Para cortesías usar
+  // las promociones de Medusa, que se validan en el servidor.
 };
 let appliedCoupon = null; // { code, type, value, label }
 
