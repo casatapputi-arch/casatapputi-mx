@@ -1,0 +1,82 @@
+name: DNS Sync Origin
+
+# Sincroniza los registros A de los subdominios de backend con la IP real
+# del VPS de origen. Por defecto solo audita (dry_run=true); aplicar cambios
+# requiere lanzarlo explicitamente con dry_run=false.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'true = solo auditar, false = aplicar cambios'
+        required: true
+        default: 'true'
+      origin_ip:
+        description: 'IP del VPS de origen'
+        required: true
+        default: '129.153.180.45'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      ORIGIN_IP: ${{ github.event.inputs.origin_ip }}
+      DRY_RUN: ${{ github.event.inputs.dry_run }}
+    steps:
+      - name: Auditar registros A de la zona
+        run: |
+          set -euo pipefail
+          echo "=== REGISTROS A ACTUALES ==="
+          curl -s -X GET \
+            "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/dns_records?type=A&per_page=100" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            | jq -r '.result[] | "\(.name)\t-> \(.content)\tproxied=\(.proxied)"'
+
+      - name: Sincronizar subdominios de backend
+        run: |
+          set -euo pipefail
+          echo "IP de origen objetivo: $ORIGIN_IP  (dry_run=$DRY_RUN)"
+
+          for SUB in medusa tickets; do
+            NAME="${SUB}.casatapputi.com.mx"
+            EXISTING=$(curl -s -X GET \
+              "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/dns_records?type=A&name=$NAME" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+
+            RECORD_ID=$(echo "$EXISTING" | jq -r '.result[0].id // empty')
+            CURRENT=$(echo "$EXISTING" | jq -r '.result[0].content // "(no existe)"')
+
+            echo "--- $NAME: actual=$CURRENT objetivo=$ORIGIN_IP"
+
+            if [ "$CURRENT" = "$ORIGIN_IP" ]; then
+              echo "    ya correcto, sin cambios"
+              continue
+            fi
+
+            if [ "$DRY_RUN" = "true" ]; then
+              echo "    [dry-run] se actualizaria a $ORIGIN_IP"
+              continue
+            fi
+
+            BODY="{\"type\":\"A\",\"name\":\"$SUB\",\"content\":\"$ORIGIN_IP\",\"ttl\":1,\"proxied\":true}"
+            if [ -n "$RECORD_ID" ]; then
+              RESPONSE=$(curl -s -X PATCH \
+                "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/dns_records/$RECORD_ID" \
+                -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+                -H "Content-Type: application/json" -d "$BODY")
+            else
+              RESPONSE=$(curl -s -X POST \
+                "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/dns_records" \
+                -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+                -H "Content-Type: application/json" -d "$BODY")
+            fi
+
+            if [ "$(echo "$RESPONSE" | jq -r '.success')" = "true" ]; then
+              echo "    ✅ $NAME -> $ORIGIN_IP"
+            else
+              echo "    ❌ $(echo "$RESPONSE" | jq -r '.errors[0].message // "error desconocido"')"
+              exit 1
+            fi
+          done
