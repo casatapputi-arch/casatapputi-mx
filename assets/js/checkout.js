@@ -1,5 +1,5 @@
 /* ============================================================
-   Casa Tapputi — MercadoPago Checkout v2
+   Casa Tapputi — MercadoPago Checkout v3 (Checkout Pro)
    Integra formulario de datos del comprador, dirección de envío,
    y descuento por recoger en Huerto Roma Verde.
    Depende de cart.js (usa sus globals: medusaFetch, getOrCreateCartId,
@@ -98,6 +98,9 @@ function validarFormularioCliente() {
   return data;
 }
 
+// Microservicio que crea las preferencias de pago (mismo que talleres).
+const TICKETS_API = 'https://tickets.casatapputi.com.mx';
+
 // ── Iniciar pago con MercadoPago ─────────────────────────
 async function iniciarPagoMercadoPago() {
   const btn = document.getElementById('btn-mercadopago');
@@ -119,49 +122,42 @@ async function iniciarPagoMercadoPago() {
   }
 
   try {
-    // 1. Obtener/crear cart ID
+    // 1. Obtener/crear cart ID. Sigue siendo el carrito de Medusa: es lo que
+    //    permitira cerrar la orden cuando exista el webhook de confirmacion.
     const cartId = await getOrCreateCartId();
 
-    // 2. Obtener o crear Payment Collection (Medusa v2)
-    let paymentCollectionId = medusaCart?.payment_collection?.id;
+    /* 2. Crear la preferencia de pago (MercadoPago Checkout Pro).
+       Antes esto pedia una payment session al plugin de Medusa esperando un
+       `init_point`, pero ese plugin implementa Checkout API (Bricks) y su
+       initiatePayment devuelve solo {session_id, amount}: nunca hubo URL de
+       pago, de ahi el "MercadoPago no esta configurado en el servidor".
+       Se usa el mismo camino que ya cobra en talleres y eventos, que ademas
+       habilita OXXO y SPEI. El cart_id viaja como external_reference para
+       poder reconciliar el pago con el carrito. */
+    const total = getTotal();
+    if (!total || total <= 0) {
+      throw new Error('El total del carrito es cero.');
+    }
+    const unidades = local.reduce((n, it) => n + (parseInt(it.quantity, 10) || 1), 0);
 
-    if (!paymentCollectionId) {
-      const collectionData = await medusaFetch('/store/payment-collections', {
-        method: 'POST',
-        body: JSON.stringify({ cart_id: cartId }),
-      });
-      paymentCollectionId = collectionData?.payment_collection?.id;
-      if (!paymentCollectionId) {
-        throw new Error(
-          'No se pudo crear la sesión de pago. Intenta de nuevo.'
-        );
-      }
+    const resp = await fetch(TICKETS_API + '/tickets/create-preference', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        amount: total,
+        quantity: unidades,
+        title: 'Casa Tapputi — ' + unidades + ' producto(s)',
+        external_reference: cartId,
+        return_url: window.location.origin + '/tienda/gracias.html',
+      }),
+    });
+    const pref = await resp.json();
+    const checkoutUrl = pref.checkout_url;
+    if (!checkoutUrl) {
+      throw new Error(pref.error || 'No se pudo crear la preferencia de pago.');
     }
 
-    // 3. Inicializar sesión de pago con MercadoPago
-    const sessionData = await medusaFetch(
-      `/store/payment-collections/${paymentCollectionId}/payment-sessions`,
-      {
-        method: 'POST',
-        body: JSON.stringify({ provider_id: 'pp_mercadopago_mercadopago' }),
-      }
-    );
-
-    // 4. Extraer URL de checkout de MercadoPago
-    const sessions =
-      sessionData?.payment_collection?.payment_sessions || [];
-    const mpSession = sessions.find(
-      s => s.provider_id === 'pp_mercadopago_mercadopago'
-    );
-
-    const checkoutUrl = mpSession.data?.init_point || mpSession.data?.sandbox_init_point;
-    if (!mpSession || !checkoutUrl) {
-      throw new Error(
-        'MercadoPago no está configurado en el servidor. El provider "pp_mercadopago_mercadopago" no respondió con una URL de pago.'
-      );
-    }
-
-// 5. Guardar datos del cliente para la página de retorno
+    // 5. Guardar datos del cliente para la página de retorno
     sessionStorage.setItem('casatapputi_customer', JSON.stringify(custData));
     sessionStorage.setItem('casatapputi_cart_snapshot', JSON.stringify(local));
 

@@ -255,11 +255,15 @@ const server = http.createServer(async (req, res) => {
       return json(res, 400, { error: 'amount and quantity required' });
     }
 
-    // Construir título descriptivo con los nombres si vienen
-    let title = 'Florecer 5ª Edición — ' + body.quantity + ' boleto(s)';
-    if (body.attendees && body.attendees.length > 0) {
-      const names = body.attendees.map(a => a.name).join(', ');
-      title += ' — ' + names;
+    // Título del cobro. La tienda manda el suyo; los talleres y eventos
+    // siguen construyendo el de boletos con los nombres de los asistentes.
+    let title = String(body.title || '').trim();
+    if (!title) {
+      title = 'Florecer 5ª Edición — ' + body.quantity + ' boleto(s)';
+      if (body.attendees && body.attendees.length > 0) {
+        const names = body.attendees.map(a => a.name).join(', ');
+        title += ' — ' + names;
+      }
     }
 
     /* A dónde vuelve el comprador tras pagar. Antes estaba fijo en la página de
@@ -289,7 +293,7 @@ const server = http.createServer(async (req, res) => {
           pending: destino + '?status=pending',
         },
         auto_return: 'approved',
-        external_reference: body.event || 'florecer-5',
+        external_reference: String(body.external_reference || body.event || 'florecer-5'),
       });
 
       if (preference && preference.init_point) {
