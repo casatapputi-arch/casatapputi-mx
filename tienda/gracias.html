@@ -235,7 +235,7 @@
 // ── API de Tickets ───────────────────────────────────────────
 var TICKETS_API = 'https://tickets.casatapputi.com.mx';
 
-function generarTicketQR(orderId, firstName, lastName) {
+function generarTicketQR(orderId, firstName, lastName, paymentId) {
   var container = document.getElementById('ticketQR');
   container.style.display = 'block';
   container.innerHTML = '<div class="ticket-loading">🎟️ Generando tu comprobante digital...</div>';
@@ -243,12 +243,16 @@ function generarTicketQR(orderId, firstName, lastName) {
   fetch(TICKETS_API + '/tickets/generate', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ order_id: orderId, name: firstName || '', last_name: lastName || '' })
+    // payment_id: el servidor lo verifica contra MercadoPago antes de emitir.
+    // El status de la URL no prueba nada (lo controla el visitante).
+    body: JSON.stringify({ order_id: orderId, name: firstName || '', last_name: lastName || '', payment_id: paymentId || '' })
   })
   .then(function(r) { return r.json(); })
   .then(function(data) {
     if (!data.token) {
-      container.innerHTML = '<div class="ticket-error">No se pudo generar el comprobante. Guarda tu recibo de MercadoPago como respaldo.</div>';
+      var detalle = data.error ? ' (' + data.error + ')' : '';
+      container.innerHTML = '<div class="ticket-error">No se pudo generar el comprobante' + detalle +
+        '. Guarda tu recibo de MercadoPago y escríbenos por WhatsApp para recibir tu boleto.</div>';
       return;
     }
 
@@ -291,7 +295,8 @@ function generarTicketQR(orderId, firstName, lastName) {
 (function() {
   var params = new URLSearchParams(window.location.search);
   var status = params.get('status') || params.get('collection_status') || '';
-  var orderId = params.get('preference_id') || params.get('external_reference') || params.get('payment_id') || '';
+  var paymentId = params.get('payment_id') || params.get('collection_id') || '';
+  var orderId = params.get('preference_id') || params.get('external_reference') || paymentId || '';
 
   var title = document.getElementById('graciasTitle');
   var msg = document.getElementById('graciasMsg');
@@ -320,7 +325,7 @@ function generarTicketQR(orderId, firstName, lastName) {
       firstName = customerName.substring(0, lastSpace);
       lastName = customerName.substring(lastSpace + 1);
     }
-    generarTicketQR(orderId, firstName, lastName);
+    generarTicketQR(orderId, firstName, lastName, paymentId);
 
   } else if (status === 'pending' || status === 'in_process') {
     title.textContent = '⏳ Pago en proceso';

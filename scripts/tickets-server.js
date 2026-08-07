@@ -164,6 +164,55 @@ function mpRequest(method, endpoint, body) {
   });
 }
 
+/* ── Autorización para emitir boletos ────────────────────────────────────────
+   Emitir un boleto vale dinero, así que `generate` exige una de dos vías y
+   ninguna la puede fabricar el visitante:
+
+   A) El operador, con `X-Admin-Key` — cortesías y emisión manual.
+   B) Un cliente que ya pagó, comprobando el pago CONTRA MercadoPago.
+
+   Lo que NO sirve como prueba de pago es el `status=approved` de la URL de
+   retorno: lo teclea cualquiera. Antes bastaba con eso, y ni siquiera hacía
+   falta — `generate` no pedía nada en absoluto.
+
+   Sin `MP_ACCESS_TOKEN` la vía B queda CERRADA, no abierta: mientras
+   MercadoPago siga congelado, sólo el operador emite. */
+function cupoDelPago(pago) {
+  // Cuántos boletos ampara este pago. Sale del pago real, no del navegador:
+  // así un `payment_id` legítimo no puede emitir boletos ilimitados.
+  const items = (pago && pago.additional_info && pago.additional_info.items) || [];
+  const total = items.reduce((n, it) => n + (parseInt(it.quantity, 10) || 0), 0);
+  return total > 0 ? total : 1;
+}
+
+async function autorizarEmision(req, body, db) {
+  if (requireAdmin(req)) return { ok: true, via: 'admin', paymentId: '' };
+
+  const paymentId = String((body && body.payment_id) || '').trim();
+  if (!paymentId) {
+    return { ok: false, code: 401, error: 'Se requiere payment_id de MercadoPago o clave de administrador' };
+  }
+  if (!MP_ACCESS_TOKEN) {
+    return { ok: false, code: 503, error: 'Verificacion de pagos no disponible; solicita tu boleto a Casa Tapputi' };
+  }
+
+  let pago;
+  try {
+    pago = await mpRequest('GET', '/v1/payments/' + encodeURIComponent(paymentId), null);
+  } catch {
+    return { ok: false, code: 502, error: 'No se pudo verificar el pago con MercadoPago' };
+  }
+  if (!pago || pago.status !== 'approved') {
+    return { ok: false, code: 402, error: 'El pago no esta aprobado' };
+  }
+
+  const emitidos = db.filter(t => t.payment_id === paymentId).length;
+  if (emitidos >= cupoDelPago(pago)) {
+    return { ok: false, code: 409, error: 'Este pago ya tiene todos sus boletos emitidos' };
+  }
+  return { ok: true, via: 'mercadopago', paymentId };
+}
+
 const server = http.createServer(async (req, res) => {
   if (req.method === 'OPTIONS') {
     res.writeHead(204, {
@@ -405,9 +454,13 @@ const server = http.createServer(async (req, res) => {
     if (!body || !body.order_id) {
       return json(res, 400, { error: 'order_id required' });
     }
+    const db = loadDB();
+    const auth = await autorizarEmision(req, body, db);
+    if (!auth.ok) {
+      return json(res, auth.code, { error: auth.error });
+    }
     const rawToken = crypto.randomBytes(TOKEN_BYTES).toString('hex');
     const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
-    const db = loadDB();
     // Short code: 4 dígitos para ingreso manual si el QR no escanea.
     // Debe ser único ENTRE LOS VIGENTES: antes se sorteaba sin comprobar nada y,
     // por la paradoja del cumpleaños, con ~118 boletos ya había 50% de colisión
@@ -416,6 +469,10 @@ const server = http.createServer(async (req, res) => {
     db.push({
       id: db.length + 1,
       order_id: body.order_id,
+      // Pago que ampara el boleto (vacío si lo emitió el operador). Es lo que
+      // permite contar cuántos boletos lleva emitidos un mismo pago.
+      payment_id: auth.paymentId,
+      emitido_por: auth.via,
       email: body.email || '',
       name: body.name || '',
       last_name: body.last_name || '',
