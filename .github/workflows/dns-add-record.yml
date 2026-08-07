@@ -1,4 +1,10 @@
-name: Add Ticket DNS Record
+name: Add Ticket DNS Record (OBSOLETO — usar "DNS Sync Origin")
+
+# OBSOLETO 2026-08-07. Tenia la IP del VPS escrita a mano y apuntaba a
+# 129.213.83.24, una instancia TERMINADA el 4-ago: ejecutarlo dejaba
+# tickets.casatapputi.com.mx sirviendo 521. Se corrige la IP para que no
+# haga dano, pero el workflow vigente es dns-sync-origin.yml, que lee el
+# estado real y audita antes de aplicar.
 
 on:
   workflow_dispatch:
@@ -13,7 +19,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
           set -e
-          VPS_IP="129.213.83.24"
+          VPS_IP="129.153.180.45"   # mosheg-free-2 (origen vigente)
           RECORD_NAME="tickets.casatapputi.com.mx"
 
           echo "🌐 Creando registro A: ${RECORD_NAME} -> ${VPS_IP}"
