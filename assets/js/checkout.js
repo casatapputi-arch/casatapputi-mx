@@ -42,9 +42,10 @@ function selectDeliveryMode(mode) {
 function getCustomerData() {
   const name = document.getElementById('custName')?.value?.trim() || '';
   const phone = document.getElementById('custPhone')?.value?.trim() || '';
+  const email = document.getElementById('custEmail')?.value?.trim() || '';
   const address = document.getElementById('custAddress')?.value?.trim() || '';
   const cp = document.getElementById('custCP')?.value?.trim() || '';
-  return { name, phone, address, cp, mode: deliveryMode };
+  return { name, phone, email, address, cp, mode: deliveryMode };
 }
 
 // ── Detectar zona de envío por CP ────────────────────────
@@ -83,6 +84,12 @@ function validarFormularioCliente() {
     mostrarErrorMP('Por favor ingresa un teléfono válido.');
     return null;
   }
+  // Medusa exige un email para poder cerrar el carrito como orden: sin esto la
+  // venta se cobra pero el pedido nunca aparece en el panel.
+  if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+    mostrarErrorMP('Por favor ingresa un correo electrónico válido.');
+    return null;
+  }
   if (!data.mode) {
     mostrarErrorMP('Selecciona si quieres envío a domicilio o recoger en Huerto Roma Verde.');
     return null;
@@ -104,6 +111,60 @@ const TICKETS_API = 'https://tickets.casatapputi.com.mx';
 // Provider de pagos tal como Medusa lo registra: pp_{identifier}_{id}, ambos
 // 'mercadopago' segun medusa-config. La URL del webhook usa el mismo id sin pp_.
 const MEDUSA_PAYMENT_PROVIDER = 'pp_mercadopago_mercadopago';
+
+// Opciones de envio creadas en Medusa el 2026-08-08. El sitio elige cual aplica
+// segun el modo de entrega y el CP, pero el PRECIO lo pone Medusa.
+const SHIPPING_OPTIONS = {
+  cdmx: 'so_01KZFQY014DQCXRNYTXXKK5BXG',
+  foraneo: 'so_01KZFQY07S5A71KQANB944RHXD',
+  pickup: 'so_01KZFQY0D2P4MHKY7N98RXGC2D',
+};
+
+/* ── Completar el carrito de Medusa antes de cobrar ───────────────────────
+   Sin email y sin metodo de envio, Medusa rechaza cerrar el carrito: el pago
+   se cobraria y el pedido no aparecería nunca en el panel. Aqui se le pasan
+   los datos que hasta ahora solo vivian en el formulario del sitio. */
+async function hidratarCarrito(cartId, cust) {
+  const esRecoleccion = cust.mode === 'recoger';
+  const ship = getShippingInfo(cust.cp);
+  const optionId = esRecoleccion
+    ? SHIPPING_OPTIONS.pickup
+    : ship.isCDMX
+      ? SHIPPING_OPTIONS.cdmx
+      : SHIPPING_OPTIONS.foraneo;
+
+  const partes = cust.name.split(/\s+/);
+  const cuerpo = {
+    email: cust.email,
+    shipping_address: {
+      first_name: partes[0] || cust.name,
+      last_name: partes.slice(1).join(' ') || '-',
+      address_1: esRecoleccion ? 'Recolección en Huerto Roma Verde' : cust.address,
+      city: esRecoleccion || ship.isCDMX ? 'Ciudad de México' : 'Por confirmar',
+      postal_code: esRecoleccion ? '06760' : cust.cp,
+      country_code: 'mx',
+      phone: cust.phone,
+    },
+  };
+
+  // El cupon lo valida y lo descuenta Medusa. Antes el descuento se calculaba
+  // en el navegador y viajaba ya aplicado: cualquiera podia cambiar el precio.
+  if (typeof appliedCoupon !== 'undefined' && appliedCoupon && appliedCoupon.code) {
+    cuerpo.promo_codes = [appliedCoupon.code];
+  }
+
+  await medusaFetch('/store/carts/' + cartId, {
+    method: 'POST',
+    body: JSON.stringify(cuerpo),
+  });
+  await medusaFetch('/store/carts/' + cartId + '/shipping-methods', {
+    method: 'POST',
+    body: JSON.stringify({ option_id: optionId }),
+  });
+
+  const data = await medusaFetch('/store/carts/' + cartId);
+  return data.cart;
+}
 
 // ── Abrir la payment session que el webhook usara para cerrar la orden ────
 async function abrirPaymentSession(cartId) {
@@ -151,25 +212,28 @@ async function iniciarPagoMercadoPago() {
     //    permitira cerrar la orden cuando exista el webhook de confirmacion.
     const cartId = await getOrCreateCartId();
 
-    /* 1b. Abrir la payment session en Medusa y quedarnos con su id.
-       El webhook nativo de Medusa (/hooks/payment/mercadopago_mercadopago) lee
-       el external_reference del pago y lo trata como payment_session_id: con el
-       resuelve la coleccion, el carrito y lo cierra como orden. Por eso viaja el
-       payses_..., no el cart_id. */
-    const sessionId = await abrirPaymentSession(cartId);
+    /* 1b. Completar el carrito: email, direccion, envio y cupon. Tiene que ir
+       ANTES de abrir la sesion de pago, porque cualquier cambio al carrito
+       borra sus payment sessions y el payses_ que ya viajo a MercadoPago
+       quedaria huerfano. */
+    const cart = await hidratarCarrito(cartId, custData);
 
-    /* 2. Crear la preferencia de pago (MercadoPago Checkout Pro).
-       Antes esto pedia una payment session al plugin de Medusa esperando un
-       `init_point`, pero ese plugin implementa Checkout API (Bricks) y su
-       initiatePayment devuelve solo {session_id, amount}: nunca hubo URL de
-       pago, de ahi el "MercadoPago no esta configurado en el servidor".
-       Se usa el mismo camino que ya cobra en talleres y eventos, que ademas
-       habilita OXXO y SPEI. El cart_id viaja como external_reference para
-       poder reconciliar el pago con el carrito. */
-    const total = getTotal();
+    /* 2. El total lo dice Medusa, no el navegador: incluye el envio y ya trae
+       el cupon aplicado en el servidor. Antes se mandaba getTotal(), calculado
+       en el cliente, asi que el precio se podia cambiar desde la consola. */
+    const total = cart.total;
     if (!total || total <= 0) {
       throw new Error('El total del carrito es cero.');
     }
+
+    /* 3. Abrir la payment session, ya como ultimo paso.
+       El webhook nativo de Medusa (/hooks/payment/mercadopago_mercadopago) lee
+       el external_reference del pago y lo trata como payment_session_id: con el
+       resuelve la coleccion, el carrito y lo cierra como orden. Por eso viaja el
+       payses_..., no el cart_id.
+       El cobro sigue siendo Checkout Pro (el mismo camino de talleres y eventos,
+       que ademas habilita OXXO y SPEI). */
+    const sessionId = await abrirPaymentSession(cartId);
     const unidades = local.reduce((n, it) => n + (parseInt(it.quantity, 10) || 1), 0);
 
     const resp = await fetch(TICKETS_API + '/tickets/create-preference', {
