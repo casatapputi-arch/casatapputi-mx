@@ -101,6 +101,31 @@ function validarFormularioCliente() {
 // Microservicio que crea las preferencias de pago (mismo que talleres).
 const TICKETS_API = 'https://tickets.casatapputi.com.mx';
 
+// Provider de pagos tal como Medusa lo registra: pp_{identifier}_{id}, ambos
+// 'mercadopago' segun medusa-config. La URL del webhook usa el mismo id sin pp_.
+const MEDUSA_PAYMENT_PROVIDER = 'pp_mercadopago_mercadopago';
+
+// ── Abrir la payment session que el webhook usara para cerrar la orden ────
+async function abrirPaymentSession(cartId) {
+  const pc = await medusaFetch('/store/payment-collections', {
+    method: 'POST',
+    body: JSON.stringify({ cart_id: cartId }),
+  });
+  const res = await medusaFetch(
+    '/store/payment-collections/' + pc.payment_collection.id + '/payment-sessions',
+    { method: 'POST', body: JSON.stringify({ provider_id: MEDUSA_PAYMENT_PROVIDER }) }
+  );
+  // Si el cliente ya habia intentado pagar, la coleccion arrastra sesiones
+  // previas: tomamos la del provider correcto y la mas reciente.
+  const propia = (res.payment_collection?.payment_sessions || [])
+    .filter(function (s) { return s.provider_id === MEDUSA_PAYMENT_PROVIDER; })
+    .sort(function (a, b) { return new Date(b.created_at) - new Date(a.created_at); })[0];
+  if (!propia) {
+    throw new Error('Medusa no devolvió una sesión de pago utilizable.');
+  }
+  return propia.id;
+}
+
 // ── Iniciar pago con MercadoPago ─────────────────────────
 async function iniciarPagoMercadoPago() {
   const btn = document.getElementById('btn-mercadopago');
@@ -126,6 +151,13 @@ async function iniciarPagoMercadoPago() {
     //    permitira cerrar la orden cuando exista el webhook de confirmacion.
     const cartId = await getOrCreateCartId();
 
+    /* 1b. Abrir la payment session en Medusa y quedarnos con su id.
+       El webhook nativo de Medusa (/hooks/payment/mercadopago_mercadopago) lee
+       el external_reference del pago y lo trata como payment_session_id: con el
+       resuelve la coleccion, el carrito y lo cierra como orden. Por eso viaja el
+       payses_..., no el cart_id. */
+    const sessionId = await abrirPaymentSession(cartId);
+
     /* 2. Crear la preferencia de pago (MercadoPago Checkout Pro).
        Antes esto pedia una payment session al plugin de Medusa esperando un
        `init_point`, pero ese plugin implementa Checkout API (Bricks) y su
@@ -147,7 +179,7 @@ async function iniciarPagoMercadoPago() {
         amount: total,
         quantity: unidades,
         title: 'Casa Tapputi — ' + unidades + ' producto(s)',
-        external_reference: cartId,
+        external_reference: sessionId,
         return_url: window.location.origin + '/tienda/gracias.html',
       }),
     });

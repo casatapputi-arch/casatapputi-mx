@@ -279,22 +279,35 @@ const server = http.createServer(async (req, res) => {
       ? pedida.split('?')[0]
       : BASE_SITIO + 'eventos/florecer-5/';
 
+    const extRef = String(body.external_reference || body.event || 'florecer-5');
+
+    const pref = {
+      items: [{
+        title: title,
+        quantity: 1,
+        unit_price: body.amount,
+        currency_id: 'MXN',
+      }],
+      back_urls: {
+        success: destino + '?status=approved',
+        failure: destino + '?status=rejected',
+        pending: destino + '?status=pending',
+      },
+      auto_return: 'approved',
+      external_reference: extRef,
+    };
+
+    // Las compras de la tienda mandan como external_reference una payment session
+    // de Medusa (payses_...). Para esas, MercadoPago debe notificar al webhook
+    // nativo de Medusa: es el que cierra el carrito como orden. La URL se fija
+    // aqui, no se acepta del cliente: este endpoint es publico.
+    // Los boletos de talleres y eventos no pasan por Medusa y no la llevan.
+    if (extRef.startsWith('payses_')) {
+      pref.notification_url = 'https://medusa.casatapputi.com.mx/hooks/payment/mercadopago_mercadopago';
+    }
+
     try {
-      const preference = await mpRequest('POST', '/checkout/preferences', {
-        items: [{
-          title: title,
-          quantity: 1,
-          unit_price: body.amount,
-          currency_id: 'MXN',
-        }],
-        back_urls: {
-          success: destino + '?status=approved',
-          failure: destino + '?status=rejected',
-          pending: destino + '?status=pending',
-        },
-        auto_return: 'approved',
-        external_reference: String(body.external_reference || body.event || 'florecer-5'),
-      });
+      const preference = await mpRequest('POST', '/checkout/preferences', pref);
 
       if (preference && preference.init_point) {
         return json(res, 200, { checkout_url: preference.init_point, preference_id: preference.id });
