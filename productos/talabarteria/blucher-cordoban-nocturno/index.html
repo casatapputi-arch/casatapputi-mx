@@ -96,7 +96,7 @@
         </div>
         <div class="prod-price-box">
           <div class="prod-price-label">Precio</div>
-          <div class="prod-price">$2,700 MXN</div>
+          <div class="prod-price">$3,500 MXN</div>
           <div class="prod-price-present">Cada par se fabrica sobre pedido</div>
         </div>
         <div class="add-to-cart-wrapper">
@@ -105,7 +105,7 @@
             <input type="number" id="productQty" value="1" min="1" aria-label="Cantidad"/>
             <button type="button" aria-label="Sumar cantidad" onclick="incrementQty()">+</button>
           </div>
-          <button class="btn btn-add-cart prod-add-btn" data-product-id="blucher-cordoban-nocturno" onclick="addCurrentProduct()">🛒 Agregar al carrito</button>
+          <button class="btn btn-add-cart prod-add-btn" data-product-id="blucher-cordoban-nocturno" data-variant-id="variant_01KZHYZ1KRDQGTT3P7YMH8ZYQD" onclick="addCurrentProduct()">🛒 Agregar al carrito</button>
           <a href="https://wa.me/525563707034?text=Hola%20Casa%20Tapputi%2C%20me%20interesa%20el%20Blucher%20Cordob%C3%A1n%20Nocturno" class="btn-wa-message" target="_blank" rel="noopener" style="margin-top:10px;display:inline-flex;align-items:center;gap:6px;font-size:.85rem;color:var(--tinta-suave);text-decoration:none">💬 Consultar por WhatsApp</a>
         </div>
         <p class="prod-meta-note">Hecho a mano en CDMX. Pieles de curtidurías locales. Cada par es único.</p>
@@ -133,15 +133,15 @@
     <div class="related-grid">
       <article class="shop-card" data-product-id="botin-avestruz">
         <a href="../botin-charro-avestruz-miel/"><img src="../../../assets/images/talabarteria/zapato-2.webp" alt="Botín Charro Avestruz Miel" loading="lazy"></a>
-        <div class="shop-body"><h3><a href="../botin-charro-avestruz-miel/">Botín Avestruz Miel</a></h3><p class="shop-desc">Piel de avestruz color miel. Resorte lateral.</p><span class="shop-price">$5,500 MXN</span><a href="../botin-charro-avestruz-miel/" class="btn btn-add-cart shop-cta">👁️ Ver pieza</a></div>
+        <div class="shop-body"><h3><a href="../botin-charro-avestruz-miel/">Botín Avestruz Miel</a></h3><p class="shop-desc">Piel de avestruz color miel. Resorte lateral.</p><span class="shop-price">$7,200 MXN</span><a href="../botin-charro-avestruz-miel/" class="btn btn-add-cart shop-cta">👁️ Ver pieza</a></div>
       </article>
       <article class="shop-card" data-product-id="modelo-102">
         <a href="../modelo-102-beige-miel/"><img src="../../../assets/images/talabarteria/zapato-3.webp" alt="Modelo 102 Beige-Miel" loading="lazy"></a>
-        <div class="shop-body"><h3><a href="../modelo-102-beige-miel/">Modelo 102 Beige-Miel</a></h3><p class="shop-desc">5 piezas perforadas. Cerco cosido a mano.</p><span class="shop-price">$3,100 MXN</span><a href="../modelo-102-beige-miel/" class="btn btn-add-cart shop-cta">👁️ Ver pieza</a></div>
+        <div class="shop-body"><h3><a href="../modelo-102-beige-miel/">Modelo 102 Beige-Miel</a></h3><p class="shop-desc">5 piezas perforadas. Cerco cosido a mano.</p><span class="shop-price">$4,000 MXN</span><a href="../modelo-102-beige-miel/" class="btn btn-add-cart shop-cta">👁️ Ver pieza</a></div>
       </article>
       <article class="shop-card" data-product-id="blucher-cocodrilo">
         <a href="../blucher-cocodrilo-vino/"><img src="../../../assets/images/talabarteria/zapato-9.webp" alt="Blucher Cocodrilo Vino" loading="lazy"></a>
-        <div class="shop-body"><h3><a href="../blucher-cocodrilo-vino/">Blucher Cocodrilo Vino</a></h3><p class="shop-desc">Cola de cocodrilo. Ribete en hueso.</p><span class="shop-price">$10,500 MXN</span><a href="../blucher-cocodrilo-vino/" class="btn btn-add-cart shop-cta">👁️ Ver pieza</a></div>
+        <div class="shop-body"><h3><a href="../blucher-cocodrilo-vino/">Blucher Cocodrilo Vino</a></h3><p class="shop-desc">Cola de cocodrilo. Ribete en hueso.</p><span class="shop-price">$13,600 MXN</span><a href="../blucher-cocodrilo-vino/" class="btn btn-add-cart shop-cta">👁️ Ver pieza</a></div>
       </article>
     </div>
   </div>
@@ -188,7 +188,7 @@
   "brand": { "@type": "Brand", "name": "Casa Tapputi" },
   "offers": {
     "@type": "Offer",
-    "price": "2700",
+    "price": "3500",
     "priceCurrency": "MXN",
     "availability": "https://schema.org/InStock",
     "url": "https://casatapputi.com.mx/productos/talabarteria/blucher-cordoban-nocturno/",
@@ -217,7 +217,7 @@ function addCurrentProduct(){
     variantId:'',
     name:'Blucher Cordobán Nocturno',
     price:2700,
-    priceLabel:'$2,700 MXN',
+    priceLabel:'$3,500 MXN',
     image:'../../../assets/images/talabarteria/zapato-1.webp',
     quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)
   });

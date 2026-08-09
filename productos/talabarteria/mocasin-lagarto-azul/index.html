@@ -94,7 +94,7 @@
         </div>
         <div class="prod-price-box">
           <div class="prod-price-label">Precio</div>
-          <div class="prod-price">$3,700 MXN</div>
+          <div class="prod-price">$4,800 MXN</div>
           <div class="prod-price-present">Cada par se fabrica sobre pedido</div>
         </div>
         <div class="add-to-cart-wrapper">
@@ -103,7 +103,7 @@
             <input type="number" id="productQty" value="1" min="1" aria-label="Cantidad"/>
             <button type="button" aria-label="Sumar cantidad" onclick="incrementQty()">+</button>
           </div>
-          <button class="btn btn-add-cart prod-add-btn" data-product-id="mocasin-lagarto-azul" onclick="addCurrentProduct()">🛒 Agregar al carrito</button>
+          <button class="btn btn-add-cart prod-add-btn" data-product-id="mocasin-lagarto-azul" data-variant-id="variant_01KZHYZ47GK8Q3PTRZ8F1331SQ" onclick="addCurrentProduct()">🛒 Agregar al carrito</button>
           <a href="https://wa.me/525563707034?text=Hola%20Casa%20Tapputi%2C%20me%20interesa%20el%20Mocas%C3%ADn%20Lagarto%20Azul" class="btn-wa-message" target="_blank" rel="noopener" style="margin-top:10px;display:inline-flex;align-items:center;gap:6px;font-size:.85rem;color:var(--tinta-suave);text-decoration:none">💬 Consultar por WhatsApp</a>
         </div>
         <p class="prod-meta-note">Hecho a mano en CDMX. Pieles de curtidurías locales. Cada par es único.</p>
@@ -129,17 +129,17 @@
     <p class="eyebrow">Complementa tu colección</p>
     <h2 class="section-title">También te puede interesar</h2>
     <div class="related-grid">
-      <article class="shop-card" data-product-id="mocasin-ternera-bolanos">
+      <article class="shop-card" data-product-id="mocasin-ternera-bolanos" data-variant-id="variant_01KZHYZ4VDVQ3KC0YEMR089269">
         <a href="../mocasin-ternera-bolanos/"><img src="../../../assets/images/talabarteria/zapato-6.webp" alt="Mocasín Ternera" loading="lazy"></a>
-        <div class="shop-body"><h3><a href="../mocasin-ternera-bolanos/">Mocasín Ternera</a></h3><p class="shop-desc">Piel recuperada ecológica artesanal.</p><span class="shop-price">$2,500 MXN</span><a href="../mocasin-ternera-bolanos/" class="btn btn-add-cart shop-cta">👁️ Ver pieza</a></div>
+        <div class="shop-body"><h3><a href="../mocasin-ternera-bolanos/">Mocasín Ternera</a></h3><p class="shop-desc">Piel recuperada ecológica artesanal.</p><span class="shop-price">$3,200 MXN</span><a href="../mocasin-ternera-bolanos/" class="btn btn-add-cart shop-cta">👁️ Ver pieza</a></div>
       </article>
-      <article class="shop-card" data-product-id="estilo-100-cocodrilo-gris">
+      <article class="shop-card" data-product-id="estilo-100-cocodrilo-gris" data-variant-id="variant_01KZHYZ3EJ3C1G3HP091GVZ701">
         <a href="../estilo-100-cocodrilo-gris/"><img src="../../../assets/images/talabarteria/zapato-8.webp" alt="Estilo 100 Cocodrilo" loading="lazy"></a>
-        <div class="shop-body"><h3><a href="../estilo-100-cocodrilo-gris/">Estilo 100 Cocodrilo</a></h3><p class="shop-desc">Piel recuperada ecológica artesanal.</p><span class="shop-price">$9,500 MXN</span><a href="../estilo-100-cocodrilo-gris/" class="btn btn-add-cart shop-cta">👁️ Ver pieza</a></div>
+        <div class="shop-body"><h3><a href="../estilo-100-cocodrilo-gris/">Estilo 100 Cocodrilo</a></h3><p class="shop-desc">Piel recuperada ecológica artesanal.</p><span class="shop-price">$12,400 MXN</span><a href="../estilo-100-cocodrilo-gris/" class="btn btn-add-cart shop-cta">👁️ Ver pieza</a></div>
       </article>
-      <article class="shop-card" data-product-id="modelo-102-beige-miel">
+      <article class="shop-card" data-product-id="modelo-102-beige-miel" data-variant-id="variant_01KZHYZ5AGG30WAWPFH6CNWDBT">
         <a href="../modelo-102-beige-miel/"><img src="../../../assets/images/talabarteria/zapato-3.webp" alt="Modelo 102" loading="lazy"></a>
-        <div class="shop-body"><h3><a href="../modelo-102-beige-miel/">Modelo 102</a></h3><p class="shop-desc">Piel recuperada ecológica artesanal.</p><span class="shop-price">$3,100 MXN</span><a href="../modelo-102-beige-miel/" class="btn btn-add-cart shop-cta">👁️ Ver pieza</a></div>
+        <div class="shop-body"><h3><a href="../modelo-102-beige-miel/">Modelo 102</a></h3><p class="shop-desc">Piel recuperada ecológica artesanal.</p><span class="shop-price">$4,000 MXN</span><a href="../modelo-102-beige-miel/" class="btn btn-add-cart shop-cta">👁️ Ver pieza</a></div>
       </article>
     </div>
   </div>
@@ -186,7 +186,7 @@
   "brand": { "@type": "Brand", "name": "Casa Tapputi" },
   "offers": {
     "@type": "Offer",
-    "price": "3700",
+    "price": "4800",
     "priceCurrency": "MXN",
     "availability": "https://schema.org/InStock",
     "url": "https://casatapputi.com.mx/productos/talabarteria/mocasin-lagarto-azul/",
@@ -215,7 +215,7 @@ function addCurrentProduct(){
     variantId:'',
     name:'Mocasín Lagarto Azul',
     price:3700,
-    priceLabel:'$3,700 MXN',
+    priceLabel:'$4,800 MXN',
     image:'../../../assets/images/talabarteria/zapato-7.webp',
     quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)
   });
