@@ -12,6 +12,34 @@ const TOKEN_BYTES = 16;
 
 // MercadoPago — token en variable de entorno (nunca hardcodeado)
 const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN || '';
+
+/* Medusa corre en el mismo servidor. Se consulta por localhost: no hace falta
+   salir a internet ni depender del DNS. La publishable key es publica (va en el
+   navegador), asi que no es un secreto que este aqui. */
+const MEDUSA_URL = process.env.MEDUSA_URL || 'http://localhost:9000';
+const MEDUSA_PK = process.env.MEDUSA_PK ||
+  'pk_377afadbf71f64f6027bdb8b13691017648b70f6270ff38e4d9d3961585d2c62';
+const MEDUSA_PAYMENT_PROVIDER = 'pp_mercadopago_mercadopago';
+
+/* Deriva del carrito lo que NO se le puede creer al cliente: cuanto cobrar y
+   contra que sesion de pago. Este endpoint es publico, asi que aceptar el monto
+   del navegador significaba que cualquiera podia pagar lo que quisiera. */
+async function datosDelCarrito(cartId) {
+  const res = await fetch(MEDUSA_URL + '/store/carts/' + encodeURIComponent(cartId), {
+    headers: { 'x-publishable-api-key': MEDUSA_PK },
+  });
+  if (!res.ok) throw new Error('Medusa respondio ' + res.status);
+  const { cart } = await res.json();
+  if (!cart) throw new Error('carrito no encontrado');
+
+  const sesiones = ((cart.payment_collection || {}).payment_sessions || [])
+    .filter(function (s) { return s.provider_id === MEDUSA_PAYMENT_PROVIDER; })
+    .sort(function (a, b) { return new Date(b.created_at) - new Date(a.created_at); });
+  if (!sesiones.length) throw new Error('el carrito no tiene sesion de pago abierta');
+  if (!cart.total || cart.total <= 0) throw new Error('el carrito no tiene importe');
+
+  return { total: cart.total, sessionId: sesiones[0].id };
+}
 // Admin API key — la teclea el operador en admin.html / validar.html.
 // NUNCA debe incrustarse en esas páginas: son públicas (GitHub Pages).
 const ADMIN_API_KEY = process.env.ADMIN_API_KEY || '';
@@ -279,13 +307,28 @@ const server = http.createServer(async (req, res) => {
       ? pedida.split('?')[0]
       : BASE_SITIO + 'eventos/florecer-5/';
 
-    const extRef = String(body.external_reference || body.event || 'florecer-5');
+    /* Compras de la tienda: el monto y la referencia los pone Medusa a partir
+       del cart_id, no el navegador. Si el cliente manda otro cart_id, pagara el
+       total de ESE carrito y sera ese el que se cierre como orden: sigue siendo
+       coherente. Boletos de talleres y eventos conservan el camino de siempre. */
+    let extRef = String(body.external_reference || body.event || 'florecer-5');
+    let monto = body.amount;
+    if (body.cart_id) {
+      try {
+        const datos = await datosDelCarrito(String(body.cart_id));
+        monto = datos.total;
+        extRef = datos.sessionId;
+      } catch (e) {
+        console.error('create-preference: carrito invalido:', e.message);
+        return json(res, 400, { error: 'No se pudo confirmar tu carrito. Recárgalo e intenta de nuevo.' });
+      }
+    }
 
     const pref = {
       items: [{
         title: title,
         quantity: 1,
-        unit_price: body.amount,
+        unit_price: monto,
         currency_id: 'MXN',
       }],
       back_urls: {
@@ -313,7 +356,7 @@ const server = http.createServer(async (req, res) => {
        asi que cada venta a meses pagaba esa comision sin que nadie lo decidiera.
        Por debajo del umbral se cobra a un solo pago. */
     pref.payment_methods = {
-      installments: body.amount >= 40000 ? 3 : 1,
+      installments: monto >= 40000 ? 3 : 1,
     };
 
     try {

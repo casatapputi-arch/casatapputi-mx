@@ -298,6 +298,9 @@ async function iniciarPagoMercadoPago() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        // El servidor recalcula monto y referencia a partir del cart_id: estos
+        // dos van solo como respaldo y para que el log sea legible.
+        cart_id: cartId,
         amount: total,
         quantity: unidades,
         title: 'Casa Tapputi — ' + unidades + ' producto(s)',
