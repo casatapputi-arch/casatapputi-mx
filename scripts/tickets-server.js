@@ -306,6 +306,16 @@ const server = http.createServer(async (req, res) => {
       pref.notification_url = 'https://medusa.casatapputi.com.mx/hooks/payment/mercadopago_mercadopago';
     }
 
+    /* Politica de meses sin intereses (decision del 2026-08-08): 3 MSI solo a
+       partir de $40,000 MXN, con el negocio absorbiendo la comision.
+       MercadoPago cobra 4.69% extra sobre el 3.50% de tarjeta por ofrecer hasta
+       3 MSI: 8.19% en total. Checkout Pro los ofrecia solos en CUALQUIER monto,
+       asi que cada venta a meses pagaba esa comision sin que nadie lo decidiera.
+       Por debajo del umbral se cobra a un solo pago. */
+    pref.payment_methods = {
+      installments: body.amount >= 40000 ? 3 : 1,
+    };
+
     try {
       const preference = await mpRequest('POST', '/checkout/preferences', pref);
 

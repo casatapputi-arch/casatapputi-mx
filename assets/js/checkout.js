@@ -220,7 +220,23 @@ async function iniciarPagoMercadoPago() {
 
     /* 2. El total lo dice Medusa, no el navegador: incluye el envio y ya trae
        el cupon aplicado en el servidor. Antes se mandaba getTotal(), calculado
-       en el cliente, asi que el precio se podia cambiar desde la consola. */
+       en el cliente, asi que el precio se podia cambiar desde la consola.
+
+       Ojo: los articulos sin variantId (talabarteria) viven solo en el carrito
+       local y NUNCA entran al carrito de Medusa (cart-fixed.js:186). Si se
+       cobrara cart.total con uno de ellos dentro, se cobraria de menos. Esos
+       pedidos se cierran por WhatsApp hasta que existan como producto. */
+    const sinMedusa = local.filter(function (it) { return !it.variantId; });
+    if (sinMedusa.length) {
+      restaurarBotonMP(btn);
+      mostrarErrorMP(
+        'Estas piezas se cotizan por WhatsApp: ' +
+          sinMedusa.map(function (i) { return i.name; }).join(', ') +
+          '. Quítalas del carrito para pagar el resto en línea, o escríbenos y cerramos el pedido completo por ahí.'
+      );
+      return;
+    }
+
     const total = cart.total;
     if (!total || total <= 0) {
       throw new Error('El total del carrito es cero.');
