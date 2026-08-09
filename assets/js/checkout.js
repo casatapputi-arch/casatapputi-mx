@@ -114,11 +114,27 @@ const MEDUSA_PAYMENT_PROVIDER = 'pp_mercadopago_mercadopago';
 
 // Opciones de envio creadas en Medusa el 2026-08-08. El sitio elige cual aplica
 // segun el modo de entrega y el CP, pero el PRECIO lo pone Medusa.
+// El envio foraneo se cotiza caso por caso: no tiene opcion y sale por WhatsApp.
 const SHIPPING_OPTIONS = {
   cdmx: 'so_01KZFQY014DQCXRNYTXXKK5BXG',
-  foraneo: 'so_01KZFQY07S5A71KQANB944RHXD',
+  calzado: 'so_01KZJ85GJM9DHRXDPNRCM75KCM',
   pickup: 'so_01KZFQY0D2P4MHKY7N98RXGC2D',
 };
+
+// El calzado nunca lleva envio sin costo, sin importar el monto del pedido.
+const HANDLES_CALZADO = [
+  'blucher-cocodrilo-vino', 'blucher-cordoban-nocturno', 'botin-charro-avestruz-miel',
+  'botin-charro-becerro-vino', 'botin-charro-canela', 'estilo-100-cocodrilo-gris',
+  'mocasin-lagarto-azul', 'mocasin-ternera-bolanos', 'modelo-102-beige-miel',
+];
+const CODIGO_ENVIO_GRATIS = 'ENVIO-GRATIS-2000';
+const UMBRAL_ENVIO_GRATIS = 2000;
+
+function carritoTieneCalzado(items) {
+  return items.some(function (it) {
+    return HANDLES_CALZADO.indexOf(it.id) !== -1;
+  });
+}
 
 /* ── Completar el carrito de Medusa antes de cobrar ───────────────────────
    Sin email y sin metodo de envio, Medusa rechaza cerrar el carrito: el pago
@@ -127,11 +143,21 @@ const SHIPPING_OPTIONS = {
 async function hidratarCarrito(cartId, cust) {
   const esRecoleccion = cust.mode === 'recoger';
   const ship = getShippingInfo(cust.cp);
+  const hayCalzado = carritoTieneCalzado(getLocalCart());
+
+  // Fuera de CDMX el envio se cotiza en cada caso: no hay tarifa que aplicar.
+  if (!esRecoleccion && !ship.isCDMX) {
+    throw new Error(
+      'Los envíos fuera de CDMX se cotizan uno por uno. Escríbenos por WhatsApp ' +
+        'con tu código postal y cerramos el pedido con el costo real de tu envío.'
+    );
+  }
+
   const optionId = esRecoleccion
     ? SHIPPING_OPTIONS.pickup
-    : ship.isCDMX
-      ? SHIPPING_OPTIONS.cdmx
-      : SHIPPING_OPTIONS.foraneo;
+    : hayCalzado
+      ? SHIPPING_OPTIONS.calzado
+      : SHIPPING_OPTIONS.cdmx;
 
   const partes = cust.name.split(/\s+/);
   const cuerpo = {
@@ -149,9 +175,25 @@ async function hidratarCarrito(cartId, cust) {
 
   // El cupon lo valida y lo descuenta Medusa. Antes el descuento se calculaba
   // en el navegador y viajaba ya aplicado: cualquiera podia cambiar el precio.
+  const codigos = [];
   if (typeof appliedCoupon !== 'undefined' && appliedCoupon && appliedCoupon.code) {
-    cuerpo.promo_codes = [appliedCoupon.code];
+    codigos.push(appliedCoupon.code);
   }
+
+  /* Envio sin costo desde $2,000 dentro de CDMX, nunca para calzado.
+     La exclusion no se puede expresar como regla en Medusa (las reglas por
+     producto no se evaluan en promociones de envio, y cualquier target_rule
+     desactiva la promocion), asi que se decide aqui: el pedido con calzado usa
+     su propia opcion de envio y no lleva este codigo. El servidor sigue
+     validando el monto, de modo que el codigo no descuenta por debajo del
+     umbral aunque alguien lo escriba a mano.
+     Esta lista de promo_codes reemplaza a la del carrito: es la ultima palabra
+     antes de cobrar. */
+  const subtotal = getSubtotal();
+  if (!esRecoleccion && !hayCalzado && subtotal >= UMBRAL_ENVIO_GRATIS) {
+    codigos.push(CODIGO_ENVIO_GRATIS);
+  }
+  cuerpo.promo_codes = codigos;
 
   await medusaFetch('/store/carts/' + cartId, {
     method: 'POST',
@@ -278,7 +320,10 @@ async function iniciarPagoMercadoPago() {
   } catch (err) {
     console.error('Error al iniciar pago con MercadoPago:', err);
     restaurarBotonMP(btn);
-    if (err.message && err.message.includes('Failed to fetch')) {
+    if (err.message && err.message.indexOf('fuera de CDMX') !== -1) {
+      // Es una condicion esperada, no una falla: se explica tal cual al cliente.
+      mostrarErrorMP(err.message);
+    } else if (err.message && err.message.includes('Failed to fetch')) {
       mostrarErrorMP('Error de conexión. Revisa tu internet e intenta de nuevo.', err.message);
     } else if (err.message && err.message.includes('400')) {
       mostrarErrorMP('Error al crear la sesión de pago. ¿El producto tiene precio configurado?', err.message);
