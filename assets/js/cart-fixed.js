@@ -15,16 +15,9 @@ const REGION_ID   = 'reg_01KXKKX4D00R5GCSX91T9YE2Q9';
 let medusaCart = null;   // cache del último fetch del cart de Medusa
 
 // ── Cupón de descuento ───────────────────────────────────
-const COUPONS = {
-  'BIENVENIDA': { type: 'percent', value: 10, label: '10% de descuento' },
-  'HERBOLARIA': { type: 'percent', value: 15, label: '15% de descuento' },
-  'TAPPUTI': { type: 'percent', value: 20, label: '20% de descuento' },
-  'ENVIOGRATIS': { type: 'fixed', value: 50, label: '$50 MXN de descuento' },
-  'FAMILIA': { type: 'fixed', value: 100, label: '$100 MXN de descuento' }
-  // NO agregar cupones de cortesía (100%) aquí: este archivo se sirve al
-  // navegador y cualquiera puede leerlo desde DevTools. Para cortesías usar
-  // las promociones de Medusa, que se validan en el servidor.
-};
+// Los codigos de descuento se administran en Medusa, no aqui: estar en este
+// archivo equivalia a publicarlos.
+const COUPONS = {};
 let appliedCoupon = null; // { code, type, value, label }
 
 // ── Helpers ──────────────────────────────────────────────
@@ -302,14 +295,36 @@ function applyDiscount(subtotal) {
   return Math.max(0, subtotal - discount);
 }
 
+/* Los codigos ya no viven en este archivo: los valida y los descuenta Medusa.
+   Antes estaban escritos aqui, a la vista de cualquiera, y el descuento se
+   calculaba en el navegador. Ahora el servidor decide si el codigo existe y
+   cuanto vale. */
 async function applyCouponCode(code) {
   const upper = code.trim().toUpperCase();
-  const coupon = COUPONS[upper];
-  if (!coupon) return { success: false, msg: 'Cupón no válido' };
+  if (!upper) return { success: false, msg: 'Escribe un código de descuento.' };
   if (appliedCoupon && appliedCoupon.code === upper) return { success: false, msg: 'Este cupón ya está aplicado' };
-  appliedCoupon = { code: upper, ...coupon };
-  await refreshCartUI();
-  return { success: true, msg: '¡Cupón aplicado! ' + coupon.label };
+  const noValido = { success: false, msg: 'Ese código no es válido o no aplica a tu carrito.' };
+  try {
+    const cartId = await getOrCreateCartId();
+    const previo = getDiscountAmount();
+    const data = await medusaFetch('/store/carts/' + cartId, {
+      method: 'POST',
+      body: JSON.stringify({ promo_codes: [upper] }),
+    });
+    const descuento = (data.cart && data.cart.discount_total) || 0;
+    if (!descuento || descuento <= previo) return noValido;
+    medusaCart = data.cart;
+    appliedCoupon = {
+      code: upper,
+      type: 'fixed',
+      value: descuento,
+      label: '$' + descuento.toLocaleString('es-MX') + ' MXN de descuento',
+    };
+    await refreshCartUI();
+    return { success: true, msg: '¡Cupón aplicado! ' + appliedCoupon.label };
+  } catch (e) {
+    return noValido;
+  }
 }
 
 function clearCoupon() {
