@@ -219,14 +219,21 @@ function assetPath() {
   return 'assets/';            // desde index.html
 }
 
+// Las 9 piezas de calzado tienen su pagina bajo productos/talabarteria/, no
+// bajo productos/ como el catalogo herbal. Espejo de HANDLES_CALZADO en
+// checkout.js (alli decide la tarifa de envio; aqui, la ruta de la ficha).
+const HANDLES_TALABARTERIA = [
+  'blucher-cocodrilo-vino', 'blucher-cordoban-nocturno', 'botin-charro-avestruz-miel',
+  'botin-charro-becerro-vino', 'botin-charro-canela', 'estilo-100-cocodrilo-gris',
+  'mocasin-lagarto-azul', 'mocasin-ternera-bolanos', 'modelo-102-beige-miel',
+];
+
+// Ruta absoluta: el sitio vive en la raiz de casatapputi.com.mx (ver CNAME) y
+// asi la ficha se resuelve igual desde cualquier nivel, incluidas las paginas
+// de calzado, que cuelgan un nivel mas abajo.
 function productoUrl(handle) {
-  if (window.location.pathname.includes('/productos/') && !window.location.pathname.endsWith('/productos/')) {
-    return '../' + handle + '/';   // desde productos/handle/ → ../esencia-miel/
-  }
-  if (window.location.pathname.includes('/productos')) {
-    return handle + '/';           // desde productos/ → esencia-miel/
-  }
-  return 'productos/' + handle + '/';  // desde raíz
+  const sub = HANDLES_TALABARTERIA.indexOf(handle) !== -1 ? 'talabarteria/' : '';
+  return '/productos/' + sub + handle + '/';
 }
 
 // ── Render tarjeta espécimen botánico ───────────────────

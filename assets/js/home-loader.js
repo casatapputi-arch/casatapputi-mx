@@ -1,7 +1,9 @@
 /* Casa Tapputi · Home progressive enhancement
    Keep the first impression light; load commerce/catalog behavior near intent. */
 (function () {
-  const scripts = ['assets/js/cart-fixed.js', 'assets/js/catalog.js'];
+  // Versionados igual que en el resto del sitio: sin ?v= el home seguiria
+  // sirviendo el carrito cacheado despues de cada correccion.
+  const scripts = ['assets/js/cart-fixed.js?v=20260818a', 'assets/js/catalog.js?v=14'];
   let loading = null;
 
   function loadScript(src) {

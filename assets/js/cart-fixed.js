@@ -82,14 +82,20 @@ function saveLocalCart(c) { localStorage.setItem(CART_KEY, JSON.stringify(c)); }
 function medusaItemsToLocal(items, existingLocal) {
   return items.map(li => {
     const handle = li.variant?.product?.handle || '';
-    const id = handle || li.variant_id;
+    // La Store API no expande variant.product en los line items, asi que el
+    // handle suele venir vacio. Casar primero por variantId contra el carrito
+    // local y reusar SU id evita que el mismo producto entre dos veces (una
+    // bajo el handle y otra bajo el variant_id) y que el total se duplique.
+    const prev = existingLocal
+      ? existingLocal.find(i => (i.variantId && i.variantId === li.variant_id) || (handle && i.id === handle))
+      : null;
+    const id = (prev && prev.id) || handle || li.variant_id;
     // PRIORIZAR datos locales (source of truth) sobre Medusa
     let image = '';
     let name = li.title;
     let price = li.unit_price || 0;
     let priceLabel = formatPrice(li.unit_price);
     if (existingLocal) {
-      const prev = existingLocal.find(i => i.id === id || i.variantId === li.variant_id);
       if (prev) {
         // Preservar imagen local (Medusa puede tener thumbnails corruptos)
         if (prev.image) image = prev.image;
@@ -361,25 +367,23 @@ function checkoutWhatsApp(e) {
 }
 
 // ── Cart Drawer ──────────────────────────────────────────
+// Cuantas carpetas cuelga la pagina actual de la raiz del sitio. Enumerar
+// secciones a mano dejaba fuera las anidadas (ej. /experiencias/aromaterapia/,
+// que apuntaba a /experiencias/tienda/carrito.html y daba 404).
+function depthFromRoot() {
+  const segs = window.location.pathname.split('/').filter(Boolean);
+  const last = segs[segs.length - 1] || '';
+  return last.includes('.') ? segs.length - 1 : segs.length;
+}
+
 function resolveAssetPath() {
-  const path = window.location.pathname;
-  if (path.includes('/productos/') && !path.endsWith('/productos/')) return '../../assets/';
-  if (path.includes('/productos')) return '../assets/';
-  if (path.includes('/tienda/')) return '../assets/';
-  if (path.includes('/talleres/')) return '../assets/';
-  if (path.includes('/eventos/')) return '../assets/';
-  if (path.includes('/nosotros/')) return '../assets/';
-  if (path.includes('/servicios/')) return '../assets/';
-  if (path.includes('/experiencias/')) return '../assets/';
-  return 'assets/';
+  const up = '../'.repeat(depthFromRoot());
+  return up + 'assets/';
 }
 
 function resolveCartPagePath() {
-  const path = window.location.pathname;
-  if (path === '/' || path === '/index.html') return 'tienda/carrito.html';
-  if (path.includes('/productos/') && !path.endsWith('/productos/')) return '../../tienda/carrito.html';
-  if (path.includes('/productos')) return '../tienda/carrito.html';
-  return '../tienda/carrito.html';
+  const up = '../'.repeat(depthFromRoot());
+  return up + 'tienda/carrito.html';
 }
 
 function injectCartDrawerHTML() {
@@ -413,10 +417,12 @@ function openCartDrawer() {
   let drawer = document.getElementById('cartDrawer');
   if (!drawer) { injectCartDrawerHTML(); drawer = document.getElementById('cartDrawer'); }
   if (!drawer) return;
-  renderCartDrawer();
+  // La clase 'open' va ANTES de renderizar: renderCartDrawer() se aborta a si
+  // mismo si el drawer todavia no esta abierto, y el panel quedaba vacio.
   drawer.classList.add('open');
   document.getElementById('cartDrawerOverlay').classList.add('open');
   document.body.classList.add('cart-drawer-open');
+  renderCartDrawer();
 }
 
 function closeCartDrawer() {
