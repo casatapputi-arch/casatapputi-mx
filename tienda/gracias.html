@@ -327,6 +327,26 @@ function generarTicketQR(orderId, firstName, lastName, paymentId) {
     }
     generarTicketQR(orderId, firstName, lastName, paymentId);
 
+    // 📊 Telemetría de Conversión (Google Ads / GA4 / Plausible Purchase Event)
+    try {
+      var cartSnap = JSON.parse(sessionStorage.getItem('casatapputi_cart_snapshot') || '[]');
+      var totalAmount = 0;
+      cartSnap.forEach(function(item) { totalAmount += (item.price || 0) * (item.quantity || 1); });
+      if (window.plausible) {
+        window.plausible('Purchase', { props: { order_id: orderId, amount: totalAmount } });
+      }
+      if (window.dataLayer) {
+        window.dataLayer.push({
+          event: 'purchase',
+          ecommerce: {
+            transaction_id: orderId,
+            value: totalAmount,
+            currency: 'MXN'
+          }
+        });
+      }
+    } catch (err) {}
+
   } else if (status === 'pending' || status === 'in_process') {
     title.textContent = '⏳ Pago en proceso';
     msg.textContent = 'Tu pago está siendo procesado por MercadoPago. Te avisaremos cuando se confirme.';

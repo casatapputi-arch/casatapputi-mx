@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+  <channel>
+    <title>Casa Tapputi — Herbolaria y Perfumería Botánica</title>
+    <link>https://casatapputi.com.mx</link>
+    <description>Catálogo de productos artesanales, pomadas herbales, esencias naturales y calzado artesanal.</description>
+    <item>
+      <g:id>agua-rosas</g:id>
+      <title>Agua de Rosas</title>
+      <description>Tónico natural de pétalos frescos. Calma, hidrata y equilibra la piel. Sin alcohol ni químicos agresivos.</description>
+      <link>https://casatapputi.com.mx/productos/agua-rosas/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/agua-rosas.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>150 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>balsamo-lavanda</g:id>
+      <title>Bálsamo de Lavanda</title>
+      <description>Bálsamo relajante con aceite esencial de lavanda orgánica. Para masajes, sienes y puntos de tensión.</description>
+      <link>https://casatapputi.com.mx/productos/balsamo-lavanda/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/casa-tapputi-logo.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>120 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>chilcuague</g:id>
+      <title>Chilcuague</title>
+      <description>Spray oral de raíz de chilcuague, usada tradicionalmente para el bienestar bucal.</description>
+      <link>https://casatapputi.com.mx/productos/chilcuague/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/chilcuague.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>100 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>esencia-miel</g:id>
+      <title>Esencia de Miel</title>
+      <description>Extraída por alambique de floración natural. Favorece dopamina y oxitocina; promueve relajación y concentración.</description>
+      <link>https://casatapputi.com.mx/productos/esencia-miel/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/esencias-amber.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>400 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>esencias-naturales</g:id>
+      <title>Esencias Naturales</title>
+      <description>18 aromas por alambique: Violetas, Nardo, Mandarina, Menta, Rosas, Canela, Lavanda, Eucalipto, Romero, Jazmín, Sándalo, Geranio, Limón, Bergamota, Mirra, Pino, </description>
+      <link>https://casatapputi.com.mx/productos/esencias-naturales/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/esencias-naturales.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>400 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>friega-cannabis</g:id>
+      <title>Friega Herbal Intensiva</title>
+      <description>Sinergia de plantas medicinales de alta potencia. Para masaje en zonas musculares y articulares.</description>
+      <link>https://casatapputi.com.mx/productos/friega-cannabis/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/friega-cannabis.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>90 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>gel-cafe</g:id>
+      <title>Gel de Café</title>
+      <description>Tratamiento revitalizante. La cafeína estimula la circulación y despierta la piel. Tonifica y refresca.</description>
+      <link>https://casatapputi.com.mx/productos/gel-cafe/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/mascarilla-cafe.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>150 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>gel-rosas</g:id>
+      <title>Gel de Rosas</title>
+      <description>Hidratante con extracto de pétalos frescos. Textura ligera de rápida absorción. Propiedades antioxidantes.</description>
+      <link>https://casatapputi.com.mx/productos/gel-rosas/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/gel-rosas.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>150 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>jabones</g:id>
+      <title>Jabones Herbales</title>
+      <description>7 variedades con aceite de coco: Miel &amp; Avena, Menta &amp; Romero, Manzanilla &amp; Bergamota, Manzana &amp; Canela, Lavanda &amp; Violeta, Rosas &amp; Anís Estrella, Carbón Activa</description>
+      <link>https://casatapputi.com.mx/productos/jabones/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/jabones-herbales.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>90 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>lagrimas-rosas</g:id>
+      <title>Lágrimas de Rosas</title>
+      <description>Resina sagrada para saumerios. Limpia el aire, crea un ambiente de calma y armonía.</description>
+      <link>https://casatapputi.com.mx/productos/lagrimas-rosas/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/lagrimas-rosas.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>100 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>leche-dorada</g:id>
+      <title>Leche Dorada</title>
+      <description>Mezcla ancestral de cúrcuma, pimienta negra, clavo y especias. Bebida tradicional reconfortante.</description>
+      <link>https://casatapputi.com.mx/productos/leche-dorada/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/leche-dorada.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>0 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>miel-melipona</g:id>
+      <title>Miel Melipona</title>
+      <description>Miel pura de abeja melipona, la abeja sagrada maya. Tradición de meliponicultura yucateca, para uso cutáneo y de consumo.</description>
+      <link>https://casatapputi.com.mx/productos/miel-melipona/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/miel-melipona.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>350 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>oleo-masaje</g:id>
+      <title>Óleo para Masaje</title>
+      <description>Fusión de ingredientes naturales y esencias seleccionadas. Nutre la piel y ofrece beneficios emocionales.</description>
+      <link>https://casatapputi.com.mx/productos/oleo-masaje/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/oleo-masaje.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>150 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>perfume-solido</g:id>
+      <title>Perfume Sólido Herbal</title>
+      <description>Cera de abeja, aceite de oliva y aceites esenciales botánicos. Nutre la piel mientras perfuma. 18 aromas disponibles.</description>
+      <link>https://casatapputi.com.mx/productos/perfume-solido/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/perfume-solido.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>80 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>pomada-calendula</g:id>
+      <title>Pomada de Caléndula</title>
+      <description>Cera de abeja y lípido vegetal con extracto de caléndula. Tradicionalmente usada para el cuidado de la piel irritada y zonas resecas.</description>
+      <link>https://casatapputi.com.mx/productos/pomada-calendula/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/pomada-calendula.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>100 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>pomada-cannabis</g:id>
+      <title>Pomada Herbal Intensiva</title>
+      <description>Sinergia de plantas medicinales de alta potencia. Para masaje en zonas musculares y articulares.</description>
+      <link>https://casatapputi.com.mx/productos/pomada-cannabis/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/pomada-cannabis.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>100 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>roll-on</g:id>
+      <title>Roll-On Anti Estrés</title>
+      <description>Menta, Pino y Eucalipto. Menta despeja la mente; Pino equilibra; Eucalipto purifica y facilita la respiración profunda.</description>
+      <link>https://casatapputi.com.mx/productos/roll-on/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/roll-on.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>200 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>salsa-matcha</g:id>
+      <title>Salsas Matcha</title>
+      <description>4 variedades de salsa artesanal con semillas, chiles secos e ingredientes de temporada: Chapulines, Frutos Rojos, Ajo y Habanero.</description>
+      <link>https://casatapputi.com.mx/productos/salsa-matcha/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/salsa-matcha.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>200 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>talabarteria</g:id>
+      <title>Talabartería</title>
+      <description>Piel reciclada transformada en piezas elegantes y funcionales: cinturones, pulseras, carteras y mochilas. Hecho a mano en CDMX.</description>
+      <link>https://casatapputi.com.mx/productos/talabarteria/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/talabarteria.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>0 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>terrarios</g:id>
+      <title>Terrarios</title>
+      <description>Piezas decorativas de vidrio en medidas personalizadas: candeleros, joyeros, aparadores y mostradores. Hechos a mano en CDMX.</description>
+      <link>https://casatapputi.com.mx/productos/terrarios/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/terrarios.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>0 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+    <item>
+      <g:id>tisanas</g:id>
+      <title>Tisanas Herbales</title>
+      <description>Mezclas con ingredientes naturales y orgánicos del jardín medicinal de Huerto Roma Verde. Sin aditivos.</description>
+      <link>https://casatapputi.com.mx/productos/tisanas/</link>
+      <g:image_link>https://casatapputi.com.mx/assets/images/t13-01264.webp</g:image_link>
+      <g:brand>Casa Tapputi</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1300 MXN</g:price>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
+    </item>
+  </channel>
+</rss>
