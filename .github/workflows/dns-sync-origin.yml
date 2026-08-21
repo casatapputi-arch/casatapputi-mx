@@ -39,7 +39,7 @@ jobs:
           set -euo pipefail
           echo "IP de origen objetivo: $ORIGIN_IP  (dry_run=$DRY_RUN)"
 
-          for SUB in medusa tickets; do
+          for SUB in medusa tickets n8n; do
             NAME="${SUB}.casatapputi.com.mx"
             EXISTING=$(curl -s -X GET \
               "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/dns_records?type=A&name=$NAME" \
