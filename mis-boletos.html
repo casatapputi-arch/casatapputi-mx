@@ -184,18 +184,28 @@
     if (!auth || !auth.habilitado()) {
       notice.style.display = 'block';
       notice.innerHTML = '<strong>Nota de Integración:</strong> El servicio de inicio de sesión de Supabase Auth está actualmente en modo plantilla (servidor dedicado pendiente de vinculación). Los comprobantes locales en este navegador se muestran abajo.';
-    } else {
-      auth.sesion().then(function(s) {
-        if (s && s.user) {
-          notice.style.display = 'block';
-          notice.className = 'notice-box';
-          notice.innerHTML = 'Sesión activa como: <strong>' + s.user.email + '</strong> · <a href="#" onclick="cerrarSesion(event)" style="color:var(--miel)">Cerrar sesión</a>';
-          auth.adoptarLocales();
-        }
-      });
+      renderizarBoletos();
+      return;
     }
 
-    buscarBoletosLocales();
+    function refrescarSesion(s) {
+      if (s && s.user) {
+        notice.style.display = 'block';
+        notice.className = 'notice-box';
+        notice.innerHTML = 'Sesión activa como: <strong>' + escapeHtml(s.user.email) + '</strong> · <a href="#" onclick="cerrarSesion(event)" style="color:var(--miel); text-decoration:underline;">Cerrar sesión</a>';
+        auth.adoptarLocales().then(function() {
+          renderizarBoletos();
+        });
+      } else {
+        notice.style.display = 'none';
+        renderizarBoletos();
+      }
+    }
+
+    auth.sesion().then(refrescarSesion);
+    auth.alCambiar(function(evt, s) {
+      refrescarSesion(s);
+    });
   }
 
   function handleMagicLink(e) {
@@ -234,8 +244,13 @@
   }
 
   function buscarBoletosLocales() {
+    renderizarBoletos();
+  }
+
+  function renderizarBoletos() {
     var container = document.getElementById('ticketsList');
-    var boletos = [];
+    var auth = window.CasaTapputiAuth;
+    var boletosLocales = [];
 
     try {
       for (var i = 0; i < localStorage.length; i++) {
@@ -244,11 +259,11 @@
         var item = JSON.parse(localStorage.getItem(k) || 'null');
         if (item && item.tickets) {
           item.tickets.forEach(function(t) {
-            boletos.push({
+            boletosLocales.push({
               evento: item.taller_nombre || t.evento || 'Taller Casa Tapputi',
               shortCode: t.short_code || t.code || 'CT-TICKET',
-              nombre: (t.nombre || '') + ' ' + (t.apellido || ''),
-              fecha: item.fecha_compra || 'Reciente',
+              nombre: (t.nombre || '') + (t.apellido ? ' ' + t.apellido : ''),
+              fecha: item.fecha_compra || 'Local',
               usado: !!t.usado,
               token: t.token
             });
@@ -257,35 +272,63 @@
       }
     } catch(e) { console.error('Error leyendo localStorage:', e); }
 
-    if (boletos.length === 0) {
-      container.innerHTML = `
-        <div style="text-align:center; padding:32px 20px; color:var(--tinta-suave); background:rgba(0,0,0,.15); border-radius:8px;">
-          <p style="font-size:1.05rem; margin-bottom:6px;">No se encontraron comprobantes almacenados en este navegador.</p>
-          <p style="font-size:.85rem;">Si compraste un boleto recientemente en otro dispositivo, inicia sesión o consulta el enlace en tu correo.</p>
-        </div>
-      `;
-      return;
-    }
+    var pCloud = (auth && auth.habilitado()) ? auth.misBoletos() : Promise.resolve([]);
 
-    var html = '';
-    boletos.forEach(function(b) {
-      var badgeClass = b.usado ? 'status-usado' : 'status-valido';
-      var statusText = b.usado ? 'Usado' : 'Válido';
-      html += `
-        <div class="ticket-item">
-          <div class="ticket-info">
-            <h4>${escapeHtml(b.evento)}</h4>
-            <p>Titular: <strong>${escapeHtml(b.nombre || 'Asistente')}</strong></p>
-            <p>Código: <span class="ticket-code">${escapeHtml(b.shortCode)}</span></p>
+    pCloud.then(function(boletosNube) {
+      var map = new Map();
+
+      (boletosNube || []).forEach(function(t) {
+        var sc = t.short_code || String(t.id);
+        map.set(sc, {
+          evento: t.evento || 'Taller Casa Tapputi',
+          shortCode: sc,
+          nombre: (t.nombre || '') + (t.apellido ? ' ' + t.apellido : ''),
+          fecha: t.creado_en ? new Date(t.creado_en).toLocaleDateString('es-MX') : 'En línea',
+          usado: !!t.usado
+        });
+      });
+
+      boletosLocales.forEach(function(t) {
+        var sc = t.shortCode;
+        if (!map.has(sc)) {
+          map.set(sc, t);
+        }
+      });
+
+      var todos = Array.from(map.values());
+
+      if (todos.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:32px 20px; color:var(--tinta-suave); background:rgba(0,0,0,.15); border-radius:8px;">
+            <p style="font-size:1.05rem; margin-bottom:6px;">No se encontraron comprobantes activos para esta cuenta o navegador.</p>
+            <p style="font-size:.85rem;">Si compraste un boleto recientemente en otro dispositivo, inicia sesión arriba para asociarlo automáticamente.</p>
           </div>
-          <div>
-            <span class="status-badge ${badgeClass}">${statusText}</span>
+        `;
+        return;
+      }
+
+      var html = '';
+      todos.forEach(function(b) {
+        var badgeClass = b.usado ? 'status-usado' : 'status-valido';
+        var statusText = b.usado ? 'Usado' : 'Válido';
+        html += `
+          <div class="ticket-item">
+            <div class="ticket-info">
+              <h4>${escapeHtml(b.evento)}</h4>
+              <p>Titular: <strong>${escapeHtml(b.nombre || 'Asistente')}</strong></p>
+              <p>Código: <span class="ticket-code">${escapeHtml(b.shortCode)}</span></p>
+            </div>
+            <div>
+              <span class="status-badge ${badgeClass}">${statusText}</span>
+            </div>
           </div>
-        </div>
-      `;
+        `;
+      });
+
+      container.innerHTML = html;
+    }).catch(function(err) {
+      console.warn('Error cargando boletos de nube:', err);
     });
-
-    container.innerHTML = html;
   }
 
   function escapeHtml(str) {
