@@ -12,9 +12,9 @@
     font-family: 'Georgia', 'Times New Roman', serif;
     background: #f3ece1;
     color: #2b2218;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex; flex-direction: column;
+    
+    align-items: stretch;
     min-height: 100vh;
     padding: 20px;
   }
@@ -23,7 +23,7 @@
     max-width: 800px;
     background: #f3ece1;
     border: 3px solid #b3853a;
-    padding: 40px;
+    margin: 20px auto; padding: clamp(20px, 5vw, 40px);
     text-align: center;
   }
   .tag { font-size: 14px; letter-spacing: 4px; text-transform: uppercase; color: #b3853a; margin-bottom: 10px; }

@@ -38,11 +38,13 @@ def minify_css(content: str) -> str:
         counter[0] += 1
         return key
     
-    # Protect url(...) contents
-    content = re.sub(r'url\([^)]*\)', protect, content)
-    # Protect quoted strings (single and double)
+    # Las cadenas entrecomilladas van PRIMERO: una data-URI como
+    # url("data:image/svg+xml,...filter='url(%23n)'...") lleva parentesis internos, y
+    # protegerla por url\([^)]*\) cortaba en el ')' interno dejando el literal partido.
     content = re.sub(r'"[^"\\]*(?:\\.[^"\\]*)*"', protect, content)
     content = re.sub(r"'[^'\\]*(?:\\.[^'\\]*)*'", protect, content)
+    # url(...) sin comillas: se tolera un nivel de parentesis anidados
+    content = re.sub(r'url\((?:[^()]|\([^()]*\))*\)', protect, content)
     
     # Collapse whitespace
     content = re.sub(r'\s+', ' ', content)
@@ -65,9 +67,14 @@ def minify_css(content: str) -> str:
     # Compress hex colors: #aabbcc → #abc (only when all pairs match)
     content = re.sub(r'#([0-9a-fA-F])\1([0-9a-fA-F])\2([0-9a-fA-F])\3', r'#\1\2\3', content)
     
-    # Restore protected strings
-    for key, value in protected.items():
-        content = content.replace(key, value)
+    # Restauracion ITERATIVA: un valor protegido puede reinsertar placeholders de una
+    # pasada posterior; restaurando una sola vez en orden de creacion esos quedaban
+    # literales en la salida y rompian el parser CSS a partir de ese punto.
+    for _ in range(10):
+        if '__PROTECTED_' not in content:
+            break
+        for key, value in protected.items():
+            content = content.replace(key, value)
     
     # Remove unnecessary spaces around !important
     content = content.replace(' !important', '!important')
@@ -177,7 +184,33 @@ def minify_file(filepath: Path, in_place: bool = False) -> tuple[int, int]:
         minified = minify_js(original)
     else:
         raise ValueError(f"Unsupported file type: {ext}")
-    
+
+    # ── Gate de integridad: NUNCA escribir una salida corrupta ──────────────
+    # El 2026-08-18 una restauracion incompleta dejo literales __PROTECTED_N__
+    # dentro de una data-URI de main.v4.css: el parser CSS del navegador aborto
+    # en ese punto y se perdio el 41% de las reglas (nav movil, tarjetas, carrito)
+    # durante 17 dias en produccion. Sin este gate el fallo es silencioso.
+    problemas = []
+    if '__PROTECTED_' in minified:
+        problemas.append("quedaron placeholders __PROTECTED_ sin restaurar")
+    if minified.count('{') != minified.count('}'):
+        problemas.append(f"llaves desbalanceadas ({minified.count('{')} '{{' vs {minified.count('}')} '}}')")
+    if minified.count('"') % 2 != 0:
+        problemas.append("numero impar de comillas dobles")
+    if ext == '.css':
+        # una minificacion que pierde reglas es tan grave como una que corrompe
+        import re as _re
+        n_orig = len(_re.findall(r'\{', original))
+        n_min = minified.count('{')
+        if n_min < n_orig:
+            problemas.append(f"se perdieron bloques: {n_orig} en el original vs {n_min} en la salida")
+    if problemas:
+        raise RuntimeError(
+            f"ABORTADO: la minificacion de {filepath.name} produjo una salida invalida.\n"
+            + "\n".join(f"  - {x}" for x in problemas)
+            + "\n  El archivo original NO se ha modificado."
+        )
+
     if in_place:
         # Backup original
         backup = filepath.with_suffix(filepath.suffix + '.bak')
