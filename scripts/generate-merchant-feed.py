@@ -14,6 +14,10 @@ def build_merchant_feed():
         try:
             data = json.loads(p.read_text(encoding="utf-8"))
             slug = data.get("slug", p.stem)
+            # Omitir productos sin página publicada (el link del feed daría 404)
+            if not (BASE / "productos" / slug / "index.html").exists():
+                print(f"Omitido {slug}: no existe productos/{slug}/index.html")
+                continue
             title = data.get("title", slug.replace("-", " ").title())
             desc = data.get("meta_description") or (data.get("description", [""])[0] if isinstance(data.get("description"), list) else str(data.get("description", "")))
             price = data.get("schema_price") or 100
