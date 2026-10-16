@@ -290,8 +290,7 @@ def add_schema_to_homepage():
     }
   ],
   "sameAs": [
-    "https://www.instagram.com/casatapputi/",
-    "https://www.facebook.com/casatapputi/"
+    "https://www.instagram.com/casatapputi/"
   ]
 }
 </script>"""
