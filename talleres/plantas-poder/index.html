@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- ════════════════════════════════════════════════════
-  PLANTILLA GENÉRICA DE EVENTO CON TICKETS QR
+  PLANTILLA GENÉRICA DE EVENTO
   Copia este archivo, renómbralo y edita la sección CONFIG.
-  Todo lo demás (QR, MercadoPago, WhatsApp, descuentos) ya funciona.
+  La reservación se solicita por WhatsApp.
   ════════════════════════════════════════════════════════ -->
   <title>Plantas de Poder — Casa Tapputi</title>
   <meta name="description" content="Plantas de Poder. Valor histórico, cultural y simbólico de plantas centrales en tradiciones herbolarias y espirituales de distintas cultur" />
@@ -22,9 +22,7 @@
   <meta property="og:image" content="https://casatapputi.com.mx/assets/images/casa-tapputi-logo.webp">
   <meta property="og:url" content="https://casatapputi.com.mx/talleres/plantas-poder/">
   <meta property="og:type" content="website">
-  <script async src="https://sdk.mercadopago.com/js/v2"></script>
   <script async src="https://plausible.io/js/pa-KVB5ye4NhSFIsTbFNkW0V.js"></script>
-  <script src="../../assets/js/tickets-client.js"></script>
   <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
   <style>
     :root { --miel:#d4af37; --tinta:#efe6d6; --tinta-suave:rgba(239,230,214,.6); --bg:#1a1814; }
@@ -86,42 +84,6 @@
     .btn-primary:hover { background:#c9a52e; }
     .btn-primary:disabled { background:#555; color:#999; cursor:not-allowed; }
 
-    .qr-results { max-width:700px; margin:28px auto; display:none; }
-    .qr-results.active { display:block; }
-    .qr-card {
-      background:rgba(255,255,255,.04); border:1px solid rgba(239,230,214,.12);
-      border-radius:12px; padding:24px; text-align:center; margin-bottom:16px;
-      display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:center;
-    }
-    .qr-card .qr-img { background:#fff; padding:8px; border-radius:6px; line-height:0; }
-    .qr-card .qr-img canvas, .qr-card .qr-img img { display:block; width:150px; height:150px; }
-    .qr-card .qr-info { text-align:left; min-width:200px; }
-    .qr-card .qr-info strong { color:var(--tinta); }
-    .qr-card .qr-info .name { font-size:1rem; color:var(--miel); }
-    .qr-card .qr-info .token { font-family:'Courier New',monospace; font-size:.7rem; color:var(--tinta-suave); word-break:break-all; }
-    .btn-wa {
-      display:inline-block; margin-top:12px; padding:10px 20px;
-      background:#25D366; color:#fff; border:none; border-radius:6px;
-      font-size:.85rem; font-weight:600; text-decoration:none;
-      cursor:pointer; font-family:inherit; transition:background .2s;
-    }
-    .btn-wa:hover { background:#1da851; }
-    .btn-wa-all {
-      display:block; max-width:400px; margin:20px auto 0; padding:14px 20px;
-      background:#25D366; color:#fff; border:none; border-radius:8px;
-      font-size:.9rem; font-weight:600; text-decoration:none; text-align:center;
-      cursor:pointer; font-family:inherit; transition:background .2s;
-    }
-    .btn-wa-all:hover { background:#1da851; }
-    .wa-all-section { text-align:center; margin-top:20px; display:none; }
-    .wa-all-section.show { display:block; }
-    .wa-all-section input {
-      padding:10px 14px; background:rgba(0,0,0,.3); border:1px solid rgba(239,230,214,.2);
-      border-radius:6px; color:var(--tinta); font-family:inherit; font-size:.9rem;
-      max-width:200px; margin-right:8px;
-    }
-    .wa-all-section input:focus { outline:none; border-color:var(--miel); }
-
     .tier-custom { text-align:center; }
     .tier-custom .qty-input-row {
       display:flex; align-items:center; justify-content:center; gap:6px; margin:10px 0;
@@ -155,29 +117,6 @@
     .event-details .detail-item .label { font-size:.78rem; color:var(--tinta-suave); }
     .event-details .detail-item .value { font-weight:600; }
 
-    .discount-section { max-width:400px; margin:0 auto 28px; display:none; }
-    .discount-section.active { display:block; }
-    .discount-row { display:flex; gap:8px; }
-    .discount-row input {
-      flex:1; padding:10px 14px; background:rgba(0,0,0,.3);
-      border:1px solid rgba(239,230,214,.2); border-radius:6px;
-      color:var(--tinta); font-family:inherit; font-size:.9rem; text-transform:uppercase;
-    }
-    .discount-row input:focus { outline:none; border-color:var(--miel); }
-    .discount-row button {
-      padding:10px 18px; background:rgba(165,214,167,.15); color:#a5d6a7;
-      border:1px solid rgba(165,214,167,.2); border-radius:6px;
-      font-size:.85rem; font-weight:600; cursor:pointer; font-family:inherit;
-      transition:all .2s; white-space:nowrap;
-    }
-    .discount-row button:hover { background:rgba(165,214,167,.25); }
-    .discount-row button:disabled { opacity:.5; cursor:not-allowed; }
-    .discount-result { margin-top:12px; padding:10px 14px; border-radius:6px; font-size:.85rem; text-align:center; display:none; }
-    .discount-result.show { display:block; }
-    .discount-result.success { background:rgba(165,214,167,.08); color:#a5d6a7; border:1px solid rgba(165,214,167,.12); }
-    .discount-result.error { background:rgba(229,57,53,.08); color:#ef9a9a; border:1px solid rgba(229,57,53,.12); }
-    .discount-result .old-price { text-decoration:line-through; color:var(--tinta-suave); margin-right:8px; }
-    .discount-result .new-price { font-size:1.1rem; font-weight:700; color:var(--miel); }
   </style>
 </head>
 <body>
@@ -226,7 +165,7 @@
 <section style="padding-bottom:30px">
   <div class="container event-details">
     <div class="detail-row">
-      <div class="detail-item"><div class="icon">📅</div><div class="value">FECHA</div><div class="label">Fecha</div></div>
+      <div class="detail-item"><div class="icon">📅</div><div class="value">31 de octubre</div><div class="label">Fecha</div></div>
       <div class="detail-item"><div class="icon">🕕</div><div class="value">11:30 AM – 2:30 PM</div><div class="label">Hora</div></div>
       <div class="detail-item"><div class="icon">📍</div><div class="value">Huerto Roma Verde</div><div class="label">Jalapa 234, CDMX</div></div>
       <div class="detail-item"><div class="icon">🎫</div><div class="value">$500</div><div class="label">Por persona</div></div>
@@ -248,21 +187,21 @@
         <div class="tier-icon">🎫</div>
         <h3>Individual</h3>
         <div class="price">$500</div>
-        <div class="desc">1 boleto · 1 QR</div>
+        <div class="desc">1 boleto</div>
         <div class="qty-tag">1 persona</div>
       </div>
       <div class="tier" data-tier="3" data-qty="3" data-price="1500" onclick="selectTier(this)">
         <div class="tier-icon">🎫🎫🎫</div>
         <h3>Pack 3</h3>
         <div class="price">$1,500</div>
-        <div class="desc">3 boletos · 3 QRs individuales</div>
+        <div class="desc">3 boletos</div>
         <div class="qty-tag">3 personas</div>
       </div>
-      <div class="tier" data-tier="5" data-qty="5" data-price="1500" onclick="selectTier(this)">
+      <div class="tier" data-tier="5" data-qty="5" data-price="2500" onclick="selectTier(this)">
         <div class="tier-icon">🎫🎫🎫🎫🎫</div>
         <h3>Pack 5</h3>
         <div class="price">$2,500</div>
-        <div class="desc">5 boletos · 5 QRs individuales</div>
+        <div class="desc">5 boletos</div>
         <div class="qty-tag">5 personas</div>
       </div>
       <!-- Tier personalizado: el usuario elige cantidad. Precios en calcCustomPrice(). -->
@@ -279,35 +218,14 @@
       </div>
     </div>
 
-    <!-- CÓDIGO DE DESCUENTO -->
-    <div class="discount-section" id="discountSection">
-      <p style="text-align:center;color:var(--tinta-suave);font-size:.82rem;margin-bottom:8px">¿Tienes un código de descuento?</p>
-      <div class="discount-row">
-        <input type="text" id="discountInput" placeholder="Ej: FLORECER101" maxlength="20" />
-        <button id="discountBtn" onclick="applyDiscountCode()">Aplicar</button>
-      </div>
-      <div class="discount-result" id="discountResult"></div>
-    </div>
-
     <!-- FORMULARIO DINÁMICO -->
     <div class="form-section" id="formSection">
       <h3 style="text-align:center; color:var(--miel); margin-bottom:20px" id="formTitle">Datos de los asistentes</h3>
       <div id="personFields"></div>
       <div class="msg" id="formMsg"></div>
-      <button class="btn-primary" id="btnComprar" onclick="procesarCompra()">Obtener boletos 🎫</button>
+      <button class="btn-primary" id="btnComprar" onclick="procesarCompra()">Apartar por WhatsApp 💬</button>
     </div>
 
-    <!-- RESULTADOS QR -->
-    <div class="qr-results" id="qrResults">
-      <h3 style="text-align:center; margin-bottom:16px">🎉 ¡Tus boletos están listos!</h3>
-      <p style="text-align:center; color:var(--tinta-suave); margin-bottom:20px">Cada QR es único. Preséntalos en la entrada. Se validan una sola vez.</p>
-      <div id="qrCards"></div>
-      <div class="wa-all-section" id="waAllSection">
-        <p style="color:var(--tinta-suave);font-size:.85rem;margin-bottom:10px">📱 ¿Quieres recibir <strong>todos</strong> los boletos en un solo mensaje?</p>
-        <input type="tel" id="waAllInput" placeholder="55-1234-5678" />
-        <a href="#" class="btn-wa-all" id="btnWaAll" target="_blank" rel="noopener">📱 Enviar todos por WhatsApp</a>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -334,6 +252,7 @@
 // ══════════════════════════════════════════════════════
 var EVENT_NAME = 'Plantas de Poder';
 var EVENT_DATE = '31 de octubre 2026';
+var EVENT_INICIO = '2026-10-31T11:30:00-06:00';
 var EVENT_LOCATION = 'Huerto Roma Verde';
 var ORDER_PREFIX = 'taller-curso-poder';   // Prefijo para identificar tickets en el admin
 var PRECIO_INDIVIDUAL = 500;       // Precio por boleto individual
@@ -341,109 +260,24 @@ var PRECIO_PACK_3 = 1500;            // Precio del pack de 3
 var PRECIO_PACK_5 = 2500;            // Precio del pack de 5
 // ══════════════════════════════════════════════════════
 
-var TICKETS_API = 'https://tickets.casatapputi.com.mx';
-
 var selectedTier = null;
-var appliedDiscount = null;  // { code, type, value }
 
-function getPrecioFinal() {
-  var price = selectedTier.price;
-  if (!appliedDiscount) return price;
-  if (appliedDiscount.type === 'percent') {
-    return Math.max(0, price - Math.round(price * appliedDiscount.value / 100));
-  }
-  if (appliedDiscount.type === 'fixed') {
-    return Math.max(0, price - appliedDiscount.value);
-  }
-  return price;
-}
+function getPrecioFinal() { return selectedTier ? selectedTier.price : 0; }
 
 function updatePrecioFinal() {
   var btn = document.getElementById('btnComprar');
-  var finalPrice = getPrecioFinal();
-  if (appliedDiscount && (appliedDiscount.type !== 'percent' || appliedDiscount.value !== 100)) {
-    btn.textContent = 'Pagar $' + finalPrice + ' MXN · MercadoPago 💳';
-    btn.className = 'btn-primary';
-    btn.style.background = '';
-  } else if (appliedDiscount && appliedDiscount.type === 'percent' && appliedDiscount.value === 100) {
-    btn.textContent = 'Obtener boletos gratis 🎫';
-    btn.className = 'btn-primary';
-    btn.style.background = '#a5d6a7';
-  } else {
-    btn.textContent = 'Pagar $' + finalPrice + ' MXN · MercadoPago 💳';
-    btn.className = 'btn-primary';
-    btn.style.background = '';
-  }
-}
-
-function applyDiscountCode() {
-  var code = document.getElementById('discountInput').value.trim();
-  var result = document.getElementById('discountResult');
-  var btn = document.getElementById('discountBtn');
-
-  if (!code) { showDiscountResult('Ingresa un código', 'error'); return; }
-  if (!selectedTier) { showDiscountResult('Selecciona un tier primero', 'error'); return; }
-
-  btn.disabled = true;
-  btn.textContent = '...';
-  result.className = 'discount-result';
-
-  fetch(TICKETS_API + '/tickets/validate-discount', {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({ code: code })
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(data){
-    btn.disabled = false;
-    btn.textContent = 'Aplicar';
-
-    if (data.error) {
-      showDiscountResult(data.error, 'error');
-      appliedDiscount = null;
-      return;
-    }
-
-    appliedDiscount = { code: code, type: data.type, value: data.value };
-    var finalPrice = getPrecioFinal();
-    var oldPrice = selectedTier.price;
-    var descText = data.desc;
-
-    if (finalPrice === 0) {
-      showDiscountResult('<span class="old-price">$' + oldPrice + '</span> <span class="new-price">¡GRATIS!</span> — ' + descText, 'success');
-    } else {
-      showDiscountResult('<span class="old-price">$' + oldPrice + '</span> <span class="new-price">$' + finalPrice + ' MXN</span> — ' + descText, 'success');
-    }
-    updatePrecioFinal();
-  })
-  .catch(function(){
-    btn.disabled = false;
-    btn.textContent = 'Aplicar';
-    showDiscountResult('Error de conexión', 'error');
-  });
-}
-
-function showDiscountResult(msg, type) {
-  var el = document.getElementById('discountResult');
-  el.innerHTML = msg;
-  el.className = 'discount-result show ' + (type === 'success' ? 'success' : 'error');
+  btn.textContent = 'Apartar por WhatsApp 💬';
+  btn.className = 'btn-primary';
+  btn.style.background = '';
 }
 
 function selectTier(el) {
   document.querySelectorAll('.tier').forEach(function(t){ t.classList.remove('selected'); });
   el.classList.add('selected');
   selectedTier = { tier:el.dataset.tier, qty:parseInt(el.dataset.qty), price:parseInt(el.dataset.price) };
-  // Resetear descuento al cambiar de tier
-  appliedDiscount = null;
-  document.getElementById('discountInput').value = '';
-  document.getElementById('discountResult').className = 'discount-result';
-  document.getElementById('discountBtn').disabled = false;
-  document.getElementById('discountBtn').textContent = 'Aplicar';
   buildForm();
 }
 
-// ── Tier personalizado ─────────────────────────────────
-// ═══ CONFIG: Precios del tier personalizado ═══
 function calcCustomPrice(qty) {
   if (qty === 3) return PRECIO_PACK_3;
   if (qty === 5) return PRECIO_PACK_5;
@@ -455,17 +289,9 @@ function selectCustomTier() {
   if (qty < 1) qty = 1;
   if (qty > 20) qty = 20;
   document.getElementById('customQty').value = qty;
-
-  var price = calcCustomPrice(qty);
   document.querySelectorAll('.tier').forEach(function(t){ t.classList.remove('selected'); });
   document.getElementById('tierCustom').classList.add('selected');
-  selectedTier = { tier:'custom', qty:qty, price:price };
-  // Resetear descuento al cambiar de tier
-  appliedDiscount = null;
-  document.getElementById('discountInput').value = '';
-  document.getElementById('discountResult').className = 'discount-result';
-  document.getElementById('discountBtn').disabled = false;
-  document.getElementById('discountBtn').textContent = 'Aplicar';
+  selectedTier = { tier:'custom', qty:qty, price:calcCustomPrice(qty) };
   buildForm();
 }
 
@@ -489,48 +315,29 @@ function onCustomQtyChange() {
     priceEl.textContent = '$' + PRECIO_PACK_3.toLocaleString() + ' (ahorras $' + (PRECIO_INDIVIDUAL * 3 - PRECIO_PACK_3) + ')';
   } else if (qty === 5 && PRECIO_PACK_5 < PRECIO_INDIVIDUAL * 5) {
     priceEl.textContent = '$' + PRECIO_PACK_5.toLocaleString() + ' (ahorras $' + (PRECIO_INDIVIDUAL * 5 - PRECIO_PACK_5) + ')';
-  } else {
-    priceEl.textContent = '$' + price.toLocaleString();
-  }
-  // Si ya está seleccionado, actualizar inmediatamente
-  if (document.getElementById('tierCustom').classList.contains('selected')) {
-    selectCustomTier();
-  }
+  } else { priceEl.textContent = '$' + price.toLocaleString(); }
+  if (document.getElementById('tierCustom').classList.contains('selected')) selectCustomTier();
 }
 
 function buildForm() {
   var section = document.getElementById('formSection');
   var fields = document.getElementById('personFields');
-  var btn = document.getElementById('btnComprar');
-  var title = document.getElementById('formTitle');
-  document.getElementById('qrResults').classList.remove('active');
   document.getElementById('formMsg').classList.remove('active');
-
   if (!selectedTier) { section.classList.remove('active'); return; }
   section.classList.add('active');
-
   var html = '';
   for (var i = 1; i <= selectedTier.qty; i++) {
-    html +=
-      '<div class="person-fields">' +
-        '<h4>👤 Asistente ' + i + '</h4>' +
-        '<div class="field"><label>Nombre</label><input type="text" id="name_' + i + '" placeholder="Nombre" required /></div>' +
-        '<div class="field"><label>Apellido</label><input type="text" id="last_' + i + '" placeholder="Apellido" required /></div>' +
-        '<div class="field"><label>WhatsApp</label><input type="tel" id="wa_' + i + '" placeholder="55-1234-5678" required /></div>' +
-      '</div>';
+    html += '<div class="person-fields"><h4>👤 Asistente ' + i + '</h4>' +
+      '<div class="field"><label>Nombre</label><input type="text" id="name_' + i + '" placeholder="Nombre" required /></div>' +
+      '<div class="field"><label>Apellido</label><input type="text" id="last_' + i + '" placeholder="Apellido" required /></div>' +
+      '<div class="field"><label>WhatsApp</label><input type="tel" id="wa_' + i + '" placeholder="55-1234-5678" required /></div></div>';
   }
   fields.innerHTML = html;
-  if (window.TicketsClient && window.TicketsClient.attachPhoneSanitizer) window.TicketsClient.attachPhoneSanitizer(fields);
-
-    // Mostrar sección de descuento
-    document.getElementById('discountSection').classList.add('active');
-    updatePrecioFinal();
-    title.textContent = 'Datos de los asistentes';
+  updatePrecioFinal();
 }
 
 function procesarCompra() {
   if (!selectedTier) return;
-
   var attendees = [];
   var valid = true;
   for (var i = 1; i <= selectedTier.qty; i++) {
@@ -540,268 +347,37 @@ function procesarCompra() {
     if (!name || !last || !wa) { valid = false; break; }
     attendees.push({ name:name, last_name:last, whatsapp:wa });
   }
-
   var msg = document.getElementById('formMsg');
   if (!valid) {
     msg.className = 'msg msg-error active';
     msg.textContent = '⚠️ Completa todos los campos de cada asistente.';
     return;
   }
-
-  msg.className = 'msg msg-loading active';
-  msg.textContent = '⏳ Procesando...';
-
-  var btn = document.getElementById('btnComprar');
-  btn.disabled = true;
-
-  var finalPrice = getPrecioFinal();
-  // Si el precio final es 0 (100% descuento), generar QRs directo sin MP
-  if (finalPrice === 0 && appliedDiscount && appliedDiscount.type === 'percent' && appliedDiscount.value === 100) {
-    generarQRs(attendees, ORDER_PREFIX + '-dr', { discount_code: appliedDiscount.code });
-    // Marcar código como usado
-    fetch(TICKETS_API + '/tickets/apply-discount', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ code: appliedDiscount.code })
-    }).catch(function(){});
-  } else {
-    crearPreferenciaMP(attendees);
-  }
-}
-
-function crearPreferenciaMP(attendees) {
-  var fetchFn = window.TicketsClient ? window.TicketsClient.fetchWithTimeout.bind(window.TicketsClient) : fetch.bind(window);
-  fetchFn(TICKETS_API + '/tickets/create-preference', {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-      amount: getPrecioFinal(),
-      // Para volver a ESTA página tras pagar (el servidor sólo acepta URLs del sitio).
-      return_url: window.location.origin + window.location.pathname,
-      discount_code: appliedDiscount ? appliedDiscount.code : null,
-      quantity: selectedTier.qty,
-      event:ORDER_PREFIX,
-      attendees:attendees
-    })
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(data){
-    if (data.error) {
-      showError(data.error);
-      return;
-    }
-
-    // Guardar attendees en sessionStorage para recuperarlos al volver
-    sessionStorage.setItem(ORDER_PREFIX + '_attendees', JSON.stringify(attendees));
-    sessionStorage.setItem(ORDER_PREFIX + '_qty', selectedTier.qty);
-    if (appliedDiscount) sessionStorage.setItem(ORDER_PREFIX + '_discount', JSON.stringify(appliedDiscount));
-
-    // Redirigir a MercadoPago Checkout
-    window.location.href = data.checkout_url;
-  })
-  .catch(function(err){
-    console.warn('Error/Timeout en API de tickets:', err);
-    showError('No pudimos conectar con el servidor de pago. Puedes continuar tu reservación directamente por WhatsApp.', attendees);
+  var lines = [
+    'Hola Casa Tapputi, quiero apartar lugar para el taller: ' + EVENT_NAME,
+    'Fecha: ' + EVENT_DATE,
+    'Lugar: ' + EVENT_LOCATION,
+    'Número de boletos: ' + selectedTier.qty,
+    'Total: $' + getPrecioFinal().toLocaleString() + ' MXN', '', 'Asistentes:'
+  ];
+  attendees.forEach(function(attendee, index) {
+    lines.push((index + 1) + '. Nombre: ' + attendee.name);
+    lines.push('   Apellido: ' + attendee.last_name);
+    lines.push('   WhatsApp: ' + attendee.whatsapp);
   });
+  window.location.href = 'https://wa.me/525563707034?text=' + encodeURIComponent(lines.join('\n'));
 }
-
-function generarQRs(attendees, orderPrefix, authData) {
-  var pendientes = attendees.length;
-  var tickets = [];
-  var errores = false;
-
-  function generarSiguiente(idx) {
-    if (idx >= attendees.length) {
-      if (!errores) mostrarQRs(tickets);
-      return;
-    }
-
-    var a = attendees[idx];
-    fetch(TICKETS_API + '/tickets/generate', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(Object.assign({
-        order_id: orderPrefix + '-' + (idx+1),
-        email:'',
-        name:a.name,
-        last_name:a.last_name,
-        whatsapp:a.whatsapp
-      }, authData || {}))
-    })
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      if (data.token) {
-        tickets.push({ token:data.token, name:a.name + ' ' + a.last_name, short_code:data.short_code || '', whatsapp:a.whatsapp || '' });
-      } else {
-        errores = true;
-      }
-      pendientes--;
-      if (pendientes === 0 && !errores) mostrarQRs(tickets);
-      if (errores && pendientes === 0) showError('No se pudieron generar todos los boletos.');
-      generarSiguiente(idx+1);
-    })
-    .catch(function(){
-      errores = true;
-      pendientes--;
-      if (pendientes === 0) showError('Error de conexión al generar boletos.');
-      generarSiguiente(idx+1);
-    });
-  }
-
-  generarSiguiente(0);
-}
-
-function esc(v) {
-  return String(v == null ? '' : v).replace(/[&<>"']/g, function(c) {
-    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
-  });
-}
-
-function mostrarQRs(tickets) {
-  if (window.TicketsClient && window.TicketsClient.saveTicketsLocal) {
-    window.TicketsClient.saveTicketsLocal(ORDER_PREFIX, tickets);
-  }
-  var msg = document.getElementById('formMsg');
-  msg.classList.remove('active');
-
-  var container = document.getElementById('qrCards');
-  var html = '';
-  tickets.forEach(function(t, i){
-    var waN = window.TicketsClient ? window.TicketsClient.normalizeMX(t.whatsapp) : { ok:false, national:'' };
-    var waNum = waN.ok ? waN.national : '';
-    var waMsg = encodeURIComponent(
-      '🎫 *' + EVENT_NAME + '*\n' +
-      '📅 ' + EVENT_DATE + ' · ' + EVENT_LOCATION + '\n\n' +
-      '👤 ' + t.name + '\n' +
-      (t.short_code ? '🔢 Código: ' + t.short_code + '\n\n' : '\n') +
-      'Presenta este código en la entrada. ¡Te esperamos! 🌿'
-    );
-    var waLink = waNum ? 'https://wa.me/52' + waNum + '?text=' + waMsg : '#';
-    html +=
-      '<div class="qr-card">' +
-        '<div class="qr-img" id="qrcode_' + i + '"></div>' +
-        '<div class="qr-info">' +
-          '<div class="name">' + esc(t.name) + '</div>' +
-          '<div style="font-size:.8rem;color:var(--tinta-suave)">Boleto #' + (i+1) + (t.short_code ? ' · Código: <strong style="color:var(--miel);font-size:1.1rem">' + t.short_code + '</strong>' : '') + '</div>' +
-          '<div class="token" style="margin-top:6px">' + t.token + '</div>' +
-          (waNum ? '<a href="' + waLink + '" target="_blank" class="btn-wa" rel="noopener">📱 Enviar por WhatsApp</a>' : '') +
-        '</div>' +
-      '</div>';
-  });
-  container.innerHTML = html;
-  document.getElementById('qrResults').classList.add('active');
-  document.getElementById('btnComprar').style.display = 'none';
-  document.getElementById('formSection').classList.remove('active');
-
-  // ── Botón "Enviar TODOS por WhatsApp" ──
-  if (tickets.length > 1) {
-    var waAllSection = document.getElementById('waAllSection');
-    waAllSection.classList.add('show');
-    var firstN = window.TicketsClient ? window.TicketsClient.normalizeMX(tickets[0].whatsapp) : { ok:false, national:'' };
-    var firstWa = firstN.ok ? window.TicketsClient.formatMX(firstN.national) : '';
-    document.getElementById('waAllInput').value = firstWa || '';
-    updateWaAllLink(tickets);
-    document.getElementById('waAllInput').oninput = function() { updateWaAllLink(tickets); };
-  }
-
-  // Generar QRs client-side — qrcodejs se descarga aqui, no en cada visita
-  var drawQRs = function(){
-    tickets.forEach(function(t, i){
-      var el = document.getElementById('qrcode_' + i);
-      if (el) {
-        new QRCode(el, {
-          text:'https://casatapputi.com.mx/tickets/validar.html?token=' + t.token,
-          width:150, height:150,
-          colorDark:'#000000', colorLight:'#ffffff',
-          correctLevel:QRCode.CorrectLevel.M
-        });
-      }
-    });
-  };
-  setTimeout(function(){
-    if (window.TicketsClient && window.TicketsClient.ensureQRCode) window.TicketsClient.ensureQRCode(drawQRs);
-    else drawQRs();
-  }, 200);
-}
-
-function showError(msg, attendees) {
-  var m = document.getElementById('formMsg');
-  m.className = 'msg msg-error active';
-  var html = '<div>❌ ' + msg + '</div>';
-  if (attendees && attendees.length) {
-    var waMsg = encodeURIComponent(
-      'Hola Casa Tapputi, quiero reservar ' + attendees.length + ' boleto(s) para ' + (typeof EVENT_NAME !== 'undefined' ? EVENT_NAME : 'taller') + '.\n' +
-      'Asistentes:\n' + attendees.map(function(a){ return '- ' + a.name + ' ' + a.last_name + ' (' + a.whatsapp + ')'; }).join('\n')
-    );
-    html += '<div style="margin-top:10px"><a href="https://wa.me/525563707034?text=' + waMsg + '" target="_blank" rel="noopener" class="taller-wa" style="display:inline-block;padding:8px 16px;background:var(--miel);color:#1a1a1a;border-radius:6px;text-decoration:none;font-weight:600">💬 Confirmar reservación por WhatsApp</a></div>';
-  }
-  m.innerHTML = html;
-  document.getElementById('btnComprar').disabled = false;
-}
-
-function updateWaAllLink(tickets) {
-  var waAllN = window.TicketsClient ? window.TicketsClient.normalizeMX(document.getElementById('waAllInput').value) : { ok:false, national:'' };
-  var waNum = waAllN.ok ? waAllN.national : '';
-  var lines = ['🎫 *' + EVENT_NAME + '*', '📅 ' + EVENT_DATE + ' · ' + EVENT_LOCATION, ''];
-  tickets.forEach(function(t, i) {
-    lines.push('👤 ' + t.name + (t.short_code ? ' · Código: ' + t.short_code : ''));
-    if (i < tickets.length - 1) lines.push('');
-  });
-  lines.push('');
-  lines.push('Presenta cada QR en la entrada. ¡Te esperamos! 🌿');
-  var btn = document.getElementById('btnWaAll');
-  btn.href = waNum ? 'https://wa.me/52' + waNum + '?text=' + encodeURIComponent(lines.join('\n')) : '#';
-  btn.style.opacity = waNum ? '1' : '.4';
-  btn.style.pointerEvents = waNum ? 'auto' : 'none';
-}
-
-// ── Detectar retorno de MercadoPago ──
-(function(){
-  var params = new URLSearchParams(window.location.search);
-  var status = params.get('status') || params.get('collection_status');
-  if (status === 'approved') {
-    var attendees = JSON.parse(sessionStorage.getItem(ORDER_PREFIX + '_attendees') || 'null');
-    var qty = parseInt(sessionStorage.getItem(ORDER_PREFIX + '_qty') || '0');
-    if (attendees && attendees.length === qty) {
-      document.getElementById('formMsg').className = 'msg msg-loading active';
-      document.getElementById('formMsg').textContent = '✅ Pago aprobado. Generando boletos...';
-      document.getElementById('formSection').classList.add('active');
-      document.getElementById('btnComprar').style.display = 'none';
-      document.getElementById('personFields').innerHTML = '<p style="text-align:center;color:var(--tinta-suave)">Pago confirmado por MercadoPago ✅</p>';
-      generarQRs(attendees, ORDER_PREFIX + '-' + Date.now(), { payment_id: params.get('payment_id') || params.get('collection_id') || '' });
-      // Marcar código de descuento como usado si existe
-      var discount = JSON.parse(sessionStorage.getItem(ORDER_PREFIX + '_discount') || 'null');
-      if (discount && discount.code) {
-        fetch(TICKETS_API + '/tickets/apply-discount', {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({ code: discount.code })
-        });
-      }
-      sessionStorage.removeItem(ORDER_PREFIX + '_attendees');
-      sessionStorage.removeItem(ORDER_PREFIX + '_qty');
-      sessionStorage.removeItem(ORDER_PREFIX + '_discount');
-    }
-  } else if (status === 'rejected' || status === 'failure') {
-    document.getElementById('formMsg').className = 'msg msg-error active';
-    document.getElementById('formMsg').textContent = '❌ El pago fue rechazado. Intenta de nuevo.';
-    sessionStorage.removeItem(ORDER_PREFIX + '_attendees');
-    sessionStorage.removeItem(ORDER_PREFIX + '_qty');
-    sessionStorage.removeItem(ORDER_PREFIX + '_discount');
-  } else {
-    if (window.TicketsClient && window.TicketsClient.getTicketsLocal) {
-      var localTickets = window.TicketsClient.getTicketsLocal(ORDER_PREFIX);
-      if (localTickets && localTickets.length) {
-        var msg = document.getElementById('formMsg');
-        msg.className = 'msg msg-info active';
-        msg.style.background = 'rgba(212,175,55,.15)';
-        msg.style.color = 'var(--miel)';
-        msg.innerHTML = '🎫 Tienes <strong>' + localTickets.length + ' boleto(s) guardado(s)</strong> para este taller. <button style="background:var(--miel);color:#1a1a1a;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-weight:600;margin-left:8px" onclick="mostrarQRs(window.TicketsClient.getTicketsLocal(ORDER_PREFIX))">Ver boletos QR 🎫</button>';
-      }
-    }
-  }
-})();
 </script>
 <script src="../../assets/js/search.js?v=20260906a" defer></script>
+<!-- Cierra la venta cuando empieza el taller. -->
+<script>
+(function () {
+  if (new Date() < new Date(EVENT_INICIO)) return;
+  var selector = document.getElementById('tierSelector');
+  if (!selector) return;
+  var seccion = selector.closest('section');
+  seccion.innerHTML = '<div class="container" style="text-align:center"><h2 class="section-title">Este taller ya se realizó</h2><p><a href="../" style="color:var(--miel)">Ver próximos talleres</a></p></div>';
+})();
+</script>
 </body>
 </html>
