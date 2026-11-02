@@ -1,5 +1,13 @@
 # Codex — Casa Tapputi (actualización 2026-11-02)
 
+> **ACTUALIZACIÓN 2026-11-02 (tarde) — prevalece sobre lo de abajo:**
+> - **Mercado Pago está suspendido** por decisión de la dirección (31-oct): los talleres se **apartan por WhatsApp** desde la página. No hacer pruebas de pago ni sandbox; `VENTA-02`/`PAGO-P0` quedan en espera.
+> - La **auditoría COLMENA ya se ejecutó** el 31-oct (informes técnico y comercial en el cerebro privado `Claude-Wiki/casa-tapputi/colmena/`). Partir de ahí, no repetirla.
+> - Verificado en código: la mezcla «Apartar por WhatsApp» / «Obtener boletos» **no ocurre en talleres** («Obtener boletos» solo está en `eventos/florecer-5/`).
+> - Fricción real pendiente: `talleres/index.html` declara en HTML y JSON-LD 13 talleres (9 ya pasados) como disponibles; el JS los oculta, pero buscadores los leen.
+> - Siguiente frente propuesto: vender el taller del **14-nov** por WhatsApp. Coordinación en `Claude-Wiki/casa-tapputi/operaciones/RESPUESTA-CLAUDE-AL-PLAN-MAESTRO-2026-11-02.md`.
+
+
 ## Instrucción prioritaria
 Lee **completo** `docs/MISION-EJECUTABLE-CODEX-CLAUDE-VENTAS-Y-REDES-2026-11-02.md` antes de investigar, modificar o ejecutar. Complementa con `docs/COLMENA-PLAN-CODEX-CLAUDE-VENTA-TALLERES-2026-10-31.md`. Ambos son la orden de misión vigente para este repositorio.
 

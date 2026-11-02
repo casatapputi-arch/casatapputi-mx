@@ -7,6 +7,14 @@
 
 ## 0. Lectura obligatoria y orden de evidencia
 
+> **ACTUALIZACIÓN 2026-11-02 (tarde) — prevalece sobre lo de abajo:**
+> - **Mercado Pago está suspendido** por decisión de la dirección (31-oct): los talleres se **apartan por WhatsApp** desde la página. No hacer pruebas de pago ni sandbox; `VENTA-02`/`PAGO-P0` quedan en espera.
+> - La **auditoría COLMENA ya se ejecutó** el 31-oct (informes técnico y comercial en el cerebro privado `Claude-Wiki/casa-tapputi/colmena/`). Partir de ahí, no repetirla.
+> - Verificado en código: la mezcla «Apartar por WhatsApp» / «Obtener boletos» **no ocurre en talleres** («Obtener boletos» solo está en `eventos/florecer-5/`).
+> - Fricción real pendiente: `talleres/index.html` declara en HTML y JSON-LD 13 talleres (9 ya pasados) como disponibles; el JS los oculta, pero buscadores los leen.
+> - Siguiente frente propuesto: vender el taller del **14-nov** por WhatsApp. Coordinación en `Claude-Wiki/casa-tapputi/operaciones/RESPUESTA-CLAUDE-AL-PLAN-MAESTRO-2026-11-02.md`.
+
+
 1. **Este documento** — contrato ejecutivo de trabajo desde el 2 de noviembre.
 2. `docs/COLMENA-PLAN-CODEX-CLAUDE-VENTA-TALLERES-2026-10-31.md` — especificación de auditoría del embudo y roles. Se mantiene vigente en lo compatible.
 3. **Cerebro privado** (si tienes permiso): `casatapputi-arch/Claude-Wiki/casa-tapputi/operaciones/RELEVO-INTEGRAL-REDES-META-VENTAS-2026-11-02.md` — cronología de Meta, Facebook, Instagram, WhatsApp, diseño y evidencias. **No copiar a este repo público información interna sin revisar clasificación.**
