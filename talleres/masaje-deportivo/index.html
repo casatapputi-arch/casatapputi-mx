@@ -324,25 +324,11 @@ function buildForm() {
   var fields = document.getElementById('personFields');
   if (!selectedTier) { section.classList.remove('active'); return; }
   section.classList.add('active');
-  // Primero facilitar la consulta. Datos personales y pago se gestionan en el chat.
+  // Primero consultar; los datos personales se solicitan después.
   fields.innerHTML = '<p style="text-align:center;color:var(--tinta-suave)">'
     + 'Solicita disponibilidad para ' + selectedTier.qty + ' '
     + (selectedTier.qty === 1 ? 'persona' : 'personas')
-    + '. Importe de referencia: 
-<script src="../../assets/js/search.js?v=20260906a" defer></script>
-<!-- Cierra la venta cuando empieza el taller. -->
-<script>
-(function () {
-  if (new Date() < new Date(EVENT_INICIO)) return;
-  var selector = document.getElementById('tierSelector');
-  if (!selector) return;
-  var seccion = selector.closest('section');
-  seccion.innerHTML = '<div class="container" style="text-align:center"><h2 class="section-title">Este taller ya se realizó</h2><p><a href="../" style="color:var(--miel)">Ver próximos talleres</a></p></div>';
-})();
-</script>
-</body>
-</html>
- + selectedTier.price.toLocaleString('es-MX')
+    + '. Importe de referencia: $' + selectedTier.price.toLocaleString('es-MX')
     + ' MXN. <strong>El lugar no queda reservado hasta recibir confirmación.</strong></p>';
   updatePrecioFinal();
 }
@@ -354,21 +340,7 @@ function procesarCompra() {
     'Fecha publicada: ' + EVENT_DATE,
     'Lugar: ' + EVENT_LOCATION,
     'Personas: ' + selectedTier.qty,
-    'Importe de referencia: 
-<script src="../../assets/js/search.js?v=20260906a" defer></script>
-<!-- Cierra la venta cuando empieza el taller. -->
-<script>
-(function () {
-  if (new Date() < new Date(EVENT_INICIO)) return;
-  var selector = document.getElementById('tierSelector');
-  if (!selector) return;
-  var seccion = selector.closest('section');
-  seccion.innerHTML = '<div class="container" style="text-align:center"><h2 class="section-title">Este taller ya se realizó</h2><p><a href="../" style="color:var(--miel)">Ver próximos talleres</a></p></div>';
-})();
-</script>
-</body>
-</html>
- + getPrecioFinal().toLocaleString('es-MX') + ' MXN.',
+    'Importe de referencia: $' + getPrecioFinal().toLocaleString('es-MX') + ' MXN.',
     '¿Hay cupo y cómo puedo confirmar mi inscripción?'
   ];
   // La conversación no equivale a reserva confirmada ni a pago.
