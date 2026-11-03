@@ -220,10 +220,10 @@
 
     <!-- FORMULARIO DINÁMICO -->
     <div class="form-section" id="formSection">
-      <h3 style="text-align:center; color:var(--miel); margin-bottom:20px" id="formTitle">Datos de los asistentes</h3>
+      <h3 style="text-align:center; color:var(--miel); margin-bottom:20px" id="formTitle">Confirma disponibilidad</h3>
       <div id="personFields"></div>
       <div class="msg" id="formMsg"></div>
-      <button class="btn-primary" id="btnComprar" onclick="procesarCompra()">Apartar por WhatsApp 💬</button>
+      <button class="btn-primary" id="btnComprar" onclick="procesarCompra()">Consultar disponibilidad por WhatsApp 💬</button>
     </div>
 
   </div>
@@ -266,7 +266,7 @@ function getPrecioFinal() { return selectedTier ? selectedTier.price : 0; }
 
 function updatePrecioFinal() {
   var btn = document.getElementById('btnComprar');
-  btn.textContent = 'Apartar por WhatsApp 💬';
+  btn.textContent = 'Consultar disponibilidad por WhatsApp 💬';
   btn.className = 'btn-primary';
   btn.style.background = '';
 }
@@ -322,49 +322,28 @@ function onCustomQtyChange() {
 function buildForm() {
   var section = document.getElementById('formSection');
   var fields = document.getElementById('personFields');
-  document.getElementById('formMsg').classList.remove('active');
   if (!selectedTier) { section.classList.remove('active'); return; }
   section.classList.add('active');
-  var html = '';
-  for (var i = 1; i <= selectedTier.qty; i++) {
-    html += '<div class="person-fields"><h4>👤 Asistente ' + i + '</h4>' +
-      '<div class="field"><label>Nombre</label><input type="text" id="name_' + i + '" placeholder="Nombre" required /></div>' +
-      '<div class="field"><label>Apellido</label><input type="text" id="last_' + i + '" placeholder="Apellido" required /></div>' +
-      '<div class="field"><label>WhatsApp</label><input type="tel" id="wa_' + i + '" placeholder="55-1234-5678" required /></div></div>';
-  }
-  fields.innerHTML = html;
+  // Primero consultar; los datos personales se solicitan después.
+  fields.innerHTML = '<p style="text-align:center;color:var(--tinta-suave)">'
+    + 'Solicita disponibilidad para ' + selectedTier.qty + ' '
+    + (selectedTier.qty === 1 ? 'persona' : 'personas')
+    + '. Importe de referencia: $' + selectedTier.price.toLocaleString('es-MX')
+    + ' MXN. <strong>El lugar no queda reservado hasta recibir confirmación.</strong></p>';
   updatePrecioFinal();
 }
 
 function procesarCompra() {
-  if (!selectedTier) return;
-  var attendees = [];
-  var valid = true;
-  for (var i = 1; i <= selectedTier.qty; i++) {
-    var name = document.getElementById('name_' + i).value.trim();
-    var last = document.getElementById('last_' + i).value.trim();
-    var wa = document.getElementById('wa_' + i).value.trim();
-    if (!name || !last || !wa) { valid = false; break; }
-    attendees.push({ name:name, last_name:last, whatsapp:wa });
-  }
-  var msg = document.getElementById('formMsg');
-  if (!valid) {
-    msg.className = 'msg msg-error active';
-    msg.textContent = '⚠️ Completa todos los campos de cada asistente.';
-    return;
-  }
+  if (!selectedTier || new Date() >= new Date(EVENT_INICIO)) return;
   var lines = [
-    'Hola Casa Tapputi, quiero apartar lugar para el taller: ' + EVENT_NAME,
-    'Fecha: ' + EVENT_DATE,
+    'Hola Casa Tapputi. Quiero consultar disponibilidad del taller ' + EVENT_NAME + '.',
+    'Fecha publicada: ' + EVENT_DATE,
     'Lugar: ' + EVENT_LOCATION,
-    'Número de boletos: ' + selectedTier.qty,
-    'Total: $' + getPrecioFinal().toLocaleString() + ' MXN', '', 'Asistentes:'
+    'Personas: ' + selectedTier.qty,
+    'Importe de referencia: $' + getPrecioFinal().toLocaleString('es-MX') + ' MXN.',
+    '¿Hay cupo y cómo puedo confirmar mi inscripción?'
   ];
-  attendees.forEach(function(attendee, index) {
-    lines.push((index + 1) + '. Nombre: ' + attendee.name);
-    lines.push('   Apellido: ' + attendee.last_name);
-    lines.push('   WhatsApp: ' + attendee.whatsapp);
-  });
+  // La conversación no equivale a reserva confirmada ni a pago.
   window.location.href = 'https://wa.me/525563707034?text=' + encodeURIComponent(lines.join('\n'));
 }
 </script>
