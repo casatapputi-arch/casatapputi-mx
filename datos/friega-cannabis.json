@@ -20,14 +20,14 @@
   "variants": [
     {
       "section_label": "Presentación",
-      "label": "60 ml",
-      "price": 90,
-      "price_label": "desde $90 MXN",
+      "label": "100 ml",
+      "price": 250,
+      "price_label": "$250 MXN",
       "variant_id": "variant_01KXKRE4A5NZG8PFKH6BB4Y3ET"
     }
   ],
-  "price_display": "desde $90 MXN",
-  "price_present": "60 ml",
+  "price_display": "$250 MXN",
+  "price_present": "100 ml",
   "meta_note": "Uso tópico exclusivamente. No ingerir.",
   "howto": {
     "eyebrow": "Aplicación local",
@@ -122,5 +122,5 @@
   "schema_name": "Friega Herbal Intensiva",
   "schema_description": "Sinergia de plantas medicinales de alta potencia. Para masaje en zonas musculares y articulares.",
   "schema_image": "friega-cannabis.webp",
-  "schema_price": 90
+  "schema_price": 250
 }
