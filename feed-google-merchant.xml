@@ -61,7 +61,7 @@
       <g:brand>Casa Tapputi</g:brand>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>90 MXN</g:price>
+      <g:price>250 MXN</g:price>
       <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
     </item>
     <item>
@@ -109,7 +109,7 @@
       <g:brand>Casa Tapputi</g:brand>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>100 MXN</g:price>
+      <g:price>80 MXN</g:price>
       <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
     </item>
     <item>
@@ -194,6 +194,8 @@
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>200 MXN</g:price>
+      <g:sale_price>140 MXN</g:sale_price>
+      <g:sale_price_effective_date>2026-11-05T00:00-06:00/2026-11-30T23:59-06:00</g:sale_price_effective_date>
       <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
     </item>
     <item>
