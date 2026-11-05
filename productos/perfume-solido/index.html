@@ -96,14 +96,42 @@
         <h2 class="prod-info-title">Perfume Sólido Herbal</h2>
         <p class="prod-subtitle">Cera de abeja y aceites botánicos que nutren mientras perfuman</p>
         
-        <p class="eyebrow" style="margin-bottom:.6rem">Presentación</p>
-        <div class="prod-variants">
-          <span class="prod-variant">80 gr <strong>$200 MXN</strong></span>
+        <div class="form-group">
+          <label for="perfumeSize">Presentación</label>
+          <select id="perfumeSize" onchange="updatePerfumePrice()">
+            <option value="15 gr" data-price="56">15 gr — $56 MXN</option>
+            <option value="50 gr" data-price="154">50 gr — $154 MXN</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="perfumeAroma">Aroma</label>
+          <select id="perfumeAroma" required onchange="document.getElementById('perfumeAromaMsg').style.display='none'">
+            <option value="">Elige tu aroma</option>
+            <option>Violetas</option>
+            <option>Nardo</option>
+            <option>Mandarina</option>
+            <option>Menta</option>
+            <option>Rosas</option>
+            <option>Canela</option>
+            <option>Lavanda</option>
+            <option>Eucalipto</option>
+            <option>Romero</option>
+            <option>Jazmín</option>
+            <option>Sándalo</option>
+            <option>Geranio</option>
+            <option>Limón</option>
+            <option>Bergamota</option>
+            <option>Mirra</option>
+            <option>Pino</option>
+            <option>Tabaco</option>
+            <option>Lilas</option>
+          </select>
+          <p id="perfumeAromaMsg" role="alert" style="display:none;color:#B84C2A;margin-top:.4rem">Elige un aroma antes de agregar al carrito.</p>
         </div>
         <div class="prod-price-box">
           <div class="prod-price-label">Precio</div>
-          <div class="prod-price" >$200 MXN</div>
-          <div class="prod-price-present">80 gr</div>
+          <div class="prod-price" id="perfumePrice">$56 MXN</div>
+          <div class="prod-price-present" id="perfumePresent">15 gr</div>
         </div>
         <div class="add-to-cart-wrapper">
           <div class="qty-stepper">
@@ -113,7 +141,7 @@
           </div>
           <button class="btn btn-add-cart prod-add-btn" data-product-id="perfume-solido" onclick="addCurrentProduct()">🛒 Agregar al carrito</button>
         </div>
-        <p class="prod-meta-note">18 aromas disponibles. Pregunta por el catálogo completo.</p>
+        <p class="prod-meta-note">Elige tu aroma entre los 18 disponibles.</p>
         
         <hr class="prod-divider" />
         <div class="prod-desc">
@@ -254,13 +282,31 @@
 <script>
 function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
 function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
+/* Perfume sólido: presentación y aroma elegibles (arreglo 2026-11-04).
+   Precios = los que cobra hoy la tienda (15 gr $56, 50 gr $154).
+   Cada aroma entra al carrito como renglón propio y viaja en el pedido de WhatsApp. */
+function updatePerfumePrice(){
+  const o=document.getElementById('perfumeSize').selectedOptions[0];
+  document.getElementById('perfumePrice').textContent='$'+o.dataset.price+' MXN';
+  document.getElementById('perfumePresent').textContent=o.value;
+}
 function addCurrentProduct(){
+  const sizeOpt=document.getElementById('perfumeSize').selectedOptions[0];
+  const aromaSel=document.getElementById('perfumeAroma');
+  const aroma=aromaSel.value;
+  if(!aroma){
+    document.getElementById('perfumeAromaMsg').style.display='block';
+    aromaSel.focus();
+    return;
+  }
+  const size=sizeOpt.value, price=parseInt(sizeOpt.dataset.price,10);
+  const slug=(size+'-'+aroma).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-');
   addToCart({
-    id:'perfume-solido',
-    variantId:'variant_01KXKRE41BMQFKQQGN24NNGN3K',
-    name:'Perfume Sólido Herbal',
-    price:200,
-    priceLabel:'$200 MXN',
+    id:'perfume-solido-'+slug,
+    variantId:'',
+    name:'Perfume Sólido Herbal · '+size+' · Aroma: '+aroma,
+    price:price,
+    priceLabel:'$'+price+' MXN',
     image:'../../assets/images/perfume-solido.webp',
     quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)
   });
@@ -286,8 +332,10 @@ function addCurrentProduct(){
     "name": "Casa Tapputi"
   },
   "offers": {
-    "@type": "Offer",
-    "price": "200",
+    "@type": "AggregateOffer",
+    "lowPrice": "56",
+    "highPrice": "154",
+    "offerCount": "2",
     "priceCurrency": "MXN",
     "availability": "https://schema.org/InStock",
     "url": "https://casatapputi.com.mx/productos/perfume-solido/",
