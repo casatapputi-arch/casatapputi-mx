@@ -96,13 +96,14 @@
         <p class="prod-subtitle">Menta, Pino y Eucalipto en aplicación puntual</p>
         <p class="eyebrow" style="margin-bottom:.6rem">Presentación</p>
         <div class="prod-variants">
-          <span class="prod-variant">15 ml <strong>$200 MXN</strong></span>
+          <span class="prod-variant">15 ml <strong id="rollonVarPrecio">$140 MXN</strong></span>
         </div>
         <div class="prod-price-box">
           <div class="prod-price-label">Precio</div>
-          <div class="prod-price" >$200 MXN</div>
+          <div class="prod-price" id="rollonPrecio">$140 MXN</div>
           <div class="prod-price-present">15 ml</div>
         </div>
+        <p class="prod-meta-note" id="rollonPromoNota">30 % de descuento hasta el 30 de noviembre · antes $200 MXN</p>
         <div class="add-to-cart-wrapper">
           <div class="qty-stepper">
             <button type="button" aria-label="Restar cantidad" onclick="decrementQty()">−</button>
@@ -255,18 +256,29 @@
 </footer>
 
 <script src="../../assets/js/main.js"></script>
-<script src="../../assets/js/catalog.js?v=20261104a"></script>
+<script src="../../assets/js/catalog.js?v=20261105a"></script>
 <script src="../../assets/js/cart-fixed.js?v=20261104a"></script>
 <script>
 function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
 function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
+/* Promoción roll-on: $140 (30 % sobre $200) hasta el 30-nov-2026 inclusive. Pedido del Dr. Barrera, 4-nov-2026.
+   REVERTIR EL HTML ESTÁTICO (precio $200, sin nota) a partir del 1-dic-2026: mientras tanto, esta función ya lo devuelve a $200 al caducar. */
+var PROMO_FIN = Date.parse('2026-12-01T00:00:00-06:00');
+function promoRollOn(){ return Date.now() < PROMO_FIN; }
+function aplicarPrecioRollOn(){
+  var promo = promoRollOn(), txt = promo ? '$140 MXN' : '$200 MXN';
+  var a = document.getElementById('rollonPrecio'); if (a) a.textContent = txt;
+  var b = document.getElementById('rollonVarPrecio'); if (b) b.textContent = txt;
+  var n = document.getElementById('rollonPromoNota'); if (n) n.style.display = promo ? '' : 'none';
+}
+aplicarPrecioRollOn();
 function addCurrentProduct(){
   addToCart({
     id:'roll-on',
     variantId:'variant_01KXKRE4975W7NKDNMH2WCT3S7',
     name:'Roll-On Anti Estrés',
-    price:200,
-    priceLabel:'$200 MXN',
+    price:promoRollOn()?140:200,
+    priceLabel:promoRollOn()?'$140 MXN':'$200 MXN',
     image:'../../assets/images/roll-on.webp',
     quantity:Math.max(1,parseInt(document.getElementById("productQty").value)||1)
   });
@@ -293,7 +305,8 @@ function addCurrentProduct(){
   },
   "offers": {
     "@type": "Offer",
-    "price": "200",
+    "price": "140",
+    "priceValidUntil": "2026-11-30",
     "priceCurrency": "MXN",
     "availability": "https://schema.org/InStock",
     "url": "https://casatapputi.com.mx/productos/roll-on/",
