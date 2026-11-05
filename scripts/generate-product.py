@@ -655,6 +655,13 @@ if __name__ == "__main__":
     with open(json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
+    # Páginas editadas a mano: el generador las pisaría y perderíamos el arreglo (ver "pagina_personalizada" en el JSON)
+    if data.get("pagina_personalizada") and "--forzar" not in sys.argv[2:]:
+        print(f"⛔ {data.get('slug', json_path.stem)}: la página se edita a mano y este generador la rompería.")
+        print(f"   Motivo: {data.get('pagina_personalizada_nota', 'sin detalle')}")
+        print("   No se escribió nada. Para regenerarla de todos modos (pierde las ediciones manuales): agrega --forzar.")
+        sys.exit(1)
+
     # Validaciones mínimas
     required = ["slug", "title", "meta_description", "hero_image", "product_image",
                 "prod_eyebrow", "prod_title", "prod_subtitle", "eyebrow", "h1", "subtitle_short"]

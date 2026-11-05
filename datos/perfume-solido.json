@@ -16,19 +16,26 @@
     "Perfume en formato sólido elaborado con cera de abeja, aceite de oliva orgánico y aceites esenciales botánicos puros. Se funde con el calor de la piel liberando su aroma gradualmente durante horas. Nutre mientras perfuma.",
     "Disponible en 18 aromas. Sin alcohol, sin conservadores, sin fragancias sintéticas. Ideal para llevar en el bolsillo o en el bolso. Un gesto de autocuidado que cabe en la palma de la mano."
   ],
-  "variant_type": "single",
+  "variant_type": "radio",
   "variants": [
     {
       "section_label": "Presentación",
-      "label": "10 gr",
-      "price": 80,
-      "price_label": "desde $80 MXN",
-      "variant_id": "variant_01KXKRE41BMQFKQQGN24NNGN3K"
+      "label": "15 gr",
+      "price": 56,
+      "price_label": "$56 MXN",
+      "variant_id": "variant_01KXKRE415QS7VEBB249453AD2"
+    },
+    {
+      "section_label": "Presentación",
+      "label": "50 gr",
+      "price": 154,
+      "price_label": "$154 MXN",
+      "variant_id": "variant_01KXKRE415KV34KVV0MFHNRQT0"
     }
   ],
-  "price_display": "desde $80 MXN",
-  "price_present": "10 gr",
-  "meta_note": "18 aromas disponibles. Pregunta por el catálogo completo.",
+  "price_display": "desde $56 MXN",
+  "price_present": "15 gr",
+  "meta_note": "Elige tu aroma entre los 18 disponibles.",
   "howto": {
     "eyebrow": "Un perfume que se aplica con los dedos",
     "title": "Tres formas de uso",
@@ -122,5 +129,27 @@
   "schema_name": "Perfume Sólido Herbal",
   "schema_description": "Cera de abeja, aceite de oliva y aceites esenciales botánicos. Nutre la piel mientras perfuma. 18 aromas disponibles.",
   "schema_image": "perfume-solido.webp",
-  "schema_price": 80
+  "schema_price": 56,
+  "aromas": [
+    "Violetas",
+    "Nardo",
+    "Mandarina",
+    "Menta",
+    "Rosas",
+    "Canela",
+    "Lavanda",
+    "Eucalipto",
+    "Romero",
+    "Jazmín",
+    "Sándalo",
+    "Geranio",
+    "Limón",
+    "Bergamota",
+    "Mirra",
+    "Pino",
+    "Tabaco",
+    "Lilas"
+  ],
+  "pagina_personalizada": true,
+  "pagina_personalizada_nota": "productos/perfume-solido/index.html se edita a mano (selector de presentación y de aroma con carrito local por aroma, arreglo del 2026-11-04). El generador NO reproduce esa página ni el resto del sitio (buscador, WhatsApp, h1): regenerarla la rompe. Estos datos reflejan la tienda de hoy (Medusa): 15 gr $56 y 50 gr $154; los aromas se editan en el HTML."
 }
