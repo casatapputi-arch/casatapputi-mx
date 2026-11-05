@@ -262,7 +262,8 @@
 function incrementQty(){const i=document.getElementById('productQty');i.value=parseInt(i.value)+1;}
 function decrementQty(){const i=document.getElementById('productQty');if(parseInt(i.value)>1)i.value=parseInt(i.value)-1;}
 /* Promoción roll-on: $140 (30 % sobre $200) hasta el 30-nov-2026 inclusive. Pedido del Dr. Barrera, 4-nov-2026.
-   REVERTIR EL HTML ESTÁTICO (precio $200, sin nota) a partir del 1-dic-2026: mientras tanto, esta función ya lo devuelve a $200 al caducar. */
+   Al caducar (1-dic-2026 00:00 CDMX) esta función deja solo el precio $200, oculta la nota y quita la vigencia de los
+   datos estructurados; no hace falta tocar el HTML. La tienda (lista de precios) y el feed (sale_price) caducan solos. */
 var PROMO_FIN = Date.parse('2026-12-01T00:00:00-06:00');
 function promoRollOn(){ return Date.now() < PROMO_FIN; }
 function aplicarPrecioRollOn(){
@@ -270,6 +271,14 @@ function aplicarPrecioRollOn(){
   var a = document.getElementById('rollonPrecio'); if (a) a.textContent = txt;
   var b = document.getElementById('rollonVarPrecio'); if (b) b.textContent = txt;
   var n = document.getElementById('rollonPromoNota'); if (n) n.style.display = promo ? '' : 'none';
+  if (!promo) {
+    document.querySelectorAll('script[type="application/ld+json"]').forEach(function (sc) {
+      try {
+        var j = JSON.parse(sc.textContent);
+        if (j.offers && j.offers.priceValidUntil) { j.offers.price = '200'; delete j.offers.priceValidUntil; sc.textContent = JSON.stringify(j); }
+      } catch (e) { }
+    });
+  }
 }
 aplicarPrecioRollOn();
 function addCurrentProduct(){
