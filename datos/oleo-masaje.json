@@ -20,14 +20,14 @@
   "variants": [
     {
       "section_label": "Presentación",
-      "label": "60 ml",
+      "label": "35 ml",
       "price": 150,
-      "price_label": "desde $150 MXN",
-      "variant_id": "variant_01KXKRE44WX0Z8NW0RYQEXAE6Q"
+      "price_label": "$150 MXN",
+      "variant_id": "variant_01KXKRE473NKFHFQF27W65FXXT"
     }
   ],
-  "price_display": "desde $150 MXN",
-  "price_present": "60 ml",
+  "price_display": "$150 MXN",
+  "price_present": "35 ml",
   "meta_note": "Aceites vegetales orgánicos. Varias combinaciones aromáticas disponibles.",
   "howto": {
     "eyebrow": "El arte del masaje",

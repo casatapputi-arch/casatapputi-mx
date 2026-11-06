@@ -1,0 +1,10 @@
+{
+  "slug": "paquete-3-talleres",
+  "title": "Paquete de 3 Talleres",
+  "meta_description": "Tres boletos para los talleres de herbolaria de Casa Tapputi por $1,200 MXN en lugar de $1,500. Pueden ser del mismo taller o de talleres distintos.",
+  "price": 1200,
+  "price_label": "$1,200 MXN",
+  "medusa_handle": "paquete-3-talleres",
+  "pagina_personalizada": true,
+  "pagina_personalizada_nota": "productos/paquete-3-talleres/index.html se edita a mano (tres selectores de taller y carrito local por combinación; lista TALLERES dentro de la página, se cierra sola al empezar cada taller). Decisión del Dr. Barrera, 2026-11-05 17:08: el paquete vale $1,200 y los tres boletos pueden ser del mismo taller o de distintos. No regenerar con scripts/generate-product.py."
+}

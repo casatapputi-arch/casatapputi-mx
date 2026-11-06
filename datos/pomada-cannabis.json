@@ -20,14 +20,14 @@
   "variants": [
     {
       "section_label": "Presentaciones",
-      "label": "30 gr / 50 gr",
+      "label": "30 gr",
       "price": 100,
-      "price_label": "desde $100 MXN",
+      "price_label": "$100 MXN",
       "variant_id": "variant_01KXKRE50RWBX2YCF663WQGWKG"
     }
   ],
-  "price_display": "desde $100 MXN",
-  "price_present": "30 gr / 50 gr",
+  "price_display": "$100 MXN",
+  "price_present": "30 gr",
   "meta_note": "Uso tópico. No ingerir.",
   "howto": {
     "eyebrow": "Aplicación local",
