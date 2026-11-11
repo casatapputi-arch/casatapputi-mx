@@ -1,0 +1,471 @@
+/*
+ * Casa Tapputi — Estética 06
+ * Capa visual transversal inspirada en la maqueta de Servicios elegida.
+ * No altera contenido ni comportamiento comercial. Todas las fotografías de
+ * producto, taller y servicio conservan su proporción completa, sin recorte.
+ */
+
+:root {
+  --e06-verde: #14261f;
+  --e06-verde-2: #1c3228;
+  --e06-verde-3: #294536;
+  --e06-nogal: #2b1a12;
+  --e06-nogal-2: #432718;
+  --e06-marfil: #f5efe3;
+  --e06-papel: #ebe0cf;
+  --e06-tinta: #241a14;
+  --e06-laton: #c39a57;
+  --e06-laton-claro: #dfc184;
+  --e06-linea: rgba(195, 154, 87, .68);
+  --e06-contacto: 0 3px 5px rgba(18, 10, 6, .28);
+  --e06-baja: 10px 14px 26px rgba(18, 10, 6, .25);
+  --e06-media: 18px 24px 48px rgba(14, 8, 5, .34);
+  --e06-radio: 18px;
+  --e06-profundidad-y: 0px;
+}
+
+html { overflow-x: clip; }
+body {
+  overflow-x: clip;
+  background: var(--e06-marfil);
+  color: var(--e06-tinta);
+}
+
+/* Foco inequívoco sobre fondos claros y oscuros. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid var(--e06-laton-claro) !important;
+  outline-offset: 4px !important;
+  box-shadow: 0 0 0 2px var(--e06-verde) !important;
+}
+
+/* Cabecera: una sola pieza verde/nogal con filo de latón. */
+.topbar {
+  background: var(--e06-nogal) !important;
+  color: var(--e06-marfil) !important;
+  border: 0 !important;
+  letter-spacing: .2em;
+}
+body > nav,
+body.home-premium > nav {
+  background: linear-gradient(105deg, #10231c, var(--e06-verde-2)) !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--e06-laton) !important;
+  box-shadow: 0 6px 18px rgba(10, 6, 4, .22);
+  backdrop-filter: none;
+}
+.nav-logo img { object-fit: contain !important; }
+.nav-logo .wordmark,
+.nav-links a,
+.nav-social a,
+.cart-icon { color: var(--e06-marfil) !important; }
+.nav-links a:hover,
+.nav-social a:hover,
+.cart-icon:hover { color: var(--e06-laton-claro) !important; }
+.nav-search-bar {
+  border-color: var(--e06-linea) !important;
+  background: rgba(12, 26, 21, .48) !important;
+}
+
+/* Héroes: fotografía, título centrado y línea de latón. */
+.page-hero,
+.prod-hero {
+  min-height: clamp(430px, 60vh, 680px);
+  background-color: var(--e06-nogal);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center calc(50% + var(--e06-profundidad-y));
+  border-bottom: 1px solid var(--e06-laton);
+  isolation: isolate;
+}
+.page-hero::before,
+.prod-hero::before {
+  background: linear-gradient(180deg, rgba(13, 8, 5, .18), rgba(12, 21, 17, .7)) !important;
+}
+.page-hero .container,
+.prod-hero .container {
+  text-align: center;
+  align-items: center;
+}
+.page-hero h1,
+.prod-hero h1,
+.prod-title {
+  color: #fffaf0;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, .44);
+}
+.page-hero h1::after,
+.prod-title::after {
+  content: "";
+  display: block;
+  width: 76px;
+  height: 1px;
+  margin: .45em auto .35em;
+  background: var(--e06-laton-claro);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, .4);
+}
+.page-hero .eyebrow,
+.prod-eyebrow { color: var(--e06-laton-claro) !important; }
+.page-hero p,
+.prod-subtitle { color: rgba(255, 250, 240, .9); }
+.prod-breadcrumb {
+  border-color: rgba(223, 193, 132, .42);
+  background: rgba(20, 38, 31, .62);
+  backdrop-filter: none;
+}
+
+/* Onda de transición reutilizable, sin añadir marcado. */
+.page-hero::after,
+.prod-hero::after,
+.home-hero::after {
+  content: "" !important;
+  position: absolute !important;
+  z-index: 3 !important;
+  left: -4% !important;
+  right: -4% !important;
+  bottom: -1px !important;
+  top: auto !important;
+  height: clamp(24px, 3.8vw, 56px) !important;
+  pointer-events: none;
+  background: var(--e06-marfil) !important;
+  border-top: 2px solid var(--e06-laton) !important;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0 !important;
+  transform: translateY(52%) !important;
+}
+
+/* Ritmo de papel, bosque y nogal. */
+main > section:not(.section-dark):not(.prod-section-dark):not(.home-rituals):not(.timeline-section),
+.prod-section { background: var(--e06-marfil); }
+.section-dark,
+.prod-section-dark,
+.home-rituals,
+.timeline-section {
+  background: linear-gradient(145deg, var(--e06-verde), #0f211a 70%) !important;
+  color: var(--e06-marfil);
+}
+.section-dark + .section-dark:nth-of-type(even) {
+  background: linear-gradient(145deg, var(--e06-nogal), #21130d 72%) !important;
+}
+section { position: relative; }
+.section-title::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 1px;
+  margin: .45em auto 0;
+  background: var(--e06-laton);
+}
+
+/* Tarjetas-objeto: verde, latón, sombra coherente y pequeño pedestal. */
+:where(.servicio-card, .taller-card, .ritual-card, .biz-card, .exp-card,
+       .shop-card, .specimen-card, .blog-card, .valor, .alianza, .form-card) {
+  position: relative;
+  border: 1px solid var(--e06-linea) !important;
+  border-radius: var(--e06-radio) !important;
+  box-shadow: var(--e06-baja) !important;
+}
+:where(.servicio-card, .taller-card, .ritual-card, .biz-card, .exp-card,
+       .shop-card, .specimen-card, .blog-card)::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 8%;
+  right: 8%;
+  bottom: -15px;
+  height: 17px;
+  border: 1px solid rgba(195, 154, 87, .42);
+  border-radius: 3px 3px 10px 10px;
+  background: linear-gradient(180deg, #5a341e, var(--e06-nogal));
+  box-shadow: var(--e06-contacto);
+}
+:where(.servicio-card, .taller-card, .ritual-card, .biz-card, .exp-card,
+       .shop-card, .specimen-card, .blog-card):hover {
+  transform: translateY(-4px) !important;
+  border-color: var(--e06-laton-claro) !important;
+  box-shadow: var(--e06-media) !important;
+}
+
+/* Servicios: réplica funcional del lenguaje de la maqueta 06. */
+.servicio-grid { align-items: end; gap: clamp(28px, 3vw, 42px); }
+.servicio-card {
+  z-index: 1;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px 22px;
+  color: var(--e06-marfil);
+  background: linear-gradient(145deg, var(--e06-verde-2), #10231c) !important;
+}
+.servicio-card:nth-child(2) { transform: translateY(-28px); }
+.servicio-card:nth-child(3) { transform: translateY(10px); }
+.servicio-card:nth-child(2):hover { transform: translateY(-32px) !important; }
+.servicio-card:nth-child(3):hover { transform: translateY(6px) !important; }
+.servicio-card h3 { color: #fff7e8; }
+.servicio-card p { color: rgba(255, 250, 240, .82); }
+.servicio-card img {
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  border: 1px solid rgba(223, 193, 132, .55);
+  border-radius: 12px;
+}
+.servicio-card .btn-wa-message { margin-top: auto; }
+.tu-marca-grid {
+  color: var(--e06-tinta);
+  background: var(--e06-marfil);
+  border: 1px solid rgba(195, 154, 87, .48);
+  border-radius: var(--e06-radio);
+  padding: clamp(24px, 5vw, 64px);
+  box-shadow: var(--e06-media);
+}
+.tu-marca-grid :where(p, li) { color: #49392d !important; }
+.tu-marca-grid .section-title { color: var(--e06-tinta); }
+.tu-marca-grid > img {
+  height: auto !important;
+  object-fit: contain !important;
+  border: 1px solid var(--e06-laton);
+  border-radius: var(--e06-radio);
+  box-shadow: var(--e06-baja);
+}
+
+/* Talleres, catálogo y blog sobre papel, con fotografías completas. */
+.taller-grid,
+.shop-grid { gap: clamp(30px, 3vw, 46px); align-items: start; }
+.taller-card,
+.specimen-card,
+.shop-card,
+.blog-card {
+  overflow: visible !important;
+  background: linear-gradient(145deg, #fbf7ef, var(--e06-papel)) !important;
+  color: var(--e06-tinta);
+}
+.taller-card:nth-child(3n + 2),
+.shop-card:nth-child(3n + 2),
+.specimen-card:nth-child(3n + 2) { margin-top: 20px; }
+.taller-card:nth-child(3n),
+.shop-card:nth-child(3n),
+.specimen-card:nth-child(3n) { margin-top: 8px; }
+:where(.taller-card, .specimen-card, .shop-card, .blog-card) img,
+.card .media img,
+.shop-card img,
+.specimen-card img {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  aspect-ratio: auto !important;
+  object-fit: contain !important;
+  transform: none !important;
+  filter: none !important;
+  border-radius: 12px;
+}
+.card .media { overflow: visible; }
+.card .media::after { display: none; }
+
+/* Botones: contorno de latón y volumen bajo, sin verde fluorescente. */
+:where(.btn, .btn-add-cart, .btn-wa-message, .cta-button, .filter-btn,
+       .form-submit, .shop-cta, .btn-wa-checkout, .btn-continue-shopping) {
+  border: 1px solid var(--e06-laton) !important;
+  border-radius: 999px !important;
+  box-shadow: var(--e06-contacto);
+}
+.section-dark :where(.btn, .btn-wa-message, .cta-button),
+.servicio-card .btn-wa-message,
+.taller-card .btn-wa-message {
+  background: linear-gradient(180deg, var(--e06-verde-3), var(--e06-verde)) !important;
+  color: #fffaf0 !important;
+}
+:where(.btn, .btn-add-cart, .btn-wa-message, .cta-button, .filter-btn,
+       .form-submit, .shop-cta):hover {
+  transform: translateY(-2px);
+  border-color: var(--e06-laton-claro) !important;
+  box-shadow: var(--e06-baja);
+}
+.filter-bar { gap: 10px; }
+.filter-btn.active {
+  background: var(--e06-verde) !important;
+  color: #fffaf0 !important;
+}
+
+/* Fichas: la información se siente como una cédula de botica. */
+.prod-layout { align-items: center; }
+.prod-img-wrap {
+  overflow: visible;
+  background: transparent;
+  border: 1px solid var(--e06-laton);
+  border-radius: var(--e06-radio);
+  box-shadow: var(--e06-media);
+}
+.prod-img-wrap img {
+  width: 100%;
+  height: auto !important;
+  max-height: none !important;
+  aspect-ratio: auto !important;
+  object-fit: contain !important;
+  transform: none !important;
+  border-radius: inherit;
+}
+.prod-img-wrap::before,
+.prod-img-wrap::after { display: none; }
+.prod-info {
+  position: relative;
+  z-index: 2;
+  margin-left: clamp(-72px, -5vw, -30px);
+  padding: clamp(24px, 4vw, 48px);
+  background: rgba(245, 239, 227, .97);
+  border: 1px solid var(--e06-laton);
+  border-radius: var(--e06-radio);
+  box-shadow: var(--e06-media);
+}
+.prod-price-box {
+  border: 1px solid var(--e06-laton);
+  border-left-width: 3px;
+  border-radius: 12px;
+  background: var(--e06-verde) !important;
+}
+
+/* Carrito, menú móvil, formularios y panel lateral. */
+.cart-drawer,
+.mobile-menu {
+  background: var(--e06-marfil) !important;
+  border-left: 1px solid var(--e06-laton) !important;
+  box-shadow: -18px 0 42px rgba(15, 9, 5, .3) !important;
+}
+.cart-drawer-header,
+.cart-drawer-footer { border-color: rgba(195, 154, 87, .4); }
+.cart-drawer-item,
+.cart-item,
+.cart-summary,
+#customerForm {
+  border: 1px solid rgba(195, 154, 87, .62) !important;
+  border-radius: 14px !important;
+  background: #fbf7ef !important;
+  box-shadow: var(--e06-baja);
+}
+.form-card,
+.valor {
+  background: linear-gradient(145deg, var(--e06-verde-2), #10231c) !important;
+  color: var(--e06-marfil);
+}
+.section-dark .valor p,
+.form-card p { color: rgba(255, 250, 240, .8); }
+input, select, textarea { border-radius: 10px !important; }
+
+/* Inicio: foto completa, onda y vitrinas escalonadas. */
+body.home-premium .home-hero {
+  min-height: min(790px, calc(100svh - 76px));
+  background: var(--e06-nogal);
+  border-bottom: 0;
+}
+body.home-premium .home-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(18, 10, 6, .62), rgba(18, 10, 6, .12) 68%);
+}
+body.home-premium .home-hero-image img {
+  object-fit: contain !important;
+  transform: translate3d(0, var(--e06-profundidad-y), 0);
+  transition: transform .08s linear;
+}
+body.home-premium .home-hero h1::after {
+  content: "";
+  display: block;
+  width: 82px;
+  height: 1px;
+  margin-top: .45em;
+  background: var(--e06-laton-claro);
+}
+body.home-premium .home-rituals {
+  padding-top: clamp(92px, 11vw, 150px);
+  background: linear-gradient(145deg, var(--e06-verde), #0d2018) !important;
+}
+body.home-premium .ritual-card {
+  overflow: hidden !important;
+  border-color: var(--e06-laton) !important;
+  border-radius: var(--e06-radio) !important;
+  box-shadow: var(--e06-media) !important;
+}
+body.home-premium .ritual-card img {
+  object-fit: contain !important;
+  transform: none !important;
+}
+body.home-premium .ritual-card:nth-child(2) { transform: translateY(28px); }
+body.home-premium .ritual-card:nth-child(3) { transform: translateY(56px); }
+body.home-premium .ritual-card:nth-child(2):hover { transform: translateY(24px) !important; }
+body.home-premium .ritual-card:nth-child(3):hover { transform: translateY(52px) !important; }
+.exp-card,
+.biz-card { background: var(--e06-verde) !important; overflow: hidden !important; }
+.exp-card :where(h3, a, p),
+.biz-card :where(h3, a, p) { color: var(--e06-marfil) !important; }
+.exp-card img,
+.biz-card img { height: auto !important; object-fit: contain !important; }
+
+/* Pie oscuro, legible y con cierre de latón. */
+footer {
+  background: linear-gradient(145deg, #0d1d17, var(--e06-verde)) !important;
+  color: var(--e06-marfil);
+  border-top: 1px solid var(--e06-laton) !important;
+}
+footer :where(p, li, a, span) { color: rgba(255, 250, 240, .78); }
+footer h4,
+footer .wordmark { color: #fffaf0 !important; }
+.footer-bottom { border-top-color: rgba(195, 154, 87, .35) !important; }
+
+/* Evita que el botón flotante cubra acciones en móvil. */
+.wa-float {
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  border: 1px solid var(--e06-laton);
+  box-shadow: var(--e06-baja);
+}
+
+@media (max-width: 900px) {
+  .page-hero,
+  .prod-hero { min-height: clamp(390px, 68svh, 620px); }
+  .servicio-card:nth-child(n),
+  .servicio-card:nth-child(n):hover,
+  body.home-premium .ritual-card:nth-child(n),
+  body.home-premium .ritual-card:nth-child(n):hover {
+    transform: none !important;
+  }
+  .taller-card:nth-child(n),
+  .shop-card:nth-child(n),
+  .specimen-card:nth-child(n) { margin-top: 0; }
+  .prod-info {
+    margin: -28px 14px 0;
+    padding: 24px 20px;
+  }
+  .servicio-grid,
+  .taller-grid,
+  .shop-grid { gap: 38px; }
+}
+
+@media (max-width: 520px) {
+  :root { --e06-radio: 14px; }
+  .page-hero,
+  .prod-hero { min-height: min(72svh, 560px); }
+  .page-hero .container,
+  .prod-hero .container { padding-bottom: 54px; }
+  .page-hero h1::after,
+  .prod-title::after { width: 58px; }
+  body.home-premium .home-hero {
+    min-height: min(780px, calc(100svh - 70px));
+  }
+  body.home-premium .home-hero::before {
+    background: linear-gradient(0deg, rgba(18, 10, 6, .72), rgba(18, 10, 6, .06) 72%);
+  }
+  .tu-marca-grid { padding: 22px 18px; }
+  .filter-bar { justify-content: center; }
+  .wa-float { width: 50px; height: 50px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  :root { --e06-profundidad-y: 0px !important; }
+}
