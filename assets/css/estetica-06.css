@@ -1001,7 +1001,7 @@ body.home-premium .home-hero {
 }
 body.home-premium .home-hero-image {
   position: absolute;
-  z-index: -2;
+  z-index: 0;
   inset: 0;
   background: #25160e;
 }
@@ -1009,7 +1009,7 @@ body.home-premium .home-hero-image picture,
 body.home-premium .home-hero-image img { width: 100%; height: 100%; display: block; }
 body.home-premium .home-hero-image img { object-fit: cover !important; object-position: center 48%; }
 body.home-premium .home-hero::before {
-  z-index: -1;
+  z-index: 1;
   background:
     linear-gradient(110deg, rgba(26, 12, 4, .58), rgba(112, 71, 17, .18) 50%, rgba(7, 23, 16, .58)),
     linear-gradient(180deg, rgba(10, 8, 4, .18), rgba(8, 22, 16, .62));
@@ -1113,4 +1113,189 @@ body.home-premium .home-hero-actions { justify-content: center; }
   .prod-section-dark .shop-card .media { height: 260px !important; min-height: 260px; }
   .blog-index-section { padding-block: 64px; }
   .e06-blog .blog-list { padding-inline: 22px; }
+}
+
+/* Ronda 6 — contenido inmediato, fotografía nítida y contraste estable. */
+
+/* La estética 06 no depende de IntersectionObserver para ser legible. Las
+   clases de entrada pueden seguir recibiendo .visible, pero nunca parten de
+   un estado oculto ni bloquean una captura temprana o una sesión sin JS. */
+body :where(.reveal, .reveal-left, .reveal-right) {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+body :where(.reveal, .reveal-left, .reveal-right),
+body :where(.reveal, .reveal-left, .reveal-right).visible {
+  transform: none;
+}
+
+/* Inicio: una sola composición fotográfica, sin panel marfil ni velo turbio. */
+body.home-premium .home-hero {
+  position: relative;
+  min-height: clamp(610px, 68vw, 780px);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  place-items: center;
+  isolation: isolate;
+  overflow: hidden;
+  background: #25160e;
+}
+body.home-premium .home-hero-image {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  min-height: 100%;
+  background: #25160e;
+}
+body.home-premium .home-hero-image picture,
+body.home-premium .home-hero-image img {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  display: block;
+}
+body.home-premium .home-hero-image img {
+  object-fit: cover !important;
+  object-position: center 48%;
+  filter: none;
+}
+body.home-premium .home-hero::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: block;
+  background:
+    linear-gradient(110deg, rgba(25, 11, 3, .64), rgba(91, 52, 13, .34) 48%, rgba(8, 22, 16, .66)),
+    linear-gradient(180deg, rgba(20, 9, 3, .12), rgba(8, 20, 15, .48));
+  pointer-events: none;
+}
+body.home-premium .home-hero::after { display: block; }
+body.home-premium .home-hero::after { z-index: 3; }
+body.home-premium .home-hero > .container {
+  position: relative;
+  z-index: 2;
+  grid-column: 1;
+  grid-row: 1;
+  width: min(100%, 1180px);
+  min-height: 0;
+  padding: 125px 40px 170px;
+  align-items: center;
+  background: transparent;
+}
+body.home-premium .home-hero-copy {
+  max-width: 920px;
+  margin-inline: auto;
+  text-align: center;
+  color: #fffaf0;
+}
+body.home-premium .home-hero .eyebrow { color: #f0d08d; }
+body.home-premium .home-hero h1 {
+  max-width: 920px;
+  margin-inline: auto;
+  color: #fffaf0;
+  font-size: clamp(3.8rem, 7vw, 6.8rem);
+  line-height: .94;
+  text-shadow: 0 3px 14px rgba(12, 7, 3, .78);
+}
+body.home-premium .home-hero .hero-lead {
+  max-width: 740px;
+  margin: 1.7rem auto 2.2rem;
+  color: #fffaf0;
+  font-size: clamp(1.05rem, 1.45vw, 1.22rem);
+  line-height: 1.62;
+  text-shadow: 0 2px 9px rgba(12, 7, 3, .92);
+}
+body.home-premium .home-hero-actions { justify-content: center; }
+
+/* Catálogo y ficha: fotos reales a escala contenida (máximo aproximado 1.3x). */
+.e06-productos .page-hero {
+  background-image: url('../images/esencias-amber.webp') !important;
+  background-size: cover !important;
+  background-position: center 52% !important;
+}
+.e06-productos .page-hero::before {
+  background:
+    linear-gradient(110deg, rgba(35, 14, 4, .55), rgba(130, 76, 16, .24) 48%, rgba(12, 25, 18, .58)),
+    linear-gradient(180deg, rgba(14, 8, 3, .08), rgba(12, 22, 16, .48)) !important;
+}
+.e06-roll-on .prod-hero {
+  background-image: url('../images/roll-on.webp') !important;
+  background-size: cover !important;
+  background-position: center 62% !important;
+}
+.e06-roll-on .prod-hero::before {
+  background:
+    linear-gradient(110deg, rgba(30, 13, 4, .58), rgba(143, 82, 16, .18) 50%, rgba(10, 28, 20, .55)),
+    linear-gradient(180deg, rgba(12, 7, 3, .08), rgba(11, 22, 16, .44)) !important;
+}
+
+/* Servicios / Tu marca: la rama sólo en el margen inferior izquierdo. */
+body.e06-servicios main > section.e06-marca-privada.section-dark::before {
+  left: -105px;
+  bottom: -42px;
+  width: min(250px, 18vw);
+  opacity: .46;
+  transform: rotate(16deg);
+}
+
+/* Valores y carrusel conservan contraste aun antes de cualquier inicializador. */
+body.home-premium :where(.valores-grid .valor, .ritual-card) {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+body.home-premium .valores-grid .valor {
+  background: #173027;
+  color: #fffaf0;
+}
+body.home-premium .valores-grid .valor :where(h3, p) { color: #fffaf0 !important; }
+body.home-premium .valores-grid .valor p { color: rgba(255, 250, 240, .86) !important; }
+
+@media (max-width: 900px) {
+  body.home-premium .home-hero {
+    min-height: 650px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+  body.home-premium .home-hero-image {
+    grid-column: 1;
+    grid-row: 1;
+    height: 100%;
+  }
+  body.home-premium .home-hero > .container {
+    grid-column: 1;
+    grid-row: 1;
+    align-items: center;
+    padding: 110px 28px 145px;
+  }
+  body.home-premium .home-hero-copy,
+  body.home-premium .home-hero h1,
+  body.home-premium .home-hero .hero-lead { max-width: 760px; }
+}
+
+@media (max-width: 520px) {
+  body.home-premium .home-hero {
+    min-height: 620px;
+    grid-template-rows: 1fr;
+  }
+  body.home-premium .home-hero-image { height: 100%; }
+  body.home-premium .home-hero-image img {
+    height: 100%;
+    max-height: none;
+    object-position: 58% center;
+  }
+  body.home-premium .home-hero > .container { padding: 92px 22px 125px; }
+  body.home-premium .home-hero h1 { font-size: clamp(3rem, 14vw, 4.15rem); }
+  body.e06-servicios main > section.e06-marca-privada.section-dark::before { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body :where(.reveal, .reveal-left, .reveal-right) {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
 }
