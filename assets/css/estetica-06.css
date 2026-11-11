@@ -71,18 +71,26 @@ body.home-premium > nav {
 .prod-hero {
   min-height: clamp(430px, 60vh, 680px);
   background-color: var(--e06-nogal);
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center calc(50% + var(--e06-profundidad-y));
   border-bottom: 1px solid var(--e06-laton);
   isolation: isolate;
+  overflow: hidden;
 }
 .page-hero::before,
 .prod-hero::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
   background: linear-gradient(180deg, rgba(13, 8, 5, .18), rgba(12, 21, 17, .7)) !important;
 }
 .page-hero .container,
 .prod-hero .container {
+  position: relative;
+  z-index: 2;
   text-align: center;
   align-items: center;
 }
@@ -199,7 +207,10 @@ section { position: relative; }
 .servicio-card:nth-child(2):hover { transform: translateY(-32px) !important; }
 .servicio-card:nth-child(3):hover { transform: translateY(6px) !important; }
 .servicio-card h3 { color: #fff7e8; }
-.servicio-card p { color: rgba(255, 250, 240, .82); }
+.servicio-card p {
+  color: rgba(255, 250, 240, .82);
+  margin-bottom: 1.35rem;
+}
 .servicio-card img {
   width: 100% !important;
   height: auto !important;
@@ -238,12 +249,9 @@ section { position: relative; }
   background: linear-gradient(145deg, #fbf7ef, var(--e06-papel)) !important;
   color: var(--e06-tinta);
 }
-.taller-card:nth-child(3n + 2),
-.shop-card:nth-child(3n + 2),
-.specimen-card:nth-child(3n + 2) { margin-top: 20px; }
-.taller-card:nth-child(3n),
-.shop-card:nth-child(3n),
-.specimen-card:nth-child(3n) { margin-top: 8px; }
+.taller-card:nth-child(n),
+.shop-card:nth-child(n),
+.specimen-card:nth-child(n) { margin-top: 0; }
 :where(.taller-card, .specimen-card, .shop-card, .blog-card) img,
 .card .media img,
 .shop-card img,
@@ -257,6 +265,12 @@ section { position: relative; }
   transform: none !important;
   filter: none !important;
   border-radius: 12px;
+}
+.specimen-img-wrap img {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-height: 1px;
 }
 .card .media { overflow: visible; }
 .card .media::after { display: none; }
@@ -352,8 +366,8 @@ input, select, textarea { border-radius: 10px !important; }
 
 /* Inicio: foto completa, onda y vitrinas escalonadas. */
 body.home-premium .home-hero {
-  min-height: min(790px, calc(100svh - 76px));
-  background: var(--e06-nogal);
+  min-height: 0;
+  background: var(--e06-marfil);
   border-bottom: 0;
 }
 body.home-premium .home-hero::before {
@@ -368,6 +382,11 @@ body.home-premium .home-hero-image img {
   transform: translate3d(0, var(--e06-profundidad-y), 0);
   transition: transform .08s linear;
 }
+body.home-premium .home-hero-image {
+  align-self: stretch;
+  height: 100%;
+  background: var(--e06-marfil);
+}
 body.home-premium .home-hero h1::after {
   content: "";
   display: block;
@@ -381,14 +400,30 @@ body.home-premium .home-rituals {
   background: linear-gradient(145deg, var(--e06-verde), #0d2018) !important;
 }
 body.home-premium .ritual-card {
-  overflow: hidden !important;
+  z-index: 1;
+  overflow: visible !important;
   border-color: var(--e06-laton) !important;
   border-radius: var(--e06-radio) !important;
   box-shadow: var(--e06-media) !important;
 }
+body.home-premium .ritual-card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: auto;
+  left: 8%;
+  right: 8%;
+  bottom: -15px;
+  height: 17px;
+  border: 1px solid rgba(195, 154, 87, .42);
+  border-radius: 3px 3px 10px 10px;
+  background: linear-gradient(180deg, #5a341e, var(--e06-nogal));
+  box-shadow: var(--e06-contacto);
+}
 body.home-premium .ritual-card img {
   object-fit: contain !important;
   transform: none !important;
+  border-radius: inherit;
 }
 body.home-premium .ritual-card:nth-child(2) { transform: translateY(28px); }
 body.home-premium .ritual-card:nth-child(3) { transform: translateY(56px); }
@@ -450,7 +485,7 @@ footer .wordmark { color: #fffaf0 !important; }
   .page-hero h1::after,
   .prod-title::after { width: 58px; }
   body.home-premium .home-hero {
-    min-height: min(780px, calc(100svh - 70px));
+    min-height: 0;
   }
   body.home-premium .home-hero::before {
     background: linear-gradient(0deg, rgba(18, 10, 6, .72), rgba(18, 10, 6, .06) 72%);
