@@ -714,7 +714,7 @@ body.e06-servicios .e06-marca-privada .tu-marca-grid {
 /* Ronda 4 — ajuste fino de Servicios contra la maqueta 06. */
 .e06-servicios .page-hero {
   min-height: 700px;
-  background-image: url('../images/estetica-06/aceites-hero-ronda4.webp') !important;
+  background-image: url('../images/aceites.webp') !important;
   background-size: cover !important;
   background-position: center 52% !important;
   background-attachment: scroll !important;
@@ -885,4 +885,232 @@ body.e06-servicios .e06-marca-privada .tu-marca-grid {
   body.e06-servicios main > section.e06-marca-privada.section-dark { padding-block: 68px 78px !important; }
   .e06-marca-privada .tu-marca-grid .section-title { font-size: 3rem; max-width: 100%; }
   .e06-marca-privada .tu-marca-grid > img { aspect-ratio: 4 / 3; }
+}
+
+/* Ronda 5 — la gramática 06 se extiende a todas las páginas principales. */
+
+/* Héroe 06 compartido: fotografía real, velo dorado y onda asimétrica. */
+body:not(.e06-servicios) :where(.page-hero, .prod-hero) {
+  min-height: clamp(540px, 64vw, 720px);
+  display: grid;
+  place-items: center;
+  background-position: center;
+  background-color: #24150d;
+  border-bottom: 0;
+}
+body:not(.e06-servicios) :where(.page-hero, .prod-hero)::before {
+  background:
+    linear-gradient(110deg, rgba(30, 14, 4, .58), rgba(95, 59, 15, .24) 48%, rgba(9, 23, 17, .68)),
+    linear-gradient(180deg, rgba(9, 19, 15, .12), rgba(10, 22, 17, .62)) !important;
+}
+body:not(.e06-servicios) :where(.page-hero, .prod-hero)::after,
+body.home-premium .home-hero::after {
+  inset: auto 0 -1px !important;
+  width: 100% !important;
+  height: clamp(92px, 10vw, 148px) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  transform: none !important;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 180' preserveAspectRatio='none'%3E%3Cpath d='M0 143 C260 45 455 171 735 116 C1000 63 1190 72 1440 17 L1440 180 L0 180 Z' fill='%23f5efe3' stroke='%23d5a955' stroke-width='4'/%3E%3C/svg%3E") center / 100% 100% no-repeat !important;
+}
+body:not(.e06-servicios) :where(.page-hero, .prod-hero) .container {
+  width: min(100%, 960px);
+  padding-block: 130px 170px;
+}
+body:not(.e06-servicios) :where(.page-hero, .prod-hero) h1,
+body:not(.e06-servicios) .prod-title {
+  max-width: 900px;
+  margin-inline: auto;
+  font-size: clamp(3.8rem, 7vw, 6.8rem);
+  line-height: .94;
+  letter-spacing: .01em;
+}
+body:not(.e06-servicios) :where(.page-hero, .prod-hero) p {
+  max-width: 720px;
+  margin-inline: auto;
+  color: #fff8eb !important;
+  font-size: clamp(1.05rem, 1.45vw, 1.25rem);
+  line-height: 1.58;
+  text-shadow: 0 2px 12px rgba(12, 7, 3, .85);
+}
+body:not(.e06-servicios) :where(.page-hero, .prod-hero) .prod-breadcrumb {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Cada foto conserva una escala máxima aproximada de 1.3x a 1440 px. */
+.e06-productos .page-hero { background-image: url('../images/honey-hero.webp') !important; background-position: center 47% !important; }
+.e06-talleres .page-hero { background-image: url('../images/tl_06461-1.webp') !important; background-position: center 54% !important; }
+.e06-roll-on .prod-hero { background-image: url('../images/roll-on.webp') !important; background-position: center 55% !important; }
+.e06-talabarteria .prod-hero { background-image: url('../images/talabarteria/zapato-8.webp') !important; background-position: center 55% !important; }
+.e06-nosotros .page-hero { background-image: url('../images/nosotros.webp') !important; background-position: center 54% !important; }
+.e06-eventos .page-hero { background-image: url('../images/eventos.webp') !important; background-position: center 48% !important; }
+.e06-blog .page-hero { background-image: url('../images/lavanda.webp') !important; background-position: center 46% !important; }
+
+/* Servicios: sólo la foto auténtica de tres frascos, nunca el render de viales. */
+.e06-servicios .page-hero {
+  background-image: url('../images/aceites.webp') !important;
+  background-size: min(1300px, 100%) auto !important;
+  background-position: center !important;
+  background-color: #28150a !important;
+}
+.e06-servicios .page-hero::before {
+  background:
+    linear-gradient(90deg, rgba(35, 15, 5, .34), rgba(143, 85, 19, .1) 52%, rgba(18, 9, 3, .38)),
+    linear-gradient(180deg, rgba(18, 9, 3, .08), rgba(18, 9, 3, .45)) !important;
+}
+body.e06-servicios main > section.e06-marca-privada.section-dark::before {
+  z-index: 0;
+  opacity: .34;
+}
+body.e06-servicios .e06-marca-privada .container { position: relative; z-index: 1; }
+.e06-marca-privada .tu-marca-grid > img {
+  aspect-ratio: 4 / 3;
+  object-fit: contain !important;
+  object-position: center;
+  background: #ede2d2;
+}
+
+/* Proveedores: contraste AA y acciones sobrias de latón. */
+.e06-servicios section:not(.section-dark) .valores-grid .valor {
+  background: linear-gradient(145deg, #203a2d, #10231c) !important;
+  color: #fffaf0 !important;
+}
+.e06-servicios section:not(.section-dark) .valores-grid .valor :where(h3, p) {
+  color: #fffaf0 !important;
+}
+.e06-servicios section:not(.section-dark) .valores-grid .valor p { color: rgba(255,250,240,.84) !important; }
+.e06-servicios section:not(.section-dark) .valores-grid .btn-wa-message {
+  background: transparent !important;
+  color: #fffaf0 !important;
+  border: 1px solid var(--e06-laton-claro) !important;
+}
+
+/* Inicio: héroe fotográfico de borde a borde con copia centrada. */
+body.home-premium .home-hero {
+  min-height: clamp(560px, 68vw, 760px);
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  overflow: hidden;
+  background: #25160e;
+}
+body.home-premium .home-hero-image {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background: #25160e;
+}
+body.home-premium .home-hero-image picture,
+body.home-premium .home-hero-image img { width: 100%; height: 100%; display: block; }
+body.home-premium .home-hero-image img { object-fit: cover !important; object-position: center 48%; }
+body.home-premium .home-hero::before {
+  z-index: -1;
+  background:
+    linear-gradient(110deg, rgba(26, 12, 4, .58), rgba(112, 71, 17, .18) 50%, rgba(7, 23, 16, .58)),
+    linear-gradient(180deg, rgba(10, 8, 4, .18), rgba(8, 22, 16, .62));
+}
+body.home-premium .home-hero .container { padding-block: 120px 165px; }
+body.home-premium .home-hero-copy { max-width: 900px; margin-inline: auto; text-align: center; color: #fffaf0; }
+body.home-premium .home-hero h1 {
+  color: #fffaf0;
+  font-size: clamp(3.6rem, 7vw, 6.7rem);
+  line-height: .94;
+  text-shadow: 0 3px 18px rgba(12, 7, 3, .68);
+}
+body.home-premium .home-hero h1::after { margin-inline: auto; }
+body.home-premium .home-hero .hero-lead { max-width: 720px; margin-inline: auto; color: #fff8eb; text-shadow: 0 2px 12px rgba(12,7,3,.86); }
+body.home-premium .home-hero-actions { justify-content: center; }
+
+/* Todo texto sobre verde/nogal queda por encima de AA. */
+:where(.section-dark, .prod-section-dark, .eco-manifesto, .timeline-section) :where(h1, h2, h3, h4, .section-title) { color: #fffaf0 !important; }
+:where(.section-dark, .prod-section-dark, .eco-manifesto, .timeline-section) :where(p, li, .subtitle, .lead) { color: rgba(255, 250, 240, .84) !important; }
+.prod-section-dark .shop-card :where(h2, h3, h4, a, .shop-desc),
+.section-dark .shop-card :where(h2, h3, h4, a, .shop-desc) { color: var(--e06-tinta) !important; }
+.prod-section-dark .shop-card .shop-desc,
+.section-dark .shop-card .shop-desc { color: #49392d !important; }
+.prod-section-dark .shop-card .shop-price,
+.section-dark .shop-card .shop-price { color: #9b502f !important; }
+.e06-roll-on .prod-section-dark .moment-title,
+.e06-roll-on .prod-section-dark .moment-text,
+.e06-talabarteria .prod-section-dark .section-title,
+.e06-talabarteria .prod-section-dark .section-title + p { color: #fffaf0 !important; }
+
+/* Recomendaciones: una sola altura y fotografía completa sobre marfil. */
+.prod-section-dark .shop-grid { align-items: stretch; }
+.prod-section-dark .shop-card { display: flex; flex-direction: column; height: 100%; }
+.prod-section-dark .shop-card > img,
+.prod-section-dark .shop-card > a,
+.prod-section-dark .shop-card .shop-card-img,
+.prod-section-dark .shop-card .media {
+  width: 100% !important;
+  height: 280px !important;
+  min-height: 280px;
+  object-fit: contain !important;
+  background: var(--e06-marfil) !important;
+}
+.prod-section-dark .shop-card .media img,
+.prod-section-dark .shop-card .shop-card-img img,
+.prod-section-dark .shop-card > a > img { width: 100% !important; height: 100% !important; object-fit: contain !important; background: var(--e06-marfil) !important; }
+
+/* Eventos y Blog: contenedor real; la miga vive dentro del héroe. */
+.e06-eventos .eventos-hero { padding: 0; text-align: center; }
+.e06-eventos .evento-card,
+.e06-blog .blog-card {
+  padding: clamp(24px, 4vw, 40px) !important;
+  border: 1px solid var(--e06-linea) !important;
+  border-radius: var(--e06-radio) !important;
+  background: linear-gradient(145deg, #fbf7ef, var(--e06-papel)) !important;
+  color: var(--e06-tinta);
+  box-shadow: var(--e06-baja) !important;
+}
+.blog-index-section { padding-block: clamp(72px, 9vw, 120px); }
+.e06-blog .blog-list { width: min(100%, 980px); margin-inline: auto; }
+.e06-blog .blog-card { margin-bottom: 34px; }
+.e06-blog .blog-card :where(h2, a) { color: var(--e06-tinta); }
+.e06-blog .blog-card p { color: #49392d; line-height: 1.7; }
+.e06-blog .blog-card .read-more { color: #315c45; font-weight: 600; }
+
+@media (max-width: 900px) {
+  body:not(.e06-servicios) :where(.page-hero, .prod-hero),
+  body.home-premium .home-hero { min-height: 620px; }
+  .prod-section-dark .shop-card > img,
+  .prod-section-dark .shop-card > a,
+  .prod-section-dark .shop-card .shop-card-img,
+  .prod-section-dark .shop-card .media { height: 240px !important; min-height: 240px; }
+}
+
+@media (max-width: 520px) {
+  body:not(.e06-servicios) :where(.page-hero, .prod-hero),
+  body.home-premium .home-hero { min-height: 570px; }
+  body:not(.e06-servicios) :where(.page-hero, .prod-hero) .container { padding: 105px 22px 130px; }
+  body:not(.e06-servicios) :where(.page-hero, .prod-hero) h1,
+  body:not(.e06-servicios) .prod-title,
+  body.home-premium .home-hero h1 { font-size: clamp(3rem, 15vw, 4.25rem); }
+  body:not(.e06-servicios) :where(.page-hero, .prod-hero)::after,
+  body.home-premium .home-hero::after { height: 100px !important; }
+  body.home-premium .home-hero .container { padding: 100px 22px 130px; }
+  body.home-premium .home-hero-image img { object-position: 62% center; }
+  .e06-servicios .page-hero { background-size: auto 570px !important; }
+  .e06-servicios .servicio-grid {
+    padding-bottom: 76px;
+  }
+  .e06-servicios .servicio-grid::before {
+    display: block;
+    left: 3%;
+    right: 3%;
+    bottom: 4px;
+    height: 42px;
+  }
+  .e06-marca-privada .tu-marca-grid > img { max-height: 390px !important; }
+  .prod-section-dark .shop-card > img,
+  .prod-section-dark .shop-card > a,
+  .prod-section-dark .shop-card .shop-card-img,
+  .prod-section-dark .shop-card .media { height: 260px !important; min-height: 260px; }
+  .blog-index-section { padding-block: 64px; }
+  .e06-blog .blog-list { padding-inline: 22px; }
 }
