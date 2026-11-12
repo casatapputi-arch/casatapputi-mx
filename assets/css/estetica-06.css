@@ -1420,3 +1420,75 @@ body.home-premium .home-hero .hero-lead { color: #fffaf0 !important; }
 /* Cierre de los tres avisos AA medidos en variantes y enlace de talleres. */
 body .prod-variant strong,
 body.e06-talleres main section:not(.section-dark) p > a { color: #854024 !important; }
+
+/* Revisión de Claude, 12-nov: completar los pendientes 2–5, 7–9 y 12.
+   Los márgenes 1/10/11 y las fotografías 6 se conservan del cierre de ronda 6. */
+body .servicio-card p {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: #f5efe3 !important;
+}
+/* La lista existente debe verse debajo de su encabezado, sin cambiar contenido. */
+body.e06-servicios .e06-marca-privada .tu-marca-grid ul {
+  display: block;
+  color: #49392d !important;
+  margin-top: 16px;
+}
+body.e06-servicios .e06-marca-privada .tu-marca-grid li { color: #49392d !important; }
+/* Separación explícita entre título, filete y párrafo. */
+body:is(.e06-servicios, .e06-talleres) main .section-title {
+  margin-bottom: 24px !important;
+}
+body:is(.e06-servicios, .e06-talleres) main .section-title::after {
+  position: static;
+  margin-block: 16px 0;
+}
+body:is(.e06-servicios, .e06-talleres) main .section-title + p { margin-top: 0; }
+/* El manifiesto no reserva un bloque vacío tras la última línea. */
+body.home-premium .home-manifesto { padding-block: clamp(64px, 6vw, 88px); }
+body.home-premium #origen { padding-block: clamp(64px, 6vw, 88px); }
+body.home-premium .ritual-card p { font-size: 1rem; line-height: 1.65; }
+body.home-premium :is(.ritual-card-link, .ritual-card-index) {
+  font-size: .875rem;
+  line-height: 1.6;
+  letter-spacing: .08em;
+}
+/* El velo conserva AA incluso sobre la parte más luminosa de las fotografías. */
+body:is(.e06-productos, .e06-talleres) .page-hero::before {
+  background: linear-gradient(110deg, rgba(32,17,7,.64), rgba(26,22,12,.64) 48%, rgba(10,27,20,.68)) !important;
+}
+body:is(.e06-productos, .e06-talleres) .prod-breadcrumb { background: #14261f; }
+body:is(.e06-productos, .e06-talleres) .prod-breadcrumb :is(a, span) { color: #fffaf0 !important; }
+body.e06-talleres main section:not(.section-dark) > .container > p,
+body.e06-talleres .taller-card :is(.taller-desc, .taller-fecha) { color: #49392d !important; }
+/* Repisa más ancha que la tarjeta, detrás y lejos de las acciones. */
+body.e06-talleres .taller-card { isolation: isolate; }
+body.e06-talleres .taller-card::before {
+  left: -8px;
+  right: -8px;
+  bottom: -18px;
+  height: 32px;
+  z-index: -1;
+  border-radius: 4px 4px 10px 10px;
+  background: linear-gradient(180deg, #704425, #3b2113 70%, #25140d);
+  box-shadow: 0 10px 18px rgba(18,10,6,.25);
+}
+@media (max-width: 900px) {
+  /* En flujo al final de la página: el acceso no tapa fotos ni texto al deslizar. */
+  body .wa-float {
+    position: static;
+    width: 48px;
+    height: 48px;
+    margin: 24px max(24px, env(safe-area-inset-right)) 24px auto;
+    transform: none;
+  }
+}
+/* Las clases añadidas por JS no desplazan el título sobre su párrafo al cargar. */
+body :is(.reveal:not(.servicio-card):not(.ritual-card), .reveal-left, .reveal-right) {
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+body:is(.e06-servicios, .e06-talleres) main section:not(.e06-marca-privada) .section-title::after {
+  display: none;
+}

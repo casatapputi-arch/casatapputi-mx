@@ -1,0 +1,36 @@
+[
+  {
+    "route": "servicios/",
+    "ms": 778,
+    "whatsapp": {
+      "position": "static",
+      "rect": {
+        "x": 318,
+        "y": 7462.1875,
+        "width": 48,
+        "height": 48,
+        "top": 7462.1875,
+        "right": 366,
+        "bottom": 7510.1875,
+        "left": 318
+      }
+    }
+  },
+  {
+    "route": "talleres/",
+    "ms": 804,
+    "whatsapp": {
+      "position": "static",
+      "rect": {
+        "x": 318,
+        "y": 5449.6875,
+        "width": 48,
+        "height": 48,
+        "top": 5449.6875,
+        "right": 366,
+        "bottom": 5497.6875,
+        "left": 318
+      }
+    }
+  }
+]

@@ -1,5 +1,7 @@
 # Estética 06 — cierre de ronda 6
 
+> Informe de la entrega local original. La integración y subida autorizadas posteriormente, con las 12 correcciones, se documentan en `CIERRE-CLAUDE.md`.
+
 Rama: `diseno/estetica-06`. Base revisada: commits `1f2d7c3` y `4453852`.
 Trabajo local, sin push, PR, publicación ni modificación de `main`.
 

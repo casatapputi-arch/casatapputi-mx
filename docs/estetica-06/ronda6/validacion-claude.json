@@ -1,0 +1,490 @@
+[
+  {
+    "width": 1440,
+    "route": "",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [
+      {
+        "text": "Un ritual para cada forma de volver a ti.",
+        "gap": 41.59375
+      },
+      {
+        "text": "Del jardín medicinal al taller de herbolaria →",
+        "gap": 25.59375
+      },
+      {
+        "text": "Experiencias →",
+        "gap": 41.59375
+      },
+      {
+        "text": "Marca privada y eventos →",
+        "gap": 41.59375
+      }
+    ],
+    "list": null,
+    "ritualFonts": [
+      14,
+      16,
+      14,
+      14,
+      16,
+      14,
+      14,
+      16,
+      14
+    ],
+    "workshops": [],
+    "whatsapp": [
+      {
+        "position": "fixed",
+        "width": 60
+      }
+    ],
+    "hidden": []
+  },
+  {
+    "width": 1440,
+    "route": "servicios/",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [
+      {
+        "text": "Tu marca,nuestra fórmula",
+        "gap": 42.59375
+      },
+      {
+        "text": "Formación con Fundación EBAC",
+        "gap": 24
+      },
+      {
+        "text": "Esquema de proveedores",
+        "gap": 24
+      },
+      {
+        "text": "Ubicación",
+        "gap": 24
+      }
+    ],
+    "list": {
+      "visible": true,
+      "items": 6
+    },
+    "ritualFonts": [],
+    "workshops": [],
+    "whatsapp": [
+      {
+        "position": "fixed",
+        "width": 60
+      }
+    ],
+    "hidden": []
+  },
+  {
+    "width": 1440,
+    "route": "productos/",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [],
+    "list": null,
+    "ritualFonts": [],
+    "workshops": [],
+    "whatsapp": [
+      {
+        "position": "fixed",
+        "width": 60
+      }
+    ],
+    "hidden": []
+  },
+  {
+    "width": 1440,
+    "route": "talleres/",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [
+      {
+        "text": "Próximos talleres de herbolaria",
+        "gap": 24
+      },
+      {
+        "text": "Reserva tu lugar",
+        "gap": 24
+      }
+    ],
+    "list": null,
+    "ritualFonts": [],
+    "workshops": [
+      {
+        "date": "2026-11-14T11:30:00-06:00",
+        "fecha": "rgb(73, 57, 45)",
+        "base": "-8px"
+      },
+      {
+        "date": "2026-11-21T11:30:00-06:00",
+        "fecha": "rgb(73, 57, 45)",
+        "base": "-8px"
+      },
+      {
+        "date": "2026-11-28T11:30:00-06:00",
+        "fecha": "rgb(73, 57, 45)",
+        "base": "-8px"
+      },
+      {
+        "date": "2026-12-05T11:30:00-06:00",
+        "fecha": "rgb(73, 57, 45)",
+        "base": "-8px"
+      }
+    ],
+    "whatsapp": [
+      {
+        "position": "fixed",
+        "width": 60
+      }
+    ],
+    "hidden": []
+  },
+  {
+    "width": 1440,
+    "route": "productos/roll-on/",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [],
+    "list": null,
+    "ritualFonts": [],
+    "workshops": [],
+    "whatsapp": [
+      {
+        "position": "fixed",
+        "width": 60
+      }
+    ],
+    "hidden": []
+  },
+  {
+    "width": 1440,
+    "route": "productos/talabarteria/",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [],
+    "list": null,
+    "ritualFonts": [],
+    "workshops": [],
+    "whatsapp": [
+      {
+        "position": "fixed",
+        "width": 60
+      }
+    ],
+    "hidden": []
+  },
+  {
+    "width": 1440,
+    "route": "nosotros/",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [
+      {
+        "text": "Del jardín medicinal al taller de herbolaria",
+        "gap": 25.59375
+      }
+    ],
+    "list": null,
+    "ritualFonts": [],
+    "workshops": [],
+    "whatsapp": [
+      {
+        "position": "fixed",
+        "width": 60
+      }
+    ],
+    "hidden": []
+  },
+  {
+    "width": 1440,
+    "route": "eventos/",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [
+      {
+        "text": "Vivencias únicas",
+        "gap": 12.796875
+      },
+      {
+        "text": "¿Quieres organizar un evento?",
+        "gap": 16
+      }
+    ],
+    "list": null,
+    "ritualFonts": [],
+    "workshops": [],
+    "whatsapp": [
+      {
+        "position": "fixed",
+        "width": 60
+      }
+    ],
+    "hidden": []
+  },
+  {
+    "width": 1440,
+    "route": "blog/",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [],
+    "list": null,
+    "ritualFonts": [],
+    "workshops": [],
+    "whatsapp": [
+      {
+        "position": "fixed",
+        "width": 60
+      }
+    ],
+    "hidden": []
+  },
+  {
+    "width": 390,
+    "route": "",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [
+      {
+        "text": "Un ritual para cada forma de volver a ti.",
+        "gap": 19.1875
+      },
+      {
+        "text": "Del jardín medicinal al taller de herbolaria →",
+        "gap": 25.59375
+      },
+      {
+        "text": "Experiencias →",
+        "gap": 19.1875
+      },
+      {
+        "text": "Marca privada y eventos →",
+        "gap": 19.1875
+      }
+    ],
+    "list": null,
+    "ritualFonts": [
+      14,
+      16,
+      14,
+      14,
+      16,
+      14,
+      14,
+      16,
+      14
+    ],
+    "workshops": [],
+    "whatsapp": [
+      {
+        "position": "static",
+        "width": 48
+      }
+    ],
+    "hidden": []
+  },
+  {
+    "width": 390,
+    "route": "servicios/",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [
+      {
+        "text": "Tu marca,nuestra fórmula",
+        "gap": 36
+      },
+      {
+        "text": "Formación con Fundación EBAC",
+        "gap": 24
+      },
+      {
+        "text": "Esquema de proveedores",
+        "gap": 24
+      },
+      {
+        "text": "Ubicación",
+        "gap": 24
+      }
+    ],
+    "list": {
+      "visible": true,
+      "items": 6
+    },
+    "ritualFonts": [],
+    "workshops": [],
+    "whatsapp": [
+      {
+        "position": "static",
+        "width": 48
+      }
+    ],
+    "hidden": []
+  },
+  {
+    "width": 390,
+    "route": "productos/",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [],
+    "list": null,
+    "ritualFonts": [],
+    "workshops": [],
+    "whatsapp": [
+      {
+        "position": "static",
+        "width": 48
+      }
+    ],
+    "hidden": []
+  },
+  {
+    "width": 390,
+    "route": "talleres/",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [
+      {
+        "text": "Próximos talleres de herbolaria",
+        "gap": 24
+      },
+      {
+        "text": "Reserva tu lugar",
+        "gap": 24
+      }
+    ],
+    "list": null,
+    "ritualFonts": [],
+    "workshops": [
+      {
+        "date": "2026-11-14T11:30:00-06:00",
+        "fecha": "rgb(73, 57, 45)",
+        "base": "-8px"
+      },
+      {
+        "date": "2026-11-21T11:30:00-06:00",
+        "fecha": "rgb(73, 57, 45)",
+        "base": "-8px"
+      },
+      {
+        "date": "2026-11-28T11:30:00-06:00",
+        "fecha": "rgb(73, 57, 45)",
+        "base": "-8px"
+      },
+      {
+        "date": "2026-12-05T11:30:00-06:00",
+        "fecha": "rgb(73, 57, 45)",
+        "base": "-8px"
+      }
+    ],
+    "whatsapp": [
+      {
+        "position": "static",
+        "width": 48
+      }
+    ],
+    "hidden": []
+  },
+  {
+    "width": 390,
+    "route": "productos/roll-on/",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [],
+    "list": null,
+    "ritualFonts": [],
+    "workshops": [],
+    "whatsapp": [
+      {
+        "position": "static",
+        "width": 48
+      }
+    ],
+    "hidden": []
+  },
+  {
+    "width": 390,
+    "route": "productos/talabarteria/",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [],
+    "list": null,
+    "ritualFonts": [],
+    "workshops": [],
+    "whatsapp": [
+      {
+        "position": "static",
+        "width": 48
+      }
+    ],
+    "hidden": []
+  },
+  {
+    "width": 390,
+    "route": "nosotros/",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [
+      {
+        "text": "Del jardín medicinal al taller de herbolaria",
+        "gap": 25.59375
+      }
+    ],
+    "list": null,
+    "ritualFonts": [],
+    "workshops": [],
+    "whatsapp": [
+      {
+        "position": "static",
+        "width": 48
+      }
+    ],
+    "hidden": []
+  },
+  {
+    "width": 390,
+    "route": "eventos/",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [
+      {
+        "text": "Vivencias únicas",
+        "gap": 12.796875
+      },
+      {
+        "text": "¿Quieres organizar un evento?",
+        "gap": 16
+      }
+    ],
+    "list": null,
+    "ritualFonts": [],
+    "workshops": [],
+    "whatsapp": [
+      {
+        "position": "static",
+        "width": 48
+      }
+    ],
+    "hidden": []
+  },
+  {
+    "width": 390,
+    "route": "blog/",
+    "overflow": false,
+    "paddingFailures": [],
+    "headings": [],
+    "list": null,
+    "ritualFonts": [],
+    "workshops": [],
+    "whatsapp": [
+      {
+        "position": "static",
+        "width": 48
+      }
+    ],
+    "hidden": []
+  }
+]
