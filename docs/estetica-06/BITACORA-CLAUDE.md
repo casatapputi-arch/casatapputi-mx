@@ -1,0 +1,1 @@
+- 2026-11-12 01:43 — commit beffc2e: primera revisión con capturas (9 páginas, 1440/390). 12 correcciones para Codex; sin desbordes; textos/precios sin cambios.
