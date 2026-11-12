@@ -1321,3 +1321,102 @@ body.home-premium .marquee-inner:has(.catalog-fallback) .marquee-card { width: a
     transition: none !important;
   }
 }
+
+/* Cierre ronda 6: aire interior uniforme en todas las cédulas. */
+:root { --e06-interior: 32px; }
+body :is(.servicio-card, .taller-card, .specimen-card, .blog-card,
+ .evento-card, .valor, .alianza, .form-card, .biz-card, .prod-info,
+ .prod-price-box, .tu-marca-grid) { padding: var(--e06-interior) !important; }
+body :is(.shop-body, .exp-body, .ritual-card-content) {
+ padding: var(--e06-interior) !important;
+}
+body .shop-card:not(:has(.shop-body)) { padding: var(--e06-interior) !important; }
+body .marquee-card > span { padding: var(--e06-interior) !important; }
+body .ritual-card-content { background: linear-gradient(0deg, #10231c 10%, rgba(16,35,28,.94) 78%, rgba(16,35,28,.85)); }
+body .ritual-card { min-height: 540px; }
+body .ritual-card img { height: auto !important; }
+body.home-premium .marquee-card img { opacity: 1 !important; visibility: visible !important; object-fit: contain !important; }
+body.home-premium .marquee-inner:has(.catalog-fallback) .marquee-card { min-width: 0; }
+body.home-premium .marquee-inner:has(.catalog-fallback) { align-items: stretch; }
+body.home-premium .marquee-inner:has(.catalog-fallback) .marquee-card img { width: 100%; height: 240px; }
+body.home-premium .marquee-inner:has(.catalog-fallback) .marquee-card > span { white-space: normal; display: block; color: #241a14; background: #f5efe3; }
+body .prod-info > .prod-subtitle { color: #49392d !important; }
+body .prod-price-box :is(div, p, span) { color: #fffaf0 !important; }
+body .valor :is(h3,p) { color: #fffaf0 !important; }
+body .specimen-card .specimen-price, body .shop-card .shop-price { color: #854024 !important; }
+/* La decoración no ocupa el panel de marca privada. */
+body.e06-servicios main > section.e06-marca-privada.section-dark::before { top: auto !important; bottom: -42px !important; }
+/* El tamaño de fondo nunca amplía la fuente más del 30 %. */
+.e06-productos .page-hero { background-size: min(100%, 1560px) auto !important; }
+.e06-roll-on .prod-hero { background-size: min(100%, 1518px) auto !important; }
+@media(max-width: 900px) {
+ :root { --e06-interior: 24px; }
+ body .prod-info { margin-inline: 0; }
+ body .prod-layout > * { min-width: 0; }
+ body .shop-grid { grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); }
+ body .servicio-card .btn-wa-message { white-space: normal; }
+ body .prod-breadcrumb { max-width: calc(100% - 48px); white-space: normal !important; }
+ body .ritual-card { min-height: 520px; }
+}
+
+/* Photos locales immédiatement peintes même avec le chargement différé du catalogue. */
+.specimen-img-wrap:has(img[src$="agua-rosas.webp"]) { background: url("../images/agua-rosas.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="chilcuague.webp"]) { background: url("../images/chilcuague.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="curso-kit-medicinal.webp"]) { background: url("../images/curso-kit-medicinal.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="esencias-amber.webp"]) { background: url("../images/esencias-amber.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="esencias-naturales.webp"]) { background: url("../images/esencias-naturales.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="friega-cannabis.webp"]) { background: url("../images/friega-cannabis.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="gel-rosas.webp"]) { background: url("../images/gel-rosas.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="jabones-herbales.webp"]) { background: url("../images/jabones-herbales.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="lagrimas-rosas.webp"]) { background: url("../images/lagrimas-rosas.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="leche-dorada.webp"]) { background: url("../images/leche-dorada.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="mascarilla-cafe.webp"]) { background: url("../images/mascarilla-cafe.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="miel-melipona.webp"]) { background: url("../images/miel-melipona.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="oleo-masaje.webp"]) { background: url("../images/oleo-masaje.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="perfume-solido.webp"]) { background: url("../images/perfume-solido.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="pomada-calendula.webp"]) { background: url("../images/pomada-calendula.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="pomada-cannabis.webp"]) { background: url("../images/pomada-cannabis.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="roll-on.webp"]) { background: url("../images/roll-on.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="salsa-matcha.webp"]) { background: url("../images/salsa-matcha.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="t13-01264.webp"]) { background: url("../images/t13-01264.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="talabarteria.webp"]) { background: url("../images/talabarteria.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="talabarteria/zapato-1.webp"]) { background: url("../images/talabarteria/zapato-1.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="talabarteria/zapato-2.webp"]) { background: url("../images/talabarteria/zapato-2.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="talabarteria/zapato-3.webp"]) { background: url("../images/talabarteria/zapato-3.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="talabarteria/zapato-4.webp"]) { background: url("../images/talabarteria/zapato-4.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="talabarteria/zapato-5.webp"]) { background: url("../images/talabarteria/zapato-5.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="talabarteria/zapato-6.webp"]) { background: url("../images/talabarteria/zapato-6.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="talabarteria/zapato-7.webp"]) { background: url("../images/talabarteria/zapato-7.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="talabarteria/zapato-8.webp"]) { background: url("../images/talabarteria/zapato-8.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="talabarteria/zapato-9.webp"]) { background: url("../images/talabarteria/zapato-9.webp") center / contain no-repeat; }
+.specimen-img-wrap:has(img[src$="terrarios-vidrio.webp"]) { background: url("../images/terrarios-vidrio.webp") center / contain no-repeat; }
+/* La foto absoluta comparte la única celda del héroe, también en escritorio. */
+body.home-premium .home-hero-image { grid-area: 1 / 1 !important; width: 100% !important; left: 0 !important; right: 0 !important; }
+/* Fotografías completas y sin fundidos que dependan del desplazamiento. */
+body.home-premium :is(.wide-img, .biz-card img, .exp-card img, .ritual-card img) { opacity: 1 !important; filter: none !important; animation: none !important; }
+body.home-premium .ritual-card { display: flex; flex-direction: column; }
+body.home-premium .ritual-card img { position: relative; inset: auto; height: 320px !important; background: #14261f; }
+body.home-premium .ritual-card-content { position: relative; inset: auto; margin-top: auto; }
+body.home-premium .ritual-card::after { display: none; }
+/* Contraste AA: latón claro sobre bosque, tinta sobre papel. */
+body :is(.btn-add-cart, .specimen-cta, .form-submit, .prod-add-btn) {
+ background: #1c3228 !important; color: #fffaf0 !important;
+}
+body.home-premium :is(.ritual-card-index, .ritual-card-link) { color: #dfc184 !important; }
+body.home-premium .ritual-card p { color: #efe8d9 !important; }
+body :is(.specimen-latin, .specimen-desc, .shop-desc, .prod-meta-note) { color: #574536; }
+body .specimen-card :is(.specimen-category, .specimen-usage) { color: #574536; }
+body .section-dark .eyebrow, body .timeline-section .eyebrow { color: #dfc184 !important; }
+body .prod-price-box .prod-price-present { color: #fffaf0 !important; }
+body.home-premium .home-hero .hero-lead { color: #fffaf0 !important; }
+@media (prefers-reduced-motion: reduce) {
+ body .marquee-inner { animation: none !important; transform: none !important; }
+}
+/* También en los héroes de producto se conserva el encuadre íntegro. */
+.e06-productos .page-hero,
+.e06-roll-on .prod-hero,
+.e06-talabarteria .prod-hero,
+.e06-servicios .page-hero { background-size: contain !important; }
+/* Cierre de los tres avisos AA medidos en variantes y enlace de talleres. */
+body .prod-variant strong,
+body.e06-talleres main section:not(.section-dark) p > a { color: #854024 !important; }

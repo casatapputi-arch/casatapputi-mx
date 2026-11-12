@@ -1,0 +1,128 @@
+[
+  {
+    "width": 1440,
+    "route": "",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  },
+  {
+    "width": 1440,
+    "route": "servicios/",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  },
+  {
+    "width": 1440,
+    "route": "productos/",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  },
+  {
+    "width": 1440,
+    "route": "talleres/",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  },
+  {
+    "width": 1440,
+    "route": "productos/roll-on/",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  },
+  {
+    "width": 1440,
+    "route": "productos/talabarteria/",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  },
+  {
+    "width": 1440,
+    "route": "nosotros/",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  },
+  {
+    "width": 1440,
+    "route": "eventos/",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  },
+  {
+    "width": 1440,
+    "route": "blog/",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  },
+  {
+    "width": 390,
+    "route": "",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  },
+  {
+    "width": 390,
+    "route": "servicios/",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  },
+  {
+    "width": 390,
+    "route": "productos/",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  },
+  {
+    "width": 390,
+    "route": "talleres/",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  },
+  {
+    "width": 390,
+    "route": "productos/roll-on/",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  },
+  {
+    "width": 390,
+    "route": "productos/talabarteria/",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  },
+  {
+    "width": 390,
+    "route": "nosotros/",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  },
+  {
+    "width": 390,
+    "route": "eventos/",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  },
+  {
+    "width": 390,
+    "route": "blog/",
+    "overflow": false,
+    "padding": [],
+    "invisible": []
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "route": "",
+    "h1": true,
+    "hidden": 0,
+    "overflow": false
+  },
+  {
+    "route": "talleres/",
+    "h1": true,
+    "hidden": 0,
+    "overflow": false
+  }
+]

@@ -1,0 +1,1042 @@
+[
+  {
+    "route": "",
+    "width": 1440,
+    "ms": 1949,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "ritual-card",
+        "pad": "0px"
+      },
+      {
+        "cls": "ritual-card-content",
+        "pad": "34px 30px 30px"
+      },
+      {
+        "cls": "ritual-card",
+        "pad": "0px"
+      },
+      {
+        "cls": "ritual-card-content",
+        "pad": "34px 30px 30px"
+      },
+      {
+        "cls": "ritual-card",
+        "pad": "0px"
+      },
+      {
+        "cls": "ritual-card-content",
+        "pad": "34px 30px 30px"
+      },
+      {
+        "cls": "marquee-card catalog-fallback",
+        "pad": "0px"
+      },
+      {
+        "cls": "marquee-card catalog-fallback",
+        "pad": "0px"
+      },
+      {
+        "cls": "marquee-card catalog-fallback",
+        "pad": "0px"
+      },
+      {
+        "cls": "marquee-card catalog-fallback",
+        "pad": "0px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "exp-card reveal",
+        "pad": "0px"
+      },
+      {
+        "cls": "exp-card reveal",
+        "pad": "0px"
+      },
+      {
+        "cls": "exp-card reveal",
+        "pad": "0px"
+      },
+      {
+        "cls": "biz-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "biz-card",
+        "pad": "32px"
+      }
+    ],
+    "broken": [
+      "assets/images/hr.webp",
+      "assets/images/ebac.webp"
+    ]
+  },
+  {
+    "route": "servicios/",
+    "width": 1440,
+    "ms": 1754,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "servicio-card reveal",
+        "pad": "16px 28px 26px"
+      },
+      {
+        "cls": "servicio-card reveal",
+        "pad": "16px 28px 26px"
+      },
+      {
+        "cls": "servicio-card reveal",
+        "pad": "16px 28px 26px"
+      },
+      {
+        "cls": "tu-marca-grid",
+        "pad": "0px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "32px"
+      }
+    ],
+    "broken": [
+      "../assets/images/showroom.webp"
+    ]
+  },
+  {
+    "route": "productos/",
+    "width": 1440,
+    "ms": 2624,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "32px"
+      }
+    ],
+    "broken": [
+      "../assets/images/chilcuague.webp",
+      "../assets/images/jabones-herbales.webp",
+      "../assets/images/agua-rosas.webp",
+      "../assets/images/gel-rosas.webp",
+      "../assets/images/mascarilla-cafe.webp",
+      "../assets/images/pomada-calendula.webp",
+      "../assets/images/pomada-cannabis.webp",
+      "../assets/images/salsa-matcha.webp",
+      "../assets/images/t13-01264.webp",
+      "../assets/images/leche-dorada.webp",
+      "../assets/images/terrarios-vidrio.webp",
+      "../assets/images/talabarteria.webp",
+      "../assets/images/talabarteria/zapato-9.webp",
+      "../assets/images/talabarteria/zapato-1.webp",
+      "../assets/images/talabarteria/zapato-2.webp",
+      "../assets/images/talabarteria/zapato-5.webp",
+      "../assets/images/talabarteria/zapato-4.webp",
+      "../assets/images/talabarteria/zapato-8.webp",
+      "../assets/images/talabarteria/zapato-7.webp",
+      "../assets/images/talabarteria/zapato-6.webp",
+      "../assets/images/talabarteria/zapato-3.webp"
+    ]
+  },
+  {
+    "route": "talleres/",
+    "width": 1440,
+    "ms": 1426,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "taller-card reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "taller-card reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "taller-card reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "taller-card reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "form-card reveal",
+        "pad": "32px"
+      }
+    ],
+    "broken": []
+  },
+  {
+    "route": "productos/roll-on/",
+    "width": 1440,
+    "ms": 1681,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "prod-info",
+        "pad": "48px"
+      },
+      {
+        "cls": "prod-price-box",
+        "pad": "22px 26px"
+      },
+      {
+        "cls": "shop-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "shop-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "shop-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "shop-card",
+        "pad": "32px"
+      }
+    ],
+    "broken": []
+  },
+  {
+    "route": "productos/talabarteria/",
+    "width": 1440,
+    "ms": 2145,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "prod-info",
+        "pad": "48px"
+      },
+      {
+        "cls": "prod-price-box",
+        "pad": "22px 26px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "shop-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "shop-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "shop-card",
+        "pad": "32px"
+      },
+      {
+        "cls": "shop-card",
+        "pad": "32px"
+      }
+    ],
+    "broken": [
+      "../../assets/images/talabarteria/zapato-1.webp",
+      "../../assets/images/talabarteria/zapato-2.webp",
+      "../../assets/images/talabarteria/zapato-3.webp",
+      "../../assets/images/talabarteria/zapato-4.webp",
+      "../../assets/images/talabarteria/zapato-5.webp",
+      "../../assets/images/talabarteria/zapato-6.webp",
+      "../../assets/images/talabarteria/zapato-7.webp",
+      "../../assets/images/talabarteria/zapato-8.webp",
+      "../../assets/images/talabarteria/zapato-9.webp",
+      "../../assets/images/terrarios.webp",
+      "../../assets/images/perfume-solido.webp",
+      "../../assets/images/esencias-amber.webp",
+      "../../assets/images/roll-on.webp"
+    ]
+  },
+  {
+    "route": "nosotros/",
+    "width": 1440,
+    "ms": 1497,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "valor reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "32px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "32px"
+      }
+    ],
+    "broken": []
+  },
+  {
+    "route": "eventos/",
+    "width": 1440,
+    "ms": 1236,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "servicio-card reveal",
+        "pad": "16px 16px 22px"
+      },
+      {
+        "cls": "servicio-card reveal",
+        "pad": "16px 16px 22px"
+      },
+      {
+        "cls": "servicio-card reveal",
+        "pad": "16px 16px 22px"
+      }
+    ],
+    "broken": []
+  },
+  {
+    "route": "blog/",
+    "width": 1440,
+    "ms": 1248,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "blog-card",
+        "pad": "40px"
+      },
+      {
+        "cls": "blog-card",
+        "pad": "40px"
+      },
+      {
+        "cls": "blog-card",
+        "pad": "40px"
+      }
+    ],
+    "broken": []
+  },
+  {
+    "route": "",
+    "width": 390,
+    "ms": 1607,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "ritual-card",
+        "pad": "0px"
+      },
+      {
+        "cls": "ritual-card-content",
+        "pad": "28px 24px 24px"
+      },
+      {
+        "cls": "ritual-card",
+        "pad": "0px"
+      },
+      {
+        "cls": "ritual-card-content",
+        "pad": "28px 24px 24px"
+      },
+      {
+        "cls": "ritual-card",
+        "pad": "0px"
+      },
+      {
+        "cls": "ritual-card-content",
+        "pad": "28px 24px 24px"
+      },
+      {
+        "cls": "marquee-card catalog-fallback",
+        "pad": "0px"
+      },
+      {
+        "cls": "marquee-card catalog-fallback",
+        "pad": "0px"
+      },
+      {
+        "cls": "marquee-card catalog-fallback",
+        "pad": "0px"
+      },
+      {
+        "cls": "marquee-card catalog-fallback",
+        "pad": "0px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "exp-card reveal",
+        "pad": "0px"
+      },
+      {
+        "cls": "exp-card reveal",
+        "pad": "0px"
+      },
+      {
+        "cls": "exp-card reveal",
+        "pad": "0px"
+      },
+      {
+        "cls": "biz-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "biz-card",
+        "pad": "24px"
+      }
+    ],
+    "broken": [
+      "assets/images/hr.webp",
+      "assets/images/ebac.webp"
+    ]
+  },
+  {
+    "route": "servicios/",
+    "width": 390,
+    "ms": 1109,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "servicio-card reveal visible",
+        "pad": "20px"
+      },
+      {
+        "cls": "servicio-card reveal",
+        "pad": "20px"
+      },
+      {
+        "cls": "servicio-card reveal",
+        "pad": "20px"
+      },
+      {
+        "cls": "tu-marca-grid",
+        "pad": "0px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "24px"
+      }
+    ],
+    "broken": [
+      "../assets/images/showroom.webp"
+    ]
+  },
+  {
+    "route": "productos/",
+    "width": 390,
+    "ms": 1948,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "specimen-card",
+        "pad": "24px"
+      }
+    ],
+    "broken": [
+      "../assets/images/perfume-solido.webp",
+      "../assets/images/lagrimas-rosas.webp",
+      "../assets/images/oleo-masaje.webp",
+      "../assets/images/roll-on.webp",
+      "../assets/images/miel-melipona.webp",
+      "../assets/images/friega-cannabis.webp",
+      "../assets/images/chilcuague.webp",
+      "../assets/images/jabones-herbales.webp",
+      "../assets/images/agua-rosas.webp",
+      "../assets/images/gel-rosas.webp",
+      "../assets/images/mascarilla-cafe.webp",
+      "../assets/images/pomada-calendula.webp",
+      "../assets/images/pomada-cannabis.webp",
+      "../assets/images/salsa-matcha.webp",
+      "../assets/images/t13-01264.webp",
+      "../assets/images/leche-dorada.webp",
+      "../assets/images/terrarios-vidrio.webp",
+      "../assets/images/talabarteria.webp",
+      "../assets/images/talabarteria/zapato-9.webp",
+      "../assets/images/talabarteria/zapato-1.webp",
+      "../assets/images/talabarteria/zapato-2.webp",
+      "../assets/images/talabarteria/zapato-5.webp",
+      "../assets/images/talabarteria/zapato-4.webp",
+      "../assets/images/talabarteria/zapato-8.webp",
+      "../assets/images/talabarteria/zapato-7.webp",
+      "../assets/images/talabarteria/zapato-6.webp",
+      "../assets/images/talabarteria/zapato-3.webp"
+    ]
+  },
+  {
+    "route": "talleres/",
+    "width": 390,
+    "ms": 1061,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "taller-card reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "taller-card reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "taller-card reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "taller-card reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "form-card reveal",
+        "pad": "24px"
+      }
+    ],
+    "broken": [
+      "../assets/images/curso-masaje-relajante.webp"
+    ]
+  },
+  {
+    "route": "productos/roll-on/",
+    "width": 390,
+    "ms": 1013,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "prod-info",
+        "pad": "24px 20px"
+      },
+      {
+        "cls": "prod-price-box",
+        "pad": "22px 26px"
+      },
+      {
+        "cls": "shop-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "shop-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "shop-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "shop-card",
+        "pad": "24px"
+      }
+    ],
+    "broken": []
+  },
+  {
+    "route": "productos/talabarteria/",
+    "width": 390,
+    "ms": 1407,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "prod-info",
+        "pad": "24px 20px"
+      },
+      {
+        "cls": "prod-price-box",
+        "pad": "22px 26px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "shop-card card reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "shop-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "shop-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "shop-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "shop-card",
+        "pad": "24px"
+      }
+    ],
+    "broken": [
+      "../../assets/images/talabarteria/zapato-1.webp",
+      "../../assets/images/talabarteria/zapato-2.webp",
+      "../../assets/images/talabarteria/zapato-3.webp",
+      "../../assets/images/talabarteria/zapato-4.webp",
+      "../../assets/images/talabarteria/zapato-5.webp",
+      "../../assets/images/talabarteria/zapato-6.webp",
+      "../../assets/images/talabarteria/zapato-7.webp",
+      "../../assets/images/talabarteria/zapato-8.webp",
+      "../../assets/images/talabarteria/zapato-9.webp",
+      "../../assets/images/terrarios.webp",
+      "../../assets/images/perfume-solido.webp",
+      "../../assets/images/esencias-amber.webp",
+      "../../assets/images/roll-on.webp"
+    ]
+  },
+  {
+    "route": "nosotros/",
+    "width": 390,
+    "ms": 892,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "valor reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "24px"
+      },
+      {
+        "cls": "valor reveal",
+        "pad": "24px"
+      }
+    ],
+    "broken": []
+  },
+  {
+    "route": "eventos/",
+    "width": 390,
+    "ms": 846,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "servicio-card reveal",
+        "pad": "16px 16px 22px"
+      },
+      {
+        "cls": "servicio-card reveal",
+        "pad": "16px 16px 22px"
+      },
+      {
+        "cls": "servicio-card reveal",
+        "pad": "16px 16px 22px"
+      }
+    ],
+    "broken": [
+      "../assets/images/jabones-herbales.webp"
+    ]
+  },
+  {
+    "route": "blog/",
+    "width": 390,
+    "ms": 761,
+    "overflow": false,
+    "hidden": [],
+    "cards": [
+      {
+        "cls": "blog-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "blog-card",
+        "pad": "24px"
+      },
+      {
+        "cls": "blog-card",
+        "pad": "24px"
+      }
+    ],
+    "broken": []
+  }
+]

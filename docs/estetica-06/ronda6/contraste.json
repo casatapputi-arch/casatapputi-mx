@@ -1,0 +1,110 @@
+[
+  {
+    "width": 1440,
+    "route": "",
+    "violations": [],
+    "incomplete": 1
+  },
+  {
+    "width": 1440,
+    "route": "servicios/",
+    "violations": [],
+    "incomplete": 1
+  },
+  {
+    "width": 1440,
+    "route": "productos/",
+    "violations": [],
+    "incomplete": 1
+  },
+  {
+    "width": 1440,
+    "route": "talleres/",
+    "violations": [],
+    "incomplete": 1
+  },
+  {
+    "width": 1440,
+    "route": "productos/roll-on/",
+    "violations": [],
+    "incomplete": 1
+  },
+  {
+    "width": 1440,
+    "route": "productos/talabarteria/",
+    "violations": [],
+    "incomplete": 1
+  },
+  {
+    "width": 1440,
+    "route": "nosotros/",
+    "violations": [],
+    "incomplete": 1
+  },
+  {
+    "width": 1440,
+    "route": "eventos/",
+    "violations": [],
+    "incomplete": 1
+  },
+  {
+    "width": 1440,
+    "route": "blog/",
+    "violations": [],
+    "incomplete": 1
+  },
+  {
+    "width": 390,
+    "route": "",
+    "violations": [],
+    "incomplete": 1
+  },
+  {
+    "width": 390,
+    "route": "servicios/",
+    "violations": [],
+    "incomplete": 1
+  },
+  {
+    "width": 390,
+    "route": "productos/",
+    "violations": [],
+    "incomplete": 1
+  },
+  {
+    "width": 390,
+    "route": "talleres/",
+    "violations": [],
+    "incomplete": 1
+  },
+  {
+    "width": 390,
+    "route": "productos/roll-on/",
+    "violations": [],
+    "incomplete": 1
+  },
+  {
+    "width": 390,
+    "route": "productos/talabarteria/",
+    "violations": [],
+    "incomplete": 1
+  },
+  {
+    "width": 390,
+    "route": "nosotros/",
+    "violations": [],
+    "incomplete": 1
+  },
+  {
+    "width": 390,
+    "route": "eventos/",
+    "violations": [],
+    "incomplete": 1
+  },
+  {
+    "width": 390,
+    "route": "blog/",
+    "violations": [],
+    "incomplete": 1
+  }
+]
