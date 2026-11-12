@@ -1128,6 +1128,12 @@ body :where(.reveal, .reveal-left, .reveal-right),
 body :where(.reveal, .reveal-left, .reveal-right).visible {
   transform: none;
 }
+/* Los encabezados del CSS base tampoco deben arrancar transparentes. */
+body :where(.hero, .page-hero, .prod-hero) :where(h1, p, .btn) {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}
 
 /* Inicio: una sola composición fotográfica, sin panel marfil ni velo turbio. */
 body.home-premium .home-hero {
@@ -1251,6 +1257,18 @@ body.home-premium .valores-grid .valor {
 }
 body.home-premium .valores-grid .valor :where(h3, p) { color: #fffaf0 !important; }
 body.home-premium .valores-grid .valor p { color: rgba(255, 250, 240, .86) !important; }
+/* El respaldo del carrusel ocupa un bloque estable mientras llega el catálogo. */
+body.home-premium .marquee-inner:has(.catalog-fallback) {
+  width: min(100%, 1180px);
+  margin-inline: auto;
+  padding-inline: 24px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  animation: none !important;
+  transform: none !important;
+}
+body.home-premium .marquee-inner:has(.catalog-fallback) .marquee-card { width: auto; }
 
 @media (max-width: 900px) {
   body.home-premium .home-hero {
@@ -1288,6 +1306,10 @@ body.home-premium .valores-grid .valor p { color: rgba(255, 250, 240, .86) !impo
   body.home-premium .home-hero > .container { padding: 92px 22px 125px; }
   body.home-premium .home-hero h1 { font-size: clamp(3rem, 14vw, 4.15rem); }
   body.e06-servicios main > section.e06-marca-privada.section-dark::before { display: none; }
+  body.home-premium .marquee-inner:has(.catalog-fallback) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-inline: 16px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
