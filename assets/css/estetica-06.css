@@ -1492,3 +1492,30 @@ body :is(.reveal:not(.servicio-card):not(.ritual-card), .reveal-left, .reveal-ri
 body:is(.e06-servicios, .e06-talleres) main section:not(.e06-marca-privada) .section-title::after {
   display: none;
 }
+
+/* Ronda 7 — héroes fotográficos a sangre y acciones oscuras legibles. */
+.e06-productos .page-hero,
+.e06-talleres .page-hero,
+.e06-roll-on .prod-hero,
+.e06-talabarteria .prod-hero,
+.e06-servicios .page-hero,
+body:not(.e06-servicios) .prod-hero {
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+.e06-productos .page-hero { background-image: url('../images/esencias-amber.webp') !important; }
+.e06-talleres .page-hero { background-image: url('../images/tl_06461-1.webp') !important; }
+.e06-roll-on .prod-hero { background-image: url('../images/roll-on.webp') !important; }
+.e06-talabarteria .prod-hero { background-image: url('../images/talabarteria/zapato-8.webp') !important; }
+.e06-servicios .page-hero {
+  background-image: url('../images/aceites.webp') !important;
+  background-size: cover !important;
+}
+body:not(.e06-servicios) :where(.page-hero, .prod-hero)::before {
+  background:
+    linear-gradient(110deg, rgba(39, 20, 8, .67), rgba(46, 34, 18, .6) 48%, rgba(9, 27, 20, .7)),
+    linear-gradient(180deg, rgba(30, 15, 6, .22), rgba(10, 23, 17, .58)) !important;
+}
+body :is(.btn-add-cart, .specimen-cta, .form-submit, .prod-add-btn, .shop-cta) {
+  color: #fffaf0 !important;
+}
